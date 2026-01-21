@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { HERO_SLIDES } from '../constants';
+import { HERO_SLIDES } from '../constants.tsx';
 
 interface HeroProps {
   onStartPlanning: () => void;

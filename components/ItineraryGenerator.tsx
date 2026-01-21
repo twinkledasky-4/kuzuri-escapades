@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
-import { generateItinerary } from '../services/geminiService';
-import { TravelPreferences } from '../types';
+import { generateItinerary } from '../services/geminiService.ts';
+import { TravelPreferences } from '../types.ts';
 
 export const ItineraryGenerator: React.FC = () => {
   const [loading, setLoading] = useState(false);

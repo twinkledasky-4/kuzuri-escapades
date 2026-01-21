@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
-import { KUZURI_KNOWLEDGE_BASE } from '../constants/knowledge';
+import { KUZURI_KNOWLEDGE_BASE } from '../constants/knowledge.ts';
 
 interface Message {
   role: 'user' | 'model';
@@ -65,7 +66,6 @@ export const AIChatBot: React.FC = () => {
           - Answer questions strictly based on the provided Knowledge Base.
           - If asked about bookings, guide users to WhatsApp: +256 708 012030.
           - If asked about pricing, use specific amounts from the KB.
-          - If asked about visas/health, use specific details from the KB FAQs.
           - If info is missing, politely say so and offer to connect with a human agent (Lucky .K).`,
         },
       });
@@ -81,6 +81,8 @@ export const AIChatBot: React.FC = () => {
       text: inputValue,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
+    
+    console.log(`[Monitoring] Chat user query: ${inputValue}`);
     
     setMessages(prev => [...prev, userMsg]);
     setInputValue('');
@@ -112,7 +114,10 @@ export const AIChatBot: React.FC = () => {
     <>
       {/* Floating Trigger Button */}
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+          console.log('[Monitoring] Chat widget opened');
+        }}
         className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[1000] flex items-center justify-center w-[48px] h-[48px] md:w-[56px] md:h-[56px] rounded-full bg-[#002d04] shadow-[0_4px_12px_rgba(0,45,4,0.3)] transition-all duration-500 transform hover:scale-110 active:scale-95 focus:outline-none animate-fab-pulse-once`}
         style={{ opacity }}
         aria-label="Open AI Assistant"

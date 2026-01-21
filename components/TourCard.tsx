@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Tour } from '../types';
+import { Tour } from '../types.ts';
 
 interface TourCardProps {
   tour: Tour;

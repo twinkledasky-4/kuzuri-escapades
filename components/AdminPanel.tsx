@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { DESTINATIONS, TOURS, SERVICES } from '../constants';
-import { Destination, Tour, Service } from '../types';
+import { DESTINATIONS, TOURS, SERVICES } from '../constants.tsx';
+import { Destination, Tour, Service } from '../types.ts';
 
 type AdminTab = 'destinations' | 'packages' | 'services';
 

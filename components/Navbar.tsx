@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { AppSection } from '../types';
+import { AppSection } from '../types.ts';
 
 interface NavbarProps {
   activeSection: AppSection;
@@ -41,22 +42,24 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
     <>
       <nav 
         className={`fixed top-0 left-0 right-0 z-[50] transition-all duration-700 ease-in-out ${
-          isScrolled ? 'bg-white/95 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-8 md:py-12'
+          isScrolled ? 'bg-white/95 backdrop-blur-md py-3 shadow-sm' : 'bg-transparent py-6 md:py-8'
         }`}
         aria-label="Main Site Navigation"
       >
         <div className="container mx-auto px-6 md:px-12 lg:px-20 flex justify-between items-center">
           {/* Logo */}
           <button 
-            className="group focus:outline-none z-[60]"
+            className="group focus:outline-none z-[60] flex items-center"
             onClick={() => handleNavClick(AppSection.HOME)}
             aria-label="Kuzuri Escapades Home"
           >
-            <h1 className={`text-lg md:text-2xl tracking-[0.3em] font-light transition-colors duration-500 ${
-              isScrolled ? 'text-[#002d04]' : isMobileMenuOpen ? 'text-white' : 'text-white'
-            }`}>
-              KUZURI <span className="italic font-serif text-[#d4af37]">Escapades</span>
-            </h1>
+            <img 
+              src="https://i.postimg.cc/bwx08cbS/Gemini-Generated-Image-6on0rk6on0rk6on0-(1).png" 
+              alt="Kuzuri Escapades Logo" 
+              className={`transition-all duration-500 object-contain ${
+                isScrolled ? 'h-12 md:h-14' : 'h-16 md:h-20'
+              }`}
+            />
           </button>
 
           {/* Desktop Nav */}

@@ -1,5 +1,5 @@
 
-import { Destination, Tour, Service } from './types';
+import { Destination, Tour, Service } from './types.ts';
 
 export const HERO_SLIDES = [
   {
@@ -7,7 +7,7 @@ export const HERO_SLIDES = [
     subtitle: 'The Primate Odyssey',
     title: 'A Private <br /><span className="italic font-light">Narrative Awaits.</span>',
     description: 'Venture into the ancient emerald mists of Bwindi, where the mountain gorilla reigns in profound silence.',
-    imageUrl: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=2400',
+    imageUrl: 'https://i.postimg.cc/w3F5dDyf/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
     type: 'image'
   },
   {
@@ -15,7 +15,7 @@ export const HERO_SLIDES = [
     subtitle: 'Savannah Sovereignty',
     title: 'Horizons <br /><span className="italic font-light">Without Borders.</span>',
     description: 'Experience the golden rhythm of the Albertine Rift, where the wild moves with a quiet, untamed dignity.',
-    imageUrl: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=2400',
+    imageUrl: 'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp',
     type: 'image'
   },
   {
@@ -23,7 +23,7 @@ export const HERO_SLIDES = [
     subtitle: 'Aquatic Narratives',
     title: 'The Source <br /><span className="italic font-light">of Every Story.</span>',
     description: 'Drift upon the Albert Nile at dusk, witnessing the power of Murchison Falls in total, curated solitude.',
-    imageUrl: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=85&w=2400',
+    imageUrl: 'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg',
     type: 'image'
   }
 ];
@@ -35,7 +35,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'bwindi-impenetrable-forest',
     tagline: 'Mists, Mountains & Monarchs',
     description: 'An ancient sanctuary where emerald canopies meet the clouds. Home to the mountain gorilla, this primal landscape offers a quiet, profound connection to our origins.',
-    images: ['https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=1200'],
+    images: [
+      'https://i.postimg.cc/qzRsBgyD/images.jpg',
+      'https://i.postimg.cc/w3F5dDyf/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
+      'https://i.postimg.cc/hf59Xg0W/Tanzani-Wildlife-tour-1536x1152.jpg'
+    ],
     highlights: ['Gorilla Curation', 'Batwa Forest Wisdom', 'Silent Canopy Walks'],
     featured: true,
     order_index: 1
@@ -46,7 +50,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'murchison-falls',
     tagline: 'The Nile’s Powerful Pulse',
     description: 'Where the Victoria Nile surges through a narrow gorge with thunderous power. A landscape of golden savannahs and aquatic giants.',
-    images: ['https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=85&w=1200'],
+    images: [
+      'https://i.postimg.cc/ykdm6WcP/beyond-uganda-national-parks-uncover-western-ugandas-hidden-gems-kitarafoundation-beyondnationalpark.webp',
+      'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg',
+      'https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg'
+    ],
     highlights: ['The Nile Cascade', 'Delta Birding', 'River Cruising'],
     featured: true,
     order_index: 2
@@ -57,7 +65,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'queen-elizabeth-plains',
     tagline: 'Shadows of the Savannah',
     description: 'A diverse tapestry of crater lakes and golden plains. Famous for tree-climbing lions and the wildlife-rich Kazinga Channel.',
-    images: ['https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=1200'],
+    images: [
+      'https://i.postimg.cc/ZCR8Y0pg/Lake-Mburo-National-Park-750x450-1-750x450.jpg',
+      'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp',
+      'https://i.postimg.cc/QHtQNVcM/Top-8-Safari-Activities-in-Uganda-750x450.jpg'
+    ],
     highlights: ['Tree-Climbing Lions', 'Kazinga Channel', 'Explosion Craters'],
     featured: true,
     order_index: 3
@@ -68,7 +80,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'kidepo-valley',
     tagline: 'The Forgotten Eden',
     description: 'A rugged, remote frontier bordering Sudan. Kidepo offers a wild, untamed experience often called Africa’s most beautiful park.',
-    images: ['https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&q=85&w=1200'],
+    images: [
+      'https://i.postimg.cc/w7vXx3Lr/Kara-Tunga-Tours-Life-in-Manyatta-5-e1643904828756.webp',
+      'https://i.postimg.cc/F7BjYmx4/Tourism-in-Uganda.jpg',
+      'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg'
+    ],
     highlights: ['Isolated Wilderness', 'Karamoja Culture', 'Unique Species'],
     featured: true,
     order_index: 4
@@ -111,10 +127,10 @@ export const TOURS: Tour[] = [
       { day: 10, title: 'Return to Entebbe', detail: 'Scenic transfer and international departure.' }
     ],
     imageUrls: [
-      'https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=85&w=1200',
-      'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=85&w=1200',
-      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=85&w=1200',
-      'https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&q=85&w=1200'
+      'https://i.postimg.cc/hf59Xg0W/Tanzani-Wildlife-tour-1536x1152.jpg',
+      'https://i.postimg.cc/QHtQNVcM/Top-8-Safari-Activities-in-Uganda-750x450.jpg',
+      'https://i.postimg.cc/F7BjYmxH/tour-of-karamoja-uganda-bicycle-event-stage-1-oct-2022-37.jpg',
+      'https://i.postimg.cc/xcCvjqMt/culture.jpg'
     ],
     featured: true,
     order_index: 1
@@ -156,31 +172,49 @@ export const TOURS: Tour[] = [
       { day: '13-14', title: 'The Source', detail: 'Return to Entebbe for international departure.' }
     ],
     imageUrls: [
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=1200',
-      'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=1200',
-      'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=85&w=1200',
-      'https://images.unsplash.com/photo-1523805081446-ed9a7bb14919?auto=format&fit=crop&q=85&w=1200'
+      'https://i.postimg.cc/F7BjYmx4/Tourism-in-Uganda.jpg',
+      'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg',
+      'https://i.postimg.cc/vcNW4Mvm/Uganda-Food-Tours-and-Safaris-3.jpg',
+      'https://i.postimg.cc/4md64npx/local-community-tourism.png'
     ],
     featured: true,
     order_index: 2
   },
   {
-    id: 'bwindi-gorilla-standard',
-    name: 'Bwindi Forest Sanctuary',
-    slug: 'bwindi-forest-sanctuary',
+    id: 'murchison-falls-explorer',
+    name: 'Murchison Falls Explorer',
+    slug: 'murchison-falls-explorer',
     duration_days: 4,
     duration_nights: 3,
-    price_from: 2450,
+    price_from: 1800,
     currency: 'USD',
-    category: 'Primate Odyssey',
-    description: 'An intimate encounter with the monarchs of the mist. Experience the profound silence of the ancient forest.',
-    highlights: ['Gorilla Tracking', 'Forest Wisdom', 'Canopy Walks'],
+    category: 'Aquatic Narratives',
+    description: 'Witness the raw power of the Nile. A 4-day intensive safari through the delta and the thunderous falls.',
+    highlights: ['Nile Boat Launch', 'Big Game Drives', 'Birding Safari'],
     imageUrls: [
-      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=1200',
-      'https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=85&w=1200'
+      'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg',
+      'https://i.postimg.cc/ykdm6WcP/beyond-uganda-national-parks-uncover-western-ugandas-hidden-gems-kitarafoundation-beyondnationalpark.webp'
     ],
     featured: true,
     order_index: 3
+  },
+  {
+    id: 'lake-mburo-serenity',
+    name: 'Lake Mburo Serenity',
+    slug: 'lake-mburo-serenity',
+    duration_days: 3,
+    duration_nights: 2,
+    price_from: 950,
+    currency: 'USD',
+    category: 'Boutique Escapes',
+    description: 'An intimate lakeside retreat featuring night game drives and unique horseback safaris among the zebras.',
+    highlights: ['Horseback Safari', 'Night Game Drive', 'Lakeside Wellness'],
+    imageUrls: [
+      'https://i.postimg.cc/ZCR8Y0pg/Lake-Mburo-National-Park-750x450-1-750x450.jpg',
+      'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp'
+    ],
+    featured: true,
+    order_index: 4
   }
 ];
 

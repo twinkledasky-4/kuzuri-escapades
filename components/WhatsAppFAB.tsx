@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 
 export const WhatsAppFAB: React.FC = () => {
@@ -19,6 +20,7 @@ export const WhatsAppFAB: React.FC = () => {
   }, []);
 
   const openWhatsApp = () => {
+    console.log('[Monitoring] WhatsApp contact initiated');
     const number = "256708012030";
     const message = "Hello Kuzuri Escapades! I'm interested in planning a bespoke Ugandan journey.";
     const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;

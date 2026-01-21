@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { SERVICES } from '../constants';
-import { Service } from '../types';
+import { SERVICES } from '../constants.tsx';
+import { Service } from '../types.ts';
 
 interface ServicesProps {
   onEnquireService?: (serviceName: string) => void;
@@ -45,7 +45,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
       <div className="relative h-[85vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=85&w=2400" 
+            src="https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg" 
             alt="Luxury lodge interior" 
             className="w-full h-full object-cover brightness-[0.65]"
           />
@@ -126,13 +126,13 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
               title: "VIP Protocol",
               subtitle: "Invisible Transitions",
               description: "Bespoke meet-and-greet services at Entebbe International. Skip the noise with fast-track arrivals and private lounge access while our team handles every credential.",
-              image: "https://images.unsplash.com/photo-1540339832862-1745299be71c?auto=format&fit=crop&q=85&w=1200"
+              image: "https://i.postimg.cc/4md64npx/local-community-tourism.png"
             },
             {
               title: "Wilderness Wellness",
               subtitle: "Primal Restoration",
               description: "Yoga sessions on platforms overlooking the Bwindi canopy and private spa treatments using indigenous botanicals, curated within the sanctuary of your lodge.",
-              image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=85&w=1200"
+              image: "https://i.postimg.cc/vcNW4Mvm/Uganda-Food-Tours-and-Safaris-3.jpg"
             }
           ].map((service, idx) => (
             <div key={idx} className="reveal-trigger group">

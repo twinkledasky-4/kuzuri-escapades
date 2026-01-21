@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { AppSection, Tour } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
@@ -16,15 +16,30 @@ import { AIChatBot } from './components/AIChatBot.tsx';
 import { AdminPanel } from './components/AdminPanel.tsx';
 import { TOURS, DESTINATIONS } from './constants.tsx';
 
+// Simple Analytics Monitor
+const monitorInteraction = (event: string, data: any = {}) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[MONITORING][${timestamp}] ${event}`, data);
+  // Implementation of production analytics (e.g., GTM, Mixpanel) would go here
+};
+
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<AppSection>(AppSection.HOME);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [inquiryPreFill, setInquiryPreFill] = useState('');
   
+  // A/B testing state: Variant A is standard grid, Variant B is alternating staggered
+  const abVariant = useMemo(() => (Math.random() > 0.5 ? 'A' : 'B'), []);
+
   const plannerRef = useRef<HTMLDivElement>(null);
   const destinationsRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
+
+  // Track Page Views
+  useEffect(() => {
+    monitorInteraction('PAGE_VIEW', { section: activeSection, abVariant });
+  }, [activeSection, abVariant]);
 
   // Dynamic SEO Metadata Updates
   useEffect(() => {
@@ -55,6 +70,7 @@ const App: React.FC = () => {
   }, [activeSection]);
 
   const handleNavigate = (section: AppSection) => {
+    monitorInteraction('NAVIGATION_CLICK', { to: section });
     setActiveSection(section);
     if (section === AppSection.ADMIN) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -76,11 +92,13 @@ const App: React.FC = () => {
   };
 
   const handleTourBookingRequest = (tour: Tour) => {
+    monitorInteraction('TOUR_INTEREST', { tourId: tour.id, tourName: tour.name });
     setInquiryPreFill(`I am interested in the ${tour.name} itinerary.`);
     setIsInquiryOpen(true);
   };
 
   const handleServiceInquiry = (serviceName: string) => {
+    monitorInteraction('SERVICE_INQUIRY', { service: serviceName });
     setInquiryPreFill(`I would like to inquire about your ${serviceName} concierge service.`);
     setIsInquiryOpen(true);
   };
@@ -137,7 +155,7 @@ const App: React.FC = () => {
         <section className="py-24 md:py-64 lg:py-80 bg-white" aria-labelledby="philosophy-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
             <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-16 md:gap-24 lg:gap-48 items-center">
-              <div className="w-full lg:w-1/2 overflow-hidden reveal-image aspect-[4/5] shadow-[0_60px_120px_-30px_rgba(0,0,0,0.12)]">
+              <div className="w-full lg:w-1/2 overflow-hidden reveal-image aspect-[4/5] shadow-[0_60px_120px_-30px_rgba(0,45,4,0.12)]">
                 <img 
                   src="https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg" 
                   alt="A soft, inviting capture of a savanna elephant in golden natural light" 
@@ -200,7 +218,7 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Collection Showcase (Tours Section) */}
+        {/* Collection Showcase (Tours Section) with A/B Testing Toggle */}
         <section className="py-24 md:py-64 bg-white" aria-labelledby="gallery-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
              <div className="mb-24 reveal-trigger">
@@ -208,14 +226,17 @@ const App: React.FC = () => {
                 <h2 id="gallery-title" className="text-5xl md:text-7xl font-serif text-[#002d04] tracking-tighter">
                   Curated <span className="italic font-light">Journeys.</span>
                 </h2>
+                <p className="text-[9px] text-stone-300 mt-2 uppercase tracking-widest font-bold">Variant {abVariant} Display Active</p>
              </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 lg:gap-x-20 gap-y-32">
-              {TOURS.map((tour) => (
-                <TourCard 
-                  key={tour.id} 
-                  tour={tour} 
-                  onRequestBooking={handleTourBookingRequest}
-                />
+            
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 lg:gap-x-20 gap-y-32 ${abVariant === 'B' ? 'items-start' : ''}`}>
+              {TOURS.map((tour, idx) => (
+                <div key={tour.id} className={abVariant === 'B' && idx % 2 !== 0 ? 'md:mt-32' : ''}>
+                  <TourCard 
+                    tour={tour} 
+                    onRequestBooking={handleTourBookingRequest}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -280,6 +301,7 @@ const App: React.FC = () => {
             </h3>
             <button 
               onClick={() => {
+                monitorInteraction('CTA_CLICK', { label: 'Request Consultation Bottom' });
                 setInquiryPreFill('');
                 setIsInquiryOpen(true);
               }}
