@@ -1,10 +1,12 @@
+
 import React from 'react';
 
 interface FooterProps {
   onEnquire?: () => void;
+  onAdminAccess?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onEnquire }) => {
+export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
   return (
     <footer className="bg-[#002d04] text-white pt-32 pb-16" aria-label="Global Footer">
       <div className="container mx-auto px-6 md:px-12">
@@ -62,6 +64,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire }) => {
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-stone-500 text-[9px] uppercase tracking-[0.4em] font-bold">
           <p>© 2024 Kuzuri Escapades. All rights reserved.</p>
           <div className="flex gap-10 mt-6 md:mt-0">
+            <button onClick={onAdminAccess} className="hover:text-white transition-colors">Admin Panel</button>
             <a href="#" className="hover:text-white transition-colors">Privacy</a>
             <a href="#" className="hover:text-white transition-colors">Terms</a>
             <span className="text-stone-700 italic">Curated by Lucky .K</span>

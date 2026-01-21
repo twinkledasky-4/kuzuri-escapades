@@ -1,6 +1,6 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { TravelPreferences } from "../types";
+import { TravelPreferences } from "../types.ts";
 
 export const generateItinerary = async (prefs: TravelPreferences) => {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });

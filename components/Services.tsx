@@ -1,85 +1,44 @@
-import React from 'react';
 
-interface ServiceCategory {
-  title: string;
-  icon: React.ReactNode;
-  description: string;
-  features: string[];
-  typeLabel?: string;
-}
+import React from 'react';
+import { SERVICES } from '../constants';
+import { Service } from '../types';
 
 interface ServicesProps {
   onEnquireService?: (serviceName: string) => void;
 }
 
-export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
-  const serviceCategories: ServiceCategory[] = [
-    {
-      title: "Hotel Bookings & Boutique Lodges",
-      typeLabel: "Luxury Stays",
-      icon: (
+const ServiceIcon = ({ name }: { name: string }) => {
+  switch (name) {
+    case 'hotel':
+      return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect width="7" height="5" x="7" y="7" rx="1"/><rect width="7" height="5" x="10" y="12" rx="1"/>
         </svg>
-      ),
-      description: "Handpicked accommodations from intimate eco-lodges to five-star luxury resorts. Every stay reflects Uganda's natural beauty and world-class hospitality.",
-      features: [
-        "Luxury safari lodges",
-        "Boutique city hotels",
-        "Eco-friendly tented camps",
-        "Private villas & exclusive retreats"
-      ]
-    },
-    {
-      title: "VIP Airport Pick-ups",
-      typeLabel: "Protocol",
-      icon: (
+      );
+    case 'protocol':
+      return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M2 22h20"/><path d="M11 3v9"/><path d="m15 7-4 4-4-4"/><path d="M3 13h18l-2 3H5l-2-3Z"/><path d="m5 16 1 4h12l1-4"/>
         </svg>
-      ),
-      description: "Begin your journey stress-free with our meet-and-greet service. From Entebbe International Airport to your first destination, we handle every detail.",
-      features: [
-        "Professional chauffeur service",
-        "Premium vehicles (Land Cruisers, luxury sedans)",
-        "Arrival lounge access",
-        "Fast-track immigration assistance"
-      ]
-    },
-    {
-      title: "Premium Car Hire",
-      typeLabel: "Fleet",
-      icon: (
+      );
+    case 'fleet':
+      return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-1.1 0-2 .9-2 2v7c0 .6.4 1 1 1h1"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>
         </svg>
-      ),
-      description: "Self-drive or chauffeur-driven options in well-maintained 4x4 safari vehicles. GPS-equipped, fully insured, and ready for Uganda's diverse terrain.",
-      features: [
-        "Toyota Land Cruiser V8 (safari-spec)",
-        "Toyota RAV4 (urban & light touring)",
-        "Luxury sedans for city transfers",
-        "Custom itinerary planning included"
-      ]
-    },
-    {
-      title: "Professional Tour Guide Services",
-      typeLabel: "Guiding",
-      icon: (
+      );
+    case 'guiding':
+      return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
-      ),
-      description: "Our certified guides are storytellers, naturalists, and cultural ambassadors. Fluent in multiple languages, they transform sightseeing into soul-stirring experiences.",
-      features: [
-        "Wildlife tracking specialists",
-        "Birding experts (1,000+ species)",
-        "Cultural heritage interpreters",
-        "Photography guides"
-      ]
-    }
-  ];
+      );
+    default:
+      return null;
+  }
+};
 
+export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
   return (
     <section className="bg-white" aria-labelledby="services-hero-title">
       {/* Refined Services Hero */}
@@ -118,28 +77,28 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-            {serviceCategories.map((category, idx) => (
+            {SERVICES.filter(s => s.active).map((service, idx) => (
               <div 
-                key={idx} 
+                key={service.id} 
                 className="reveal-trigger flex flex-col group p-10 bg-white shadow-[0_10px_30px_-10px_rgba(0,45,4,0.05)] border border-stone-100 transition-all duration-700 hover:-translate-y-3 hover:shadow-2xl relative overflow-hidden"
               >
                 {/* Savanna Gold accent line top border on hover */}
                 <div className="absolute top-0 left-0 w-full h-[3px] bg-[#d4af37] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
                 
                 <div className="text-[#d4af37] mb-8 group-hover:scale-110 transition-transform duration-500">
-                  {category.icon}
+                  <ServiceIcon name={service.icon_name} />
                 </div>
                 
-                <p className="text-[#d4af37] text-[8px] uppercase tracking-[0.5em] font-bold mb-3">{category.typeLabel}</p>
+                <p className="text-[#d4af37] text-[8px] uppercase tracking-[0.5em] font-bold mb-3">{service.typeLabel}</p>
                 <h3 className="text-[20px] font-serif text-[#002d04] mb-6 leading-tight group-hover:italic transition-all">
-                  {category.title}
+                  {service.name}
                 </h3>
                 <p className="text-stone-400 text-sm font-light leading-relaxed mb-8 tracking-wide">
-                  {category.description}
+                  {service.description}
                 </p>
                 
                 <ul className="mb-10 space-y-3">
-                  {category.features.map((feature, fIdx) => (
+                  {service.features.map((feature, fIdx) => (
                     <li key={fIdx} className="flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-stone-300 font-bold">
                       <span className="w-1 h-[1px] bg-[#d4af37]" />
                       {feature}
@@ -148,7 +107,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
                 </ul>
 
                 <button 
-                  onClick={() => onEnquireService?.(category.title)}
+                  onClick={() => onEnquireService?.(service.name)}
                   className="mt-auto w-full py-4 text-[9px] uppercase tracking-[0.4em] font-bold text-[#002d04] border border-[#002d04]/10 hover:bg-[#002d04] hover:text-white transition-all duration-500"
                 >
                   Inquire About This Service

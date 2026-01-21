@@ -8,7 +8,7 @@ export interface Destination {
   images: string[];
   featured: boolean;
   order_index?: number;
-  tagline?: string; // Optional field for UI-specific subtitles
+  tagline?: string; 
 }
 
 export interface TourItineraryDay {
@@ -25,8 +25,8 @@ export interface Tour {
   duration_nights: number;
   price_from: number;
   currency: string;
-  imageUrls: string[]; // Maps to hero_image and other associated media
-  category?: string; // Optional metadata
+  imageUrls: string[]; 
+  category?: string; 
   description: string;
   highlights: string[];
   inclusions?: string[];
@@ -34,6 +34,18 @@ export interface Tour {
   itinerary?: TourItineraryDay[];
   featured: boolean;
   order_index?: number;
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  features: string[];
+  icon_name: string;
+  order_index: number;
+  active: boolean;
+  typeLabel?: string;
 }
 
 export interface ItineraryDay {
@@ -56,5 +68,6 @@ export enum AppSection {
   DESTINATIONS = 'destinations',
   SERVICES = 'services',
   PLANNER = 'planner',
-  ABOUT = 'about'
+  ABOUT = 'about',
+  ADMIN = 'admin'
 }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,6 +66,10 @@
     ::-webkit-scrollbar-track { background: var(--crisp-white); }
     ::-webkit-scrollbar-thumb { background: var(--savanna-gold); }
   </style>
+  <script>
+    // Shim process for browser environment to support API key access
+    window.process = window.process || { env: { API_KEY: "" } };
+  </script>
   <script type="importmap">
   {
     "imports": {
@@ -78,5 +83,6 @@
 </head>
 <body>
   <div id="root"></div>
+  <script type="module" src="./index.tsx"></script>
 </body>
 </html>

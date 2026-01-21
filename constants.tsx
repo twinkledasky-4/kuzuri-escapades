@@ -1,5 +1,5 @@
 
-import { Destination, Tour } from './types';
+import { Destination, Tour, Service } from './types';
 
 export const HERO_SLIDES = [
   {
@@ -181,5 +181,72 @@ export const TOURS: Tour[] = [
     ],
     featured: true,
     order_index: 3
+  }
+];
+
+export const SERVICES: Service[] = [
+  {
+    id: 'luxury-stays',
+    name: 'Hotel Bookings & Boutique Lodges',
+    slug: 'hotel-bookings-and-boutique-lodges',
+    typeLabel: 'Luxury Stays',
+    icon_name: 'hotel',
+    description: 'Handpicked accommodations from intimate eco-lodges to five-star luxury resorts. Every stay reflects Uganda\'s natural beauty and world-class hospitality.',
+    features: [
+      'Luxury safari lodges',
+      'Boutique city hotels',
+      'Eco-friendly tented camps',
+      'Private villas & exclusive retreats'
+    ],
+    order_index: 1,
+    active: true
+  },
+  {
+    id: 'vip-protocol',
+    name: 'VIP Airport Pick-ups',
+    slug: 'vip-airport-pick-ups',
+    typeLabel: 'Protocol',
+    icon_name: 'protocol',
+    description: 'Begin your journey stress-free with our meet-and-greet service. From Entebbe International Airport to your first destination, we handle every detail.',
+    features: [
+      'Professional chauffeur service',
+      'Premium vehicles (Land Cruisers, sedans)',
+      'Arrival lounge access',
+      'Fast-track immigration assistance'
+    ],
+    order_index: 2,
+    active: true
+  },
+  {
+    id: 'premium-fleet',
+    name: 'Premium Car Hire',
+    slug: 'premium-car-hire',
+    typeLabel: 'Fleet',
+    icon_name: 'fleet',
+    description: 'Self-drive or chauffeur-driven options in well-maintained 4x4 safari vehicles. GPS-equipped, fully insured, and ready for Uganda\'s diverse terrain.',
+    features: [
+      'Toyota Land Cruiser V8 (safari-spec)',
+      'Toyota RAV4 (urban & light touring)',
+      'Luxury sedans for city transfers',
+      'Custom itinerary planning included'
+    ],
+    order_index: 3,
+    active: true
+  },
+  {
+    id: 'expert-guides',
+    name: 'Professional Tour Guide Services',
+    slug: 'professional-tour-guide-services',
+    typeLabel: 'Guiding',
+    icon_name: 'guiding',
+    description: 'Our certified guides are storytellers, naturalists, and cultural ambassadors. Fluent in multiple languages, they transform sightseeing into soul-stirring experiences.',
+    features: [
+      'Wildlife tracking specialists',
+      'Birding experts (1,000+ species)',
+      'Cultural heritage interpreters',
+      'Photography guides'
+    ],
+    order_index: 4,
+    active: true
   }
 ];
