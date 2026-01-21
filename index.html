@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuzuri Escapades | Bespoke Luxury Travel Uganda</title>
+  <meta name="description" content="Sur Mesure Ugandan escapades for the discerning traveler. Native curators of silence, elegance, and deep wilderness immersion.">
+  
+  <!-- Performance: Preconnect to critical domains -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --jungle-green: #002d04;
+      --savanna-gold: #d4af37;
+      --crisp-white: #ffffff;
+      --stone-light: #f5f5f4;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--crisp-white);
+      color: var(--jungle-green);
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .font-serif {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.015em;
+    }
+
+    /* Focus States for AA Compliance */
+    :focus-visible {
+      outline: 2px solid var(--savanna-gold);
+      outline-offset: 4px;
+    }
+
+    /* Custom Reveal Animations */
+    .reveal-trigger {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+      will-change: transform, opacity;
+    }
+    .reveal-trigger.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .reveal-image {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .reveal-image.is-visible {
+      clip-path: inset(0 0 0 0);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--crisp-white); }
+    ::-webkit-scrollbar-thumb { background: var(--savanna-gold); }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@^19.2.3",
+      "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+      "react/": "https://esm.sh/react@^19.2.3/",
+      "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>

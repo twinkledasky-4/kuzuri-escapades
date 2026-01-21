@@ -1,0 +1,185 @@
+
+import { Destination, Tour } from './types';
+
+export const HERO_SLIDES = [
+  {
+    id: 'primate',
+    subtitle: 'The Primate Odyssey',
+    title: 'A Private <br /><span className="italic font-light">Narrative Awaits.</span>',
+    description: 'Venture into the ancient emerald mists of Bwindi, where the mountain gorilla reigns in profound silence.',
+    imageUrl: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=2400',
+    type: 'image'
+  },
+  {
+    id: 'savannah',
+    subtitle: 'Savannah Sovereignty',
+    title: 'Horizons <br /><span className="italic font-light">Without Borders.</span>',
+    description: 'Experience the golden rhythm of the Albertine Rift, where the wild moves with a quiet, untamed dignity.',
+    imageUrl: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=2400',
+    type: 'image'
+  },
+  {
+    id: 'nile',
+    subtitle: 'Aquatic Narratives',
+    title: 'The Source <br /><span className="italic font-light">of Every Story.</span>',
+    description: 'Drift upon the Albert Nile at dusk, witnessing the power of Murchison Falls in total, curated solitude.',
+    imageUrl: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=85&w=2400',
+    type: 'image'
+  }
+];
+
+export const DESTINATIONS: Destination[] = [
+  {
+    id: 'bwindi',
+    name: 'Bwindi Impenetrable Forest',
+    slug: 'bwindi-impenetrable-forest',
+    tagline: 'Mists, Mountains & Monarchs',
+    description: 'An ancient sanctuary where emerald canopies meet the clouds. Home to the mountain gorilla, this primal landscape offers a quiet, profound connection to our origins.',
+    images: ['https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=1200'],
+    highlights: ['Gorilla Curation', 'Batwa Forest Wisdom', 'Silent Canopy Walks'],
+    featured: true,
+    order_index: 1
+  },
+  {
+    id: 'murchison',
+    name: 'Murchison Falls',
+    slug: 'murchison-falls',
+    tagline: 'The Nile’s Powerful Pulse',
+    description: 'Where the Victoria Nile surges through a narrow gorge with thunderous power. A landscape of golden savannahs and aquatic giants.',
+    images: ['https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=85&w=1200'],
+    highlights: ['The Nile Cascade', 'Delta Birding', 'River Cruising'],
+    featured: true,
+    order_index: 2
+  },
+  {
+    id: 'queen-elizabeth',
+    name: 'Queen Elizabeth Plains',
+    slug: 'queen-elizabeth-plains',
+    tagline: 'Shadows of the Savannah',
+    description: 'A diverse tapestry of crater lakes and golden plains. Famous for tree-climbing lions and the wildlife-rich Kazinga Channel.',
+    images: ['https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=1200'],
+    highlights: ['Tree-Climbing Lions', 'Kazinga Channel', 'Explosion Craters'],
+    featured: true,
+    order_index: 3
+  },
+  {
+    id: 'kidepo',
+    name: 'Kidepo Valley',
+    slug: 'kidepo-valley',
+    tagline: 'The Forgotten Eden',
+    description: 'A rugged, remote frontier bordering Sudan. Kidepo offers a wild, untamed experience often called Africa’s most beautiful park.',
+    images: ['https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&q=85&w=1200'],
+    highlights: ['Isolated Wilderness', 'Karamoja Culture', 'Unique Species'],
+    featured: true,
+    order_index: 4
+  }
+];
+
+export const TOURS: Tour[] = [
+  {
+    id: 'primate-peaks-explorer',
+    name: 'Primate & Peaks Explorer',
+    slug: 'primate-and-peaks-explorer',
+    duration_days: 10,
+    duration_nights: 9,
+    price_from: 6200,
+    currency: 'USD',
+    category: 'Premium Series',
+    description: 'An intensive exploration of the Albertine Rift’s high-altitude wonders. Focus on rare primates and the mystical volcanic peaks of the deep southwest.',
+    highlights: ['Gorilla Trekking', 'Chimp Habituation', 'Golden Monkey Tracking', 'Volcanic Hiking'],
+    inclusions: [
+      '1 gorilla permit, 1 golden monkey permit',
+      'Chimpanzee habituation experience',
+      'Boutique eco-lodge accommodation',
+      'Private vehicle & professional guide',
+      'All meals (Breakfast, Lunch, Dinner)',
+      'Park fees & conservation contributions',
+      'Airport transfers'
+    ],
+    exclusions: [
+      'International flights',
+      'Visa fees ($50 USD)',
+      'Optional activities',
+      'Travel insurance'
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival Entebbe', detail: 'Boutique hotel check-in and sunset Lake Victoria cruise.' },
+      { day: '2-3', title: 'Kibale Forest', detail: 'Chimpanzee habituation experience and Bigodi wetland walk.' },
+      { day: '4-6', title: 'Bwindi Impenetrable', detail: 'Gorilla trekking, community visits, and optional second trek.' },
+      { day: '7-8', title: 'Mgahinga Gorilla NP', detail: 'Golden monkey tracking and adventurous volcanic hiking.' },
+      { day: 9, title: 'Lake Bunyonyi', detail: 'Canoe excursion on the lake of a thousand islands and eco-lodge relaxation.' },
+      { day: 10, title: 'Return to Entebbe', detail: 'Scenic transfer and international departure.' }
+    ],
+    imageUrls: [
+      'https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=85&w=1200',
+      'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=85&w=1200',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=85&w=1200',
+      'https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&q=85&w=1200'
+    ],
+    featured: true,
+    order_index: 1
+  },
+  {
+    id: 'grand-uganda-odyssey',
+    name: 'The Grand Uganda Odyssey',
+    slug: 'grand-uganda-odyssey',
+    duration_days: 14,
+    duration_nights: 13,
+    price_from: 8500,
+    currency: 'USD',
+    category: 'Premium Series',
+    description: 'The definitive Ugandan narrative. A 14-day masterclass in private curation, featuring double gorilla permits and VIP heritage tours.',
+    highlights: ['2 Gorilla Permits', 'VIP Airport Transfer', 'Luxury Lodge Stays'],
+    inclusions: [
+      'All park entry fees & permits (2 gorilla permits)',
+      'Luxury lodge accommodation throughout',
+      'Private 4x4 safari vehicle with expert guide',
+      'All meals (breakfast, lunch, dinner)',
+      'Airport transfers (VIP service)',
+      'Bottled water & refreshments',
+      'Travel insurance assistance'
+    ],
+    exclusions: [
+      'International flights',
+      'Visa fees',
+      'Personal expenses & gratuities',
+      'Alcoholic beverages'
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Kampala', detail: 'VIP airport transfer, boutique hotel check-in.' },
+      { day: 2, title: 'Kampala City Heritage', detail: 'Curated cultural tours and local artisan ateliers.' },
+      { day: '3-4', title: 'Murchison Falls', detail: 'Private boat launch and golden game drives.' },
+      { day: '5-6', title: 'Kibale Forest', detail: 'Chimpanzee tracking and Bigodi wetlands.' },
+      { day: '7-8', title: 'Savannah Sovereignty', detail: 'Tree-climbing lions and Kazinga Channel cruises.' },
+      { day: '9-11', title: 'Bwindi Mists', detail: 'Double gorilla trekking and Batwa forest wisdom.' },
+      { day: 12, title: 'Lake Mburo Serenity', detail: 'Lakeside wellness and horseback safaris.' },
+      { day: '13-14', title: 'The Source', detail: 'Return to Entebbe for international departure.' }
+    ],
+    imageUrls: [
+      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=1200',
+      'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=1200',
+      'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=85&w=1200',
+      'https://images.unsplash.com/photo-1523805081446-ed9a7bb14919?auto=format&fit=crop&q=85&w=1200'
+    ],
+    featured: true,
+    order_index: 2
+  },
+  {
+    id: 'bwindi-gorilla-standard',
+    name: 'Bwindi Forest Sanctuary',
+    slug: 'bwindi-forest-sanctuary',
+    duration_days: 4,
+    duration_nights: 3,
+    price_from: 2450,
+    currency: 'USD',
+    category: 'Primate Odyssey',
+    description: 'An intimate encounter with the monarchs of the mist. Experience the profound silence of the ancient forest.',
+    highlights: ['Gorilla Tracking', 'Forest Wisdom', 'Canopy Walks'],
+    imageUrls: [
+      'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=1200',
+      'https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=85&w=1200'
+    ],
+    featured: true,
+    order_index: 3
+  }
+];

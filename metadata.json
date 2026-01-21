@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Kuzuri Escapades last version",
+  "description": "Bespoke luxury Ugandan travel platform. A high-fidelity demo featuring native curation, silent luxury, and AI-powered bespoke itineraries.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
