@@ -30,36 +30,17 @@ export const HERO_SLIDES = [
 
 export const DESTINATIONS: Destination[] = [
   {
-    id: 'queen-elizabeth',
-    name: 'Queen Elizabeth National Park',
-    slug: 'queen-elizabeth-plains',
-    tagline: 'Diverse ecosystems from savanna to rainforest',
-    description: 'The Medley of Wonders: Witness elephant herds bathing in the Kazinga Channel, track tree-climbing lions in Ishasha, and cruise past hippos and crocodiles on Africa\'s highest concentration of waterbirds.',
-    images: [
-      'https://i.postimg.cc/0yWvb5zq/herd-elephants-bathing-kazinga-channel-260nw-2690502067.jpg',
-      'https://i.postimg.cc/ZCR8Y0pg/Lake-Mburo-National-Park-750x450-1-750x450.jpg',
-      'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp'
-    ],
-    highlights: [
-      'Kazinga Channel Cruise: Glide past hippos, elephants, and buffalo along this 32km natural channel connecting Lake Edward and Lake George.',
-      'Tree-Climbing Lions: The rare sight of lions lounging in fig trees is unique to the Ishasha sector of this remarkable park.',
-      'Kyambura Gorge: A hidden valley of primates where chimpanzees swing through a subterranean rainforest.'
-    ],
-    featured: true,
-    order_index: 3
-  },
-  {
     id: 'bwindi',
     name: 'Bwindi Impenetrable Forest',
     slug: 'bwindi-impenetrable-forest',
     tagline: 'Mists, Mountains & Monarchs',
-    description: 'An ancient sanctuary where emerald canopies meet the clouds. Home to the mountain gorilla, this primal landscape offers a quiet, profound connection to our origins.',
+    description: 'An ancient sanctuary where emerald canopies meet the clouds. Home to half of the world\'s mountain gorillas, this primal landscape offers a quiet, profound connection to our origins in a setting of unparalleled biodiversity.',
     images: [
       'https://i.postimg.cc/dVLtYNBN/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
       'https://i.postimg.cc/qzRsBgyD/images.jpg',
       'https://i.postimg.cc/zf41FdSZ/Tourism-Destinations-in-Uganda-580x450.jpg'
     ],
-    highlights: ['Gorilla Curation', 'Batwa Forest Wisdom', 'Silent Canopy Walks'],
+    highlights: ['Gorilla Curation', 'Batwa Forest Wisdom', 'Silent Canopy Walks', 'Endemic Bird Watching'],
     featured: true,
     order_index: 1
   },
@@ -67,33 +48,52 @@ export const DESTINATIONS: Destination[] = [
     id: 'murchison',
     name: 'Murchison Falls National Park',
     slug: 'murchison-falls',
-    tagline: 'Where the Nile explodes through a narrow gorge',
-    description: 'Uganda\'s largest national park offers dramatic landscapes where the Victoria Nile crashes through a 7-meter gorge, creating the world\'s most powerful waterfall. Game drives reveal elephants, lions, giraffes, and over 450 bird species.',
+    tagline: 'The Nile’s Dramatic Outburst',
+    description: 'Uganda\'s largest national park offers dramatic landscapes where the Victoria Nile crashes through a 7-meter gorge, creating the world\'s most powerful waterfall. Golden game drives reveal the "Big Five" against a backdrop of the Albertine Rift.',
     images: [
       'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
       'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg',
       'https://i.postimg.cc/ykdm6WcP/beyond-uganda-national-parks-uncover-western-ugandas-hidden-gems-kitarafoundation-beyondnationalpark.webp'
     ],
     highlights: [
-      'Game Drives: Big five encounters in diverse savanna landscapes.',
-      'Boat Safaris: Cruise the Nile to the base of the thundering falls.',
-      'Birding Paradise: 450+ species including the rare shoebill stork.'
+      'Nile Boat Launch: Cruise to the base of the thundering falls.',
+      'Delta Game Drives: Lions, giraffes, and elephants in golden light.',
+      'Shoebill Stork Tracking: A rare prehistoric birding experience.'
     ],
     featured: true,
     order_index: 2
+  },
+  {
+    id: 'queen-elizabeth',
+    name: 'Queen Elizabeth Plains',
+    slug: 'queen-elizabeth-plains',
+    tagline: 'Savanna Meets the Crater Lakes',
+    description: 'A mosaic of ecosystems from rainforest to savanna. Famous for its tree-climbing lions of Ishasha and the elephant-rich Kazinga Channel, this park is the "Medley of Wonders" at the heart of the Rift Valley.',
+    images: [
+      'https://i.postimg.cc/0yWvb5zq/herd-elephants-bathing-kazinga-channel-260nw-2690502067.jpg',
+      'https://i.postimg.cc/ZCR8Y0pg/Lake-Mburo-National-Park-750x450-1-750x450.jpg',
+      'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp'
+    ],
+    highlights: [
+      'Kazinga Channel Cruise: Highest concentration of hippos in Africa.',
+      'Ishasha Lion Tracking: Witness the rare tree-climbing lions.',
+      'Chimpanzee Gorge: Tracking primates in the Kyambura sunken forest.'
+    ],
+    featured: true,
+    order_index: 3
   },
   {
     id: 'kidepo',
     name: 'Kidepo Valley',
     slug: 'kidepo-valley',
     tagline: 'The Forgotten Eden',
-    description: 'A rugged, remote frontier bordering Sudan. Kidepo offers a wild, untamed experience often called Africa’s most beautiful park.',
+    description: 'A rugged, remote frontier bordering Sudan. Often called Africa’s most beautiful park, Kidepo offers a wild, untamed experience where silence is profound and the landscapes are vast and cinematic.',
     images: [
-      'https://i.postimg.cc/zf41FdSZ/Tourism-Destinations-in-Uganda-580x450.jpg',
+      'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg',
       'https://i.postimg.cc/F7BjYmx4/Tourism-in-Uganda.jpg',
-      'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg'
+      'https://i.postimg.cc/zf41FdSZ/Tourism-Destinations-in-Uganda-580x450.jpg'
     ],
-    highlights: ['Isolated Wilderness', 'Karamoja Culture', 'Unique Species'],
+    highlights: ['Isolated Wilderness', 'Karamoja Cultural Immersion', 'Cheetah & Ostrich Tracking'],
     featured: true,
     order_index: 4
   }
@@ -110,29 +110,12 @@ export const TOURS: Tour[] = [
     currency: 'USD',
     category: 'Premium Series',
     description: 'An intensive exploration of the Albertine Rift’s high-altitude wonders. Focus on rare primates and the mystical volcanic peaks of the deep southwest.',
-    highlights: ['Gorilla Trekking', 'Chimp Habituation', 'Golden Monkey Tracking', 'Volcanic Hiking'],
+    highlights: ['Gorilla Trekking', 'Chimp Habituation', 'Volcanic Hiking'],
     inclusions: [
-      '1 gorilla permit, 1 golden monkey permit',
-      'Chimpanzee habituation experience',
-      'Boutique eco-lodge accommodation',
-      'Private vehicle & professional guide',
-      'All meals (Breakfast, Lunch, Dinner)',
-      'Park fees & conservation contributions',
-      'Airport transfers'
-    ],
-    exclusions: [
-      'International flights',
-      'Visa fees ($50 USD)',
-      'Optional activities',
-      'Travel insurance'
-    ],
-    itinerary: [
-      { day: 1, title: 'Arrival Entebbe', detail: 'Boutique hotel check-in and sunset Lake Victoria cruise.' },
-      { day: '2-3', title: 'Kibale Forest', detail: 'Chimpanzee habituation experience and Bigodi wetland walk.' },
-      { day: '4-6', title: 'Bwindi Impenetrable', detail: 'Gorilla trekking, community visits, and optional second trek.' },
-      { day: '7-8', title: 'Mgahinga Gorilla NP', detail: 'Golden monkey tracking and adventurous volcanic hiking.' },
-      { day: 9, title: 'Lake Bunyonyi', detail: 'Canoe excursion on the lake of a thousand islands and eco-lodge relaxation.' },
-      { day: 10, title: 'Return to Entebbe', detail: 'Scenic transfer and international departure.' }
+      'Gorilla & Chimp permits',
+      'Luxury eco-lodge stays',
+      'Private 4x4 transport',
+      'Expert naturalist guide'
     ],
     imageUrls: [
       'https://i.postimg.cc/d03qBkbL/Kyambura-Game-Reserve-Chimpanzee-trekking-750x400.jpg',
@@ -152,83 +135,40 @@ export const TOURS: Tour[] = [
     currency: 'USD',
     category: 'Premium Series',
     description: 'The definitive Ugandan narrative. A 14-day masterclass in private curation, featuring double gorilla permits and VIP heritage tours.',
-    highlights: ['2 Gorilla Permits', 'VIP Airport Transfer', 'Luxury Lodge Stays'],
-    inclusions: [
-      'All park entry fees & permits (2 gorilla permits)',
-      'Luxury lodge accommodation throughout',
-      'Private 4x4 safari vehicle with expert guide',
-      'All meals (breakfast, lunch, dinner)',
-      'Airport transfers (VIP service)',
-      'Bottled water & refreshments',
-      'Travel insurance assistance'
-    ],
-    exclusions: [
-      'International flights',
-      'Visa fees',
-      'Personal expenses & gratuities',
-      'Alcoholic beverages'
-    ],
-    itinerary: [
-      { day: 1, title: 'Arrival in Kampala', detail: 'VIP airport transfer, boutique hotel check-in.' },
-      { day: 2, title: 'Kampala City Heritage', detail: 'Curated cultural tours and local artisan ateliers.' },
-      { day: '3-4', title: 'Murchison Falls', detail: 'Private boat launch and golden game drives.' },
-      { day: '5-6', title: 'Kibale Forest', detail: 'Chimpanzee tracking and Bigodi wetlands.' },
-      { day: '7-8', title: 'Savannah Sovereignty', detail: 'Tree-climbing lions and Kazinga Channel cruises.' },
-      { day: '9-11', title: 'Bwindi Mists', detail: 'Double gorilla trekking and Batwa forest wisdom.' },
-      { day: 12, title: 'Lake Mburo Serenity', detail: 'Lakeside wellness and horseback safaris.' },
-      { day: '13-14', title: 'The Source', detail: 'Return to Entebbe for international departure.' }
-    ],
+    highlights: ['2 Gorilla Permits', 'Private Air Transfers', 'Luxury Lodge Stays'],
     imageUrls: [
       'https://i.postimg.cc/Mpd6Vbrs/CTC-Conservation-center-lion-cubs-scaled.jpg',
       'https://i.postimg.cc/F7BjYmx4/Tourism-in-Uganda.jpg',
-      'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg',
-      'https://i.postimg.cc/4md64npx/local-community-tourism.png'
+      'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg'
     ],
     featured: true,
     order_index: 2
   },
   {
-    id: 'murchison-falls-explorer',
-    name: 'Murchison Falls Explorer',
-    slug: 'murchison-falls-explorer',
-    duration_days: 4,
-    duration_nights: 3,
-    price_from: 1800,
+    id: 'aquatic-narratives-nile',
+    name: 'Aquatic Narratives: The Nile',
+    slug: 'aquatic-narratives-nile',
+    duration_days: 5,
+    duration_nights: 4,
+    price_from: 2400,
     currency: 'USD',
-    category: 'Aquatic Narratives',
-    description: 'Witness the raw power of the Nile. A 4-day intensive safari through the delta and the thunderous falls.',
-    highlights: ['Nile Boat Launch', 'Big Game Drives', 'Birding Safari'],
+    category: 'The Nile Series',
+    description: 'Follow the lifeblood of Uganda from the source at Jinja to the thundering base of Murchison Falls.',
+    highlights: ['Source of the Nile', 'Murchison Falls Boat Safari', 'White Water Wellness'],
     imageUrls: [
       'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
-      'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg'
+      'https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg',
+      'https://i.postimg.cc/ykdm6WcP/beyond-uganda-national-parks-uncover-western-ugandas-hidden-gems-kitarafoundation-beyondnationalpark.webp'
     ],
     featured: true,
     order_index: 3
-  },
-  {
-    id: 'lake-mburo-serenity',
-    name: 'Lake Mburo Serenity',
-    slug: 'lake-mburo-serenity',
-    duration_days: 3,
-    duration_nights: 2,
-    price_from: 950,
-    currency: 'USD',
-    category: 'Boutique Escapes',
-    description: 'An intimate lakeside retreat featuring night game drives and unique horseback safaris among the zebras.',
-    highlights: ['Horseback Safari', 'Night Game Drive', 'Lakeside Wellness'],
-    imageUrls: [
-      'https://i.postimg.cc/ZCR8Y0pg/Lake-Mburo-National-Park-750x450-1-750x450.jpg',
-      'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp'
-    ],
-    featured: true,
-    order_index: 4
   }
 ];
 
 export const SERVICES: Service[] = [
   {
     id: 'luxury-stays',
-    name: 'Hotel Bookings & Boutique Lodges',
+    name: 'Sanctuaries & Boutique Lodges',
     slug: 'hotel-bookings-and-boutique-lodges',
     typeLabel: 'Luxury Stays',
     icon_name: 'hotel',
@@ -237,55 +177,37 @@ export const SERVICES: Service[] = [
       'Luxury safari lodges',
       'Boutique city hotels',
       'Eco-friendly tented camps',
-      'Private villas & exclusive retreats'
+      'Private villas'
     ],
     order_index: 1,
     active: true
   },
   {
     id: 'vip-protocol',
-    name: 'VIP Airport Pick-ups',
+    name: 'VIP Protocol & Transfers',
     slug: 'vip-airport-pick-ups',
     typeLabel: 'Protocol',
     icon_name: 'protocol',
     description: 'Begin your journey stress-free with our meet-and-greet service. From Entebbe International Airport to your first destination, we handle every detail.',
     features: [
-      'Professional chauffeur service',
-      'Premium vehicles (Land Cruisers, sedans)',
+      'Chauffeur service',
       'Arrival lounge access',
-      'Fast-track immigration assistance'
+      'Fast-track immigration'
     ],
     order_index: 2,
     active: true
   },
   {
-    id: 'premium-fleet',
-    name: 'Premium Car Hire',
-    slug: 'premium-car-hire',
-    typeLabel: 'Fleet',
-    icon_name: 'fleet',
-    description: 'Self-drive or chauffeur-driven options in well-maintained 4x4 safari vehicles. GPS-equipped, fully insured, and ready for Uganda\'s diverse terrain.',
-    features: [
-      'Toyota Land Cruiser V8 (safari-spec)',
-      'Toyota RAV4 (urban & light touring)',
-      'Luxury sedans for city transfers',
-      'Custom itinerary planning included'
-    ],
-    order_index: 3,
-    active: true
-  },
-  {
     id: 'expert-guides',
-    name: 'Professional Tour Guide Services',
+    name: 'Native Guiding Masters',
     slug: 'professional-tour-guide-services',
     typeLabel: 'Guiding',
     icon_name: 'guiding',
     description: 'Our certified guides are storytellers, naturalists, and cultural ambassadors. Fluent in multiple languages, they transform sightseeing into soul-stirring experiences.',
     features: [
-      'Wildlife tracking specialists',
-      'Birding experts (1,000+ species)',
-      'Cultural heritage interpreters',
-      'Photography guides'
+      'Wildlife trackers',
+      'Birding experts',
+      'Cultural interpreters'
     ],
     order_index: 4,
     active: true

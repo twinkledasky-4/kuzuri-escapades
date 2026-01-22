@@ -69,20 +69,20 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
         {!isSubmitted ? (
           <>
             <div className="mb-14 text-center">
-              <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[9px] font-bold mb-4">THE ATELIER</p>
+              <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[11px] font-bold mb-4">THE ATELIER</p>
               <h2 id="modal-title" className="text-4xl md:text-5xl font-serif text-[#002d04] leading-tight tracking-tight">Request a <br /><span className="italic font-light">Consultation</span></h2>
               <div className="w-12 h-[1px] bg-stone-100 mx-auto mt-10" />
             </div>
 
             <form className="space-y-12" onSubmit={handleSubmit}>
               <div className="group">
-                <label htmlFor="fullName" className="block text-[9px] uppercase tracking-[0.4em] text-stone-400 mb-4 font-bold">Your Full Name</label>
+                <label htmlFor="fullName" className="block text-[11px] uppercase tracking-[0.4em] text-stone-400 mb-4 font-bold">Your Full Name</label>
                 <input 
                   id="fullName"
                   type="text" 
                   required
                   autoFocus
-                  className="w-full bg-transparent border-b border-stone-100 py-3 text-sm focus:border-[#d4af37] outline-none transition-all font-light placeholder:text-stone-200"
+                  className="w-full bg-transparent border-b border-stone-100 py-3 text-base focus:border-[#d4af37] outline-none transition-all font-light placeholder:text-stone-200"
                   placeholder="e.g. Julianne Moore"
                   value={formData.fullName}
                   onChange={(e) => setFormData({...formData, fullName: e.target.value})}
@@ -90,12 +90,12 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
               </div>
 
               <div className="group">
-                <label htmlFor="whatsapp" className="block text-[9px] uppercase tracking-[0.4em] text-stone-400 mb-4 font-bold">Preferred Contact (WhatsApp / Email)</label>
+                <label htmlFor="whatsapp" className="block text-[11px] uppercase tracking-[0.4em] text-stone-400 mb-4 font-bold">Preferred Contact (WhatsApp / Email)</label>
                 <input 
                   id="whatsapp"
                   type="text" 
                   required
-                  className="w-full bg-transparent border-b border-stone-100 py-3 text-sm focus:border-[#d4af37] outline-none transition-all font-light placeholder:text-stone-200"
+                  className="w-full bg-transparent border-b border-stone-100 py-3 text-base focus:border-[#d4af37] outline-none transition-all font-light placeholder:text-stone-200"
                   placeholder="+256 XXX XXX XXX"
                   value={formData.contact}
                   onChange={(e) => setFormData({...formData, contact: e.target.value})}
@@ -103,10 +103,10 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
               </div>
 
               <div className="group">
-                <label htmlFor="message" className="block text-[9px] uppercase tracking-[0.4em] text-stone-400 mb-4 font-bold">Share Your Vision</label>
+                <label htmlFor="message" className="block text-[11px] uppercase tracking-[0.4em] text-stone-400 mb-4 font-bold">Share Your Vision</label>
                 <textarea 
                   id="message"
-                  className="w-full bg-transparent border-b border-stone-100 py-3 text-sm focus:border-[#d4af37] outline-none transition-all font-light resize-none h-24 placeholder:text-stone-200"
+                  className="w-full bg-transparent border-b border-stone-100 py-3 text-base focus:border-[#d4af37] outline-none transition-all font-light resize-none h-24 placeholder:text-stone-200"
                   placeholder="Describe the rhythm of your ideal journey..."
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
@@ -116,12 +116,12 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
               <button 
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-6 bg-[#002d04] text-white text-[10px] uppercase tracking-[0.6em] font-bold hover:bg-[#d4af37] transition-all shadow-xl disabled:bg-stone-100 disabled:text-stone-300 transform active:scale-[0.98]"
+                className="w-full py-7 bg-[#002d04] text-white text-[13px] uppercase tracking-[0.6em] font-bold hover:bg-[#d4af37] transition-all shadow-xl disabled:bg-stone-100 disabled:text-stone-300 transform active:scale-[0.98]"
               >
                 {isLoading ? 'PROCESSING MANIFEST...' : 'REQUEST CONSULTATION'}
               </button>
               
-              <p className="text-[8px] text-stone-300 text-center tracking-[0.4em] font-medium italic">
+              <p className="text-[10px] text-stone-300 text-center tracking-[0.4em] font-medium italic">
                 A private dialogue will commence within 24 hours.
               </p>
             </form>
@@ -139,7 +139,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
             </p>
             <button 
               onClick={onClose}
-              className="text-[10px] uppercase tracking-[0.6em] font-bold text-[#002d04] border-b border-stone-200 hover:border-[#d4af37] transition-all pb-1"
+              className="text-[12px] uppercase tracking-[0.6em] font-bold text-[#002d04] border-b border-stone-200 hover:border-[#d4af37] transition-all pb-1"
             >
               Return to Gallery
             </button>

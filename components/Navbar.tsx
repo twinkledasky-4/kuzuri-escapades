@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { AppSection } from '../types.ts';
 
@@ -62,8 +61,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             />
           </button>
 
-          {/* Desktop Nav */}
-          <div className={`hidden lg:flex items-center space-x-12 text-[9px] uppercase tracking-[0.4em] font-bold transition-colors duration-500 ${
+          {/* Desktop Nav - Increased font size from 9px to 13px */}
+          <div className={`hidden lg:flex items-center space-x-12 text-[13px] uppercase tracking-[0.4em] font-bold transition-colors duration-500 ${
             isScrolled ? 'text-stone-500' : 'text-stone-300'
           }`}>
             {navItems.map((item) => (
@@ -74,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 aria-current={activeSection === item.id ? 'page' : undefined}
               >
                 {item.label}
-                <span className={`absolute bottom-0 left-0 h-[1px] bg-[#d4af37] transition-all duration-500 ${
+                <span className={`absolute bottom-0 left-0 h-[1.5px] bg-[#d4af37] transition-all duration-500 ${
                   activeSection === item.id ? 'w-full' : 'w-0 group-hover:w-full'
                 }`} />
               </button>
@@ -82,9 +81,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           </div>
 
           <div className="flex items-center gap-6 md:gap-8">
+            {/* Increased font size from 9px to 13px */}
             <button 
               onClick={onEnquire}
-              className={`hidden md:block px-8 py-3 text-[9px] uppercase tracking-[0.4em] font-bold transition-all duration-500 ease-out z-[60] ${
+              className={`hidden md:block px-10 py-4 text-[13px] uppercase tracking-[0.4em] font-bold transition-all duration-500 ease-out z-[60] ${
                 isScrolled
                   ? 'bg-[#002d04] text-white hover:bg-[#d4af37]' 
                   : 'border border-white/30 text-white hover:bg-white hover:text-[#002d04]'
@@ -99,15 +99,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
-              <div className="relative w-6 h-5">
-                <span className={`absolute left-0 block w-full h-[1px] transition-all duration-500 ${
-                  isMobileMenuOpen ? 'top-2 rotate-45 bg-white' : `top-0 ${isScrolled ? 'bg-[#002d04]' : 'bg-white'}`
+              <div className="relative w-7 h-6">
+                <span className={`absolute left-0 block w-full h-[2px] transition-all duration-500 ${
+                  isMobileMenuOpen ? 'top-3 rotate-45 bg-white' : `top-0 ${isScrolled ? 'bg-[#002d04]' : 'bg-white'}`
                 }`} />
-                <span className={`absolute left-0 block w-full h-[1px] top-2 transition-all duration-300 ${
+                <span className={`absolute left-0 block w-full h-[2px] top-3 transition-all duration-300 ${
                   isMobileMenuOpen ? 'opacity-0' : `opacity-100 ${isScrolled ? 'bg-[#002d04]' : 'bg-white'}`
                 }`} />
-                <span className={`absolute left-0 block w-full h-[1px] transition-all duration-500 ${
-                  isMobileMenuOpen ? 'top-2 -rotate-45 bg-white' : `top-4 ${isScrolled ? 'bg-[#002d04]' : 'bg-white'}`
+                <span className={`absolute left-0 block w-full h-[2px] transition-all duration-500 ${
+                  isMobileMenuOpen ? 'top-3 -rotate-45 bg-white' : `top-6 ${isScrolled ? 'bg-[#002d04]' : 'bg-white'}`
                 }`} />
               </div>
             </button>
@@ -126,8 +126,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
               onClick={() => handleNavClick(item.id)}
               className={`text-left transition-all duration-700 group`}
             >
-              <span className="block text-[10px] uppercase tracking-[0.8em] text-[#d4af37] font-bold mb-2">0{idx + 1}</span>
-              <span className={`text-4xl font-serif transition-all ${
+              <span className="block text-[12px] uppercase tracking-[0.8em] text-[#d4af37] font-bold mb-3">0{idx + 1}</span>
+              <span className={`text-5xl font-serif transition-all ${
                 activeSection === item.id 
                   ? 'text-[#d4af37] italic' 
                   : 'text-white hover:text-[#d4af37] hover:italic'
@@ -141,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           }`}>
             <button 
               onClick={() => { setIsMobileMenuOpen(false); onEnquire(); }}
-              className="w-full py-6 bg-[#d4af37] text-[#002d04] text-[10px] uppercase tracking-[0.6em] font-bold hover:bg-white transition-colors"
+              className="w-full py-8 bg-[#d4af37] text-[#002d04] text-[13px] uppercase tracking-[0.6em] font-bold hover:bg-white transition-colors"
             >
               Request Consultation
             </button>

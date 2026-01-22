@@ -200,14 +200,6 @@ const App: React.FC = () => {
                 <div className="image-container-standard h-full">
                   <img 
                     src="https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg" 
-                    srcSet="
-                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=400 400w,
-                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=800 800w,
-                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=1200 1200w,
-                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=1600 1600w,
-                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=2400 2400w
-                    "
-                    sizes="(max-width: 1024px) 100vw, 50vw"
                     alt="A majestic African elephant captured in soft, golden light on the savanna." 
                     loading="lazy"
                     decoding="async"
@@ -217,7 +209,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div className="w-full lg:w-1/2 reveal-trigger">
-                <p className="text-[#d4af37] uppercase tracking-[1em] text-[9px] mb-8 font-bold">THE PHILOSOPHY</p>
+                <p className="text-[#d4af37] uppercase tracking-[1em] text-[11px] mb-8 font-bold">THE PHILOSOPHY</p>
                 <h2 id="philosophy-title" className="text-5xl md:text-7xl lg:text-[8.5rem] font-serif mb-12 leading-[0.85] tracking-tighter text-[#002d04]">
                   Silence <br /><span className="italic font-light">as Luxury.</span>
                 </h2>
@@ -232,8 +224,8 @@ const App: React.FC = () => {
                 <div className="mt-16 pt-12 border-t border-stone-100 flex items-center gap-8">
                   <div className="w-16 h-16 bg-[#002d04] flex items-center justify-center text-white font-serif text-3xl shadow-2xl" aria-hidden="true">L</div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] uppercase tracking-[0.5em] font-bold text-[#002d04]">Lucky .K</span>
-                    <span className="text-[10px] uppercase tracking-[0.4em] text-stone-300 mt-1 font-bold">Lead Curator</span>
+                    <span className="text-[13px] uppercase tracking-[0.5em] font-bold text-[#002d04]">Lucky .K</span>
+                    <span className="text-[11px] uppercase tracking-[0.4em] text-stone-300 mt-1 font-bold">Lead Curator</span>
                   </div>
                 </div>
               </div>
@@ -245,21 +237,45 @@ const App: React.FC = () => {
 
         <WildlifeConservationSection onEnquire={handleGeneralInquiry} />
 
+        {/* Visual Mosaic Gallery Section */}
+        <section className="py-24 md:py-48 bg-[#fafaf9] overflow-hidden">
+          <div className="container mx-auto px-6 mb-16">
+             <p className="text-[#d4af37] uppercase tracking-[1em] text-[11px] mb-6 font-bold text-center">GALLERY</p>
+             <h2 className="text-4xl md:text-6xl font-serif text-[#002d04] text-center tracking-tight mb-12">The <span className="italic">Visual Archive</span> of the Land</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 h-[80vh]">
+            <div className="col-span-1 row-span-2 reveal-image overflow-hidden">
+              <img src="https://i.postimg.cc/qzRsBgyD/images.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Gorilla encounter" />
+            </div>
+            <div className="col-span-1 row-span-1 reveal-image overflow-hidden">
+               <img src="https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Savanna sunset" />
+            </div>
+            <div className="col-span-2 row-span-1 reveal-image overflow-hidden">
+               <img src="https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Nile landscape" />
+            </div>
+            <div className="col-span-1 row-span-1 reveal-image overflow-hidden">
+               <img src="https://i.postimg.cc/vcNW4Mvm/Uganda-Food-Tours-and-Safaris-3.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Cultural roots" />
+            </div>
+            <div className="col-span-1 row-span-1 reveal-image overflow-hidden">
+               <img src="https://i.postimg.cc/hf59Xg0W/Tanzani-Wildlife-tour-1536x1152.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Lion tracking" />
+            </div>
+            <div className="col-span-1 row-span-1 reveal-image overflow-hidden">
+               <img src="https://i.postimg.cc/Mpd6Vbrs/CTC-Conservation-center-lion-cubs-scaled.jpg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Conservation center" />
+            </div>
+          </div>
+        </section>
+
         <DestinationsOverview onViewAll={() => handleNavigate(AppSection.DESTINATIONS)} />
 
         {/* Territory Showcase (Destinations Section) */}
-        <section ref={destinationsRef} className="py-24 md:py-64 bg-[#fafaf9] overflow-hidden" aria-labelledby="destinations-title">
+        <section ref={destinationsRef} className="py-24 md:py-64 bg-white overflow-hidden" aria-labelledby="destinations-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 md:mb-40 border-b border-stone-200 pb-20 reveal-trigger">
               <div className="max-w-4xl">
-                <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[10px] mb-8 font-bold">THE TERRITORY</p>
+                <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[11px] mb-8 font-bold">THE TERRITORY</p>
                 <h2 id="destinations-title" className="text-6xl md:text-[8rem] lg:text-[9.5rem] font-serif text-[#002d04] tracking-tighter leading-none">
                   Untamed <br /><span className="italic font-light text-stone-300">Sanctuaries.</span>
                 </h2>
-              </div>
-              <div className="text-right mt-12 md:mt-0 opacity-40 hidden md:block" aria-hidden="true">
-                <p className="text-[11px] uppercase tracking-[0.5em] text-stone-300 mb-2 font-bold">Database Alpha</p>
-                <p className="text-[11px] uppercase tracking-[0.5em] text-[#002d04] font-bold">Primary Ecosystems</p>
               </div>
             </div>
 
@@ -276,20 +292,19 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Collection Showcase (Tours Section) with A/B Testing Toggle */}
-        <section className="py-24 md:py-64 bg-white" aria-labelledby="gallery-title">
+        {/* Collection Showcase (Tours Section) */}
+        <section className="py-24 md:py-64 bg-[#fafaf9]" aria-labelledby="gallery-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
-             <div className="mb-24 reveal-trigger">
-                <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[10px] mb-8 font-bold">THE COLLECTION</p>
+             <div className="mb-24 text-center reveal-trigger">
+                <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[11px] mb-8 font-bold">THE COLLECTION</p>
                 <h2 id="gallery-title" className="text-5xl md:text-7xl font-serif text-[#002d04] tracking-tighter">
                   Curated <span className="italic font-light">Journeys.</span>
                 </h2>
-                <p className="text-[9px] text-stone-300 mt-2 uppercase tracking-widest font-bold">Variant {abVariant} Display Active</p>
              </div>
             
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 lg:gap-x-20 gap-y-32 ${abVariant === 'B' ? 'items-start' : ''}`}>
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 lg:gap-x-20 gap-y-32`}>
               {TOURS.map((tour, idx) => (
-                <div key={tour.id} className={abVariant === 'B' && idx % 2 !== 0 ? 'md:mt-32' : ''}>
+                <div key={tour.id}>
                   <TourCard 
                     tour={tour} 
                     onRequestBooking={handleTourBookingRequest}
@@ -305,33 +320,6 @@ const App: React.FC = () => {
           <Services onEnquireService={handleServiceInquiry} />
         </div>
 
-        {/* Immersive Parallax Visualization */}
-        <section className="relative h-[60vh] md:h-[95vh] w-full overflow-hidden" aria-hidden="true">
-          <div className="image-container-standard h-full">
-            <img 
-              src="https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg" 
-              srcSet="
-                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=400 400w,
-                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=800 800w,
-                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=1200 1200w,
-                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=1600 1600w,
-                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=2400 2400w
-              "
-              sizes="100vw"
-              alt="The infinite horizon of the Albertine Rift at sunset."
-              decoding="async"
-              loading="lazy"
-              className="w-full h-[130%] object-cover absolute top-[-15%] left-0 -z-10 brightness-[0.82] transition-transform duration-[15s] scale-105 will-change-transform"
-              style={{ backfaceVisibility: 'hidden' }}
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#002d04]/20 via-transparent to-[#002d04]/40" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-             <span className="text-white/5 text-[28vw] font-serif italic select-none leading-none tracking-tighter">Untamed</span>
-             <p className="text-white/80 uppercase tracking-[2.2em] text-[10px] md:text-[14px] font-bold mt-[-3vw]">The Infinite Horizon</p>
-          </div>
-        </section>
-
         <div ref={plannerRef} id="planner-section">
           <ItineraryGenerator />
         </div>
@@ -340,7 +328,7 @@ const App: React.FC = () => {
         <section ref={aboutRef} className="py-24 md:py-64 lg:py-80 bg-white" aria-labelledby="provenance-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
             <div className="max-w-7xl mx-auto text-center">
-              <p className="text-[#d4af37] uppercase tracking-[1.5em] text-[9px] mb-16 md:mb-24 font-bold reveal-trigger">PROVENANCE</p>
+              <p className="text-[#d4af37] uppercase tracking-[1.5em] text-[11px] mb-16 md:mb-24 font-bold reveal-trigger">PROVENANCE</p>
               <h2 id="provenance-title" className="text-5xl md:text-8xl lg:text-[11rem] font-serif mb-24 md:mb-40 tracking-tighter leading-[0.8] italic text-[#002d04] reveal-trigger">"Crafting legacies, <br /> not just trips."</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-24 lg:gap-40 text-left border-t border-stone-100 pt-20 md:pt-32 reveal-trigger">
@@ -350,7 +338,7 @@ const App: React.FC = () => {
                   { title: "Reciprocity", text: "Luxury must nourish. We partner exclusively with sanctuaries that honor both the fragile ecosystem and its indigenous guardians." }
                 ].map((item, idx) => (
                   <div key={idx} className="group">
-                    <h4 className="text-[11px] uppercase tracking-[0.7em] mb-10 text-[#002d04] font-bold group-hover:text-[#d4af37] transition-colors">{item.title}</h4>
+                    <h4 className="text-[13px] uppercase tracking-[0.7em] mb-10 text-[#002d04] font-bold group-hover:text-[#d4af37] transition-colors">{item.title}</h4>
                     <p className="text-lg md:text-2xl text-stone-400 font-light leading-relaxed tracking-wide">
                       {item.text}
                     </p>
@@ -376,7 +364,7 @@ const App: React.FC = () => {
                 setInquiryPreFill('');
                 setIsInquiryOpen(true);
               }}
-              className="px-16 md:px-28 py-8 md:py-10 border border-white/20 text-[11px] uppercase tracking-[1.2em] font-bold hover:bg-white hover:text-[#002d04] transition-all duration-700 hover:scale-105 active:scale-95 shadow-2xl"
+              className="px-16 md:px-28 py-8 md:py-10 border border-white/20 text-[13px] uppercase tracking-[1.2em] font-bold hover:bg-white hover:text-[#002d04] transition-all duration-700 hover:scale-105 active:scale-95 shadow-2xl"
               aria-label="Connect with our curators to start your story"
             >
               Request a Consultation
