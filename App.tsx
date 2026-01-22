@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { AppSection, Tour } from './types.ts';
+import { AppSection, Tour, Destination } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { TourCard } from './components/TourCard.tsx';
@@ -14,21 +14,23 @@ import { InquiryModal } from './components/InquiryModal.tsx';
 import { WhatsAppFAB } from './components/WhatsAppFAB.tsx';
 import { AIChatBot } from './components/AIChatBot.tsx';
 import { AdminPanel } from './components/AdminPanel.tsx';
+import { DestinationDetail } from './components/DestinationDetail.tsx';
+import { WildlifeConservationSection } from './components/WildlifeConservationSection.tsx';
+import { DestinationsOverview } from './components/DestinationsOverview.tsx';
 import { TOURS, DESTINATIONS } from './constants.tsx';
 
 // Simple Analytics Monitor
 const monitorInteraction = (event: string, data: any = {}) => {
   const timestamp = new Date().toISOString();
   console.log(`[MONITORING][${timestamp}] ${event}`, data);
-  // Implementation of production analytics (e.g., GTM, Mixpanel) would go here
 };
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<AppSection>(AppSection.HOME);
+  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [inquiryPreFill, setInquiryPreFill] = useState('');
   
-  // A/B testing state: Variant A is standard grid, Variant B is alternating staggered
   const abVariant = useMemo(() => (Math.random() > 0.5 ? 'A' : 'B'), []);
 
   const plannerRef = useRef<HTMLDivElement>(null);
@@ -36,13 +38,16 @@ const App: React.FC = () => {
   const servicesRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
 
-  // Track Page Views
   useEffect(() => {
     monitorInteraction('PAGE_VIEW', { section: activeSection, abVariant });
   }, [activeSection, abVariant]);
 
-  // Dynamic SEO Metadata Updates
   useEffect(() => {
+    if (selectedDestination) {
+      document.title = `${selectedDestination.name} | Kuzuri Escapades`;
+      return;
+    }
+
     const metaDescriptions: Record<string, string> = {
       [AppSection.HOME]: "Sur Mesure Ugandan escapades for the discerning traveler. Native curators of silence, elegance, and deep wilderness immersion.",
       [AppSection.DESTINATIONS]: "Discover Bwindi's gorillas, Murchison Falls, and Lake Mburo. Curated luxury travel to Uganda's most breathtaking destinations.",
@@ -67,10 +72,11 @@ const App: React.FC = () => {
     if (metaDescriptionTag) {
       metaDescriptionTag.setAttribute('content', metaDescriptions[activeSection] || metaDescriptions[AppSection.HOME]);
     }
-  }, [activeSection]);
+  }, [activeSection, selectedDestination]);
 
   const handleNavigate = (section: AppSection) => {
     monitorInteraction('NAVIGATION_CLICK', { to: section });
+    setSelectedDestination(null);
     setActiveSection(section);
     if (section === AppSection.ADMIN) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -103,6 +109,12 @@ const App: React.FC = () => {
     setIsInquiryOpen(true);
   };
 
+  const handleGeneralInquiry = (subject: string) => {
+    monitorInteraction('GENERAL_INQUIRY', { subject });
+    setInquiryPreFill(`I would like to inquire about ${subject}.`);
+    setIsInquiryOpen(true);
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -114,7 +126,7 @@ const App: React.FC = () => {
 
     document.querySelectorAll('.reveal-trigger, .reveal-image').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, [activeSection]);
+  }, [activeSection, selectedDestination]);
 
   if (activeSection === AppSection.ADMIN) {
     return (
@@ -126,6 +138,35 @@ const App: React.FC = () => {
         />
         <AdminPanel onExit={() => handleNavigate(AppSection.HOME)} />
         <Footer onEnquire={() => setIsInquiryOpen(true)} onAdminAccess={() => handleNavigate(AppSection.ADMIN)} />
+      </div>
+    );
+  }
+
+  if (selectedDestination) {
+    return (
+      <div className="relative min-h-screen bg-white selection:bg-[#002d04] selection:text-[#d4af37]">
+        <Navbar 
+          activeSection={AppSection.DESTINATIONS} 
+          onNavigate={handleNavigate} 
+          onEnquire={() => setIsInquiryOpen(true)} 
+        />
+        <main>
+          <DestinationDetail 
+            destination={selectedDestination} 
+            onBack={() => setSelectedDestination(null)} 
+          />
+        </main>
+        <Footer 
+          onEnquire={() => setIsInquiryOpen(true)} 
+          onAdminAccess={() => handleNavigate(AppSection.ADMIN)} 
+        />
+        <InquiryModal 
+          isOpen={isInquiryOpen} 
+          onClose={() => setIsInquiryOpen(false)}
+          initialMessage={inquiryPreFill}
+        />
+        <WhatsAppFAB />
+        <AIChatBot />
       </div>
     );
   }
@@ -155,13 +196,25 @@ const App: React.FC = () => {
         <section className="py-24 md:py-64 lg:py-80 bg-white" aria-labelledby="philosophy-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
             <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-16 md:gap-24 lg:gap-48 items-center">
-              <div className="w-full lg:w-1/2 overflow-hidden reveal-image aspect-[4/5] shadow-[0_60px_120px_-30px_rgba(0,45,4,0.12)]">
-                <img 
-                  src="https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg" 
-                  alt="A soft, inviting capture of a savanna elephant in golden natural light" 
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-all duration-[4000ms] grayscale hover:grayscale-0"
-                />
+              <div className="w-full lg:w-1/2 reveal-image aspect-[4/5] shadow-[0_60px_120px_-30px_rgba(0,45,4,0.12)] bg-stone-50 overflow-hidden">
+                <div className="image-container-standard h-full">
+                  <img 
+                    src="https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg" 
+                    srcSet="
+                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=400 400w,
+                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=800 800w,
+                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=1200 1200w,
+                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=1600 1600w,
+                      https://i.postimg.cc/jL5HqCPF/ivan-sabayuki-U9Fn5q-Ugp-WE-unsplash-750x400.jpg?w=2400 2400w
+                    "
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    alt="A majestic African elephant captured in soft, golden light on the savanna." 
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-all duration-[4000ms] grayscale-[0.2] hover:grayscale-0 will-change-transform"
+                    style={{ backfaceVisibility: 'hidden' }}
+                  />
+                </div>
               </div>
               <div className="w-full lg:w-1/2 reveal-trigger">
                 <p className="text-[#d4af37] uppercase tracking-[1em] text-[9px] mb-8 font-bold">THE PHILOSOPHY</p>
@@ -190,6 +243,10 @@ const App: React.FC = () => {
 
         <WhyKuzuri />
 
+        <WildlifeConservationSection onEnquire={handleGeneralInquiry} />
+
+        <DestinationsOverview onViewAll={() => handleNavigate(AppSection.DESTINATIONS)} />
+
         {/* Territory Showcase (Destinations Section) */}
         <section ref={destinationsRef} className="py-24 md:py-64 bg-[#fafaf9] overflow-hidden" aria-labelledby="destinations-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
@@ -208,11 +265,12 @@ const App: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:gap-x-20">
               {DESTINATIONS.map((dest, idx) => (
-                <ExperienceCard 
-                  key={dest.id} 
-                  destination={dest} 
-                  index={idx}
-                />
+                <div key={dest.id} onClick={() => setSelectedDestination(dest)} className="cursor-pointer">
+                  <ExperienceCard 
+                    destination={dest} 
+                    index={idx}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -249,11 +307,24 @@ const App: React.FC = () => {
 
         {/* Immersive Parallax Visualization */}
         <section className="relative h-[60vh] md:h-[95vh] w-full overflow-hidden" aria-hidden="true">
-          <img 
-            src="https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg" 
-            alt="Untamed landscape"
-            className="w-full h-[130%] object-cover absolute top-[-15%] left-0 -z-10 brightness-[0.82] transition-transform duration-[15s] scale-105"
-          />
+          <div className="image-container-standard h-full">
+            <img 
+              src="https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg" 
+              srcSet="
+                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=400 400w,
+                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=800 800w,
+                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=1200 1200w,
+                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=1600 1600w,
+                https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg?w=2400 2400w
+              "
+              sizes="100vw"
+              alt="The infinite horizon of the Albertine Rift at sunset."
+              decoding="async"
+              loading="lazy"
+              className="w-full h-[130%] object-cover absolute top-[-15%] left-0 -z-10 brightness-[0.82] transition-transform duration-[15s] scale-105 will-change-transform"
+              style={{ backfaceVisibility: 'hidden' }}
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-[#002d04]/20 via-transparent to-[#002d04]/40" />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
              <span className="text-white/5 text-[28vw] font-serif italic select-none leading-none tracking-tighter">Untamed</span>
@@ -261,7 +332,7 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        <div ref={plannerRef}>
+        <div ref={plannerRef} id="planner-section">
           <ItineraryGenerator />
         </div>
 

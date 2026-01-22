@@ -3,8 +3,9 @@ import React from 'react';
 import { SERVICES } from '../constants.tsx';
 import { Service } from '../types.ts';
 
+// Defined missing interface for component props
 interface ServicesProps {
-  onEnquireService?: (serviceName: string) => void;
+  onEnquireService: (serviceName: string) => void;
 }
 
 const ServiceIcon = ({ name }: { name: string }) => {
@@ -46,7 +47,17 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
         <div className="absolute inset-0 z-0">
           <img 
             src="https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg" 
+            srcSet="
+              https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg?w=400 400w,
+              https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg?w=800 800w,
+              https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg?w=1200 1200w,
+              https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg?w=1600 1600w,
+              https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg?w=2400 2400w
+            "
+            sizes="100vw"
             alt="Luxury lodge interior" 
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover brightness-[0.65]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#002d04]/40 via-transparent to-[#002d04]/60" />
@@ -140,6 +151,8 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
                 <img 
                   src={service.image} 
                   alt={service.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110 grayscale group-hover:grayscale-0 brightness-90"
                 />
                 <div className="absolute inset-0 bg-[#002d04]/10 group-hover:bg-transparent transition-colors duration-700" />

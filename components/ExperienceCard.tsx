@@ -13,13 +13,25 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ destination, ind
   return (
     <article className={`flex flex-col mb-32 md:mb-64 reveal-trigger ${isEven ? 'md:pr-20' : 'md:pl-20 md:mt-48'}`} aria-labelledby={`exp-title-${destination.id}`}>
       <div className="relative mb-14 overflow-hidden group shadow-2xl shadow-stone-200/40 transition-shadow duration-[300ms] hover:shadow-stone-300/60">
-        <div className="reveal-image aspect-[4/5] overflow-hidden">
+        <div className="reveal-image aspect-[16/9] overflow-hidden bg-stone-50">
           <img 
             src={destination.images[0]} 
-            alt={`A breathtaking view of ${destination.name}, captured in authentic natural lighting to showcase its biodiversity.`}
+            srcSet={`
+              ${destination.images[0]}?w=400 400w,
+              ${destination.images[0]}?w=800 800w,
+              ${destination.images[0]}?w=1200 1200w,
+              ${destination.images[0]}?w=1600 1600w,
+              ${destination.images[0]}?w=2400 2400w
+            `}
+            sizes="
+              (max-width: 640px) 100vw,
+              (max-width: 1024px) 50vw,
+              33vw
+            "
+            alt={`Breathtaking view of ${destination.name} - ${destination.tagline}.`}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-110 grayscale brightness-90 hover:grayscale-0 hover:brightness-100"
+            className="destination-card-image"
           />
         </div>
         <div className="absolute top-8 right-8 mix-blend-difference text-white/50 text-[9px] uppercase tracking-[0.4em] font-light" aria-hidden="true">

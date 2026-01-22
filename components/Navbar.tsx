@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
               src="https://i.postimg.cc/bwx08cbS/Gemini-Generated-Image-6on0rk6on0rk6on0-(1).png" 
               alt="Kuzuri Escapades Logo" 
               className={`transition-all duration-500 object-contain ${
-                isScrolled ? 'h-12 md:h-14' : 'h-16 md:h-20'
+                isScrolled ? 'h-16 md:h-20' : 'h-24 md:h-32'
               }`}
             />
           </button>

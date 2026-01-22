@@ -47,7 +47,8 @@ export const AIChatBot: React.FC = () => {
 
   const initChat = () => {
     if (!chatRef.current) {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+      // Always use a named parameter for the API key and refer directly to process.env.API_KEY.
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       chatRef.current = ai.chats.create({
         model: 'gemini-3-flash-preview',
         config: {
@@ -91,6 +92,7 @@ export const AIChatBot: React.FC = () => {
     try {
       if (chatRef.current) {
         const response = await chatRef.current.sendMessage({ message: inputValue });
+        // Use response.text directly to access the generated content.
         const modelMsg: Message = {
           role: 'model',
           text: response.text || "I apologize, I couldn't process that request. How else can I help?",

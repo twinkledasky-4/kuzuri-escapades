@@ -7,7 +7,7 @@ export const HERO_SLIDES = [
     subtitle: 'The Primate Odyssey',
     title: 'A Private <br /><span className="italic font-light">Narrative Awaits.</span>',
     description: 'Venture into the ancient emerald mists of Bwindi, where the mountain gorilla reigns in profound silence.',
-    imageUrl: 'https://i.postimg.cc/w3F5dDyf/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
+    imageUrl: 'https://i.postimg.cc/dVLtYNBN/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
     type: 'image'
   },
   {
@@ -23,12 +23,31 @@ export const HERO_SLIDES = [
     subtitle: 'Aquatic Narratives',
     title: 'The Source <br /><span className="italic font-light">of Every Story.</span>',
     description: 'Drift upon the Albert Nile at dusk, witnessing the power of Murchison Falls in total, curated solitude.',
-    imageUrl: 'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg',
+    imageUrl: 'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
     type: 'image'
   }
 ];
 
 export const DESTINATIONS: Destination[] = [
+  {
+    id: 'queen-elizabeth',
+    name: 'Queen Elizabeth National Park',
+    slug: 'queen-elizabeth-plains',
+    tagline: 'Diverse ecosystems from savanna to rainforest',
+    description: 'The Medley of Wonders: Witness elephant herds bathing in the Kazinga Channel, track tree-climbing lions in Ishasha, and cruise past hippos and crocodiles on Africa\'s highest concentration of waterbirds.',
+    images: [
+      'https://i.postimg.cc/0yWvb5zq/herd-elephants-bathing-kazinga-channel-260nw-2690502067.jpg',
+      'https://i.postimg.cc/ZCR8Y0pg/Lake-Mburo-National-Park-750x450-1-750x450.jpg',
+      'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp'
+    ],
+    highlights: [
+      'Kazinga Channel Cruise: Glide past hippos, elephants, and buffalo along this 32km natural channel connecting Lake Edward and Lake George.',
+      'Tree-Climbing Lions: The rare sight of lions lounging in fig trees is unique to the Ishasha sector of this remarkable park.',
+      'Kyambura Gorge: A hidden valley of primates where chimpanzees swing through a subterranean rainforest.'
+    ],
+    featured: true,
+    order_index: 3
+  },
   {
     id: 'bwindi',
     name: 'Bwindi Impenetrable Forest',
@@ -36,9 +55,9 @@ export const DESTINATIONS: Destination[] = [
     tagline: 'Mists, Mountains & Monarchs',
     description: 'An ancient sanctuary where emerald canopies meet the clouds. Home to the mountain gorilla, this primal landscape offers a quiet, profound connection to our origins.',
     images: [
+      'https://i.postimg.cc/dVLtYNBN/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
       'https://i.postimg.cc/qzRsBgyD/images.jpg',
-      'https://i.postimg.cc/w3F5dDyf/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
-      'https://i.postimg.cc/hf59Xg0W/Tanzani-Wildlife-tour-1536x1152.jpg'
+      'https://i.postimg.cc/zf41FdSZ/Tourism-Destinations-in-Uganda-580x450.jpg'
     ],
     highlights: ['Gorilla Curation', 'Batwa Forest Wisdom', 'Silent Canopy Walks'],
     featured: true,
@@ -46,33 +65,22 @@ export const DESTINATIONS: Destination[] = [
   },
   {
     id: 'murchison',
-    name: 'Murchison Falls',
+    name: 'Murchison Falls National Park',
     slug: 'murchison-falls',
-    tagline: 'The Nile’s Powerful Pulse',
-    description: 'Where the Victoria Nile surges through a narrow gorge with thunderous power. A landscape of golden savannahs and aquatic giants.',
+    tagline: 'Where the Nile explodes through a narrow gorge',
+    description: 'Uganda\'s largest national park offers dramatic landscapes where the Victoria Nile crashes through a 7-meter gorge, creating the world\'s most powerful waterfall. Game drives reveal elephants, lions, giraffes, and over 450 bird species.',
     images: [
-      'https://i.postimg.cc/ykdm6WcP/beyond-uganda-national-parks-uncover-western-ugandas-hidden-gems-kitarafoundation-beyondnationalpark.webp',
+      'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
       'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg',
-      'https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg'
+      'https://i.postimg.cc/ykdm6WcP/beyond-uganda-national-parks-uncover-western-ugandas-hidden-gems-kitarafoundation-beyondnationalpark.webp'
     ],
-    highlights: ['The Nile Cascade', 'Delta Birding', 'River Cruising'],
+    highlights: [
+      'Game Drives: Big five encounters in diverse savanna landscapes.',
+      'Boat Safaris: Cruise the Nile to the base of the thundering falls.',
+      'Birding Paradise: 450+ species including the rare shoebill stork.'
+    ],
     featured: true,
     order_index: 2
-  },
-  {
-    id: 'queen-elizabeth',
-    name: 'Queen Elizabeth Plains',
-    slug: 'queen-elizabeth-plains',
-    tagline: 'Shadows of the Savannah',
-    description: 'A diverse tapestry of crater lakes and golden plains. Famous for tree-climbing lions and the wildlife-rich Kazinga Channel.',
-    images: [
-      'https://i.postimg.cc/ZCR8Y0pg/Lake-Mburo-National-Park-750x450-1-750x450.jpg',
-      'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp',
-      'https://i.postimg.cc/QHtQNVcM/Top-8-Safari-Activities-in-Uganda-750x450.jpg'
-    ],
-    highlights: ['Tree-Climbing Lions', 'Kazinga Channel', 'Explosion Craters'],
-    featured: true,
-    order_index: 3
   },
   {
     id: 'kidepo',
@@ -81,7 +89,7 @@ export const DESTINATIONS: Destination[] = [
     tagline: 'The Forgotten Eden',
     description: 'A rugged, remote frontier bordering Sudan. Kidepo offers a wild, untamed experience often called Africa’s most beautiful park.',
     images: [
-      'https://i.postimg.cc/w7vXx3Lr/Kara-Tunga-Tours-Life-in-Manyatta-5-e1643904828756.webp',
+      'https://i.postimg.cc/zf41FdSZ/Tourism-Destinations-in-Uganda-580x450.jpg',
       'https://i.postimg.cc/F7BjYmx4/Tourism-in-Uganda.jpg',
       'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg'
     ],
@@ -127,10 +135,9 @@ export const TOURS: Tour[] = [
       { day: 10, title: 'Return to Entebbe', detail: 'Scenic transfer and international departure.' }
     ],
     imageUrls: [
+      'https://i.postimg.cc/d03qBkbL/Kyambura-Game-Reserve-Chimpanzee-trekking-750x400.jpg',
       'https://i.postimg.cc/hf59Xg0W/Tanzani-Wildlife-tour-1536x1152.jpg',
-      'https://i.postimg.cc/QHtQNVcM/Top-8-Safari-Activities-in-Uganda-750x450.jpg',
-      'https://i.postimg.cc/F7BjYmxH/tour-of-karamoja-uganda-bicycle-event-stage-1-oct-2022-37.jpg',
-      'https://i.postimg.cc/xcCvjqMt/culture.jpg'
+      'https://i.postimg.cc/QHtQNVcM/Top-8-Safari-Activities-in-Uganda-750x450.jpg'
     ],
     featured: true,
     order_index: 1
@@ -172,9 +179,9 @@ export const TOURS: Tour[] = [
       { day: '13-14', title: 'The Source', detail: 'Return to Entebbe for international departure.' }
     ],
     imageUrls: [
+      'https://i.postimg.cc/Mpd6Vbrs/CTC-Conservation-center-lion-cubs-scaled.jpg',
       'https://i.postimg.cc/F7BjYmx4/Tourism-in-Uganda.jpg',
       'https://i.postimg.cc/MvFynxYJ/Tourism-Activities-in-Uganda.jpg',
-      'https://i.postimg.cc/vcNW4Mvm/Uganda-Food-Tours-and-Safaris-3.jpg',
       'https://i.postimg.cc/4md64npx/local-community-tourism.png'
     ],
     featured: true,
@@ -192,8 +199,8 @@ export const TOURS: Tour[] = [
     description: 'Witness the raw power of the Nile. A 4-day intensive safari through the delta and the thunderous falls.',
     highlights: ['Nile Boat Launch', 'Big Game Drives', 'Birding Safari'],
     imageUrls: [
-      'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg',
-      'https://i.postimg.cc/ykdm6WcP/beyond-uganda-national-parks-uncover-western-ugandas-hidden-gems-kitarafoundation-beyondnationalpark.webp'
+      'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
+      'https://i.postimg.cc/7f63Pb0N/best-african-safari-trips-tours.jpg'
     ],
     featured: true,
     order_index: 3

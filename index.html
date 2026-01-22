@@ -27,6 +27,7 @@
       background-color: var(--crisp-white);
       color: var(--jungle-green);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       scroll-behavior: smooth;
       overflow-x: hidden;
     }
@@ -35,10 +36,137 @@
       letter-spacing: -0.015em;
     }
 
-    /* Focus States for AA Compliance */
-    :focus-visible {
-      outline: 2px solid var(--savanna-gold);
-      outline-offset: 4px;
+    /* 
+       STANDARD IMPLEMENTATION PATTERN: Width & Max-Width Guidelines
+    */
+    .image-container-standard {
+      width: 100%;
+      max-width: 2400px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section {
+      position: relative;
+      width: 100%;
+      min-height: 90vh;
+      overflow: hidden;
+      background-color: var(--jungle-green);
+    }
+
+    .hero-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      
+      /* Enhanced sharpness for B&W image */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: none;
+      transition: transform 12s ease-out;
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 45, 4, 0.3) 0%,
+        rgba(0, 45, 4, 0.7) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      padding: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .destination-hero {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--jungle-green);
+    }
+
+    .destination-hero-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+
+    .destination-hero-content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      color: white;
+    }
+
+    .destination-hero-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .destination-hero-content .subtitle {
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--savanna-gold);
+    }
+
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .highlight h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--jungle-green);
+    }
+
+    .destination-card-image, .package-card-image {
+      width: 100%;
+      max-width: 2400px;
+      margin: 0 auto;
+      display: block;
+      height: auto;
+      object-fit: cover;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: high-quality;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Prevent upscaling on ultra-wide screens */
+    img {
+      max-width: 100%;
+      height: auto;
     }
 
     /* Custom Reveal Animations */
@@ -56,6 +184,7 @@
     .reveal-image {
       clip-path: inset(0 0 100% 0);
       transition: clip-path 2s cubic-bezier(0.77, 0, 0.175, 1);
+      will-change: clip-path;
     }
     .reveal-image.is-visible {
       clip-path: inset(0 0 0 0);

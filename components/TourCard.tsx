@@ -36,27 +36,39 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
 
   return (
     <article 
-      className="group flex flex-col bg-white overflow-hidden transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-[0_40px_80px_-20px_rgba(0,45,4,0.12)] border border-stone-50 h-full relative"
+      className="group flex flex-col bg-white overflow-hidden transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-[0_40px_80px_-20px_rgba(0,45,4,0.12)] border border-stone-50 h-full relative rounded-[8px]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Featured image with gradient overlay */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-stone-100">
+      <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
         {tour.imageUrls.map((url, idx) => (
           <div 
             key={url}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+            className={`carousel-slide absolute inset-0 transition-opacity duration-1000 ease-out ${
               idx === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <img 
               src={url} 
-              alt={`${tour.name} view ${idx + 1}`}
+              srcSet={`
+                ${url}?w=400 400w,
+                ${url}?w=800 800w,
+                ${url}?w=1200 1200w,
+                ${url}?w=1600 1600w,
+                ${url}?w=2400 2400w
+              `}
+              sizes="
+                (max-width: 640px) 100vw,
+                (max-width: 1024px) 50vw,
+                33vw
+              "
+              alt={`${tour.name} perspective ${idx + 1}`}
               loading="lazy"
               decoding="async"
-              className={`w-full h-full object-cover transition-transform duration-[6000ms] ease-out ${
-                idx === currentIndex ? 'scale-110' : 'scale-100'
-              } brightness-[0.85] group-hover:brightness-95`}
+              className={`package-card-image transition-transform duration-[6000ms] ease-out ${
+                idx === currentIndex ? 'scale-105' : 'scale-100'
+              }`}
             />
           </div>
         ))}
@@ -233,8 +245,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
       <style>{`
         @keyframes modalReveal {
           from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+          to { opacity: 1; transform: translateY(0); } }
         .animate-modal-reveal { animation: modalReveal 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
       `}</style>
     </article>

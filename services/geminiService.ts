@@ -3,7 +3,8 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { TravelPreferences } from "../types.ts";
 
 export const generateItinerary = async (prefs: TravelPreferences) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+  // Always use a named parameter for the API key.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const systemInstruction = `You are the Lead Curator at Kuzuri Escapades. Your voice is refined yet inviting, knowledgeable but never lecturing, and warm without being casual. 
   You specialize in "Sur Mesure" (custom-made) luxury travel in Uganda. 
@@ -52,5 +53,6 @@ export const generateItinerary = async (prefs: TravelPreferences) => {
     }
   });
 
+  // response.text returns the extracted string output directly.
   return JSON.parse(response.text);
 };
