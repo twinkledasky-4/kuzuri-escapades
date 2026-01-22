@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export const WhyKuzuri: React.FC = () => {
@@ -21,31 +20,33 @@ export const WhyKuzuri: React.FC = () => {
   ];
 
   return (
-    <section className="py-32 md:py-64 bg-white border-y border-stone-50" aria-labelledby="distinction-title">
-      <div className="container mx-auto px-8 md:px-20 lg:px-24">
-        <div className="max-w-screen-2xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start mb-24 md:mb-32">
-            <div className="max-w-2xl">
-              <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[10px] mb-8 font-bold">THE DISTINCTION</p>
-              <h2 id="distinction-title" className="text-5xl md:text-7xl font-serif text-[#002d04] tracking-tighter leading-tight">
-                A refined standard <br /><span className="italic font-light text-stone-300">of private stewardship.</span>
-              </h2>
-            </div>
+    <section className="bg-[#FAF8F3] border-y-2 border-[#1A1A1A]" aria-labelledby="distinction-title">
+      <div className="py-24 md:py-32 bg-[#FAF8F3] border-b-2 border-[#1A1A1A]">
+        <div className="container mx-auto px-8 md:px-20 lg:px-24">
+          <div className="max-w-2xl">
+            <p className="text-[#8B5A2B] uppercase tracking-[0.8em] text-[10px] mb-8 font-bold">THE DISTINCTION</p>
+            <h2 id="distinction-title" className="text-5xl md:text-7xl font-serif font-bold text-[#1A1A1A] tracking-tighter leading-tight">
+              A refined standard <br /><span className="italic font-light text-[#654321]">of private stewardship.</span>
+            </h2>
           </div>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-24 lg:gap-32">
+      <div className="py-24 md:py-48 bg-[#F5F5DC]">
+        <div className="container mx-auto px-8 md:px-20 lg:px-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {distinctions.map((item, idx) => (
-              <div key={idx} className="group relative pt-12 md:pt-16 border-t border-stone-100 hover:border-[#d4af37] transition-colors duration-700">
-                <span className="absolute top-0 left-0 text-[10px] font-bold text-[#d4af37] mt-6 tracking-widest opacity-40 group-hover:opacity-100 transition-opacity" aria-hidden="true">
-                  {item.number}
+              <div key={idx} className="group relative p-10 md:p-12 bg-[#F5F5DC] border-2 border-[#1A1A1A] hover:bg-[#FAF8F3] transition-all duration-700 shadow-sm hover:shadow-xl">
+                <span className="text-[12px] font-bold text-[#654321] tracking-widest opacity-60 group-hover:opacity-100 transition-opacity block mb-8" aria-hidden="true">
+                  DISTINCTION {item.number}
                 </span>
-                <h3 className="text-2xl font-serif text-[#002d04] mb-6 md:mb-8 group-hover:italic transition-all duration-500">
+                <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-8 group-hover:italic transition-all duration-700 tracking-wide">
                   {item.title}
                 </h3>
-                <p className="text-stone-400 font-light leading-relaxed tracking-wide text-lg">
+                <p className="text-[#1A1A1A] font-normal leading-relaxed tracking-wide text-lg opacity-80">
                   {item.description}
                 </p>
-                <div className="mt-12 h-[1px] w-0 bg-[#d4af37] group-hover:w-full transition-all duration-[800ms] ease-in-out opacity-20" aria-hidden="true" />
+                <div className="mt-12 h-[4px] w-0 bg-[#D4AF37] group-hover:w-full transition-all duration-[800ms] ease-in-out" aria-hidden="true" />
               </div>
             ))}
           </div>

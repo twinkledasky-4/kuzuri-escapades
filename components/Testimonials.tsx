@@ -1,89 +1,57 @@
+import React from 'react';
+import { Review } from '../types.ts';
+import { ReviewCarousel } from './ReviewCarousel.tsx';
+import { StarRating } from './StarRating.tsx';
 
-import React, { useState, useEffect } from 'react';
+interface TestimonialsProps {
+  onNavigateToAll?: () => void;
+  reviews: Review[];
+  onHelpfulClick?: (id: string | number) => void;
+}
 
-const TESTIMONIALS = [
-  {
-    quote: "The silence of the Bwindi forest was only matched by the profound silence of Lucky’s logistics. Every transition was invisible, every moment was profound. Impeccable.",
-    client: "Julianne Moore",
-    origin: "United Kingdom"
-  },
-  {
-    quote: "We didn't just see Uganda; we felt its heartbeat. Kuzuri is the only way to experience the Pearl. It's a masterclass in private curation and deep respect for the wild.",
-    client: "Robert Keller",
-    origin: "Switzerland"
-  },
-  {
-    quote: "A journey that transcends travel. It felt less like a tour and more like an intimate dialogue with the landscape. The Lucky .K touch is truly real.",
-    client: "Elena Vasiliev",
-    origin: "Monaco"
-  }
-];
-
-export const Testimonials: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [activeIndex]);
-
-  const handleNext = () => {
-    setIsFading(true);
-    setTimeout(() => {
-      setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-      setIsFading(false);
-    }, 800);
-  };
+export const Testimonials: React.FC<TestimonialsProps> = ({ onNavigateToAll, reviews, onHelpfulClick }) => {
+  const publishedReviews = reviews.filter(r => r.published);
 
   return (
-    <section className="py-64 bg-white overflow-hidden">
-      <div className="container mx-auto px-8 md:px-20">
-        <div className="max-w-5xl mx-auto relative">
-          {/* Decorative Quote Mark */}
-          <div className="absolute -top-16 -left-12 text-[#d4af37]/10 text-[20rem] font-serif select-none pointer-events-none">
-            &ldquo;
-          </div>
-
-          <div className={`transition-all duration-1000 ease-in-out transform ${isFading ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-            <p className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#002d04] leading-[1.3] mb-20 italic">
-              {TESTIMONIALS[activeIndex].quote}
+    <section 
+      className="py-24 md:py-32 border-t-2 border-b-2 border-black selection:bg-[#1A1A1A] selection:text-[#D4AF37]" 
+      style={{ backgroundColor: '#FAF8F3' }}
+      aria-labelledby="testimonial-heading"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Section Header */}
+        <div className="text-center mb-16 reveal-trigger">
+          <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-6">THE FEEDBACK</p>
+          <h2 id="testimonial-heading" className="text-4xl md:text-6xl font-serif font-bold mb-6" style={{ color: '#1A1A1A' }}>
+            Trusted by Global <span className="italic font-light">Adventurers</span>
+          </h2>
+          <p className="text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto opacity-80" style={{ color: '#654321' }}>
+            Hear what our clients have to say about their transformative Kuzuri experiences.
+          </p>
+          
+          {/* Reusable Star Rating Summary */}
+          <div className="flex flex-col items-center gap-4">
+            <StarRating rating={5} size={24} interactive={false} showText={false} />
+            <p className="text-[11px] uppercase tracking-[0.4em] font-black" style={{ color: '#8B5A2B' }}>
+              4.9/5 Stars • 150+ Verified Reviews
             </p>
-            
-            <div className="flex items-center gap-8">
-              <div className="h-[1px] w-12 bg-[#d4af37]"></div>
-              <div className="flex flex-col">
-                <span className="text-[11px] uppercase tracking-[0.6em] font-bold text-[#002d04]">
-                  {TESTIMONIALS[activeIndex].client}
-                </span>
-                <span className="text-[9px] uppercase tracking-[0.4em] text-stone-300 mt-2 font-medium">
-                  {TESTIMONIALS[activeIndex].origin}
-                </span>
-              </div>
-            </div>
           </div>
+        </div>
 
-          {/* Navigation Dots */}
-          <div className="flex gap-4 mt-24">
-            {TESTIMONIALS.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  if (idx !== activeIndex) {
-                    setIsFading(true);
-                    setTimeout(() => {
-                      setActiveIndex(idx);
-                      setIsFading(false);
-                    }, 500);
-                  }
-                }}
-                className={`h-[2px] transition-all duration-700 ${idx === activeIndex ? 'w-12 bg-[#d4af37]' : 'w-6 bg-stone-100 hover:bg-stone-200'}`}
-                aria-label={`Go to testimonial ${idx + 1}`}
-              />
-            ))}
-          </div>
+        {/* Review Carousel */}
+        <div className="reveal-trigger">
+          <ReviewCarousel reviews={publishedReviews} onHelpfulClick={onHelpfulClick} />
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center mt-20 reveal-trigger">
+          <button
+            onClick={onNavigateToAll}
+            className="px-12 py-5 border-2 border-black font-black uppercase tracking-[0.5em] text-[11px] transition-all duration-700 hover:bg-[#1A1A1A] hover:text-[#D4AF37] hover:scale-105 shadow-xl"
+            style={{ backgroundColor: '#D4AF37', color: '#1A1A1A' }}
+          >
+            View All Reviews
+          </button>
         </div>
       </div>
     </section>

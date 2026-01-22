@@ -1,4 +1,3 @@
-
 export interface Destination {
   id: string;
   name: string;
@@ -48,6 +47,30 @@ export interface Service {
   typeLabel?: string;
 }
 
+export interface ReviewResponse {
+  author: string;
+  text: string;
+  date: string;
+}
+
+export interface Review {
+  id: number | string;
+  clientName: string;
+  email?: string;
+  country: string;
+  countryCode: string;
+  tripTaken: string;
+  rating: number;
+  comment: string;
+  date: string;
+  verified: boolean;
+  approved: boolean;
+  published: boolean;
+  responses: ReviewResponse[];
+  helpful: number;
+  images?: string[];
+}
+
 export interface ItineraryDay {
   day: number;
   location: string;
@@ -69,5 +92,7 @@ export enum AppSection {
   SERVICES = 'services',
   PLANNER = 'planner',
   ABOUT = 'about',
+  CONTACT = 'contact',
+  TESTIMONIALS = 'testimonials',
   ADMIN = 'admin'
 }

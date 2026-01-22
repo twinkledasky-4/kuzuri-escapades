@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
+import { GoogleGenAI, Chat } from "@google/genai";
 import { KUZURI_KNOWLEDGE_BASE } from '../constants/knowledge.ts';
 
 interface Message {
@@ -16,7 +15,7 @@ export const AIChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      text: "Hello! 👋 I'm your Kuzuri travel assistant. I can help you with destination recommendations, tour package details, service inquiries, and more. How may I assist you today?",
+      text: "Greetings. I am your Kuzuri concierge assistant. I can guide you through our territories, curated odysseys, and bespoke services. How may I assist your vision today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -29,9 +28,9 @@ export const AIChatBot: React.FC = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setOpacity(0.7); // Scroll down
+        setOpacity(0.7);
       } else {
-        setOpacity(1); // Scroll up or at top
+        setOpacity(1);
       }
       lastScrollY.current = currentScrollY;
     };
@@ -47,27 +46,24 @@ export const AIChatBot: React.FC = () => {
 
   const initChat = () => {
     if (!chatRef.current) {
-      // Always use a named parameter for the API key and refer directly to process.env.API_KEY.
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       chatRef.current = ai.chats.create({
         model: 'gemini-3-flash-preview',
         config: {
-          systemInstruction: `You are the Kuzuri Travel Assistant, a luxury travel concierge for Kuzuri Escapades.
+          systemInstruction: `You are the Kuzuri Concierge, a high-end luxury travel assistant for Kuzuri Escapades.
           
           KNOWLEDGE BASE:
           ${KUZURI_KNOWLEDGE_BASE}
           
           TONE & STYLE:
-          - Refined, professional, and warm (never robotic)
-          - Use "we" when referring to Kuzuri
-          - Enthusiastic about Uganda's beauty
-          - Concise but comprehensive, maintaining "Silent Luxury"
+          - Extremely refined, professional, and knowledgeable.
+          - Use "we" and maintain an aura of "Silent Luxury".
+          - Be helpful but never overly casual.
           
           RULES:
-          - Answer questions strictly based on the provided Knowledge Base.
-          - If asked about bookings, guide users to WhatsApp: +256 708 012030.
-          - If asked about pricing, use specific amounts from the KB.
-          - If info is missing, politely say so and offer to connect with a human agent (Lucky .K).`,
+          - Use the Knowledge Base strictly.
+          - Guide bookings to WhatsApp: +256 708 012030 or Email: info@kuzuri-escapades.com.
+          - Offer specific prices from the KB.`,
         },
       });
     }
@@ -83,8 +79,6 @@ export const AIChatBot: React.FC = () => {
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
     
-    console.log(`[Monitoring] Chat user query: ${inputValue}`);
-    
     setMessages(prev => [...prev, userMsg]);
     setInputValue('');
     setIsLoading(true);
@@ -92,10 +86,9 @@ export const AIChatBot: React.FC = () => {
     try {
       if (chatRef.current) {
         const response = await chatRef.current.sendMessage({ message: inputValue });
-        // Use response.text directly to access the generated content.
         const modelMsg: Message = {
           role: 'model',
-          text: response.text || "I apologize, I couldn't process that request. How else can I help?",
+          text: response.text || "I apologize, I couldn't process that vision. Please reach out to our human curators at info@kuzuri-escapades.com.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         setMessages(prev => [...prev, modelMsg]);
@@ -104,7 +97,7 @@ export const AIChatBot: React.FC = () => {
       console.error("Chat error:", error);
       setMessages(prev => [...prev, {
         role: 'model',
-        text: "I apologize, I'm experiencing a brief technical issue. Please reach out via WhatsApp (+256 708 012030) and our team will assist you immediately.",
+        text: "I apologize, our digital concierge is currently unavailable. Please reach out via WhatsApp (+256 708 012030) or Email (info@kuzuri-escapades.com).",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } finally {
@@ -114,65 +107,49 @@ export const AIChatBot: React.FC = () => {
 
   return (
     <>
-      {/* Floating Trigger Button */}
       <button
-        onClick={() => {
-          setIsOpen(true);
-          console.log('[Monitoring] Chat widget opened');
-        }}
-        className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[1000] flex items-center justify-center w-[48px] h-[48px] md:w-[56px] md:h-[56px] rounded-full bg-[#002d04] shadow-[0_4px_12px_rgba(0,45,4,0.3)] transition-all duration-500 transform hover:scale-110 active:scale-95 focus:outline-none animate-fab-pulse-once`}
+        onClick={() => setIsOpen(true)}
+        className={`fixed bottom-6 right-6 z-[1000] flex items-center justify-center w-[60px] h-[60px] rounded-full bg-[#1A1A1A] border-2 border-[#D4AF37] shadow-2xl transition-all duration-700 transform hover:scale-110 active:scale-95 focus:outline-none`}
         style={{ opacity }}
         aria-label="Open AI Assistant"
       >
-        <svg className="w-6 h-6 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        <svg className="w-7 h-7 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
         </svg>
       </button>
 
-      {/* Chat Window Interface */}
       <div 
-        className={`fixed inset-0 md:inset-auto md:bottom-6 md:right-[96px] z-[1001] transition-all duration-700 ease-in-out transform ${
+        className={`fixed inset-0 md:inset-auto md:bottom-10 md:right-[100px] z-[1001] transition-all duration-1000 cubic-bezier(0.19, 1, 0.22, 1) transform ${
           isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
-        } bg-white md:rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.15)] md:w-[380px] md:h-[600px] flex flex-col overflow-hidden border border-stone-100`}
+        } bg-[#F5F5DC] md:rounded-2xl shadow-2xl md:w-[400px] md:h-[650px] flex flex-col overflow-hidden border-2 border-[#1A1A1A]`}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#002d04] to-[#004d08] p-6 flex justify-between items-center text-white shrink-0">
+        <div className="bg-[#1A1A1A] p-8 flex justify-between items-center text-white shrink-0 border-b-2 border-[#D4AF37]">
           <div>
-            <h3 className="text-lg font-serif tracking-wide">Kuzuri Travel Assistant</h3>
-            <p className="text-[9px] uppercase tracking-[0.3em] opacity-60">Powered by AI</p>
+            <h3 className="text-xl font-serif tracking-tight text-white">Digital Concierge</h3>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-[#D4AF37] mt-1 font-bold">Kuzuri Escapades</p>
           </div>
-          <button 
-            onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-white/10 rounded-full transition-colors"
-            aria-label="Close chat"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+          <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
         </div>
 
-        {/* Message Area */}
-        <div 
-          ref={scrollRef}
-          className="flex-grow overflow-y-auto p-6 space-y-6 bg-white scroll-smooth"
-        >
+        {/* Messages */}
+        <div ref={scrollRef} className="flex-grow overflow-y-auto p-8 space-y-8 bg-[#F5F5DC]">
           {messages.map((msg, idx) => (
             <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-              <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${
+              <div className={`max-w-[85%] p-5 text-sm leading-relaxed tracking-wide border-2 border-[#1A1A1A] ${
                 msg.role === 'user' 
-                  ? 'bg-[#d4af37] text-white rounded-tr-none' 
-                  : 'bg-stone-100 text-[#002d04] border border-stone-50 rounded-tl-none'
+                  ? 'bg-[#8B5A2B] text-white shadow-lg' 
+                  : 'bg-white text-[#1A1A1A] shadow-sm'
               }`}>
                 {msg.text}
               </div>
-              <span className="text-[11px] text-stone-300 mt-2 font-medium tracking-tighter opacity-70">
-                {msg.timestamp}
-              </span>
+              <span className="text-[10px] text-stone-600 mt-3 font-bold uppercase tracking-widest">{msg.timestamp}</span>
             </div>
           ))}
           {isLoading && (
-            <div className="flex items-center gap-2 text-stone-200 animate-pulse px-2">
+            <div className="flex items-center gap-3 text-stone-400 animate-pulse px-2">
               <div className="w-1.5 h-1.5 bg-current rounded-full" />
               <div className="w-1.5 h-1.5 bg-current rounded-full" />
               <div className="w-1.5 h-1.5 bg-current rounded-full" />
@@ -180,29 +157,21 @@ export const AIChatBot: React.FC = () => {
           )}
         </div>
 
-        {/* Input Area */}
-        <div className="p-6 border-t border-stone-100 bg-white shrink-0">
+        {/* Input */}
+        <div className="p-8 border-t-2 border-[#1A1A1A] bg-white shrink-0">
           <div className="relative flex items-center">
             <input 
               type="text"
-              placeholder="Ask about destinations, packages..."
-              className="w-full pl-0 pr-12 py-3 bg-transparent border-b border-stone-100 text-sm focus:border-[#d4af37] outline-none transition-all font-light"
+              placeholder="How shall we author your odyssey?"
+              className="w-full py-4 px-6 bg-white border-2 border-[#1A1A1A] text-sm focus:border-[#8B5A2B] outline-none transition-all font-light text-[#1A1A1A]"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              maxLength={500}
             />
-            <button 
-              onClick={handleSend}
-              disabled={isLoading || !inputValue.trim()}
-              className="absolute right-0 p-2 text-[#d4af37] disabled:text-stone-200 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-              </svg>
+            <button onClick={handleSend} disabled={isLoading || !inputValue.trim()} className="absolute right-4 p-2 text-[#8B5A2B] hover:text-[#D4AF37]">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" /></svg>
             </button>
           </div>
-          <p className="text-[8px] text-stone-300 mt-4 text-center uppercase tracking-[0.2em] font-medium">Your private travel dialogue</p>
         </div>
       </div>
     </>

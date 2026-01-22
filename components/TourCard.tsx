@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { Tour } from '../types.ts';
 
@@ -22,7 +21,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
 
   useEffect(() => {
     if (isPaused || showDetails) return;
-    const interval = setInterval(handleNext, 4000);
+    const interval = setInterval(handleNext, 4500);
     return () => clearInterval(interval);
   }, [isPaused, showDetails, handleNext]);
 
@@ -32,221 +31,153 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
     maximumFractionDigits: 0
   }).format(tour.price_from);
 
-  const durationString = `${tour.duration_days} Days / ${tour.duration_nights} Nights`;
-
   return (
     <article 
-      className="group flex flex-col bg-white overflow-hidden transition-all duration-700 ease-out hover:-translate-y-4 hover:shadow-[0_40px_80px_-20px_rgba(0,45,4,0.12)] border border-stone-50 h-full relative rounded-[8px]"
+      className="group flex flex-col bg-[#F5F5DC] overflow-hidden transition-all duration-1000 ease-out hover:-translate-y-2 hover:shadow-xl border-2 border-[#1A1A1A] h-full relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Featured image with gradient overlay */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+      {/* Featured image carousel */}
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#FAF8F3] border-b-2 border-[#1A1A1A]">
         {tour.imageUrls.map((url, idx) => (
           <div 
             key={url}
-            className={`carousel-slide absolute inset-0 transition-opacity duration-1000 ease-out ${
-              idx === currentIndex ? 'opacity-100' : 'opacity-0'
+            className={`carousel-slide absolute inset-0 transition-opacity duration-1500 ease-in-out ${
+              idx === currentIndex ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
             }`}
           >
             <img 
               src={url} 
-              srcSet={`
-                ${url}?w=400 400w,
-                ${url}?w=800 800w,
-                ${url}?w=1200 1200w,
-                ${url}?w=1600 1600w,
-                ${url}?w=2400 2400w
-              `}
-              sizes="
-                (max-width: 640px) 100vw,
-                (max-width: 1024px) 50vw,
-                33vw
-              "
-              alt={`${tour.name} perspective ${idx + 1}`}
+              alt={`${tour.name} view ${idx + 1}`}
               loading="lazy"
               decoding="async"
-              className={`package-card-image transition-transform duration-[6000ms] ease-out ${
-                idx === currentIndex ? 'scale-105' : 'scale-100'
-              }`}
+              className="w-full h-full object-cover transition-transform duration-[8000ms] ease-linear"
             />
           </div>
         ))}
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#002d04]/60 via-transparent to-transparent opacity-60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
         
-        {/* Carousel Dots */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-20">
-          {tour.imageUrls.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={(e) => { e.stopPropagation(); setCurrentIndex(idx); }}
-              className={`h-[2px] transition-all duration-500 rounded-full ${
-                idx === currentIndex ? 'w-8 bg-[#d4af37]' : 'w-3 bg-white/40 hover:bg-white/70'
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
+        <div className="absolute inset-x-0 bottom-0 p-8 flex justify-between items-end z-20">
+          <div className="flex gap-2">
+            {tour.imageUrls.map((_, idx) => (
+              <div 
+                key={idx}
+                className={`h-[2px] transition-all duration-1000 ${
+                  idx === currentIndex ? 'w-8 bg-[#D4AF37]' : 'w-3 bg-white/30'
+                }`}
+              />
+            ))}
+          </div>
+          <div className="text-white text-[10px] uppercase tracking-[0.3em] font-bold opacity-80">
+            0{currentIndex + 1} / 0{tour.imageUrls.length}
+          </div>
         </div>
 
-        {/* Arrows on Hover */}
-        <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <button 
-            onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-            className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-[#002d04] transition-all pointer-events-auto"
-            aria-label="Previous image"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/></svg>
-          </button>
-          <button 
-            onClick={(e) => { e.stopPropagation(); handleNext(); }}
-            className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-[#002d04] transition-all pointer-events-auto"
-            aria-label="Next image"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/></svg>
-          </button>
-        </div>
-
-        {/* Duration Badge (Top-Left) */}
         <div className="absolute top-6 left-0 z-10">
-          <span className="inline-block bg-[#002d04] text-[#d4af37] text-[8px] uppercase tracking-[0.5em] font-bold py-2 px-5 translate-x-[-10px] group-hover:translate-x-0 transition-transform duration-500 shadow-xl">
-            {durationString}
+          <span className="inline-block bg-[#1A1A1A] text-[#F5F5DC] text-[9px] uppercase tracking-[0.4em] font-bold py-3 px-6 shadow-2xl">
+            {tour.duration_days} Days / {tour.duration_nights} Nights
           </span>
         </div>
 
-        {/* Price Tag (Top-Right, Savanna Gold) */}
         <div className="absolute top-6 right-6 z-10">
-          <div className="bg-[#d4af37] text-[#002d04] px-4 py-2 shadow-lg flex flex-col items-center">
-            <span className="text-[7px] uppercase tracking-[0.2em] font-bold opacity-60">From</span>
-            <span className="text-[14px] font-serif font-bold tracking-tight">{formattedPrice}</span>
+          <div className="bg-[#FAF8F3] text-[#1A1A1A] px-5 py-3 shadow-2xl text-center border-2 border-[#1A1A1A]">
+            <span className="block text-[8px] uppercase tracking-[0.1em] text-[#654321] opacity-80 mb-1 font-bold">From</span>
+            <span className="text-[18px] font-serif font-bold text-[#D4AF37] tracking-tight">{formattedPrice}</span>
           </div>
         </div>
       </div>
 
-      {/* Card Content Section */}
-      <div className="pt-8 pb-10 px-8 flex flex-col items-start flex-grow bg-white">
+      <div className="pt-10 pb-12 px-8 flex flex-col items-start flex-grow">
         {tour.category && (
-          <p className="text-[#d4af37] text-[8px] uppercase tracking-[0.4em] font-bold mb-3">{tour.category}</p>
+          <p className="text-[#8B5A2B] text-[10px] uppercase tracking-[0.6em] font-bold mb-4">{tour.category}</p>
         )}
-        <h3 className="text-[24px] font-serif text-[#002d04] mb-4 leading-tight tracking-tight group-hover:italic transition-all duration-500">
+        <h3 className="text-[26px] font-serif font-bold text-[#1A1A1A] mb-6 leading-[1.2] tracking-[0.05em] group-hover:italic transition-all duration-1000">
           {tour.name}
         </h3>
         
-        <p className="text-stone-500 text-sm font-light leading-relaxed mb-6 tracking-wide line-clamp-2">
+        <p className="text-[#1A1A1A] text-base font-normal leading-relaxed mb-8 tracking-wide line-clamp-3 opacity-90">
           {tour.description}
         </p>
 
-        {/* Key Highlights (Bullet Points) */}
-        <div className="mb-8 flex flex-col gap-2">
-          {tour.highlights.slice(0, 4).map((feature, fIdx) => (
-            <div key={fIdx} className="flex items-center gap-3">
-              <span className="w-1 h-1 bg-[#d4af37] rounded-full" />
-              <span className="text-[10px] uppercase tracking-[0.15em] text-stone-400 font-medium">
+        <div className="mb-10 space-y-4">
+          {tour.highlights.slice(0, 3).map((feature, fIdx) => (
+            <div key={fIdx} className="flex items-start gap-4">
+              <span className="w-1.5 h-1.5 bg-[#8B5A2B] rounded-full mt-1.5 shrink-0" />
+              <span className="text-[11px] uppercase tracking-[0.2em] text-[#1A1A1A] font-bold leading-relaxed">
                 {feature}
               </span>
             </div>
           ))}
         </div>
 
-        <div className="mt-auto w-full flex flex-col gap-4 pt-6 border-t border-stone-100">
+        <div className="mt-auto w-full flex flex-col gap-4 pt-8 border-t-2 border-[#1A1A1A]">
           <button 
             onClick={() => setShowDetails(true)}
-            className="w-full py-4 text-[9px] uppercase tracking-[0.4em] font-bold text-[#002d04] border border-[#002d04]/10 hover:bg-[#002d04] hover:text-white transition-all duration-500"
+            className="w-full py-4 text-[10px] uppercase tracking-[0.5em] font-bold border-2 border-[#1A1A1A] bg-[#FAF8F3] text-[#1A1A1A] hover:bg-[#8B5A2B] hover:text-[#F5F5DC] transition-all duration-500"
           >
             View Full Itinerary
           </button>
           
           <button 
             onClick={() => onRequestBooking(tour)}
-            className="w-full py-4 bg-[#002d04] text-white text-[9px] uppercase tracking-[0.4em] font-bold hover:bg-[#d4af37] transition-all duration-500 shadow-lg"
+            className="w-full py-4 border-2 border-[#1A1A1A] bg-[#8B5A2B] text-[#F5F5DC] text-[10px] uppercase tracking-[0.5em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500"
           >
-            Request Booking
+            Request Manifest
           </button>
         </div>
       </div>
 
-      {/* Expanded Detail View Overlay */}
       {showDetails && (
-        <div className="absolute inset-0 z-[30] bg-white animate-modal-reveal flex flex-col p-8 overflow-y-auto">
+        <div className="absolute inset-0 z-[30] bg-[#F5F5DC] animate-modal-reveal flex flex-col p-8 md:p-12 overflow-y-auto border-2 border-[#1A1A1A]">
           <button 
             onClick={() => setShowDetails(false)}
-            className="absolute top-6 right-6 text-stone-300 hover:text-[#002d04] p-2"
+            className="absolute top-8 right-8 text-[#1A1A1A] hover:text-red-600 p-2 transition-colors z-50"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
           
-          <p className="text-[#d4af37] uppercase tracking-[0.5em] text-[9px] font-bold mb-4">{tour.category || 'Itinerary'}</p>
-          <h4 className="text-3xl font-serif text-[#002d04] mb-8 italic">{tour.name}</h4>
+          <p className="text-[#8B5A2B] uppercase tracking-[0.8em] text-[10px] font-bold mb-4">{tour.category || 'Odyssey'}</p>
+          <h4 className="text-3xl md:text-4xl font-serif font-bold text-[#1A1A1A] mb-10 italic tracking-[0.05em]">{tour.name}</h4>
           
-          <div className="space-y-12 pb-20">
+          <div className="space-y-12 pb-24">
             {tour.itinerary && (
               <div>
-                <h5 className="text-[10px] uppercase tracking-[0.4em] font-bold text-stone-400 mb-8 border-b border-stone-100 pb-2">The Narrative Arc</h5>
+                <h5 className="text-[11px] uppercase tracking-[0.5em] font-bold text-[#654321] mb-8 border-b-2 border-[#1A1A1A] pb-4">The Narrative Arc</h5>
                 <div className="space-y-8">
                   {tour.itinerary.map((item, idx) => (
-                    <div key={idx} className="flex gap-6 items-start">
-                      <div className="flex flex-col items-center">
-                        <span className="text-[10px] font-bold text-[#d4af37] whitespace-nowrap">Day {item.day}</span>
-                        <div className="w-[1px] h-full bg-stone-100 mt-2" />
+                    <div key={idx} className="flex gap-8 items-start">
+                      <div className="flex flex-col items-center pt-2">
+                        <span className="text-[10px] font-bold text-[#8B5A2B] uppercase tracking-widest whitespace-nowrap">Day {item.day}</span>
+                        <div className="w-[2px] h-full bg-[#8B5A2B] mt-4" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-base font-serif italic text-[#002d04] mb-1">{item.title}</span>
-                        <span className="text-xs text-stone-400 font-light leading-relaxed">{item.detail}</span>
+                        <span className="text-xl font-serif font-bold text-[#1A1A1A] mb-2">{item.title}</span>
+                        <span className="text-sm text-[#1A1A1A] font-normal leading-relaxed tracking-wide opacity-80">{item.detail}</span>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
             )}
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-stone-50 pt-10">
-              {tour.inclusions && tour.inclusions.length > 0 && (
-                <div>
-                  <h5 className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#002d04] mb-6">Inclusions</h5>
-                  <ul className="space-y-3">
-                    {tour.inclusions.map((inc, idx) => (
-                      <li key={idx} className="flex gap-3 text-xs text-stone-500 font-light">
-                        <span className="text-[#d4af37] font-bold">✓</span> {inc}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {tour.exclusions && tour.exclusions.length > 0 && (
-                <div>
-                  <h5 className="text-[10px] uppercase tracking-[0.4em] font-bold text-stone-300 mb-6">Exclusions</h5>
-                  <ul className="space-y-3">
-                    {tour.exclusions.map((exc, idx) => (
-                      <li key={idx} className="flex gap-3 text-xs text-stone-400 font-light italic">
-                        <span className="text-stone-300">✗</span> {exc}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
           </div>
 
-          <div className="sticky bottom-0 left-0 right-0 pt-6 pb-2 bg-white border-t border-stone-100">
+          <div className="sticky bottom-0 left-0 right-0 pt-8 pb-4 bg-[#F5F5DC] border-t-2 border-[#1A1A1A] z-40">
             <button 
-              className="w-full py-6 bg-[#002d04] text-white text-[10px] uppercase tracking-[0.6em] font-bold hover:bg-[#d4af37] transition-all shadow-2xl"
-              onClick={() => {
-                setShowDetails(false);
-                onRequestBooking(tour);
-              }}
+              className="w-full py-6 border-2 border-[#1A1A1A] bg-[#8B5A2B] text-[#F5F5DC] text-[11px] uppercase tracking-[0.6em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 shadow-2xl"
+              onClick={() => { setShowDetails(false); onRequestBooking(tour); }}
             >
-              Consult for Booking
+              Consult Our Curators
             </button>
           </div>
         </div>
       )}
       <style>{`
         @keyframes modalReveal {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); } }
-        .animate-modal-reveal { animation: modalReveal 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-modal-reveal { animation: modalReveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
       `}</style>
     </article>
   );

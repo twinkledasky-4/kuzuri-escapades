@@ -1,6 +1,6 @@
 {
-  "name": "Copy of Kuzuri Escapades last version",
-  "description": "Bespoke luxury Ugandan travel platform. A high-fidelity demo featuring native curation, silent luxury, and AI-powered bespoke itineraries.",
+  "name": "Kuzuri Escapades",
+  "description": "Bespoke Luxury Travel Platform for the Pearl of Africa. Native curators of silence, elegance, and deep wilderness immersion. Managed by info@kuzuri-escapades.com.",
   "requestFramePermissions": [
     "geolocation"
   ]

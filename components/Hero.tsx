@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 interface HeroProps {
@@ -14,28 +13,35 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
       url: 'https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg',
       alt: 'Safari vehicle at crossroads in Uganda wilderness - Luxury adventure travel',
       headline: 'Journey Beyond the Ordinary',
-      subheadline: 'Bespoke Ugandan Escapades Crafted for the Discerning Traveler',
-      cta: 'Begin Your Adventure'
+      subheadline: 'Bespoke Ugandan escapades crafted for the discerning traveler, where every path authors a unique story.',
+      cta: 'Begin Your Odyssey'
     },
     {
-      id: 'uganda-landscape',
-      url: 'https://i.postimg.cc/dVLtYNBN/02-Top-10-Best-Tourist-Attractions-and-Places-To-Visit-in-Uganda-BW-1600px.jpg',
-      alt: 'Breathtaking Uganda landscape - Luxury travel destinations',
-      headline: "Discover Uganda's Hidden Treasures",
-      subheadline: 'Where Every Path Leads to Wonder',
-      cta: 'Explore Our Destinations'
+      id: 'gorilla-bwindi',
+      url: 'https://i.postimg.cc/qzRsBgyD/images.jpg',
+      alt: 'Mountain gorilla in the mists of Bwindi - Primate tourism Uganda',
+      headline: 'The Primate Odyssey',
+      subheadline: 'An intimate encounter with the monarchs of Bwindi, curated with profound silence and native wisdom.',
+      cta: 'Meet the Monarchs'
     },
     {
-      id: 'nile-power',
+      id: 'nile-falls',
       url: 'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
-      alt: 'The thundering Murchison Falls on the Victoria Nile - Dramatic natural beauty',
-      headline: 'The Rhythm of the Wild',
-      subheadline: 'Experience the Untamed Power and Beauty of the Nile',
-      cta: 'Request a Manifest'
+      alt: 'Murchison Falls landscape - Victoria Nile power',
+      headline: 'The Rhythm of the Nile',
+      subheadline: 'Witness the untamed power of the world\'s most powerful waterfall amidst golden savannah horizons.',
+      cta: 'Explore the Delta'
+    },
+    {
+      id: 'savannah-wildlife',
+      url: 'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp',
+      alt: 'Golden savannah wildlife Uganda - Safari excellence',
+      headline: 'Savannah Sovereignty',
+      subheadline: 'Horizons without borders in the heart of the Albertine Rift. Where the wild moves with quiet dignity.',
+      cta: 'Discover the Wild'
     }
   ];
 
-  // Auto-rotate every 7 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentHero((prev) => (prev + 1) % heroImages.length);
@@ -48,47 +54,28 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
 
   return (
     <section className="hero-section" aria-labelledby="hero-title">
-      {/* Image layers with crossfade */}
       {heroImages.map((hero, index) => (
         <picture 
           key={hero.id}
           className={`hero-image-layer ${index === currentHero ? 'active' : ''}`}
         >
-          <source
-            type="image/webp"
-            srcSet={`
-              ${hero.url}?w=800&fm=webp 800w,
-              ${hero.url}?w=1200&fm=webp 1200w,
-              ${hero.url}?w=1600&fm=webp 1600w,
-              ${hero.url}?w=2400&fm=webp 2400w
-            `}
-            sizes="100vw"
-          />
           <img
-            src={`${hero.url}?w=1600`}
-            srcSet={`
-              ${hero.url}?w=800 800w,
-              ${hero.url}?w=1200 1200w,
-              ${hero.url}?w=1600 1600w,
-              ${hero.url}?w=2400 2400w
-            `}
-            sizes="100vw"
+            src={hero.url}
             alt={hero.alt}
             className="hero-image"
             loading={index === 0 ? "eager" : "lazy"}
-            // @ts-ignore
-            fetchpriority={index === 0 ? "high" : "low"}
             decoding="async"
           />
         </picture>
       ))}
       
-      {/* Overlay */}
       <div className="hero-overlay" />
       
-      {/* Content overlay */}
       <div className="hero-content">
-        <div className="animate-fade-in-up">
+        <div className="animate-fade-in-up flex flex-col items-center">
+          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[12px] font-bold mb-8">
+            Est. 2014 • Native Curation
+          </p>
           <h1 className="hero-headline" key={`h1-${currentHero}`}>
             {currentImage.headline}
           </h1>
@@ -97,7 +84,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
           </p>
           <button 
             onClick={onStartPlanning}
-            className="cta-primary group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:ring-offset-8 focus:ring-offset-[#002d04] px-14 py-6 text-[13px]"
+            className="cta-primary group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-8 focus:ring-offset-[#1A1A1A] px-16 py-7 text-[12px] bg-[#8B5A2B] text-[#F5F5DC] border-2 border-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 font-extrabold uppercase shadow-2xl"
             key={`cta-${currentHero}`}
           >
             <span className="relative z-10">{currentImage.cta}</span>
@@ -105,7 +92,6 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
         </div>
       </div>
 
-      {/* Navigation dots */}
       <div className="hero-navigation">
         {heroImages.map((_, index) => (
           <button
