@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,9 +35,192 @@
       letter-spacing: -0.015em;
     }
 
-    /* 
-       STANDARD IMPLEMENTATION PATTERN: Width & Max-Width Guidelines
-    */
+    /* Destinations Overview Section Styles */
+    .destinations-overview {
+      position: relative;
+      padding: 6rem 0;
+      overflow: hidden;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .overview-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .background-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: none; /* No blur on actual image per brief */
+    }
+
+    .overview-background .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 45, 4, 0.9) 0%,
+        rgba(0, 45, 4, 0.7) 100%
+      );
+    }
+
+    .content-overlay {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .stat .number {
+      display: block;
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: var(--savanna-gold);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    .stat .label {
+      display: block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .cta-primary {
+      padding: 1.5rem 3rem;
+      background: white;
+      color: var(--jungle-green);
+      text-transform: uppercase;
+      letter-spacing: 0.8em;
+      font-size: 10px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .cta-primary:hover {
+      background: var(--savanna-gold);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Conservation Experience Styles */
+    .conservation-experience {
+      position: relative;
+      padding: 8rem 0;
+      background: white;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 1024px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .image-column {
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 80px -20px rgba(0,45,4,0.1);
+    }
+
+    .conservation-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 4s ease-out;
+    }
+
+    .text-column h2 {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      line-height: 1.1;
+      color: var(--jungle-green);
+    }
+
+    .lead {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #666;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 3rem;
+    }
+
+    .benefits-list li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+      color: #777;
+    }
+
+    .benefits-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0.6rem;
+      height: 0.6rem;
+      background: var(--savanna-gold);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+
+    .cta-secondary {
+      padding: 1.25rem 2.5rem;
+      border: 1px solid rgba(0, 45, 4, 0.1);
+      background: transparent;
+      color: var(--jungle-green);
+      text-transform: uppercase;
+      letter-spacing: 0.6em;
+      font-size: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.7s;
+    }
+    .cta-secondary:hover {
+      background: var(--savanna-gold);
+      border-color: transparent;
+      color: white;
+    }
+
+    /* Common App Styles */
     .image-container-standard {
       width: 100%;
       max-width: 2400px;
@@ -64,11 +246,6 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      
-      /* Enhanced sharpness for B&W image */
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
-      filter: none;
       transition: transform 12s ease-out;
       will-change: transform;
     }
@@ -97,79 +274,6 @@
       transform: translateY(-50%);
     }
 
-    .destination-hero {
-      position: relative;
-      width: 100%;
-      height: 70vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--jungle-green);
-    }
-
-    .destination-hero-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.6;
-    }
-
-    .destination-hero-content {
-      position: relative;
-      z-index: 5;
-      text-align: center;
-      color: white;
-    }
-
-    .destination-hero-content h1 {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
-
-    .destination-hero-content .subtitle {
-      font-size: 1.25rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3em;
-      color: var(--savanna-gold);
-    }
-
-    .highlights-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .highlight h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--jungle-green);
-    }
-
-    .destination-card-image, .package-card-image {
-      width: 100%;
-      max-width: 2400px;
-      margin: 0 auto;
-      display: block;
-      height: auto;
-      object-fit: cover;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: high-quality;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-
-    /* Prevent upscaling on ultra-wide screens */
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Custom Reveal Animations */
     .reveal-trigger {
       opacity: 0;
       transform: translateY(20px);
@@ -190,13 +294,11 @@
       clip-path: inset(0 0 0 0);
     }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--crisp-white); }
     ::-webkit-scrollbar-thumb { background: var(--savanna-gold); }
   </style>
   <script>
-    // Shim process for browser environment to support API key access
     window.process = window.process || { env: { API_KEY: "" } };
   </script>
   <script type="importmap">

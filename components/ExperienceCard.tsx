@@ -9,6 +9,14 @@ interface ExperienceCardProps {
 
 export const ExperienceCard: React.FC<ExperienceCardProps> = ({ destination, index }) => {
   const isEven = index % 2 === 0;
+
+  // SEO Alt Text Mapping per Technical Brief
+  const getAltText = () => {
+    if (destination.id === 'murchison') return "Murchison Falls National Park safari - Wildlife viewing in Uganda's largest park";
+    if (destination.id === 'bwindi') return "Bwindi Impenetrable Forest mountain gorilla trekking experience";
+    if (destination.id === 'queen-elizabeth') return "Elephant herd bathing in Kazinga Channel, Queen Elizabeth National Park, Uganda";
+    return `Breathtaking view of ${destination.name} - ${destination.tagline}.`;
+  };
   
   return (
     <article className={`flex flex-col mb-32 md:mb-64 reveal-trigger ${isEven ? 'md:pr-20' : 'md:pl-20 md:mt-48'}`} aria-labelledby={`exp-title-${destination.id}`}>
@@ -28,10 +36,10 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ destination, ind
               (max-width: 1024px) 50vw,
               33vw
             "
-            alt={`Breathtaking view of ${destination.name} - ${destination.tagline}.`}
+            alt={getAltText()}
             loading="lazy"
             decoding="async"
-            className="destination-card-image"
+            className="w-full h-full object-cover transition-transform duration-[6000ms] ease-out group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
           />
         </div>
         <div className="absolute top-8 right-8 mix-blend-difference text-white/50 text-[9px] uppercase tracking-[0.4em] font-light" aria-hidden="true">
@@ -51,11 +59,11 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ destination, ind
         <p className="text-stone-500 text-base font-light leading-relaxed mb-10 tracking-wide">
           {destination.description}
         </p>
-        <div className="flex flex-col gap-4 border-l-2 border-stone-100 pl-8 transition-colors duration-[300ms] group-hover:border-[#d4af37]/20">
+        <div className="flex flex-col gap-4 border-l-2 border-stone-100 pl-8 transition-colors duration-[3000ms] group-hover:border-[#d4af37]/20">
           <p className="sr-only">Key Highlights:</p>
           {destination.highlights.map((high, idx) => (
             <span key={idx} className="text-[10px] uppercase tracking-[0.3em] text-stone-400 font-medium">
-              {high}
+              {high.split(':')[0]}
             </span>
           ))}
         </div>

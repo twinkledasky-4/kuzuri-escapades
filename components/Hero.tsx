@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
             ${heroImageUrl}?w=2400 2400w
           `}
           sizes="100vw"
-          alt="Breathtaking Uganda landscape - Luxury travel destinations"
+          alt="Breathtaking Uganda landscape - Luxury safari destination in East Africa"
           className={`hero-image ${isLoaded ? 'scale-110 opacity-100' : 'scale-100 opacity-0'}`}
           loading="eager"
           decoding="async"

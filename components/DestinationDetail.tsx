@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Destination } from '../types.ts';
 
@@ -17,9 +16,10 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
   }, [destination.id]);
 
   const heroImage = destination.images[0];
+  const isQE = destination.id === 'queen-elizabeth';
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen selection:bg-[#002d04] selection:text-[#d4af37]">
       {/* Navigation */}
       <div className="fixed top-24 left-6 md:left-12 z-50">
         <button 
@@ -33,7 +33,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         </button>
       </div>
 
-      {/* Hero Section */}
+      {/* Hero Section per Technical Brief picture standards */}
       <section className="destination-hero relative h-[75vh] md:h-[90vh] overflow-hidden flex items-center justify-center bg-[#002d04]">
         <picture>
           <source
@@ -46,7 +46,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
             `}
           />
           <img
-            src={`${heroImage}?w=1600`}
+            src={`${heroImage}?w=1200`}
             srcSet={`
               ${heroImage}?w=800 800w,
               ${heroImage}?w=1200 1200w,
@@ -54,7 +54,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
               ${heroImage}?w=2400 2400w
             `}
             sizes="100vw"
-            alt={`${destination.name} - ${destination.tagline}`}
+            alt={isQE ? 'Elephant herd bathing in Kazinga Channel, Queen Elizabeth National Park, Uganda' : `${destination.name} - ${destination.tagline}`}
             className={`destination-hero-image absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-[12s] ease-out ${isRevealed ? 'scale-110' : 'scale-100'}`}
             loading="eager"
             // @ts-ignore
@@ -65,7 +65,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         <div className="absolute inset-0 bg-gradient-to-b from-[#002d04]/40 via-transparent to-[#002d04]/80 z-1" />
 
         <div className={`destination-hero-content relative z-10 text-center px-6 transition-all duration-1000 ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h1 className="text-5xl md:text-8xl lg:text-[10rem] font-serif leading-none tracking-tighter text-white mb-6 md:mb-10">
+          <h1 className="text-5xl md:text-8xl font-serif leading-none tracking-tighter text-white mb-6 md:mb-10">
             {destination.name}
           </h1>
           <p className="subtitle text-[#d4af37] text-xs md:text-lg uppercase tracking-[0.5em] font-bold">
@@ -74,35 +74,59 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         </div>
       </section>
       
-      {/* Narrative Section */}
-      <section className="py-24 md:py-48 bg-white" aria-labelledby="essence-title">
+      {/* Narrative Section - Medley of Wonders per brief */}
+      <section className="destination-details py-24 md:py-48 bg-white" aria-labelledby="details-title">
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
           <div className="max-w-4xl mx-auto">
-            <h2 id="essence-title" className="text-4xl md:text-6xl font-serif text-[#002d04] mb-12 tracking-tight">
-              {destination.description.includes(':') 
-                ? <>{destination.description.split(':')[0]}: <span className="italic font-light text-stone-300">{destination.description.split(':')[1]}</span></>
-                : destination.description
-              }
+            <h2 id="details-title" className="text-4xl md:text-6xl font-serif text-[#002d04] mb-12 tracking-tight">
+              {isQE ? 'The Medley of Wonders' : 'The Essence of Sanctuary'}
             </h2>
+            <p className="text-stone-500 font-light text-xl md:text-2xl leading-relaxed mb-20 tracking-wide">
+              {isQE 
+                ? 'Witness elephant herds bathing in the Kazinga Channel, track tree-climbing lions in Ishasha, and cruise past hippos and crocodiles on Africa\'s highest concentration of waterbirds.'
+                : destination.description}
+            </p>
+            
             <div className="h-[1px] w-full bg-stone-100 mb-20" />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-              {destination.highlights.map((highlight, idx) => {
-                const [title, body] = highlight.includes(':') ? highlight.split(':') : [highlight, ''];
-                return (
-                  <div key={idx} className="group reveal-trigger border-l border-stone-100 pl-10 py-4 hover:border-[#d4af37] transition-all duration-700">
-                    <span className="block text-[10px] text-stone-300 font-bold mb-6 tracking-widest">0{idx + 1}</span>
+            {/* Experience Cards per brief */}
+            <div className="experience-cards grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
+              {isQE ? (
+                <>
+                  <div className="card group border-l border-stone-100 pl-10 py-4 hover:border-[#d4af37] transition-all duration-700">
+                    <span className="block text-[10px] text-stone-300 font-bold mb-6 tracking-widest">HIGHLIGHT 01</span>
                     <h3 className="text-2xl font-serif text-[#002d04] mb-6 group-hover:italic transition-all duration-500">
-                      {title}
+                      Kazinga Channel Cruise
                     </h3>
-                    {body && (
-                      <p className="text-stone-400 font-light text-base leading-relaxed tracking-wide">
-                        {body.trim()}
-                      </p>
-                    )}
+                    <p className="text-stone-400 font-light text-base leading-relaxed tracking-wide">
+                      Glide past hippos, elephants, and buffalo along this 32km 
+                      natural channel connecting Lake Edward and Lake George.
+                    </p>
                   </div>
-                );
-              })}
+                  <div className="card group border-l border-stone-100 pl-10 py-4 hover:border-[#d4af37] transition-all duration-700">
+                    <span className="block text-[10px] text-stone-300 font-bold mb-6 tracking-widest">HIGHLIGHT 02</span>
+                    <h3 className="text-2xl font-serif text-[#002d04] mb-6 group-hover:italic transition-all duration-500">
+                      Tree-Climbing Lions
+                    </h3>
+                    <p className="text-stone-400 font-light text-base leading-relaxed tracking-wide">
+                      The rare sight of lions lounging in fig trees is unique to 
+                      the Ishasha sector of this remarkable park.
+                    </p>
+                  </div>
+                </>
+              ) : (
+                destination.highlights.map((highlight, idx) => (
+                  <div key={idx} className="card group border-l border-stone-100 pl-10 py-4 hover:border-[#d4af37] transition-all duration-700">
+                    <span className="block text-[10px] text-stone-300 font-bold mb-6 tracking-widest">HIGHLIGHT 0{idx + 1}</span>
+                    <h3 className="text-2xl font-serif text-[#002d04] mb-6 group-hover:italic transition-all duration-500">
+                      {highlight.includes(':') ? highlight.split(':')[0] : highlight}
+                    </h3>
+                    <p className="text-stone-400 font-light text-base leading-relaxed tracking-wide">
+                      {highlight.includes(':') ? highlight.split(':')[1] : ''}
+                    </p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
@@ -116,17 +140,14 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
               <p className="text-[#d4af37] uppercase tracking-[0.8em] text-[9px] font-bold mb-6">VISUAL ARCHIVE</p>
               <h3 className="text-4xl md:text-6xl font-serif text-[#002d04] tracking-tight">Immersive <span className="italic">Fragments.</span></h3>
             </div>
-            <div className="hidden md:block">
-              <span className="text-[9px] uppercase tracking-[0.4em] text-stone-300 font-bold">Curated by Lucky .K</span>
-            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {destination.images.map((img, idx) => (
-              <div key={idx} className="overflow-hidden aspect-[4/5] bg-stone-200 shadow-[0_40px_80px_-20px_rgba(0,45,4,0.08)] reveal-trigger group">
+              <div key={idx} className="overflow-hidden aspect-[4/5] bg-stone-200 shadow-xl reveal-trigger group">
                 <img 
                   src={img} 
-                  alt={`${destination.name} narrative detail ${idx + 1}`}
+                  alt={`${destination.name} landscape detail ${idx + 1}`}
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[3000ms] group-hover:scale-110"
                   loading="lazy"
                   decoding="async"
@@ -146,15 +167,9 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
           </h2>
           <button 
             className="px-16 py-8 border border-white/20 text-[10px] uppercase tracking-[1em] font-bold hover:bg-white hover:text-[#002d04] hover:border-transparent transition-all duration-700 shadow-2xl"
-            onClick={() => {
-              onBack();
-              setTimeout(() => {
-                const planner = document.getElementById('planner-section');
-                planner?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 100);
-            }}
+            onClick={onBack}
           >
-            Request a Consultation
+            Return to Exploration
           </button>
         </div>
       </section>
