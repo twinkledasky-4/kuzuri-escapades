@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Version: 1.2.4 - Forced Contrast & Official WhatsApp Green Branding -->
+<!-- Version: 1.2.5 - Maximum Contrast Hero & Refined WhatsApp Branding -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,17 +44,27 @@
       color: var(--rich-black);
     }
 
-    /* Strict Override for White Hero Text with Deep Drop Shadow */
+    /* Enhanced Contrast for White Hero Text */
     .hero-headline {
       font-family: 'Playfair Display', serif !important;
       color: #FFFFFF !important; 
-      text-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5) !important;
+      /* Multi-layered shadow for visibility on ANY background */
+      text-shadow: 
+        0 4px 10px rgba(0,0,0,0.9), 
+        0 10px 60px rgba(0,0,0,0.7),
+        0 0 100px rgba(0,0,0,0.4) !important;
+      letter-spacing: 0.12em !important;
+      line-height: 1 !important;
       z-index: 10;
     }
 
     .hero-subheadline {
       color: #FFFFFF !important;
-      text-shadow: 0 5px 20px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.5) !important;
+      text-shadow: 
+        0 2px 5px rgba(0,0,0,0.9), 
+        0 5px 30px rgba(0,0,0,0.8) !important;
+      font-weight: 300 !important;
+      letter-spacing: 0.08em !important;
       z-index: 10;
     }
 
@@ -97,8 +107,13 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.7) 100%),
-                  linear-gradient(to bottom, rgba(26, 26, 26, 0.3) 0%, rgba(26, 26, 26, 0.9) 100%);
+      /* Deeper bottom gradient for better button/text visibility */
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 26, 0.4) 0%,
+        rgba(26, 26, 26, 0.2) 40%,
+        rgba(26, 26, 26, 0.8) 100%
+      );
       z-index: 2;
     }
 
