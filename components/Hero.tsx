@@ -72,19 +72,19 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
       <div className="hero-overlay" />
       
       <div className="hero-content">
-        <div className="animate-fade-in-up flex flex-col items-center">
-          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[12px] font-bold mb-8">
+        <div className="animate-fade-in-up flex flex-col items-center max-w-7xl mx-auto">
+          <p className="text-[#D4AF37] uppercase tracking-[1.2em] text-[10px] md:text-[12px] font-bold mb-10 opacity-90">
             Est. 2014 • Native Curation
           </p>
           <h1 
-            className="hero-headline text-white mb-6" 
+            className="hero-headline text-white text-center leading-[0.85] font-extrabold italic" 
             style={{ color: '#FFFFFF' }}
             key={`h1-${currentHero}`}
           >
             {currentImage.headline}
           </h1>
           <p 
-            className="hero-subheadline text-white mb-12 max-w-2xl px-4" 
+            className="hero-subheadline text-white mt-12 mb-16 text-center" 
             style={{ color: '#FFFFFF' }}
             key={`p-${currentHero}`}
           >
@@ -92,10 +92,10 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
           </p>
           <button 
             onClick={onStartPlanning}
-            className="cta-primary group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-8 focus:ring-offset-[#1A1A1A] px-16 py-7 text-[12px] bg-[#8B5A2B] text-[#F5F5DC] border-2 border-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 font-extrabold uppercase shadow-2xl"
+            className="cta-primary group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-8 focus:ring-offset-[#1A1A1A] px-16 py-8 text-[11px] bg-[#8B5A2B] text-[#F5F5DC] border-2 border-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 font-black uppercase shadow-2xl"
             key={`cta-${currentHero}`}
           >
-            <span className="relative z-10">{currentImage.cta}</span>
+            <span className="relative z-10 tracking-[0.6em]">{currentImage.cta}</span>
           </button>
         </div>
       </div>

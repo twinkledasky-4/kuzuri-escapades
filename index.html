@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Version: 1.2.5 - Maximum Contrast Hero & Refined WhatsApp Branding -->
+<!-- Version: 1.2.6 - Massive Editorial Typography & Refined WhatsApp Branding -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,28 +44,35 @@
       color: var(--rich-black);
     }
 
-    /* Enhanced Contrast for White Hero Text */
+    /* Massive Editorial Scale for Hero Text */
     .hero-headline {
       font-family: 'Playfair Display', serif !important;
       color: #FFFFFF !important; 
-      /* Multi-layered shadow for visibility on ANY background */
       text-shadow: 
-        0 4px 10px rgba(0,0,0,0.9), 
-        0 10px 60px rgba(0,0,0,0.7),
-        0 0 100px rgba(0,0,0,0.4) !important;
-      letter-spacing: 0.12em !important;
-      line-height: 1 !important;
+        0 4px 15px rgba(0,0,0,0.9), 
+        0 15px 70px rgba(0,0,0,0.8),
+        0 0 120px rgba(0,0,0,0.5) !important;
+      
+      /* Fluid Typography: Big, Bigger, Biggest */
+      font-size: clamp(3.2rem, 10vw, 11rem) !important;
+      line-height: 0.85 !important;
+      letter-spacing: -0.01em !important;
+      margin-bottom: 2rem !important;
+      font-weight: 800 !important;
       z-index: 10;
     }
 
     .hero-subheadline {
       color: #FFFFFF !important;
       text-shadow: 
-        0 2px 5px rgba(0,0,0,0.9), 
+        0 2px 10px rgba(0,0,0,0.9), 
         0 5px 30px rgba(0,0,0,0.8) !important;
+      font-size: clamp(1rem, 2vw, 1.35rem) !important;
       font-weight: 300 !important;
-      letter-spacing: 0.08em !important;
+      letter-spacing: 0.1em !important;
+      max-width: 800px !important;
       z-index: 10;
+      opacity: 0.95;
     }
 
     .hero-section {
@@ -107,12 +114,11 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      /* Deeper bottom gradient for better button/text visibility */
       background: linear-gradient(
         to bottom,
-        rgba(26, 26, 26, 0.4) 0%,
-        rgba(26, 26, 26, 0.2) 40%,
-        rgba(26, 26, 26, 0.8) 100%
+        rgba(26, 26, 26, 0.45) 0%,
+        rgba(26, 26, 26, 0.15) 50%,
+        rgba(26, 26, 26, 0.85) 100%
       );
       z-index: 2;
     }
@@ -166,8 +172,8 @@
     ::-webkit-scrollbar-thumb { background: var(--safari-brown); }
 
     @media (max-width: 768px) {
-      .hero-section { min-height: 80vh; }
-      .hero-content { min-height: 80vh; padding: 1.5rem; }
+      .hero-section { min-height: 85vh; }
+      .hero-content { min-height: 85vh; padding: 1.5rem; }
       .hero-navigation { bottom: 30px; }
     }
   </style>
