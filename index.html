@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Version: 1.2.2 - Explicit White Hero Text & WhatsApp Green Fix -->
+<!-- Version: 1.2.4 - Forced Contrast & Official WhatsApp Green Branding -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,33 +44,20 @@
       color: var(--rich-black);
     }
 
-    /* Force White Hero Text */
+    /* Strict Override for White Hero Text with Deep Drop Shadow */
     .hero-headline {
       font-family: 'Playfair Display', serif !important;
-      font-size: clamp(3rem, 8vw, 6rem) !important;
-      font-weight: 700 !important;
-      margin-bottom: 1.5rem !important;
-      line-height: 1.1 !important;
-      letter-spacing: 0.1em !important;
-      color: #FFFFFF !important; /* Force White */
-      text-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      animation: fadeInUp 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+      color: #FFFFFF !important; 
+      text-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5) !important;
+      z-index: 10;
     }
 
     .hero-subheadline {
-      font-size: clamp(1rem, 2vw, 1.4rem) !important;
-      font-weight: 300 !important;
-      margin-bottom: 3.5rem !important;
-      max-width: 800px !important;
-      line-height: 1.8 !important;
-      opacity: 1 !important;
-      letter-spacing: 0.1em !important;
-      color: #FFFFFF !important; /* Force White */
-      text-shadow: 0 2px 10px rgba(0,0,0,0.4);
-      animation: fadeInUp 1.5s cubic-bezier(0.19, 1, 0.22, 1) 0.3s backwards;
+      color: #FFFFFF !important;
+      text-shadow: 0 5px 20px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.5) !important;
+      z-index: 10;
     }
 
-    /* Other global styles... */
     .hero-section {
       position: relative;
       width: 100%;
@@ -110,11 +97,8 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(26, 26, 26, 0.4) 0%,
-        rgba(26, 26, 26, 0.8) 100%
-      );
+      background: radial-gradient(circle at center, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.7) 100%),
+                  linear-gradient(to bottom, rgba(26, 26, 26, 0.3) 0%, rgba(26, 26, 26, 0.9) 100%);
       z-index: 2;
     }
 
@@ -160,26 +144,6 @@
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal-trigger {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1.5s cubic-bezier(0.19, 1, 0.22, 1), transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-      will-change: transform, opacity;
-    }
-    .reveal-trigger.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .reveal-image {
-      clip-path: inset(0 0 100% 0);
-      transition: clip-path 2.5s cubic-bezier(0.77, 0, 0.175, 1);
-      will-change: clip-path;
-    }
-    .reveal-image.is-visible {
-      clip-path: inset(0 0 0 0);
     }
 
     ::-webkit-scrollbar { width: 6px; }

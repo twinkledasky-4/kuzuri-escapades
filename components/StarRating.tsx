@@ -11,7 +11,9 @@ interface StarRatingProps {
 
 export const StarRating: React.FC<StarRatingProps> = ({
   rating = 0,
-  onRate = () => {},
+  // Fixed: Ensure the default onRate function matches the (rating: number) => void signature
+  // to prevent TypeScript errors when it's called with an argument on line 60.
+  onRate = (_rating: number) => {},
   size = 24,
   interactive = false,
   showText = true,
@@ -57,6 +59,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
             key={star}
             type="button"
             disabled={!interactive}
+            // Calling onRate with the star value; correctly inferred now with fixed default value on line 16.
             onClick={() => interactive && onRate(star)}
             onMouseEnter={() => interactive && setHovered(star)}
             onMouseLeave={() => interactive && setHovered(0)}

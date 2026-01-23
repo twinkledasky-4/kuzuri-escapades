@@ -76,10 +76,18 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
           <p className="text-[#D4AF37] uppercase tracking-[1em] text-[12px] font-bold mb-8">
             Est. 2014 • Native Curation
           </p>
-          <h1 className="hero-headline text-white" key={`h1-${currentHero}`}>
+          <h1 
+            className="hero-headline text-white mb-6" 
+            style={{ color: '#FFFFFF' }}
+            key={`h1-${currentHero}`}
+          >
             {currentImage.headline}
           </h1>
-          <p className="hero-subheadline text-white" key={`p-${currentHero}`}>
+          <p 
+            className="hero-subheadline text-white mb-12 max-w-2xl px-4" 
+            style={{ color: '#FFFFFF' }}
+            key={`p-${currentHero}`}
+          >
             {currentImage.subheadline}
           </p>
           <button 
