@@ -11,7 +11,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
     {
       id: 'safari-crossroad',
       url: 'https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg',
-      alt: 'Safari vehicle at crossroads in Uganda wilderness - Luxury adventure travel',
+      alt: 'Safari vehicle at crossroads in Uganda wilderness',
       headline: 'Journey Beyond the Ordinary',
       subheadline: 'Bespoke Ugandan escapades crafted for the discerning traveler, where every path authors a unique story.',
       cta: 'Begin Your Odyssey'
@@ -19,7 +19,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
     {
       id: 'gorilla-bwindi',
       url: 'https://i.postimg.cc/qzRsBgyD/images.jpg',
-      alt: 'Mountain gorilla in the mists of Bwindi - Primate tourism Uganda',
+      alt: 'Mountain gorilla in the mists of Bwindi',
       headline: 'The Primate Odyssey',
       subheadline: 'An intimate encounter with the monarchs of Bwindi, curated with profound silence and native wisdom.',
       cta: 'Meet the Monarchs'
@@ -27,26 +27,17 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
     {
       id: 'nile-falls',
       url: 'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
-      alt: 'Murchison Falls landscape - Victoria Nile power',
+      alt: 'Murchison Falls landscape in Uganda',
       headline: 'The Rhythm of the Nile',
-      subheadline: 'Witness the untamed power of the world\'s most powerful waterfall amidst golden savannah horizons.',
-      cta: 'Explore the Delta'
-    },
-    {
-      id: 'savannah-wildlife',
-      url: 'https://i.postimg.cc/XpJfNXdx/10-Must-Visit-Tourist-Attractions-in-Uganda-in-2025.webp',
-      alt: 'Golden savannah wildlife Uganda - Safari excellence',
-      headline: 'Savannah Sovereignty',
-      subheadline: 'Horizons without borders in the heart of the Albertine Rift. Where the wild moves with quiet dignity.',
-      cta: 'Discover the Wild'
+      subheadline: 'Witness the thundering power of the world\'s strongest waterfall, a spectacle of untamed grace.',
+      cta: 'Feel the Power'
     }
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentHero((prev) => (prev + 1) % heroImages.length);
-    }, 7000);
-    
+    }, 9000);
     return () => clearInterval(interval);
   }, [heroImages.length]);
 
@@ -54,59 +45,62 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
 
   return (
     <section className="hero-section" aria-labelledby="hero-title">
-      {heroImages.map((hero, index) => (
-        <picture 
-          key={hero.id}
-          className={`hero-image-layer ${index === currentHero ? 'active' : ''}`}
-        >
-          <img
-            src={hero.url}
-            alt={hero.alt}
-            className="hero-image"
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
-          />
-        </picture>
-      ))}
+      <div className="hero-image-wrapper">
+        {heroImages.map((hero, index) => (
+          <div 
+            key={hero.id}
+            className={`hero-image-layer ${index === currentHero ? 'active' : ''}`}
+          >
+            <img
+              src={hero.url}
+              alt={hero.alt}
+              className="hero-image"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
+      </div>
       
       <div className="hero-overlay" />
       
-      <div className="hero-content">
-        <div className="animate-fade-in-up flex flex-col items-center max-w-7xl mx-auto">
-          <p className="text-[#D4AF37] uppercase tracking-[1.2em] text-[10px] md:text-[12px] font-bold mb-10 opacity-90">
-            Est. 2014 • Native Curation
+      <div className="hero-content text-center relative z-10 px-6 max-w-5xl mx-auto">
+        <div className="reveal-trigger is-visible flex flex-col items-center">
+          <p className="text-base font-medium text-[#D4AF37] uppercase tracking-[0.8em] mb-6">
+            Hello, Traveler!
           </p>
           <h1 
-            className="hero-headline text-white text-center leading-[0.85] font-extrabold italic" 
-            style={{ color: '#FFFFFF' }}
-            key={`h1-${currentHero}`}
+            id="hero-title"
+            className="hero-headline text-white mb-10"
           >
             {currentImage.headline}
           </h1>
-          <p 
-            className="hero-subheadline text-white mt-12 mb-16 text-center" 
-            style={{ color: '#FFFFFF' }}
-            key={`p-${currentHero}`}
-          >
+          <p className="hero-subheadline text-white/80 mx-auto mb-12">
             {currentImage.subheadline}
           </p>
-          <button 
-            onClick={onStartPlanning}
-            className="cta-primary group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-8 focus:ring-offset-[#1A1A1A] px-16 py-8 text-[11px] bg-[#8B5A2B] text-[#F5F5DC] border-2 border-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 font-black uppercase shadow-2xl"
-            key={`cta-${currentHero}`}
-          >
-            <span className="relative z-10 tracking-[0.6em]">{currentImage.cta}</span>
-          </button>
+          <div className="flex flex-wrap justify-center gap-4">
+            <button 
+              onClick={onStartPlanning}
+              className="cta-primary"
+            >
+              {currentImage.cta}
+            </button>
+            <button 
+              onClick={onStartPlanning}
+              className="cta-secondary"
+            >
+              Explore Territories
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="hero-navigation">
+      <div className="hero-navigation absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
         {heroImages.map((_, index) => (
           <button
             key={index}
             className={`hero-dot ${index === currentHero ? 'active' : ''}`}
             onClick={() => setCurrentHero(index)}
-            aria-label={`View hero slide ${index + 1}`}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>

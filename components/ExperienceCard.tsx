@@ -17,7 +17,7 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ destination, ind
   };
   
   return (
-    <article className={`flex flex-col mb-32 md:mb-64 reveal-trigger ${isEven ? 'md:pr-20' : 'md:pl-20 md:mt-48'}`} aria-labelledby={`exp-title-${destination.id}`}>
+    <article className={`destination-card flex flex-col mb-32 md:mb-64 reveal-trigger ${isEven ? 'md:pr-20' : 'md:pl-20 md:mt-48'}`} aria-labelledby={`exp-title-${destination.id}`}>
       <div className="relative mb-14 overflow-hidden group shadow-2xl shadow-stone-300/40 transition-shadow duration-[300ms] hover:shadow-stone-400/60 border-2 border-[#1A1A1A]">
         <div className="reveal-image aspect-[16/9] overflow-hidden bg-stone-50">
           <img 

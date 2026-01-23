@@ -149,7 +149,7 @@ const App: React.FC = () => {
         <section className="py-32 md:py-64 bg-[#F5F5DC] border-y-2 border-[#1A1A1A] px-4" aria-labelledby="hub-title">
           <div className="container mx-auto px-6 md:px-12 lg:px-24">
             <div className="max-w-4xl mx-auto text-center reveal-trigger mb-32">
-              <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[12px] mb-10 font-bold">UGANDA HUB</p>
+              <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] mb-10 font-bold">UGANDA HUB</p>
               <h2 id="hub-title" className="text-5xl md:text-7xl font-serif font-bold text-[#1A1A1A] mb-12 tracking-tighter">The <span className="italic font-light text-[#654321]">Soul</span> of East Africa</h2>
               <p className="text-[#1A1A1A] font-light text-xl md:text-2xl leading-relaxed tracking-wide mb-16 max-w-2xl mx-auto opacity-90">
                 A definitive collection of narratives through the Pearl.
@@ -166,7 +166,7 @@ const App: React.FC = () => {
                   <div className="aspect-[4/6] overflow-hidden mb-10 shadow-2xl transition-transform duration-1000 group-hover:-translate-y-4 border-2 border-[#1A1A1A]">
                     <img src={cat.img} className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110" alt={cat.title} />
                   </div>
-                  <h3 className="text-3xl font-serif font-bold text-[#1A1A1A] mb-4 group-hover:italic transition-all duration-700 tracking-wide">{cat.title}</h3>
+                  <p className="text-3xl font-serif font-bold text-[#1A1A1A] mb-4 group-hover:italic transition-all duration-700 tracking-wide">{cat.title}</p>
                   <p className="text-[#654321] font-light tracking-[0.1em] uppercase text-xs font-semibold">{cat.desc}</p>
                 </div>
               ))}
@@ -194,7 +194,7 @@ const App: React.FC = () => {
               ].map((item, idx) => (
                 <div key={idx} className="bg-white p-12 border-2 border-[#1A1A1A] flex flex-col items-center group hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-700 hover:shadow-2xl">
                   <span className="text-5xl mb-8 opacity-60 group-hover:opacity-100 transition-opacity">{item.icon}</span>
-                  <h4 className="text-[11px] uppercase tracking-[0.6em] font-bold text-[#1A1A1A]">{item.title}</h4>
+                  <p className="text-[11px] uppercase tracking-[0.6em] font-bold text-[#1A1A1A]">{item.title}</p>
                 </div>
               ))}
             </div>
@@ -264,7 +264,7 @@ const App: React.FC = () => {
                 { title: "Primal Health", text: "Latest health protocols, yellow fever certification, and our private medical concierge network. Secure guidance for a safe odyssey." }
               ].map((item, idx) => (
                 <div key={idx} className="p-16 bg-white border-2 border-[#1A1A1A] group hover:bg-[#D4AF37] transition-all duration-700">
-                  <h4 className="text-[13px] uppercase tracking-[0.6em] font-bold text-[#1A1A1A] mb-10">{item.title}</h4>
+                  <p className="text-[13px] uppercase tracking-[0.6em] font-bold text-[#1A1A1A] mb-10">{item.title}</p>
                   <p className="text-[#1A1A1A] font-light leading-relaxed mb-12 text-lg tracking-wide">{item.text}</p>
                   <button 
                     onClick={() => { setInquiryPreFill(`Requesting the ${item.title} manifest.`); setIsInquiryOpen(true); }}
@@ -307,9 +307,9 @@ const App: React.FC = () => {
         <section className="py-48 md:py-80 bg-[#1A1A1A] text-white text-center relative overflow-hidden border-t-2 border-[#D4AF37]">
           <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] mix-blend-overlay" />
           <div className="container mx-auto px-6 relative z-10">
-            <h3 className="text-5xl md:text-9xl font-serif mb-24 font-bold tracking-tighter leading-none italic text-[#D4AF37]">
+            <p className="text-5xl md:text-9xl font-serif mb-24 font-bold tracking-tighter leading-none italic text-[#D4AF37]">
               A private narrative <br /> <span className="text-white not-italic">is waiting to be shared.</span>
-            </h3>
+            </p>
             <button 
               onClick={() => { setInquiryPreFill(''); setIsInquiryOpen(true); }}
               className="px-20 md:px-32 py-10 bg-[#8B5A2B] text-[#F5F5DC] text-[12px] uppercase tracking-[1em] font-extrabold border-2 border-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-1000 shadow-2xl"

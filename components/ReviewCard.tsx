@@ -36,7 +36,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, onHelpfulClick }
 
   return (
     <div 
-      className="review-card relative p-10 rounded-sm border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full overflow-hidden"
+      className="card review-card relative p-10 rounded-sm border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full overflow-hidden"
       style={{ backgroundColor: '#F5F5DC', minHeight: '440px' }}
     >
       {/* Editorial Texture Overlay */}

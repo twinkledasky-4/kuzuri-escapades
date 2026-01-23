@@ -33,7 +33,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
 
   return (
     <article 
-      className="group flex flex-col bg-[#F5F5DC] overflow-hidden transition-all duration-1000 ease-out hover:-translate-y-2 hover:shadow-xl border-2 border-[#1A1A1A] h-full relative"
+      className="package-card group flex flex-col bg-[#F5F5DC] overflow-hidden transition-all duration-1000 ease-out hover:-translate-y-2 hover:shadow-xl border-2 border-[#1A1A1A] h-full relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
