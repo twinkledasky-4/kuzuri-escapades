@@ -2,8 +2,9 @@ import React from 'react';
 import { SERVICES } from '../constants.tsx';
 import { Service } from '../types.ts';
 
+// Added missing ServicesProps interface
 interface ServicesProps {
-  onEnquireService: (serviceName: string) => void;
+  onEnquireService?: (serviceName: string) => void;
 }
 
 const ServiceIcon = ({ name }: { name: string }) => {
@@ -48,7 +49,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
       <div className="relative h-[80vh] w-full flex items-center justify-center overflow-hidden border-b-2 border-[#1A1A1A]">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg" 
+            src="https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&q=80&w=1600" 
             alt="Bespoke luxury service in Uganda" 
             className="w-full h-full object-cover brightness-[0.6]"
           />
@@ -60,7 +61,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
             BEYOND THE JOURNEY
           </p>
           <h1 id="services-hero-title" className="text-6xl md:text-8xl lg:text-[10rem] text-[#F5F5DC] font-serif font-bold tracking-tighter leading-none mb-12 reveal-trigger">
-            Private Concierge <br /><span className="italic font-light">Elegance</span>
+            Private Concierge Elegance
           </h1>
           <div className="h-[2px] w-24 bg-[#D4AF37] mx-auto mb-12 reveal-trigger" />
         </div>
@@ -70,7 +71,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
       <div className="py-32 md:py-64 bg-[#F5F5DC]">
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
           <div className="mb-32 text-center max-w-3xl mx-auto reveal-trigger">
-            <h2 className="text-5xl md:text-7xl font-serif font-bold text-[#1A1A1A] mb-12">A Suite of <span className="italic">Impeccable Care.</span></h2>
+            <h2 className="text-5xl md:text-7xl font-serif font-bold text-[#1A1A1A] mb-12">A Suite of Impeccable Care.</h2>
             <p className="text-[#654321] font-light text-xl tracking-wide leading-relaxed opacity-90 italic">
               Our curated services are the invisible threads that ensure your odyssey moves with effortless grace.
             </p>

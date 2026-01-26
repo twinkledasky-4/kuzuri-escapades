@@ -3,7 +3,7 @@ export const KUZURI_KNOWLEDGE_BASE = `
 
 ## 1. Brand Essence
 **Mission:** Architects of silence and profound wilderness. 
-**Founder:** Lucky .K, Lead Curator. Based in Entebbe, Uganda.
+**Founder:** Lead Curator. Based in Entebbe, Uganda.
 **Philosophy:** "Silence as Luxury." High-fidelity native stewardship.
 
 ## 2. Technical Manifest (Production Details)
@@ -21,9 +21,9 @@ export const KUZURI_KNOWLEDGE_BASE = `
 - **Kidepo Valley:** Isolated, rugged wilderness bordering Sudan.
 
 ## 4. Curated Odysseys
-- **Grand Uganda Odyssey:** 14 Days ($8,500). Total luxury immersion.
-- **Bwindi Forest Sanctuary:** 4 Days ($2,450). Focused gorilla encounter.
-- **Murchison Falls Explorer:** 4 Days ($1,800). Savannah sovereignty.
+- **Grand Uganda Odyssey:** 14 Days. Total luxury immersion.
+- **Bwindi Forest Sanctuary:** 4 Days. Focused gorilla encounter.
+- **Murchison Falls Explorer:** 4 Days. Savannah sovereignty.
 
 ## 5. Logistics & Support
 - **WhatsApp/Primary:** +256 708 012030 (24/7 Curator Support).

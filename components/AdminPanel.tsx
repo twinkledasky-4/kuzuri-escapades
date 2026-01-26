@@ -15,7 +15,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
   const [replyText, setReplyText] = useState<{ [key: string]: string }>({});
   const [terminalLogs, setTerminalLogs] = useState<string[]>([
     "[System] Kuzuri Admin Environment v4.2.0-STABLE",
-    "[Auth] Curator Identity: Lucky .K (Lead Curator)",
+    "[Auth] Curator Identity: Lead Curator",
     "[Phase 10] Review Moderation Engine: ONLINE"
   ]);
 
@@ -48,7 +48,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
           responses: [
             ...r.responses,
             {
-              author: "Lucky .K (Lead Curator)",
+              author: "Lead Curator",
               text,
               date: new Date().toISOString().split('T')[0]
             }

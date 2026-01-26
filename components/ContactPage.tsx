@@ -22,8 +22,8 @@ export const ContactPage: React.FC = () => {
       {/* Refined Contact Hero */}
       <section className="relative h-[50vh] flex items-center justify-center bg-[#1A1A1A] border-b-2 border-black overflow-hidden">
         <img 
-          src="https://i.postimg.cc/TpwV2hnY/top-things-to-do-in-uganda.jpg" 
-          alt="Uganda landscape" 
+          src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1600" 
+          alt="Luxury safari vehicle on the Ugandan savannah" 
           className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale"
         />
         <div className="relative z-10 text-center px-6">

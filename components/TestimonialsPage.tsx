@@ -285,14 +285,14 @@ export const TestimonialsPage: React.FC<{ reviews: Review[], onHelpfulClick?: (i
       {/* Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center bg-[#1A1A1A] border-b-2 border-black overflow-hidden">
         <img 
-          src="https://i.postimg.cc/qzRsBgyD/images.jpg" 
-          alt="Client in Bwindi forest" 
+          src="https://images.unsplash.com/photo-1518063311540-0640001280cc?auto=format&fit=crop&q=80&w=1600" 
+          alt="Client in Bwindi forest during a gorilla trek" 
           className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale"
         />
         <div className="relative z-10 text-center px-6">
           <p className="text-[#D4AF37] uppercase tracking-[1.5em] text-[10px] font-bold mb-12 animate-fade-in">THE RETURN</p>
           <h1 className="text-6xl md:text-9xl font-serif font-bold text-[#F5F5DC] tracking-tighter leading-none animate-fade-in-up">
-            Client <span className="italic font-light">Testimonials</span>
+            Client Testimonials
           </h1>
         </div>
       </section>
@@ -357,7 +357,7 @@ export const TestimonialsPage: React.FC<{ reviews: Review[], onHelpfulClick?: (i
           <div className="absolute top-0 left-0 w-full h-[12px] bg-[#D4AF37]" />
           <div className="mb-24">
             <h2 className="text-5xl md:text-7xl font-serif font-bold mb-10 text-[#1A1A1A]">
-              Share Your <br /><span className="italic font-light">Experience</span>
+              Share Your Experience
             </h2>
             <p className="text-lg font-light text-[#654321] max-w-2xl leading-relaxed">
               Your feedback helps other world travelers discover the silent luxury and native narratives of the Pearl of Africa.

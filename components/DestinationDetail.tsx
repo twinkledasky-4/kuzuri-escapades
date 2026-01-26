@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Destination } from '../types.ts';
+import QueenElizabethCarousel from './QueenElizabethCarousel.tsx';
 
 interface DestinationDetailProps {
   destination: Destination;
@@ -57,7 +58,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
           <div className="max-w-4xl mx-auto">
             <h2 id="details-title" className="text-4xl md:text-7xl font-serif font-bold text-[#1A1A1A] mb-12 tracking-[0.05em]">
-              {isQE ? 'The Medley of Wonders' : 'The Essence of Sanctuary'}
+              The Medley of Wonders
             </h2>
             <p className="text-[#1A1A1A] font-normal text-xl md:text-2xl leading-relaxed mb-20 tracking-wide opacity-90">
               {isQE 
@@ -113,22 +114,28 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         <div className="container mx-auto px-6 md:px-12 lg:px-24 text-center">
           <div className="mb-24">
             <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-6">VISUAL ARCHIVE</p>
-            <h3 className="text-4xl md:text-6xl font-serif font-bold text-[#1A1A1A] tracking-tight">Immersive <span className="italic text-[#654321]">Fragments.</span></h3>
+            <h3 className="text-4xl md:text-6xl font-serif font-bold text-[#1A1A1A] tracking-tight">Immersive Fragments.</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {destination.images.map((img, idx) => (
-              <div key={idx} className="overflow-hidden aspect-[4/5] bg-[#F5F5DC] shadow-2xl reveal-trigger group border-2 border-[#1A1A1A]">
-                <img 
-                  src={img} 
-                  alt={`${destination.name} landscape detail ${idx + 1}`}
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[3000ms] group-hover:scale-110"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))}
-          </div>
+          {isQE ? (
+            <div className="max-w-6xl mx-auto">
+              <QueenElizabethCarousel />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {destination.images.map((img, idx) => (
+                <div key={idx} className="overflow-hidden aspect-[4/5] bg-[#F5F5DC] shadow-2xl reveal-trigger group border-2 border-[#1A1A1A]">
+                  <img 
+                    src={img} 
+                    alt={`${destination.name} landscape detail ${idx + 1}`}
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[3000ms] group-hover:scale-110"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -136,10 +143,10 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] mix-blend-overlay" />
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <h2 className="text-4xl md:text-8xl font-serif font-bold mb-16 md:mb-24 leading-tight tracking-[0.1em] text-[#D4AF37] italic">
-            Co-author your <br /><span className="text-white not-italic">{destination.name.split(' ')[0]} Odyssey.</span>
+            Co-author your {destination.name.split(' ')[0]} Odyssey.
           </h2>
           <button 
-            className="px-16 py-8 border-2 border-[#1A1A1A] bg-[#8B5A2B] text-[#F5F5DC] text-[12px] uppercase tracking-[1em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 shadow-2xl"
+            className="px-16 py-8 border-2 border-[#1A1A1A] bg-[#8B5A2B] text-[#F5F5DC] text-[12px] uppercase tracking-[1em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 shadow-xl"
             onClick={onBack}
           >
             Return to Exploration

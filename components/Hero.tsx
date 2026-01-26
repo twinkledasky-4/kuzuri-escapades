@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { HERO_SLIDES } from '../constants.tsx';
 
 interface HeroProps {
   onStartPlanning: () => void;
@@ -7,102 +8,87 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onStartPlanning }) => {
   const [currentHero, setCurrentHero] = useState(0);
   
-  const heroImages = [
-    {
-      id: 'safari-crossroad',
-      url: 'https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg',
-      alt: 'Safari vehicle at crossroads in Uganda wilderness',
-      headline: 'Journey Beyond the Ordinary',
-      subheadline: 'Bespoke Ugandan escapades crafted for the discerning traveler, where every path authors a unique story.',
-      cta: 'Begin Your Odyssey'
-    },
-    {
-      id: 'gorilla-bwindi',
-      url: 'https://i.postimg.cc/qzRsBgyD/images.jpg',
-      alt: 'Mountain gorilla in the mists of Bwindi',
-      headline: 'The Primate Odyssey',
-      subheadline: 'An intimate encounter with the monarchs of Bwindi, curated with profound silence and native wisdom.',
-      cta: 'Meet the Monarchs'
-    },
-    {
-      id: 'nile-falls',
-      url: 'https://i.postimg.cc/przVFwg6/2-Days-Murchison-Falls-Safari-Uganda-Wildlife-Safari-in-Uganda-Tour-Murchison-Falls-National-Park-75.jpg',
-      alt: 'Murchison Falls landscape in Uganda',
-      headline: 'The Rhythm of the Nile',
-      subheadline: 'Witness the thundering power of the world\'s strongest waterfall, a spectacle of untamed grace.',
-      cta: 'Feel the Power'
-    }
-  ];
+  const handleNext = useCallback(() => {
+    setCurrentHero((prev) => (prev + 1) % HERO_SLIDES.length);
+  }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHero((prev) => (prev + 1) % heroImages.length);
-    }, 9000);
+    const interval = setInterval(handleNext, 8000);
     return () => clearInterval(interval);
-  }, [heroImages.length]);
+  }, [handleNext]);
 
-  const currentImage = heroImages[currentHero];
+  const currentSlide = HERO_SLIDES[currentHero];
 
   return (
     <section className="hero-section" aria-labelledby="hero-title">
-      <div className="hero-image-wrapper">
-        {heroImages.map((hero, index) => (
+      {/* 3-Image Rotation Layer */}
+      <div className="absolute inset-0 z-0">
+        {HERO_SLIDES.map((slide, index) => (
           <div 
-            key={hero.id}
+            key={slide.id}
             className={`hero-image-layer ${index === currentHero ? 'active' : ''}`}
           >
             <img
-              src={hero.url}
-              alt={hero.alt}
+              src={slide.imageUrl}
+              alt={slide.title}
               className="hero-image"
               loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
             />
           </div>
         ))}
       </div>
       
+      {/* Brand Overlay */}
       <div className="hero-overlay" />
       
-      <div className="hero-content text-center relative z-10 px-6 max-w-5xl mx-auto">
-        <div className="reveal-trigger is-visible flex flex-col items-center">
-          <p className="text-base font-medium text-[#D4AF37] uppercase tracking-[0.8em] mb-6">
-            Hello, Traveler!
+      {/* Dynamic Content */}
+      <div className="hero-content relative z-10 px-6 max-w-5xl mx-auto">
+        <div key={currentHero} className="animate-fade-in flex flex-col items-center">
+          <p className="text-[#D4AF37] uppercase tracking-[1em] text-base font-medium mb-8">
+            {currentSlide.subtitle}
           </p>
           <h1 
             id="hero-title"
-            className="hero-headline text-white mb-10"
-          >
-            {currentImage.headline}
-          </h1>
-          <p className="hero-subheadline text-white/80 mx-auto mb-12">
-            {currentImage.subheadline}
+            className="hero-headline"
+            dangerouslySetInnerHTML={{ __html: currentSlide.title }}
+          />
+          <p className="hero-subheadline mb-12">
+            {currentSlide.description}
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-6">
             <button 
               onClick={onStartPlanning}
               className="cta-primary"
             >
-              {currentImage.cta}
+              {currentSlide.cta || 'Explore territories'}
             </button>
             <button 
               onClick={onStartPlanning}
               className="cta-secondary"
             >
-              Explore Territories
+              Request Consultation
             </button>
           </div>
         </div>
       </div>
 
-      <div className="hero-navigation absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
-        {heroImages.map((_, index) => (
+      {/* 3-Dot Navigation */}
+      <div className="hero-navigation">
+        {HERO_SLIDES.map((_, index) => (
           <button
             key={index}
             className={`hero-dot ${index === currentHero ? 'active' : ''}`}
             onClick={() => setCurrentHero(index)}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={`View hero slide ${index + 1}`}
           />
         ))}
+      </div>
+      
+      {/* Refined Scroll Indicator */}
+      <div className="scroll-indicator">
+        <span className="text-[9px] uppercase tracking-[0.5em] font-bold text-white mb-2 opacity-50">Explore</span>
+        <div className="scroll-line" />
       </div>
     </section>
   );

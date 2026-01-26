@@ -5,66 +5,60 @@ interface WildlifeConservationSectionProps {
 }
 
 export const WildlifeConservationSection: React.FC<WildlifeConservationSectionProps> = ({ onEnquire }) => {
-  const imageUrl = "https://i.postimg.cc/Mpd6Vbrs/CTC-Conservation-center-lion-cubs-scaled.jpg";
+  const imageUrl = "https://images.unsplash.com/photo-1481142889578-df45d4f9080e?auto=format&fit=crop&q=80&w=1200";
 
   return (
-    <section className="conservation-experience bg-[#FAF8F3] border-y-2 border-[#1A1A1A]" aria-labelledby="conservation-title">
+    <section className="py-32 md:py-64 bg-[#FAF8F3] border-y-2 border-[#1A1A1A]" aria-labelledby="conservation-title">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
-        <div className="content-grid">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           {/* Image on left per brief */}
-          <div className="image-column reveal-image rounded-sm border-2 border-[#1A1A1A]">
-            <picture>
-              <source
-                type="image/webp"
-                srcSet={`
-                  ${imageUrl}?w=800&fm=webp 800w,
-                  ${imageUrl}?w=1200&fm=webp 1200w,
-                  ${imageUrl}?w=1600&fm=webp 1600w
-                `}
-              />
-              <img
-                src={`${imageUrl}?w=1200`}
-                srcSet={`
-                  ${imageUrl}?w=800 800w,
-                  ${imageUrl}?w=1200 1200w,
-                  ${imageUrl}?w=1600 1600w
-                `}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                alt="Lion cubs at Uganda Wildlife Conservation Center - Educational wildlife encounter"
-                className="conservation-image"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+          <div className="reveal-image rounded-sm border-2 border-[#1A1A1A] overflow-hidden shadow-2xl">
+            <img
+              src={imageUrl}
+              alt="Majestic lion in the savannah - Educational wildlife encounter"
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[2000ms] scale-105 hover:scale-100"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           
           {/* Content on right per brief */}
-          <div className="text-column reveal-trigger">
-            <h2 id="conservation-title" className="font-serif text-[#1A1A1A]">Conservation Encounters</h2>
-            <p className="lead font-serif italic text-[#8B5A2B]">
+          <div className="reveal-trigger space-y-10">
+            <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold">GUARDIANSHIP</p>
+            <h2 id="conservation-title" className="text-5xl md:text-7xl font-serif font-bold text-[#1A1A1A] leading-tight tracking-tighter">Conservation Encounters.</h2>
+            <p className="text-[#8B5A2B] font-serif italic text-2xl leading-relaxed">
               Experience Uganda's commitment to wildlife preservation through 
               intimate educational encounters.
             </p>
             
-            <p className="text-stone-700 font-light leading-relaxed mb-10 tracking-wide text-lg">
+            <p className="text-stone-700 font-light leading-relaxed tracking-wide text-lg">
               Visit the Uganda Wildlife Education Centre, where rescued animals 
               receive world-class care and serve as ambassadors for their wild 
-              counterparts. Perfect for families and conservation-minded travelers.
+              counterparts. Perfect for families and conservation-minded travelers seeking native stewardship.
             </p>
             
-            <ul className="benefits-list">
-              <li className="font-semibold text-[#1A1A1A]">Meet rescued lions, chimpanzees, and rare birds</li>
-              <li className="font-semibold text-[#1A1A1A]">Learn from expert wildlife veterinarians</li>
-              <li className="font-semibold text-[#1A1A1A]">Support critical conservation programs</li>
-              <li className="font-semibold text-[#1A1A1A]">Safe, educational experiences for all ages</li>
-            </ul>
+            <div className="space-y-4 pt-6">
+              {[
+                "Meet rescued lions, chimpanzees, and rare birds",
+                "Learn from expert wildlife veterinarians",
+                "Support critical conservation programs",
+                "Safe, educational experiences for all ages"
+              ].map((benefit, idx) => (
+                <div key={idx} className="flex items-center gap-4">
+                  <div className="w-2 h-2 rounded-full bg-[#D4AF37]" />
+                  <p className="font-bold text-[#1A1A1A] text-[11px] uppercase tracking-widest">{benefit}</p>
+                </div>
+              ))}
+            </div>
             
-            <button 
-              onClick={() => onEnquire('Conservation Tours')}
-              className="px-10 py-5 border-2 border-[#1A1A1A] bg-[#8B5A2B] text-[#F5F5DC] text-[11px] uppercase tracking-[0.5em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 shadow-xl"
-            >
-              Inquire About Conservation Tours
-            </button>
+            <div className="pt-10">
+              <button 
+                onClick={() => onEnquire('Conservation Tours')}
+                className="cta-primary shadow-xl"
+              >
+                Inquire About Conservation Tours
+              </button>
+            </div>
           </div>
         </div>
       </div>

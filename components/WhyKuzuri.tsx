@@ -26,7 +26,7 @@ export const WhyKuzuri: React.FC = () => {
           <div className="max-w-2xl">
             <p className="text-[#8B5A2B] uppercase tracking-[0.8em] text-[10px] mb-8 font-bold">THE DISTINCTION</p>
             <h2 id="distinction-title" className="text-5xl md:text-7xl font-serif font-bold text-[#1A1A1A] tracking-tighter leading-tight">
-              A refined standard <br /><span className="italic font-light text-[#654321]">of private stewardship.</span>
+              A refined standard of private stewardship.
             </h2>
           </div>
         </div>

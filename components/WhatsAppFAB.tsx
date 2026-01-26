@@ -11,13 +11,13 @@ export const WhatsAppFAB: React.FC = () => {
       target="_blank"
       rel="noopener noreferrer"
       className="whatsapp-float-button group"
-      title="Chat with us on WhatsApp"
-      aria-label="Chat with us on WhatsApp"
+      title="Chat with our Curators on WhatsApp"
+      aria-label="Chat with our Curators on WhatsApp"
     >
       <img 
         src="icons/whatsapp.svg" 
         alt="WhatsApp" 
-        className="w-[34px] h-[34px] brightness-0 invert"
+        className="w-[34px] h-[34px] brightness-0 invert transition-transform duration-500 group-hover:scale-110"
         width={34}
         height={34}
         loading="lazy"

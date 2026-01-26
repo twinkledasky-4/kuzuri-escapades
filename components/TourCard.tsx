@@ -10,6 +10,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % tour.imageUrls.length);
@@ -25,11 +26,9 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
     return () => clearInterval(interval);
   }, [isPaused, showDetails, handleNext]);
 
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: tour.currency,
-    maximumFractionDigits: 0
-  }).format(tour.price_from);
+  const handleImageLoad = (idx: number) => {
+    setLoadedImages(prev => ({ ...prev, [idx]: true }));
+  };
 
   return (
     <article 
@@ -38,12 +37,12 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* Featured image carousel */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#FAF8F3] border-b-2 border-[#1A1A1A]">
+      <div className={`luxury-image-container aspect-[4/5] border-b-2 border-[#1A1A1A] ${!loadedImages[currentIndex] ? 'is-loading' : ''}`}>
         {tour.imageUrls.map((url, idx) => (
           <div 
             key={url}
-            className={`carousel-slide absolute inset-0 transition-opacity duration-1500 ease-in-out ${
-              idx === currentIndex ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
+            className={`carousel-slide absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${
+              idx === currentIndex && loadedImages[idx] ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
             }`}
           >
             <img 
@@ -51,12 +50,13 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
               alt={`${tour.name} view ${idx + 1}`}
               loading="lazy"
               decoding="async"
+              onLoad={() => handleImageLoad(idx)}
               className="w-full h-full object-cover transition-transform duration-[8000ms] ease-linear"
             />
           </div>
         ))}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/80 via-transparent to-transparent opacity-60 pointer-events-none z-[6]" />
         
         <div className="absolute inset-x-0 bottom-0 p-8 flex justify-between items-end z-20">
           <div className="flex gap-2">
@@ -78,13 +78,6 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking }) =>
           <span className="inline-block bg-[#1A1A1A] text-[#F5F5DC] text-[9px] uppercase tracking-[0.4em] font-bold py-3 px-6 shadow-2xl">
             {tour.duration_days} Days / {tour.duration_nights} Nights
           </span>
-        </div>
-
-        <div className="absolute top-6 right-6 z-10">
-          <div className="bg-[#FAF8F3] text-[#1A1A1A] px-5 py-3 shadow-2xl text-center border-2 border-[#1A1A1A]">
-            <span className="block text-[8px] uppercase tracking-[0.1em] text-[#654321] opacity-80 mb-1 font-bold">From</span>
-            <span className="text-[18px] font-serif font-bold text-[#D4AF37] tracking-tight">{formattedPrice}</span>
-          </div>
         </div>
       </div>
 

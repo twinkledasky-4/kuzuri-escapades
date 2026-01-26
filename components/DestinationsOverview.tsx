@@ -5,7 +5,7 @@ interface DestinationsOverviewProps {
 }
 
 export const DestinationsOverview: React.FC<DestinationsOverviewProps> = ({ onViewAll }) => {
-  const compositeImageUrl = "https://i.postimg.cc/0bBpzxCQ/unnamed2.jpg";
+  const compositeImageUrl = "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1600";
 
   return (
     <section className="destinations-overview" aria-labelledby="destinations-overview-title">
@@ -21,8 +21,8 @@ export const DestinationsOverview: React.FC<DestinationsOverviewProps> = ({ onVi
       </div>
       
       <div className="container mx-auto px-6 content-overlay reveal-trigger">
-        <h2 id="destinations-overview-title" className="text-4xl md:text-7xl font-serif mb-8 leading-tight tracking-tight text-white">
-          Discover the <span className="italic font-light">Treasures</span> of the Pearl
+        <h2 id="destinations-overview-title" className="text-4xl md:text-7xl font-serif font-bold mb-8 leading-tight tracking-tight text-white">
+          Discover the Treasures of the Pearl
         </h2>
         <p className="subtitle text-lg md:text-2xl font-light max-w-2xl mx-auto mb-12 tracking-wide text-white/80">
           From misty mountain gorillas to the thundering source of the Nile, 

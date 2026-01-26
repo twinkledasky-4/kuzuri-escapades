@@ -105,7 +105,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
           <>
             <div className="mb-16 text-center">
               <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-4">CO-AUTHOR YOUR VISION</p>
-              <h2 id="modal-title" className="text-4xl md:text-6xl font-serif text-[#1A1A1A] leading-tight tracking-tighter">Request a <span className="italic font-light">Manifest</span></h2>
+              <h2 id="modal-title" className="text-4xl md:text-6xl font-serif font-bold text-[#1A1A1A] leading-tight tracking-tighter">Request a Manifest</h2>
               <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mt-10" />
             </div>
 

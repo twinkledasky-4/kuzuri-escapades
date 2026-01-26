@@ -23,7 +23,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ onNavigateToAll, rev
         <div className="text-center mb-16 reveal-trigger">
           <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-6">THE FEEDBACK</p>
           <h2 id="testimonial-heading" className="text-4xl md:text-6xl font-serif font-bold mb-6" style={{ color: '#1A1A1A' }}>
-            Trusted by Global <span className="italic font-light">Adventurers</span>
+            Trusted by Global Adventurers
           </h2>
           <p className="text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto opacity-80" style={{ color: '#654321' }}>
             Hear what our clients have to say about their transformative Kuzuri experiences.

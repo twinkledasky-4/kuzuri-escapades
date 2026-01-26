@@ -7,51 +7,52 @@ interface ExperienceCardProps {
 }
 
 export const ExperienceCard: React.FC<ExperienceCardProps> = ({ destination, index }) => {
-  const isEven = index % 2 === 0;
-
-  const getAltText = () => {
-    if (destination.id === 'murchison') return "Murchison Falls National Park safari - Wildlife viewing in Uganda's largest park";
-    if (destination.id === 'bwindi') return "Bwindi Impenetrable Forest mountain gorilla trekking experience";
-    if (destination.id === 'queen-elizabeth') return "Elephant herd bathing in Kazinga Channel, Queen Elizabeth National Park, Uganda";
-    return `Breathtaking view of ${destination.name} - ${destination.tagline}.`;
-  };
-  
   return (
-    <article className={`destination-card flex flex-col mb-32 md:mb-64 reveal-trigger ${isEven ? 'md:pr-20' : 'md:pl-20 md:mt-48'}`} aria-labelledby={`exp-title-${destination.id}`}>
-      <div className="relative mb-14 overflow-hidden group shadow-2xl shadow-stone-300/40 transition-shadow duration-[300ms] hover:shadow-stone-400/60 border-2 border-[#1A1A1A]">
-        <div className="reveal-image aspect-[16/9] overflow-hidden bg-stone-50">
-          <img 
-            src={destination.images[0]} 
-            alt={getAltText()}
-            loading="lazy"
-            decoding="async"
-            className="w-full h-full object-cover transition-transform duration-[6000ms] ease-out group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
-          />
-        </div>
-        <div className="absolute top-8 right-8 mix-blend-difference text-white/70 text-[9px] uppercase tracking-[0.4em] font-bold" aria-hidden="true">
-          00{index + 1} / Territory
-        </div>
+    <article 
+      className="relative w-full h-[80vh] md:h-[90vh] overflow-hidden group border-b border-[#1A1A1A]/20" 
+      aria-labelledby={`dest-title-${destination.id}`}
+    >
+      {/* Immersive Background */}
+      <div className="absolute inset-0">
+        <img 
+          src={destination.images[0]} 
+          alt={destination.name}
+          className="w-full h-full object-cover transition-transform duration-[15000ms] group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
       </div>
-      
-      <div className="max-w-md px-2">
-        {destination.tagline && (
-          <p className="text-[#8B5A2B] uppercase tracking-[0.5em] text-[10px] font-bold mb-6">
-            {destination.tagline}
+
+      {/* Floating Content */}
+      <div className="relative h-full flex flex-col justify-center px-6 md:px-24">
+        <div className="max-w-4xl space-y-8 translate-y-8 group-hover:translate-y-0 transition-transform duration-1000">
+          <p className="text-[#D4AF37] uppercase tracking-[1.2em] text-[10px] md:text-xs font-black">
+            TERRITORY 0{index + 1}
           </p>
-        )}
-        <h3 id={`exp-title-${destination.id}`} className="text-4xl md:text-5xl font-serif font-bold text-[#1A1A1A] mb-8 leading-tight tracking-[0.05em] group-hover:italic transition-all duration-700">
-          {destination.name}
-        </h3>
-        <p className="text-[#1A1A1A] text-base font-normal leading-relaxed mb-10 tracking-wide">
-          {destination.description}
-        </p>
-        <div className="flex flex-col gap-4 border-l-2 border-[#1A1A1A] pl-8 transition-colors duration-[3000ms] group-hover:border-[#D4AF37]">
-          <p className="sr-only">Key Highlights:</p>
-          {destination.highlights.map((high, idx) => (
-            <span key={idx} className="text-[10px] uppercase tracking-[0.3em] text-[#1A1A1A] font-bold">
-              {high.split(':')[0]}
-            </span>
-          ))}
+          <h3 
+            id={`dest-title-${destination.id}`} 
+            className="text-5xl md:text-8xl lg:text-9xl font-serif font-bold text-white tracking-tighter leading-none"
+          >
+            {destination.name}
+          </h3>
+          <p className="text-white/90 text-lg md:text-2xl font-light leading-relaxed max-w-2xl tracking-wide">
+            {destination.description}
+          </p>
+          
+          <div className="flex flex-wrap gap-x-8 gap-y-4 pt-10">
+            {destination.highlights.map((h, i) => (
+              <span key={i} className="text-[10px] md:text-xs uppercase tracking-[0.5em] text-[#D4AF37] font-black border-b border-[#D4AF37]/30 pb-2">
+                {h}
+              </span>
+            ))}
+          </div>
+          
+          <div className="pt-16 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+             <button className="text-white text-xs uppercase tracking-[0.8em] font-black flex items-center gap-6 border-b border-white/40 pb-4 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+               BEGIN THE NARRATIVE
+               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+             </button>
+          </div>
         </div>
       </div>
     </article>
