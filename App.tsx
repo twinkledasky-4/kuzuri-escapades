@@ -1,18 +1,17 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+
+import React, { useState, useRef, useEffect } from 'react';
 import { AppSection, Tour, Destination, Review } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
-import { TourCard } from './components/TourCard.tsx';
-import { ExperienceCard } from './components/ExperienceCard.tsx';
-import { Services } from './components/Services.tsx';
-import { ItineraryGenerator } from './components/ItineraryGenerator.tsx';
-import { WhyKuzuri } from './components/WhyKuzuri.tsx';
-import { Testimonials } from './components/Testimonials.tsx';
 import { Footer } from './components/Footer.tsx';
 import { InquiryModal } from './components/InquiryModal.tsx';
 import { WhatsAppFAB } from './components/WhatsAppFAB.tsx';
 import { AIChatBot } from './components/AIChatBot.tsx';
 import { DestinationDetail } from './components/DestinationDetail.tsx';
+import { TourCard } from './components/TourCard.tsx';
+import { Expertise } from './components/Expertise.tsx';
+import { LodgeGallery } from './components/LodgeGallery.tsx';
+import { AccommodationsPage } from './components/AccommodationsPage.tsx';
 import { DESTINATIONS, TOURS, REVIEWS } from './constants.tsx';
 
 const App: React.FC = () => {
@@ -20,21 +19,98 @@ const App: React.FC = () => {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [inquiryPreFill, setInquiryPreFill] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  
-  const destinationsRef = useRef<HTMLDivElement>(null);
 
   const handleNavigate = (section: AppSection) => {
     setActiveSection(section);
-    if (section === AppSection.DESTINATIONS && destinationsRef.current) {
-      destinationsRef.current.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSelectedDestination(null); // Clear destination when navigating via main links
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleRequestBooking = (tour: Tour) => {
+    setInquiryPreFill(`I am interested in the ${tour.name} odyssey. Please share more details.`);
+    setIsInquiryOpen(true);
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [selectedDestination, activeSection]);
+
+  const renderContent = () => {
+    if (selectedDestination) {
+      return (
+        <DestinationDetail 
+          destination={selectedDestination} 
+          onBack={() => setSelectedDestination(null)} 
+        />
+      );
+    }
+
+    switch (activeSection) {
+      case AppSection.ACCOMMODATIONS:
+        return <AccommodationsPage onEnquire={() => setIsInquiryOpen(true)} />;
+      default:
+        return (
+          <>
+            {/* SECTION 1: THE HERO */}
+            <Hero minimal={true} onStartPlanning={() => handleNavigate(AppSection.PLANNER)} />
+
+            {/* SECTION: POPULAR ITINERARIES */}
+            <section className="py-24 md:py-40 bg-white px-6">
+              <div className="container mx-auto max-w-7xl text-center">
+                <div className="mb-20 reveal-trigger">
+                  <h2 className="text-3xl md:text-5xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto mb-8">
+                    OUR MOST POPULAR KUZURI SAFARI ITINERARIES IN UGANDA
+                  </h2>
+                  <p className="text-[#1A1A1A] text-lg md:text-xl font-normal leading-relaxed max-w-3xl mx-auto opacity-80">
+                    Discover Uganda your way and explore the country at your own pace. Our experts will organize the trip of your dreams, exactly as you want it!
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                  {TOURS.map((tour) => (
+                    <div key={tour.id} className="reveal-trigger">
+                      <TourCard tour={tour} onRequestBooking={handleRequestBooking} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* SECTION: EXPERTISE */}
+            <Expertise />
+
+            {/* SECTION: EXCEPTIONAL STAYS GALLERY */}
+            <LodgeGallery onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} />
+
+            {/* SECTION: THE INQUIRY */}
+            <section className="py-60 bg-white text-center px-6">
+              <div className="max-w-5xl mx-auto reveal-trigger">
+                <p className="text-[#8B5A2B] uppercase tracking-[0.8em] text-sm font-black mb-12">THE INQUIRY</p>
+                <h2 className="text-6xl md:text-9xl font-serif font-black text-[#1A1A1A] mb-16 tracking-tighter">Author Your <span className="italic">Vision.</span></h2>
+                <p className="text-[#1A1A1A] text-2xl md:text-4xl font-normal leading-relaxed mb-24 max-w-3xl mx-auto opacity-90">
+                  Our curators are waiting to design a journey worth the wait. Every manifest is a one-of-a-kind narrative crafted for the discerning traveler.
+                </p>
+                <button 
+                  onClick={() => setIsInquiryOpen(true)}
+                  className="cta-primary scale-125"
+                >
+                  Request a Manifest
+                </button>
+              </div>
+            </section>
+          </>
+        );
     }
   };
 
   return (
-    <div className="relative min-h-screen bg-[#F5F5DC] selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
+    <div className="relative min-h-screen bg-white selection:bg-[#8B5A2B] selection:text-white">
       <Navbar 
         activeSection={activeSection} 
         onNavigate={handleNavigate} 
@@ -42,99 +118,7 @@ const App: React.FC = () => {
       />
 
       <main>
-        {selectedDestination ? (
-          <DestinationDetail 
-            destination={selectedDestination} 
-            onBack={() => setSelectedDestination(null)} 
-          />
-        ) : (
-          <>
-            <Hero onStartPlanning={() => handleNavigate(AppSection.PLANNER)} />
-
-            {/* Immersive Vertical Destination Stack */}
-            <section ref={destinationsRef} className="bg-[#1A1A1A]">
-              {DESTINATIONS.map((dest, idx) => (
-                <div key={dest.id} onClick={() => setSelectedDestination(dest)}>
-                  <ExperienceCard destination={dest} index={idx} />
-                </div>
-              ))}
-            </section>
-
-            {/* Dedicated Nature/Wildlife Section: Zebra Panel */}
-            <section className="relative h-[90vh] flex items-center justify-center overflow-hidden border-y-2 border-[#1A1A1A]">
-               <img 
-                src="https://images.unsplash.com/photo-1501705388883-4ed8a543392c?auto=format&fit=crop&q=85&w=1600" 
-                alt="Native Zebra Portrait" 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[20s] hover:scale-105"
-               />
-               <div className="absolute inset-0 bg-black/50" />
-               <div className="relative z-10 text-center px-6 reveal-trigger">
-                  <p className="text-[#D4AF37] uppercase tracking-[1.5em] text-[10px] md:text-xs font-bold mb-10">THE LIVING CANVAS</p>
-                  <h2 className="text-5xl md:text-9xl font-serif font-bold text-white mb-12 tracking-tighter italic">Portrait of the Wild.</h2>
-                  <p className="text-white/80 max-w-2xl mx-auto text-lg md:text-2xl font-light leading-relaxed tracking-wide">
-                    Witness the stripped elegance of Lake Mburo—a sanctuary of native stewardship and silent observation.
-                  </p>
-               </div>
-            </section>
-
-            {/* Dedicated Nature/Wildlife Section: Elephant Panel */}
-            <section className="relative h-[90vh] flex items-center justify-center overflow-hidden border-b-2 border-[#1A1A1A]">
-               <img 
-                src="https://i.postimg.cc/85zK23r1/elephants.jpg" 
-                alt="Elephant Family in Savannah" 
-                className="absolute inset-0 w-full h-full object-cover grayscale opacity-70 hover:grayscale-0 transition-all duration-[3000ms]"
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent" />
-               <div className="relative z-10 text-center px-6 reveal-trigger">
-                  <p className="text-[#D4AF37] uppercase tracking-[1.5em] text-[10px] md:text-xs font-bold mb-10">ANCIENT KINSHIP</p>
-                  <h2 className="text-5xl md:text-9xl font-serif font-bold text-white mb-12 tracking-tighter">Sovereign Giants.</h2>
-                  <p className="text-white/80 max-w-2xl mx-auto text-lg md:text-2xl font-light leading-relaxed tracking-wide">
-                    Co-author your journey through the Albertine Rift, where the monarchs of the savannah dictate the pace of time.
-                  </p>
-               </div>
-            </section>
-
-            {/* Safari Packages with Lion Road Background */}
-            <section 
-              className="relative py-48 md:py-80 border-y-2 border-[#1A1A1A] px-4 overflow-hidden" 
-              id="packages-section"
-            >
-              <div className="absolute inset-0 z-0">
-                 <img 
-                   src="https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg" 
-                   alt="Lions on the road" 
-                   className="w-full h-full object-cover brightness-[0.3]"
-                 />
-              </div>
-
-              <div className="container mx-auto px-6 relative z-10 text-center">
-                 <div className="mb-32 reveal-trigger">
-                    <p className="text-[#D4AF37] uppercase tracking-[1em] text-[12px] mb-10 font-bold">THE ODYSSEY COLLECTION</p>
-                    <h2 className="text-6xl md:text-9xl font-serif font-bold text-white mb-20 tracking-tighter">Bespoke <span className="italic font-light">Fragments.</span></h2>
-                    <div className="max-w-3xl mx-auto">
-                      <input 
-                        type="text" 
-                        placeholder="Refine your vision..." 
-                        className="w-full py-8 px-12 bg-white/5 backdrop-blur-xl border-2 border-white/20 text-xl font-light focus:border-[#D4AF37] outline-none transition-all placeholder:text-white/30 text-white"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                      />
-                    </div>
-                 </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-16 lg:gap-24 max-w-7xl mx-auto">
-                  {TOURS.map((tour) => (
-                    <TourCard key={tour.id} tour={tour} onRequestBooking={(t) => { setInquiryPreFill(`Interested in ${t.name}`); setIsInquiryOpen(true); }} />
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <Services />
-            <WhyKuzuri />
-            <Testimonials reviews={REVIEWS} />
-          </>
-        )}
+        {renderContent()}
       </main>
 
       <Footer onEnquire={() => setIsInquiryOpen(true)} />

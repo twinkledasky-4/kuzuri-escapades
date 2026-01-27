@@ -1,3 +1,4 @@
+
 export interface Destination {
   id: string;
   name: string;
@@ -71,6 +72,15 @@ export interface Review {
   images?: string[];
 }
 
+export interface Lodge {
+  id: string;
+  name: string;
+  location: string;
+  imageUrl: string;
+  description: string;
+  region?: string;
+}
+
 export interface ItineraryDay {
   day: number;
   location: string;
@@ -89,6 +99,7 @@ export interface TravelPreferences {
 export enum AppSection {
   HOME = 'home',
   DESTINATIONS = 'destinations',
+  ACCOMMODATIONS = 'accommodations',
   SERVICES = 'services',
   PLANNER = 'planner',
   ABOUT = 'about',

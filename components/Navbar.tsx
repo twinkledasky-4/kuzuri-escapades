@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { AppSection } from '../types.ts';
 import { PhoneLink } from './PhoneLink.tsx';
@@ -13,20 +14,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 80);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navItems = [
-    { id: AppSection.HOME, label: 'Home' },
-    { id: AppSection.DESTINATIONS, label: 'Destinations' },
-    { id: AppSection.PLANNER, label: 'Packages' },
+    { id: AppSection.HOME, label: 'About' },
+    { id: AppSection.PLANNER, label: 'Tours' },
+    { id: AppSection.ACCOMMODATIONS, label: 'Stays' },
     { id: AppSection.SERVICES, label: 'Services' },
-    { id: AppSection.TESTIMONIALS, label: '⭐ Testimonials' },
-    { id: AppSection.ABOUT, label: 'About' },
     { id: AppSection.CONTACT, label: 'Contact' }
   ];
 
@@ -38,36 +35,33 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 right-0 z-[100] border-b-2 border-black transition-all duration-500 ${
-          isScrolled ? 'bg-[#F5F5DC] py-2 shadow-md' : 'bg-[#F5F5DC]/90 backdrop-blur-md py-4'
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
+          isScrolled ? 'bg-white py-4 shadow-sm' : 'bg-transparent py-8'
         }`}
-        style={{ backgroundColor: '#F5F5DC' }}
       >
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-          {/* Logo - Left Side */}
+        <div className="max-w-[1700px] mx-auto px-8 md:px-16 flex justify-between items-center">
+          {/* Logo */}
           <div 
             onClick={() => handleNavClick(AppSection.HOME)}
-            className="text-2xl font-bold cursor-pointer tracking-wider flex items-center gap-2"
-            style={{ color: '#1A1A1A' }}
+            className="flex items-center gap-4 cursor-pointer group"
           >
-            <img 
-              src="https://i.postimg.cc/bwx08cbS/Gemini-Generated-Image-6on0rk6on0rk6on0-(1).png" 
-              alt="Logo" 
-              className="h-10 w-auto brightness-0"
-            />
-            <span className="hidden sm:inline font-serif uppercase text-lg">Kuzuri Escapades</span>
+            <div className={`h-10 w-10 flex items-center justify-center border transition-all duration-500 ${isScrolled ? 'border-[#1A1A1A] bg-[#1A1A1A]' : 'border-white bg-transparent'}`}>
+               <span className={`font-serif text-xl font-bold transition-colors ${isScrolled ? 'text-[#D4AF37]' : 'text-white'}`}>K</span>
+            </div>
+            <span className={`hidden lg:inline font-sans text-lg tracking-tight font-medium transition-colors ${isScrolled ? 'text-[#1A1A1A]' : 'text-white'}`}>Kuzuri Escapades</span>
           </div>
           
-          {/* Right Side: Navigation + Phone Number + Menu */}
-          <div className="flex items-center gap-4 md:gap-8">
-            {/* Desktop Navigation Items */}
-            <div className="hidden lg:flex items-center space-x-6">
+          {/* Nav Items */}
+          <div className="flex items-center gap-12 xl:gap-20">
+            <div className="hidden lg:flex items-center space-x-10">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`text-[10px] uppercase tracking-[0.3em] font-bold transition-all hover:text-[#8B5A2B] whitespace-nowrap ${
-                    activeSection === item.id ? 'text-[#8B5A2B] border-b border-[#8B5A2B]' : 'text-[#1A1A1A]'
+                  className={`text-base font-sans font-normal transition-all hover:text-[#8B5A2B] ${
+                    isScrolled 
+                      ? (activeSection === item.id ? 'text-[#8B5A2B] font-semibold' : 'text-[#1A1A1A]') 
+                      : (activeSection === item.id ? 'text-[#D4AF37] font-semibold' : 'text-white')
                   }`}
                 >
                   {item.label}
@@ -75,73 +69,65 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
               ))}
             </div>
 
-            {/* Desktop Phone Link */}
-            <div className="hidden md:block">
+            {/* CTA */}
+            <div className="hidden md:flex items-center gap-10">
               <PhoneLink 
                 number="+256 708 012030" 
-                label="Curator Line"
-                className="px-6 py-3 rounded border-2 border-black font-bold text-sm tracking-widest shadow-sm"
-                style={{ backgroundColor: '#D4AF37', color: '#1A1A1A' }}
+                label="Curator"
+                className={`text-sm font-medium transition-colors ${isScrolled ? 'text-[#1A1A1A]' : 'text-white/90'}`}
+                showIcon={false}
               />
+              <button 
+                onClick={onEnquire}
+                className={`px-8 py-3 text-sm font-sans font-medium transition-all border ${
+                  isScrolled 
+                    ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]' 
+                    : 'bg-white text-[#1A1A1A] border-white'
+                } hover:bg-[#8B5A2B] hover:text-white hover:border-[#8B5A2B] shadow-sm`}
+              >
+                Inquire
+              </button>
             </div>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile Toggle */}
             <button 
-              className="md:hidden p-2"
+              className="lg:hidden"
               onClick={() => setMenuOpen(!menuOpen)}
-              style={{ color: '#1A1A1A' }}
               aria-label="Toggle Menu"
             >
-              {menuOpen ? (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-              ) : (
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-              )}
+              <div className={`w-8 h-[2px] mb-1.5 transition-all ${isScrolled ? 'bg-[#1A1A1A]' : 'bg-white'}`} />
+              <div className={`w-8 h-[2px] transition-all ${isScrolled ? 'bg-[#1A1A1A]' : 'bg-white'}`} />
             </button>
           </div>
         </div>
-
-        {/* Mobile Header Phone Number Bar */}
-        <div className="md:hidden border-t-2 border-black" style={{ backgroundColor: '#FAF8F3' }}>
-          <PhoneLink 
-            number="+256 708 012030" 
-            label="Curator Support"
-            className="flex justify-center py-5 w-full font-black uppercase tracking-[0.2em] text-sm"
-            style={{ backgroundColor: '#D4AF37', color: '#1A1A1A' }}
-            showIcon={true}
-          />
-        </div>
       </nav>
 
-      {/* Mobile Navigation Menu Overlay */}
+      {/* Menu Overlay */}
       <div 
-        className={`fixed inset-0 z-[90] bg-[#F5F5DC] transition-transform duration-500 transform ${
+        className={`fixed inset-0 z-[110] bg-white transition-transform duration-700 ease-[cubic-bezier(0.19, 1, 0.22, 1)] transform ${
           menuOpen ? 'translate-x-0' : 'translate-x-full'
-        } md:hidden`}
+        }`}
       >
-        <div className="flex flex-col items-center justify-center h-full space-y-8 p-8 overflow-y-auto">
+        <button 
+          onClick={() => setMenuOpen(false)}
+          className="absolute top-10 right-10 text-[#1A1A1A] p-4"
+        >
+          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <div className="flex flex-col items-center justify-center h-full space-y-12">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`text-2xl font-serif font-bold tracking-widest text-center ${
-                activeSection === item.id ? 'text-[#8B5A2B] italic underline' : 'text-[#1A1A1A]'
+              className={`text-4xl font-sans font-light tracking-tight hover:text-[#8B5A2B] transition-all ${
+                activeSection === item.id ? 'text-[#8B5A2B] font-medium' : 'text-[#1A1A1A]'
               }`}
             >
               {item.label}
             </button>
           ))}
-          <button 
-            onClick={() => { setMenuOpen(false); onEnquire(); }}
-            className="mt-8 px-12 py-5 bg-[#8B5A2B] text-[#F5F5DC] font-bold uppercase tracking-[0.4em] text-xs border-2 border-black"
-          >
-            Enquire Now
-          </button>
         </div>
       </div>
-      
-      {/* Spacer */}
-      <div className="h-[104px] md:h-[84px]"></div>
     </>
   );
 };
