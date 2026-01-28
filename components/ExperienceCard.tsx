@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Destination } from '../types.ts';
 
@@ -9,18 +10,18 @@ interface ExperienceCardProps {
 export const ExperienceCard: React.FC<ExperienceCardProps> = ({ destination, index }) => {
   return (
     <article 
-      className="relative w-full h-[80vh] md:h-[90vh] overflow-hidden group border-b border-[#1A1A1A]/20" 
+      className="relative w-full h-[80vh] md:h-[90vh] overflow-hidden group border-b border-[#1A1A1A]/20 bg-[#1A1A1A]" 
       aria-labelledby={`dest-title-${destination.id}`}
     >
-      {/* Immersive Background */}
+      {/* Immersive Background - Forced 100% Opacity */}
       <div className="absolute inset-0">
         <img 
           src={destination.images[0]} 
           alt={destination.name}
-          className="w-full h-full object-cover transition-transform duration-[15000ms] group-hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-[15000ms] group-hover:scale-110 opacity-100"
         />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+        {/* Strictly Linear Gradient for text grounding - No radial/circular blur */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
       </div>
 
       {/* Floating Content */}

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { PhoneLink } from './PhoneLink.tsx';
 
@@ -24,8 +25,9 @@ export const ContactPage: React.FC = () => {
         <img 
           src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1600" 
           alt="Luxury safari vehicle on the Ugandan savannah" 
-          className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="relative z-10 text-center px-6">
           <p className="text-[#D4AF37] uppercase tracking-[1em] text-[12px] font-bold mb-8">CO-AUTHOR YOUR VISION</p>
           <h1 className="text-5xl md:text-8xl font-serif font-bold text-[#F5F5DC] tracking-tighter leading-none">

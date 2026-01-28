@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Review } from '../types.ts';
 import { ReviewCard } from './ReviewCard.tsx';
@@ -287,8 +288,9 @@ export const TestimonialsPage: React.FC<{ reviews: Review[], onHelpfulClick?: (i
         <img 
           src="https://images.unsplash.com/photo-1518063311540-0640001280cc?auto=format&fit=crop&q=80&w=1600" 
           alt="Client in Bwindi forest during a gorilla trek" 
-          className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
         <div className="relative z-10 text-center px-6">
           <p className="text-[#D4AF37] uppercase tracking-[1.5em] text-[10px] font-bold mb-12 animate-fade-in">THE RETURN</p>
           <h1 className="text-6xl md:text-9xl font-serif font-bold text-[#F5F5DC] tracking-tighter leading-none animate-fade-in-up">

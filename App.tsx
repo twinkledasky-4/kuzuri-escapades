@@ -1,6 +1,6 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { AppSection, Tour, Destination, Review } from './types.ts';
+import React, { useState, useEffect } from 'react';
+import { AppSection, Tour, Destination } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { Footer } from './components/Footer.tsx';
@@ -11,18 +11,81 @@ import { DestinationDetail } from './components/DestinationDetail.tsx';
 import { TourCard } from './components/TourCard.tsx';
 import { Expertise } from './components/Expertise.tsx';
 import { LodgeGallery } from './components/LodgeGallery.tsx';
+import { BeautyOfUganda } from './components/BeautyOfUganda.tsx';
+import { DiscoverUganda } from './components/DiscoverUganda.tsx';
+import { AuthorYourVision } from './components/AuthorYourVision.tsx';
 import { AccommodationsPage } from './components/AccommodationsPage.tsx';
-import { DESTINATIONS, TOURS, REVIEWS } from './constants.tsx';
+import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES } from './constants.tsx';
+import { translateContent, UI_DICTIONARY } from './services/translationService.ts';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<AppSection>(AppSection.HOME);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [inquiryPreFill, setInquiryPreFill] = useState('');
+  
+  // Translation State
+  const [currentLang, setCurrentLang] = useState('EN');
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [translatedData, setTranslatedData] = useState({
+    hero: HERO_SLIDES,
+    tours: TOURS,
+    destinations: DESTINATIONS,
+    lodges: LODGES
+  });
+
+  // Handle routing based on URL on mount
+  useEffect(() => {
+    const path = window.location.pathname.split('/').filter(p => p).pop()?.toUpperCase();
+    const availableLangs = ['DA', 'NL', 'FR', 'DE', 'NO', 'ES', 'SV'];
+    if (path && availableLangs.includes(path)) {
+      handleLangChange(path);
+    }
+  }, []);
+
+  const handleLangChange = async (langCode: string) => {
+    if (langCode === currentLang) return;
+    
+    setIsTranslating(true);
+    setCurrentLang(langCode);
+    
+    // Update URL
+    const newPath = langCode === 'EN' ? '/' : `/${langCode.toLowerCase()}/`;
+    window.history.pushState({}, '', newPath);
+
+    if (langCode === 'EN') {
+      setTranslatedData({
+        hero: HERO_SLIDES,
+        tours: TOURS,
+        destinations: DESTINATIONS,
+        lodges: LODGES
+      });
+      setIsTranslating(false);
+      return;
+    }
+
+    // Batch translate dynamic content
+    const sourceData = {
+      hero: HERO_SLIDES,
+      tours: TOURS,
+      lodges: LODGES
+    };
+
+    const translated = await translateContent(sourceData, langCode);
+    setTranslatedData(prev => ({
+      ...prev,
+      hero: translated.hero || HERO_SLIDES,
+      tours: translated.tours || TOURS,
+      lodges: translated.lodges || LODGES
+    }));
+    
+    setIsTranslating(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleNavigate = (section: AppSection) => {
     setActiveSection(section);
-    setSelectedDestination(null); // Clear destination when navigating via main links
+    setSelectedDestination(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -40,7 +103,9 @@ const App: React.FC = () => {
 
     document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, [selectedDestination, activeSection]);
+  }, [selectedDestination, activeSection, translatedData]);
+
+  const ui = UI_DICTIONARY[currentLang] || UI_DICTIONARY.EN;
 
   const renderContent = () => {
     if (selectedDestination) {
@@ -58,52 +123,48 @@ const App: React.FC = () => {
       default:
         return (
           <>
-            {/* SECTION 1: THE HERO */}
-            <Hero minimal={true} onStartPlanning={() => handleNavigate(AppSection.PLANNER)} />
+            {/* HERO SECTION */}
+            <Hero 
+              minimal={true} 
+              onStartPlanning={() => handleNavigate(AppSection.PLANNER)} 
+              slides={translatedData.hero}
+            />
 
-            {/* SECTION: POPULAR ITINERARIES */}
+            {/* POPULAR ITINERARIES */}
             <section className="py-24 md:py-40 bg-white px-6">
               <div className="container mx-auto max-w-7xl text-center">
                 <div className="mb-20 reveal-trigger">
-                  <h2 className="text-3xl md:text-5xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto mb-8">
-                    OUR MOST POPULAR KUZURI SAFARI ITINERARIES IN UGANDA
+                  <h2 className="text-3xl md:text-5xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto mb-8 text-center">
+                    {ui.tours.toUpperCase()}
                   </h2>
-                  <p className="text-[#1A1A1A] text-lg md:text-xl font-normal leading-relaxed max-w-3xl mx-auto opacity-80">
-                    Discover Uganda your way and explore the country at your own pace. Our experts will organize the trip of your dreams, exactly as you want it!
-                  </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-                  {TOURS.map((tour) => (
+                  {translatedData.tours.map((tour) => (
                     <div key={tour.id} className="reveal-trigger">
-                      <TourCard tour={tour} onRequestBooking={handleRequestBooking} />
+                      <TourCard tour={tour} onRequestBooking={handleRequestBooking} currentLang={currentLang} />
                     </div>
                   ))}
                 </div>
               </div>
             </section>
 
-            {/* SECTION: EXPERTISE */}
+            {/* EXPERTISE */}
             <Expertise />
 
-            {/* SECTION: EXCEPTIONAL STAYS GALLERY */}
-            <LodgeGallery onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} />
+            {/* EXCEPTIONAL STAYS GALLERY */}
+            <LodgeGallery 
+              onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} 
+              lodges={translatedData.lodges}
+            />
 
-            {/* SECTION: THE INQUIRY */}
-            <section className="py-60 bg-white text-center px-6">
-              <div className="max-w-5xl mx-auto reveal-trigger">
-                <p className="text-[#8B5A2B] uppercase tracking-[0.8em] text-sm font-black mb-12">THE INQUIRY</p>
-                <h2 className="text-6xl md:text-9xl font-serif font-black text-[#1A1A1A] mb-16 tracking-tighter">Author Your <span className="italic">Vision.</span></h2>
-                <p className="text-[#1A1A1A] text-2xl md:text-4xl font-normal leading-relaxed mb-24 max-w-3xl mx-auto opacity-90">
-                  Our curators are waiting to design a journey worth the wait. Every manifest is a one-of-a-kind narrative crafted for the discerning traveler.
-                </p>
-                <button 
-                  onClick={() => setIsInquiryOpen(true)}
-                  className="cta-primary scale-125"
-                >
-                  Request a Manifest
-                </button>
-              </div>
-            </section>
+            {/* THE BEAUTY OF UGANDA */}
+            <BeautyOfUganda />
+
+            {/* DISCOVER UGANDA - Refined Interaction Section */}
+            <DiscoverUganda />
+
+            {/* AUTHOR YOUR VISION - Final CTA Section */}
+            <AuthorYourVision onShareVision={() => setIsInquiryOpen(true)} />
           </>
         );
     }
@@ -111,10 +172,24 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-[#8B5A2B] selection:text-white">
+      {/* Global Translation Loader */}
+      {isTranslating && (
+        <div className="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center animate-fade-in">
+          <div className="w-48 h-[2px] bg-stone-100 overflow-hidden relative mb-8">
+            <div className="absolute inset-0 bg-[#D4AF37] animate-translate-shimmer" />
+          </div>
+          <p className="text-[10px] uppercase tracking-[1em] font-black text-[#8B5A2B] animate-pulse">
+            {ui.translating}
+          </p>
+        </div>
+      )}
+
       <Navbar 
         activeSection={activeSection} 
         onNavigate={handleNavigate} 
         onEnquire={() => setIsInquiryOpen(true)} 
+        currentLang={currentLang}
+        onLangChange={handleLangChange}
       />
 
       <main>
@@ -125,6 +200,16 @@ const App: React.FC = () => {
       <InquiryModal isOpen={isInquiryOpen} onClose={() => setIsInquiryOpen(false)} initialMessage={inquiryPreFill} />
       <WhatsAppFAB />
       <AIChatBot />
+
+      <style>{`
+        @keyframes translateShimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .animate-translate-shimmer {
+          animation: translateShimmer 2s infinite ease-in-out;
+        }
+      `}</style>
     </div>
   );
 };

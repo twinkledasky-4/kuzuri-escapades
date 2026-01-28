@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Destination } from '../types.ts';
 import QueenElizabethCarousel from './QueenElizabethCarousel.tsx';
@@ -38,11 +39,12 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         <img
           src={heroImage}
           alt={isQE ? 'Elephant herd bathing in Kazinga Channel, Queen Elizabeth National Park, Uganda' : `${destination.name} - ${destination.tagline}`}
-          className={`destination-hero-image absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-[12s] ease-out ${isRevealed ? 'scale-110' : 'scale-100'}`}
+          className={`destination-hero-image absolute inset-0 w-full h-full object-cover transition-transform duration-[12s] ease-out opacity-100 ${isRevealed ? 'scale-110' : 'scale-100'}`}
           loading="eager"
         />
         
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1A1A1A]/40 via-transparent to-[#1A1A1A]/80 z-1" />
+        {/* Grounded Linear Gradient for text contrast without fogginess */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-1" />
 
         <div className={`destination-hero-content relative z-10 text-center px-6 transition-all duration-1000 ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h1 className="text-5xl md:text-8xl lg:text-[10rem] font-serif font-bold leading-none tracking-[0.1em] text-white mb-6 md:mb-10">
@@ -124,11 +126,11 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {destination.images.map((img, idx) => (
-                <div key={idx} className="overflow-hidden aspect-[4/5] bg-[#F5F5DC] shadow-2xl reveal-trigger group border-2 border-[#1A1A1A]">
+                <div key={idx} className="overflow-hidden aspect-[4/5] bg-white shadow-2xl reveal-trigger group border-2 border-[#1A1A1A]">
                   <img 
                     src={img} 
                     alt={`${destination.name} landscape detail ${idx + 1}`}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[3000ms] group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-[3000ms] group-hover:scale-110 opacity-100"
                     loading="lazy"
                     decoding="async"
                   />

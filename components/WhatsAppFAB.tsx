@@ -2,7 +2,7 @@ import React from 'react';
 
 export const WhatsAppFAB: React.FC = () => {
   const message = encodeURIComponent(
-    "Hello Kuzuri Escapades! I'm interested in planning a bespoke Ugandan journey. Could we discuss available options?"
+    "Hello Kuzuri Escapades, I am interested in authoring my Ugandan vision."
   );
   
   return (
@@ -10,19 +10,18 @@ export const WhatsAppFAB: React.FC = () => {
       href={`https://wa.me/256708012030?text=${message}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="whatsapp-float-button group"
-      title="Chat with our Curators on WhatsApp"
-      aria-label="Chat with our Curators on WhatsApp"
+      className="whatsapp-float-button-refined"
+      title="Consult our Curators on WhatsApp"
+      aria-label="Consult our Curators on WhatsApp"
     >
       <img 
         src="icons/whatsapp.svg" 
         alt="WhatsApp" 
-        className="w-[34px] h-[34px] brightness-0 invert transition-transform duration-500 group-hover:scale-110"
-        width={34}
-        height={34}
+        className="w-[28px] h-[28px] brightness-0 invert opacity-80 group-hover:opacity-100 transition-opacity"
+        width={28}
+        height={28}
         loading="lazy"
       />
-      <span className="absolute inset-0 rounded-full bg-white/40 animate-ping-slow pointer-events-none" />
     </a>
   );
 };

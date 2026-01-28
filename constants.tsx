@@ -1,4 +1,3 @@
-
 import { Destination, Tour, Service, Review, Lodge } from './types.ts';
 
 export const HERO_SLIDES = [
@@ -76,7 +75,7 @@ export const TOURS: Tour[] = [
     category: 'The Western Frontier',
     description: 'A comprehensive exploration of the Albertine Rift Valley, from the crater lakes to the misty peaks of the Rwenzori.',
     highlights: ['Queen Elizabeth Park', 'Bwindi Forest', 'Crater Lakes'],
-    imageUrls: ['https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=85&w=1200'],
+    imageUrls: ['https://i.postimg.cc/W1CXKvnF/beautiful-shot-three-bongo-antelopes-standing-grass-ground.jpg'],
     featured: true
   },
   {
@@ -90,7 +89,7 @@ export const TOURS: Tour[] = [
     category: 'Wildlife Sanctuary',
     description: 'A journey of rare encounters, tracking rhinos on foot at Ziwa and exploring the deep silence of the rainforest.',
     highlights: ['Ziwa Rhino Sanctuary', 'Murchison Falls', 'Kibale Forest'],
-    imageUrls: ['https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=1200'],
+    imageUrls: ['https://i.postimg.cc/zGKgzYNc/indian-rhinoceros-beautiful-nature-looking-habitat-one-horned-rhino-endangered-species-biggest-kind.jpg'],
     featured: true
   },
   {
@@ -104,7 +103,7 @@ export const TOURS: Tour[] = [
     category: 'Active Odyssey',
     description: 'For the spirited traveler: conquer the Nile rapids, cycle through crater landscapes, and hike the foothills of the sun.',
     highlights: ['White Water Rafting', 'Mt. Elgon Hiking', 'Cycling Trails'],
-    imageUrls: ['https://images.unsplash.com/photo-1530733740214-1745173c3a44?auto=format&fit=crop&q=85&w=1200'],
+    imageUrls: ['https://i.postimg.cc/HsGMfLDw/group-people-walking-trek-bali.jpg'],
     featured: true
   },
   {
@@ -118,7 +117,7 @@ export const TOURS: Tour[] = [
     category: 'Primate Encounters',
     description: 'An intimate pilgrimage to the hearts of the great apes. Two life-changing encounters in the dense Ugandan jungles.',
     highlights: ['Gorilla Trekking', 'Chimpanzee Habituation', 'Canopy Walks'],
-    imageUrls: ['https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&q=85&w=1200'],
+    imageUrls: ['https://i.postimg.cc/c1fCtM2J/gorilla.jpg'],
     featured: true
   }
 ];
@@ -129,7 +128,7 @@ export const LODGES: Lodge[] = [
     name: 'Ishasha Jungle Lodge',
     location: 'Ishasha Sector',
     region: 'Queen Elizabeth',
-    imageUrl: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=85&w=1200',
+    imageUrl: 'https://i.postimg.cc/Jn163QxT/thatch-roof-house.jpg',
     description: 'Nestled along the Ntungwe River, this eco-lodge is the perfect base for spotting the famous tree-climbing lions of Ishasha.'
   },
   {
@@ -137,7 +136,7 @@ export const LODGES: Lodge[] = [
     name: 'Kibale Tourist Safari Lodge',
     location: 'Kibale Forest Boundary',
     region: 'Kibale',
-    imageUrl: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=85&w=1200',
+    imageUrl: 'https://i.postimg.cc/5NvrVjHW/bed_with_canopy.jpg',
     description: 'A sanctuary of comfort on the edge of the primate capital, offering serene views and proximity to chimpanzee trekking trails.'
   },
   {
@@ -145,7 +144,7 @@ export const LODGES: Lodge[] = [
     name: 'The Boma Hotel Entebbe',
     location: 'Entebbe',
     region: 'Entebbe',
-    imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=85&w=1200',
+    imageUrl: 'https://i.postimg.cc/0QswdfSF/spa-salon-with-beach-view.jpg',
     description: "Entebbe's original boutique hotel, set in a 1940s colonial home with lush gardens and a timeless, hospitable atmosphere."
   },
   {
@@ -153,7 +152,7 @@ export const LODGES: Lodge[] = [
     name: 'Aardvark Safari Lodge',
     location: 'Queen Elizabeth Park Edge',
     region: 'Queen Elizabeth',
-    imageUrl: 'https://images.unsplash.com/photo-1493246507139-91e8bef99c02?auto=format&fit=crop&q=85&w=1200',
+    imageUrl: 'https://i.postimg.cc/HnD18xPJ/uzuri-safaris-tanzania-Ti9XCg6QOn4-unsplash.jpg',
     description: 'An intimate wilderness retreat designed to blend into the landscape, offering raw nature and refined comfort.'
   },
   {

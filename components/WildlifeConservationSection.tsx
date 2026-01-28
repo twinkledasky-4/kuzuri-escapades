@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 interface WildlifeConservationSectionProps {
@@ -12,11 +13,11 @@ export const WildlifeConservationSection: React.FC<WildlifeConservationSectionPr
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           {/* Image on left per brief */}
-          <div className="reveal-image rounded-sm border-2 border-[#1A1A1A] overflow-hidden shadow-2xl">
+          <div className="reveal-image rounded-sm border-2 border-[#1A1A1A] overflow-hidden shadow-2xl bg-white">
             <img
               src={imageUrl}
               alt="Majestic lion in the savannah - Educational wildlife encounter"
-              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-[2000ms] scale-105 hover:scale-100"
+              className="w-full h-full object-cover transition-all duration-[2000ms] scale-105 hover:scale-100 opacity-100"
               loading="lazy"
               decoding="async"
             />
