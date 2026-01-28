@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { PhoneLink } from './PhoneLink.tsx';
-import { Instagram, Facebook, Globe } from 'lucide-react';
+import { Instagram, Facebook, Globe, ShieldCheck, Landmark, Smartphone } from 'lucide-react';
 
 interface FooterProps {
   onEnquire?: () => void;
@@ -87,6 +88,62 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
             >
               Start Your Manifest
             </button>
+          </div>
+        </div>
+
+        {/* SECURE PAYMENTS SECTION */}
+        <div className="mb-24 py-16 border-b border-white/5 flex flex-col items-center">
+          <div className="flex items-center gap-3 mb-10">
+            <ShieldCheck size={14} className="text-[#D4AF37]" />
+            <h4 className="text-[#D4AF37] text-[10px] uppercase tracking-[0.6em] font-black">
+              TRUSTED GLOBAL SETTLEMENTS
+            </h4>
+          </div>
+          
+          <div className="flex flex-wrap justify-center items-center gap-x-14 gap-y-6 opacity-60 hover:opacity-100 transition-opacity duration-1000 mb-10">
+            {/* Visa - Simplified SVG */}
+            <svg className="h-5 w-auto text-[#D4AF37]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13.9 11h-1.4l-.9 4.3h1.4l.9-4.3zm5.7 0c-.3-.1-.8-.2-1.4-.2-1.3 0-2.3.7-2.3 1.7 0 .8.7 1.2 1.2 1.5.5.3.7.4.7.7 0 .4-.5.6-1 .6-.6 0-1.1-.1-1.6-.4l-.2 1.3c.4.2 1.2.3 1.9.3 1.4 0 2.4-.7 2.4-1.8 0-.6-.4-1.1-1.1-1.4-.4-.2-.7-.4-.7-.6 0-.3.3-.5.9-.5.5 0 .9.1 1.2.2l.2-1.2h-.2zm2.4 0h-1.1c-.3 0-.6.2-.7.5l-2.4 5.4h1.5l.3-.8h1.8l.2.8h1.3l-1.1-5.9h.2zm-1.8 3.5l.6-1.7.4 1.7h-1zm-13-3.5l-1.4 5.9h1.5l1.4-5.9h-1.5zM2 11l-.1.4 1.1 4h1.5l2.1-5.9h-1.5l-1 3.2L3.4 11H2z"/>
+            </svg>
+
+            {/* Mastercard - Simplified Symbol */}
+            <div className="flex items-center -space-x-3">
+              <div className="w-7 h-7 rounded-full border border-[#D4AF37] bg-transparent" />
+              <div className="w-7 h-7 rounded-full border border-[#D4AF37] bg-[#D4AF37]/40" />
+            </div>
+
+            {/* Amex - Simplified Box */}
+            <div className="px-2 py-1 border border-[#D4AF37] flex items-center justify-center">
+              <span className="text-[10px] font-black text-[#D4AF37] tracking-tighter">AMEX</span>
+            </div>
+
+            {/* Bank Wire */}
+            <div className="flex items-center gap-3">
+              <Landmark size={20} className="text-[#D4AF37]" strokeWidth={1.5} />
+              <span className="text-[9px] font-black text-[#D4AF37] tracking-widest uppercase">Bank Wire</span>
+            </div>
+
+            {/* Mobile Money */}
+            <div className="flex items-center gap-3">
+              <Smartphone size={20} className="text-[#D4AF37]" strokeWidth={1.5} />
+              <div className="flex flex-col">
+                <span className="text-[8px] font-black text-[#D4AF37] leading-none tracking-tighter">MOBILE MONEY</span>
+                <span className="text-[7px] font-bold text-[#D4AF37]/60 leading-none tracking-tight">MTN | AIRTEL</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-[10px] text-[#D4AF37]/70 uppercase tracking-[0.25em] font-black text-center">
+              Encrypted & Secure Transactions via Flutterwave & Direct Wire.
+            </p>
+            <div className="flex items-center gap-4 opacity-30">
+              <div className="h-[1px] w-12 bg-white" />
+              <p className="text-[8px] text-white uppercase tracking-[0.4em] font-bold">
+                256-BIT SSL SECURED
+              </p>
+              <div className="h-[1px] w-12 bg-white" />
+            </div>
           </div>
         </div>
 
