@@ -47,7 +47,7 @@ export const UI_DICTIONARY: Record<string, any> = {
     days: "Days",
     nights: "Nights",
     startingFrom: "Starting from",
-    currency: "£"
+    currency: "€"
   },
   FR: {
     about: "À Propos",

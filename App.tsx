@@ -15,6 +15,9 @@ import { BeautyOfUganda } from './components/BeautyOfUganda.tsx';
 import { DiscoverUganda } from './components/DiscoverUganda.tsx';
 import { AuthorYourVision } from './components/AuthorYourVision.tsx';
 import { AccommodationsPage } from './components/AccommodationsPage.tsx';
+import { Services } from './components/Services.tsx';
+import { AboutSection } from './components/AboutSection.tsx';
+import { BentoGallery } from './components/BentoGallery.tsx';
 import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES } from './constants.tsx';
 import { translateContent, UI_DICTIONARY } from './services/translationService.ts';
 
@@ -23,6 +26,7 @@ const App: React.FC = () => {
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [inquiryPreFill, setInquiryPreFill] = useState('');
+  const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
   
   // Translation State
   const [currentLang, setCurrentLang] = useState('EN');
@@ -42,6 +46,18 @@ const App: React.FC = () => {
       handleLangChange(path);
     }
   }, []);
+
+  // Effect to handle pending scrolls once the target element enters the DOM
+  useEffect(() => {
+    if (pendingScrollId) {
+      const element = document.getElementById(pendingScrollId);
+      if (element) {
+        // Precise smooth scroll for premium feel
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setPendingScrollId(null);
+      }
+    }
+  }, [activeSection, pendingScrollId, selectedDestination]);
 
   const handleLangChange = async (langCode: string) => {
     if (langCode === currentLang) return;
@@ -84,6 +100,31 @@ const App: React.FC = () => {
   };
 
   const handleNavigate = (section: AppSection) => {
+    // Map AppSections to their respective anchor IDs on the Home Page
+    const anchorMap: Record<string, string> = {
+      [AppSection.CONTACT]: 'contact-us',
+      [AppSection.SERVICES]: 'services-section',
+      [AppSection.ABOUT]: 'about-kuzuri',
+      [AppSection.PLANNER]: 'kuzuri-tours',
+    };
+
+    const anchorId = anchorMap[section];
+
+    if (anchorId) {
+      const element = document.getElementById(anchorId);
+      // If we're already on Home and the element exists, scroll immediately
+      if (element && activeSection === AppSection.HOME && !selectedDestination) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveSection(section);
+      } else {
+        // If on a different page (e.g. Accommodations), queue the scroll after navigation
+        setPendingScrollId(anchorId);
+        setActiveSection(AppSection.HOME);
+        setSelectedDestination(null);
+      }
+      return;
+    }
+    
     setActiveSection(section);
     setSelectedDestination(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -130,8 +171,11 @@ const App: React.FC = () => {
               slides={translatedData.hero}
             />
 
-            {/* POPULAR ITINERARIES */}
-            <section className="py-24 md:py-40 bg-white px-6">
+            {/* ABOUT SECTION - High Impact Brand Narrative */}
+            <AboutSection />
+
+            {/* POPULAR ITINERARIES - Assigned ID for navigation */}
+            <section id="kuzuri-tours" className="py-24 md:py-40 bg-white px-6 scroll-mt-24">
               <div className="container mx-auto max-w-7xl text-center">
                 <div className="mb-20 reveal-trigger">
                   <h2 className="text-3xl md:text-5xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto mb-8 text-center">
@@ -162,6 +206,15 @@ const App: React.FC = () => {
 
             {/* DISCOVER UGANDA - Refined Interaction Section */}
             <DiscoverUganda />
+
+            {/* VISUAL ARCHIVE - The Redesigned Bento Gallery */}
+            <BentoGallery />
+
+            {/* SERVICES - The Concierge Manifest */}
+            <Services onEnquireService={(svc) => {
+              setInquiryPreFill(`I am inquiring about your ${svc} service.`);
+              setIsInquiryOpen(true);
+            }} />
 
             {/* AUTHOR YOUR VISION - Final CTA Section */}
             <AuthorYourVision onShareVision={() => setIsInquiryOpen(true)} />

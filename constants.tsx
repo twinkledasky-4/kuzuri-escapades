@@ -1,3 +1,4 @@
+
 import { Destination, Tour, Service, Review, Lodge } from './types.ts';
 
 export const HERO_SLIDES = [
@@ -191,13 +192,46 @@ export const LODGES: Lodge[] = [
 
 export const SERVICES: Service[] = [
   {
-    id: 'private-concierge',
-    name: 'Private Curator Concierge',
-    slug: 'concierge',
-    description: 'Seamless, invisible logistics managed by native experts who anticipate your every temperament.',
-    features: ['VIP Airport Protocol', 'Fast-Track Immigration', '24/7 Curator Access'],
-    icon_name: 'protocol',
+    id: 'bespoke-itinerary',
+    name: 'Bespoke Itinerary Design',
+    slug: 'itinerary-design',
+    description: "The architecture of your journey. We don't sell tours; we design personal legends tailored to your pace, privacy, and passion.",
+    features: ['Personalized Mapping', 'Rhythm Calibration', 'Exclusive Access'],
+    icon_name: 'compass',
     order_index: 1,
+    active: true,
+    typeLabel: 'Curation'
+  },
+  {
+    id: 'luxury-transport',
+    name: 'Luxury Transport & Logistics',
+    slug: 'transport-logistics',
+    description: 'Navigate the Pearl of Africa in our customized 4x4 Land Cruisers, equipped with pop-up roofs for 360° viewing and onboard refreshments.',
+    features: ['4x4 Land Cruisers', '360° Pop-up Roofs', 'Onboard Refreshments'],
+    icon_name: 'jeep',
+    order_index: 2,
+    active: true,
+    typeLabel: 'Expedition'
+  },
+  {
+    id: 'elite-guiding',
+    name: 'Elite Guiding & Tracking',
+    slug: 'guiding-tracking',
+    description: 'Our silverback-certified rangers and birding experts are more than guides—they are storytellers who bring the wilderness to life.',
+    features: ['Certified Rangers', 'Expert Tracking', 'Nature Storytelling'],
+    icon_name: 'binoculars',
+    order_index: 3,
+    active: true,
+    typeLabel: 'Discovery'
+  },
+  {
+    id: 'concierge-support',
+    name: 'Concierge & Support',
+    slug: 'concierge-support',
+    description: 'From securing rare Gorilla permits to 24/7 on-ground support, we handle the complexity so you can enjoy the serenity.',
+    features: ['Permit Procurement', 'VIP Protocol', '24/7 Curator Access'],
+    icon_name: 'shield',
+    order_index: 4,
     active: true,
     typeLabel: 'Stewardship'
   }
