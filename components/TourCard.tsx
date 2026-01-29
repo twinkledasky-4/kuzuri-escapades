@@ -27,12 +27,17 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, curr
         />
         
         {/* Price Tag Overlay - Sharp Dark Box in Corner */}
-        <div className="absolute top-0 right-0 bg-[#1A1A1A] py-5 px-7 border-l border-b border-[#D4AF37]/40 shadow-2xl z-20">
+        <div className="absolute top-0 right-0 bg-[#1A1A1A] py-5 px-7 border-l border-b border-[#D4AF37]/40 shadow-2xl z-20 text-right">
           <p className="text-[10px] text-[#D4AF37] uppercase tracking-[0.4em] font-black mb-1.5 leading-none">
             {ui.startingFrom}
           </p>
+          {tour.price_was && (
+            <p className="text-xs font-sans text-white/40 line-through mb-1 tracking-tight">
+              {ui.currency}{tour.price_was.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </p>
+          )}
           <p className="text-2xl font-sans font-black text-white tracking-tighter leading-none">
-            {ui.currency}{tour.price_from.toLocaleString()}
+            {ui.currency}{tour.price_from.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
         </div>
       </div>
@@ -71,7 +76,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, curr
             onClick={() => onRequestBooking(tour)}
             className="text-[#1A1A1A] text-[12px] uppercase tracking-[0.6em] font-black border-b-2 border-[#1A1A1A] pb-2 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all"
           >
-            {ui.requestManifest}
+            READ MORE
           </button>
         </div>
       </div>

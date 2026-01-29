@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from 'react';
 
 interface InquiryModalProps {
@@ -14,7 +15,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
     email: '', 
     dates: '', 
     guests: '2', 
-    tourType: 'Bespoke Odyssey',
+    tourType: 'Signature Experience',
     message: '' 
   });
   const modalRef = useRef<HTMLDivElement>(null);
@@ -55,7 +56,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
           message: formData.message,
           _replyto: formData.email,
           _to: 'info@kuzuri-escapades.com',
-          _subject: `New Luxury Manifest Inquiry: ${formData.fullName}`
+          _subject: `New Luxury Experience Inquiry: ${formData.fullName}`
         })
       });
 
@@ -67,7 +68,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
         setIsSubmitted(true);
       }
     } catch (error) {
-      console.error("Manifest transmission error:", error);
+      console.error("Experience transmission error:", error);
       setIsSubmitted(true); 
     } finally {
       setIsLoading(false);
@@ -109,7 +110,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
           <>
             <div className="mb-12 text-center">
               <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-4">CO-AUTHOR YOUR VISION</p>
-              <h2 id="modal-title" className="text-4xl md:text-5xl font-serif font-bold text-[#1A1A1A] leading-tight tracking-tighter">Request a Manifest</h2>
+              <h2 id="modal-title" className="text-4xl md:text-5xl font-serif font-bold text-[#1A1A1A] leading-tight tracking-tighter">Request an Experience</h2>
               <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mt-8" />
             </div>
 
@@ -168,14 +169,14 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
                 </div>
 
                 <div className="group">
-                  <label htmlFor="tourType" className="block text-[10px] uppercase tracking-[0.4em] text-[#1A1A1A] mb-3 font-bold">Odyssey</label>
+                  <label htmlFor="tourType" className="block text-[10px] uppercase tracking-[0.4em] text-[#1A1A1A] mb-3 font-bold">Experience</label>
                   <select 
                     id="tourType"
                     className="w-full bg-white border-b border-[#1A1A1A]/10 py-3 px-1 text-base focus:border-[#D4AF37] outline-none transition-all font-bold text-[#1A1A1A] cursor-pointer appearance-none"
                     value={formData.tourType}
                     onChange={(e) => setFormData({...formData, tourType: e.target.value})}
                   >
-                    <option>Bespoke Odyssey</option>
+                    <option>Signature Experience</option>
                     <option>Gorilla Sanctuary</option>
                     <option>Savannah Sovereignty</option>
                     <option>Native Heritage</option>
@@ -200,7 +201,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
                   disabled={isLoading}
                   className="w-full py-6 border-2 border-[#1A1A1A] bg-[#3B1E14] text-white text-[10px] uppercase tracking-[1em] font-black hover:bg-black hover:text-[#D4AF37] transition-all duration-700 shadow-2xl disabled:bg-stone-300 transform"
                 >
-                  {isLoading ? 'TRANSMITTING...' : 'REQUEST MANIFEST'}
+                  {isLoading ? 'TRANSMITTING...' : 'REQUEST EXPERIENCE'}
                 </button>
               </div>
             </form>
@@ -218,7 +219,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
             
             {/* Message: Pure White (#FFFFFF), clean Sans-serif, line-height 1.6, 400 weight */}
             <p className="text-[#FFFFFF] font-sans font-normal leading-[1.6] max-w-[560px] text-lg md:text-xl text-shadow-none">
-              Thank you for inviting us to author your Ugandan chapter. Our safari architects are already reviewing your vision to ensure every detail surpasses expectation. You will receive a personalized manifesto and a direct consultation link within the next 24 hours. Your adventure is officially in motion.
+              Thank you for inviting us to author your Ugandan chapter. Our safari architects are already reviewing your vision to ensure every detail surpasses expectation. You will receive a personalized experience and a direct consultation link within the next 24 hours. Your adventure is officially in motion.
             </p>
             
             <div className="pt-8 w-full flex justify-center">
@@ -231,7 +232,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
             </div>
             
             <p className="text-[9px] text-[#D4AF37]/40 font-bold uppercase tracking-[0.4em] mt-8">
-              KUZURI ESCAPADES • NATIVE STEWARDS SINCE 2014
+              KUZURI ESCAPADES • NATIVE STEWARDS SINCE 2018
             </p>
           </div>
         )}

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI, Chat } from "@google/genai";
 import { KUZURI_KNOWLEDGE_BASE } from '../constants/knowledge.ts';
@@ -14,7 +15,7 @@ export const AIChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      text: "Hello! 👋 I am your Kuzuri concierge assistant. I can guide you through our territories, curated odysseys, and bespoke services. How may I assist your vision today?",
+      text: "Hello! 👋 I am your Kuzuri concierge assistant. I can guide you through our territories, curated experiences, and signature services. How may I assist your vision today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -125,7 +126,7 @@ export const AIChatBot: React.FC = () => {
           <div className="flex gap-3">
             <input 
               type="text"
-              placeholder="How shall we author your odyssey?"
+              placeholder="How shall we author your experience?"
               className="flex-grow p-5 bg-[#FAF8F3] border-2 border-[#1A1A1A] outline-none text-base font-medium focus:border-[#D4AF37] transition-all"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}

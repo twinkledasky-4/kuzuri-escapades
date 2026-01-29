@@ -42,7 +42,7 @@ export const ContactPage: React.FC = () => {
           {/* Column 1: Contact Information Card */}
           <div className="space-y-16 reveal-trigger">
             <div className="border-l-2 border-[#1A1A1A] pl-10">
-              <h2 className="text-4xl font-serif font-bold text-[#1A1A1A] mb-4">The Manifest Desk</h2>
+              <h2 className="text-4xl font-serif font-bold text-[#1A1A1A] mb-4">The Experience Desk</h2>
               <p className="text-[#8B5A2B] text-[10px] uppercase tracking-[0.5em] font-bold">Native Stewardship & Private Care</p>
             </div>
 
@@ -163,7 +163,7 @@ export const ContactPage: React.FC = () => {
               </form>
             ) : (
               <div className="py-24 text-center animate-fade-in">
-                <h3 className="text-4xl font-serif text-[#1A1A1A] mb-8 italic">Manifest Received.</h3>
+                <h3 className="text-4xl font-serif text-[#1A1A1A] mb-8 italic">Experience Received.</h3>
                 <p className="text-[#1A1A1A] font-light leading-relaxed mb-12 max-w-xs mx-auto">
                   Our Lead Curator has been alerted. We will reach out to co-author your narrative shortly.
                 </p>

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Review } from '../types.ts';
 import { StarRating } from './StarRating.tsx';
@@ -51,7 +52,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review, onHelpfulClick }
             </h3>
             {review.verified && (
               <span 
-                title="Verified Manifest" 
+                title="Verified Experience" 
                 className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-sm" 
                 style={{ backgroundColor: '#D4AF37', color: '#1A1A1A' }}
               >

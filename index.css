@@ -9,14 +9,14 @@
    ========================================================================== */
 html {
   font-size: 16px; 
-  scroll-behavior: smooth; /* Global Smooth Scroll Enabled */
+  scroll-behavior: smooth !important;
   -webkit-text-size-adjust: 100%;
   background-color: #FFFFFF;
 }
 
 body {
-  color: #1A1A1A; /* Rich Charcoal */
-  background-color: #FFFFFF; /* Pure White */
+  color: #1A1A1A;
+  background-color: #FFFFFF;
   font-family: 'Inter', -apple-system, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -24,20 +24,25 @@ body {
   text-rendering: optimizeLegibility;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 /* 
    GLOBAL SHARPNESS ARCHITECTURE 
-   Zero Blur Policy per Bespoke Briefing
 */
 * {
   text-shadow: none !important;
-  box-shadow: none !important; 
-  filter: none !important;
-  -webkit-filter: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-radius: 0 !important;
+}
+
+/* Specific Drop-Shadow Exception for Logos and Icons */
+img.filter, .filter {
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)) !important;
+}
+
+/* Image sharpness override */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, a, li, label, input, select, textarea, button {
@@ -55,11 +60,6 @@ p, span, div, li, a, label, input, textarea {
 .text-charcoal { color: #1A1A1A !important; }
 .text-gold { color: #D4AF37 !important; }
 
-button {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-}
-
 ::selection {
   background-color: #D4AF37;
   color: #1A1412;
@@ -76,11 +76,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-h2 { font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 800; letter-spacing: -0.02em; }
-h3 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; letter-spacing: -0.02em; }
+h3 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.01em; }
 
 /* ==========================================================================
-   WHATSAPP FLOATING BUTTON (REFINED LUXURY CIRCULAR)
+   WHATSAPP FLOATING BUTTON
    ========================================================================== */
 .whatsapp-float-button-refined {
   position: fixed;
@@ -88,14 +88,14 @@ h3 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.0
   left: 32px;
   width: 64px;
   height: 64px;
-  background-color: #1A1412; /* Espresso Black */
-  border: 1px solid #D4AF37 !important; /* Safari Gold Border */
-  border-radius: 9999px !important; /* Perfect Circle */
+  background-color: #1A1412;
+  border: 1px solid #D4AF37 !important;
+  border-radius: 9999px !important;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   text-decoration: none;
 }
@@ -109,23 +109,14 @@ h3 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.0
 /* ==========================================================================
    PREMIUM BUTTONS & CTAs
    ========================================================================== */
-.cta-primary {
-  background-color: #8B5A2B;
-  color: #FFFFFF;
-  padding: 1.25rem 3.5rem;
-  border: none;
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.5em;
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-  font-size: 0.85rem;
+.hover-glow:hover {
+  box-shadow: 0 0 35px 8px rgba(212, 175, 55, 0.6) !important;
 }
 
 .reveal-trigger {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1), transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translateY(40px);
+  transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .reveal-trigger.is-visible {
@@ -134,13 +125,25 @@ h3 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.0
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(50px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  animation: fadeInUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
-.bg-charcoal { background-color: #1A1A1A; }
-.bg-espresso-black { background-color: #1A1412; }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+::-webkit-scrollbar-thumb {
+  background: #1A1A1A;
+  border: 3px solid #FFFFFF;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}

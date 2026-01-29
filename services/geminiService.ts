@@ -11,7 +11,7 @@ export const generateItinerary = async (prefs: TravelPreferences) => {
   Your itineraries emphasize silence as luxury, intimate encounters, and seamless, invisible logistics. 
   Avoid clichés. Use evocative, atmospheric language (e.g., "The morning mist clinging to the canopy" instead of "It is a foggy morning").`;
 
-  const prompt = `Please co-create a bespoke journey for ${prefs.travelers} guests exploring ${prefs.destination}. 
+  const prompt = `Please co-create a signature journey for ${prefs.travelers} guests exploring ${prefs.destination}. 
   Duration: ${prefs.duration} nights. 
   Primary Rhythm: ${prefs.vibe}.
   

@@ -1,3 +1,4 @@
+
 export const KUZURI_KNOWLEDGE_BASE = `
 # Kuzuri Escapades - Definitive Technical & Brand Knowledge
 
@@ -8,11 +9,8 @@ export const KUZURI_KNOWLEDGE_BASE = `
 
 ## 2. Technical Manifest (Production Details)
 - **Primary Domain:** kuzuri-escapades.com
-- **Official Email:** info@kuzuri-escapades.com (Google Workspace Managed)
-- **MX Records:** ASPMX.L.GOOGLE.COM (Priority 1), ALT1.ASPMX.L.GOOGLE.COM (Priority 5)
-- **SPF:** v=spf1 include:_spf.google.com ~all
-- **DKIM:** default._domainkey selector active.
-- **Security:** SSL/TLS encrypted transmission for all inquiry manifests.
+- **Official Email:** info@kuzuriescapades.com
+- **Physical Address:** Ham Towers Wandegeya, Room Number H:12, P.O. BOX 202305, Kampala.
 
 ## 3. The Collection (Destinations)
 - **Bwindi:** Ancient rainforest. Home to Mountain Gorillas.
@@ -30,6 +28,4 @@ export const KUZURI_KNOWLEDGE_BASE = `
 - **Secondary Contact:** +256 760 419271 (Alternative Support / Backup).
 - **Fleet:** Modified V8 Land Cruisers with pop-up roofs.
 - **Protocol:** VIP fast-track immigration at Entebbe Airport.
-- **Health:** Yellow Fever certificate mandatory.
-- **Currency:** USD (bills 2013+) and UGX accepted.
 `;

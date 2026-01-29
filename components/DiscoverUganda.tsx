@@ -49,24 +49,24 @@ export const DiscoverUganda: React.FC = () => {
   };
 
   return (
-    <section className="bg-white py-32 md:py-60 px-6" aria-labelledby="discover-heading">
+    <section className="bg-white py-12 md:py-16 px-6" aria-labelledby="discover-heading">
       <div className="container mx-auto max-w-[1400px]">
         {/* Section Header */}
-        <div className="mb-32 text-center reveal-trigger">
+        <div className="mb-20 text-center reveal-trigger">
           <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-6">THE COLLECTION</p>
           <h2 id="discover-heading" className="text-5xl md:text-8xl font-serif font-bold text-[#1A1A1A] tracking-tighter uppercase">
             DISCOVER <span className="italic font-light">UGANDA</span>
           </h2>
-          <div className="w-20 h-[1px] bg-[#D4AF37] mx-auto mt-12" />
+          <div className="w-20 h-[1px] bg-[#D4AF37] mx-auto mt-8" />
         </div>
 
-        {/* Feature List */}
-        <div className="space-y-40 md:space-y-64">
+        {/* Feature List - Compressed Spacing */}
+        <div className="space-y-16 md:space-y-24">
           {features.map((feature, idx) => {
             const isExpanded = activeDetailId === feature.id;
 
             return (
-              <div key={feature.id} className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-32 items-start reveal-trigger group">
+              <div key={feature.id} className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-start reveal-trigger group">
                 {/* Image Column - Left (Maintains high-fidelity, no foggy filters) */}
                 <div className="relative aspect-[16/10] overflow-hidden border border-[#1A1A1A]/10 shadow-2xl bg-[#F9F9F9]">
                   <img 
@@ -86,8 +86,8 @@ export const DiscoverUganda: React.FC = () => {
                   style={{ padding: '24px' }}
                   onClick={() => handleToggleDetail(feature.id)}
                 >
-                  <div key={isExpanded ? 'detail' : 'summary'} className="animate-fade-in space-y-8 flex-grow">
-                    <div className="space-y-4">
+                  <div key={isExpanded ? 'detail' : 'summary'} className="animate-fade-in space-y-6 flex-grow">
+                    <div className="space-y-3">
                       <p className="text-[#D4AF37] uppercase tracking-[0.6em] text-[11px] font-black">
                         {feature.subtitle}
                       </p>
@@ -105,7 +105,7 @@ export const DiscoverUganda: React.FC = () => {
                   </div>
 
                   {/* Navigation Element & Safari Gold Arrow (>) */}
-                  <div className="pt-12 flex justify-between items-end border-t border-black/5 mt-8">
+                  <div className="pt-8 flex justify-between items-end border-t border-black/5 mt-6">
                     <span className="text-[11px] uppercase tracking-[0.6em] font-black border-b-2 border-[#1A1A1A] pb-2 text-[#1A1A1A] group-hover:text-[#8B5A2B] group-hover:border-[#8B5A2B] transition-all duration-500">
                       {isExpanded ? 'Close Narrative' : 'Explore Details'}
                     </span>

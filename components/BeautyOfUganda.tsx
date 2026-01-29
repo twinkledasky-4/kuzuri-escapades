@@ -23,7 +23,7 @@ export const BeautyOfUganda: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#1A1A1A] border-y-2 border-[#1A1A1A] flex items-center py-24 md:py-32" aria-labelledby="beauty-title">
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#1A1A1A] border-y-2 border-[#1A1A1A] flex items-center py-16 md:py-24" aria-labelledby="beauty-title">
       {/* Animation Layers */}
       <div className="absolute inset-0">
         {images.map((img, idx) => (

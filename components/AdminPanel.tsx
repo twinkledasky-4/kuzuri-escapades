@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Review } from '../types.ts';
 
@@ -26,14 +27,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
   const handleToggleStatus = (id: string | number, field: 'approved' | 'published') => {
     const updated = reviews.map(r => r.id === id ? { ...r, [field]: !r[field] } : r);
     onUpdateReviews(updated);
-    addLog(`Manifest #${id} ${field} state updated.`);
+    addLog(`Experience #${id} ${field} state updated.`);
   };
 
   const handleDelete = (id: string | number) => {
     if (confirm("Are you sure you wish to expunge this narrative from the manifest?")) {
       const updated = reviews.filter(r => r.id !== id);
       onUpdateReviews(updated);
-      addLog(`CRITICAL: Manifest #${id} expunged from database.`);
+      addLog(`CRITICAL: Experience #${id} expunged from database.`);
     }
   };
 
@@ -60,7 +61,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
 
     onUpdateReviews(updated);
     setReplyText({ ...replyText, [id]: '' });
-    addLog(`Posted curator response to Manifest #${id}.`);
+    addLog(`Posted curator response to Experience #${id}.`);
   };
 
   const handleTest = async (testId: number) => {
@@ -80,7 +81,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
   const renderReviewManifest = () => (
     <div className="space-y-12 animate-fade-in">
       <div className="border-b-2 border-black pb-8">
-        <h2 className="text-4xl font-serif font-bold text-[#1A1A1A]">Review Moderation Manifest</h2>
+        <h2 className="text-4xl font-serif font-bold text-[#1A1A1A]">Review Moderation Experience</h2>
         <p className="text-[10px] uppercase tracking-[0.5em] text-[#8B5A2B] mt-3 font-bold italic">PHASE 10: CURATED FEEDBACK MANAGEMENT</p>
       </div>
 
@@ -213,7 +214,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
                       : 'bg-transparent border-transparent text-[#1A1A1A] hover:border-[#1A1A1A]'
                   }`}
                 >
-                  {tab === 'review-manifest' ? 'Review Manifest' : tab === 'validation' ? 'Phase 4 Auditor' : tab}
+                  {tab === 'review-manifest' ? 'Review Experience' : tab === 'validation' ? 'Phase 4 Auditor' : tab}
                 </button>
               ))}
               <div className="pt-10 border-t-2 border-[#1A1A1A] mt-10">

@@ -4,11 +4,11 @@ import { Destination, Tour, Service, Review, Lodge } from './types.ts';
 export const HERO_SLIDES = [
   {
     id: 'safari-crossroad',
-    subtitle: 'Bespoke Private Odysseys',
+    subtitle: 'Signature Private Experiences',
     title: 'Safari in <span class="italic text-[#D4AF37]">Uganda</span>',
     description: 'From fascinating wildlife to vibrant urban centers, from tranquil lake shores to lush rainforests, Uganda is a land of incredible diversity that will inspire you to explore it all! Its breathtaking landscapes and rich cultural heritage have inspired countless tales of adventure and discovery. So, embark on your own journey to this remarkable jewel of East Africa and write your own chapter to share an exceptional experience!',
     imageUrl: 'https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg',
-    cta: 'Begin Your Odyssey'
+    cta: 'Begin Your Experience'
   },
   {
     id: 'cultural-immersion',
@@ -66,18 +66,75 @@ export const DESTINATIONS: Destination[] = [
 
 export const TOURS: Tour[] = [
   {
+    id: 'uganda-rwanda-birding-12d',
+    name: '12 days Uganda and Rwanda birding comfort safari',
+    slug: 'uganda-rwanda-birding-12d',
+    duration_days: 12,
+    duration_nights: 11,
+    price_from: 4520,
+    price_was: 4780,
+    currency: '$',
+    category: 'Signature Birding',
+    description: 'An elite avian odyssey across the diverse biomes of Uganda and Rwanda, designed for discerning birders seeking rare sightings and supreme lodge comfort.',
+    highlights: ['Albertine Rift Endemics', 'Shoebill Stork Quest', 'Rwandan Highland Trails'],
+    imageUrls: ['https://images.unsplash.com/photo-1444464666168-49d633b867ad?auto=format&fit=crop&q=80&w=1200'],
+    featured: true
+  },
+  {
+    id: 'kenya-uganda-wildlife-14d',
+    name: '14 days Kenya & Uganda wildlife and Gorilla tracking safari',
+    slug: 'kenya-uganda-wildlife-14d',
+    duration_days: 14,
+    duration_nights: 13,
+    price_from: 6250,
+    currency: '$',
+    category: 'Signature Expedition',
+    description: 'The definitive East African circuit. Combine the legendary savannahs of Kenyas Maasai Mara with the lush primate sanctuaries of Uganda.',
+    highlights: ['Maasai Mara Game Drives', 'Gorilla Tracking Experience', 'The Great Migration'],
+    imageUrls: ['https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1200'],
+    featured: true
+  },
+  {
+    id: 'masai-mara-serengeti-6d',
+    name: '6 Days Masai Mara and Serengeti safari',
+    slug: 'masai-mara-serengeti-6d',
+    duration_days: 6,
+    duration_nights: 5,
+    price_from: 3520,
+    currency: '$',
+    category: 'Epic Savannahs',
+    description: 'A high-octane expedition across the cross-border ecosystem of the Mara and Serengeti. Witness the raw power of the Great Migration.',
+    highlights: ['Masai Mara Reserve', 'Serengeti Plains', 'Migration Crossing'],
+    imageUrls: ['https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1200'],
+    featured: true
+  },
+  {
+    id: 'murchison-falls-luxury-5d',
+    name: '5 Days Murchison Falls & Nile Luxury Retreat',
+    slug: 'murchison-falls-luxury-5d',
+    duration_days: 5,
+    duration_nights: 4,
+    price_from: 1980,
+    currency: '$',
+    category: 'Riverside Luxury',
+    description: 'A focused journey to the worlds most powerful waterfall, featuring private boat cruises on the Nile and exclusive riverside suite stays.',
+    highlights: ['Private Nile Cruise', 'Big Five Game Drives', 'Top of the Falls Hike'],
+    imageUrls: ['https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&q=80&w=1200'],
+    featured: true
+  },
+  {
     id: 'west-parks-12d',
     name: '12 DAYS Heading to the great parks of the west',
     slug: 'great-parks-west-12d',
     duration_days: 12,
     duration_nights: 11,
     price_from: 3358,
-    currency: '€',
+    currency: '$',
     category: 'The Western Frontier',
     description: 'A comprehensive exploration of the Albertine Rift Valley, from the crater lakes to the misty peaks of the Rwenzori.',
     highlights: ['Queen Elizabeth Park', 'Bwindi Forest', 'Crater Lakes'],
     imageUrls: ['https://i.postimg.cc/W1CXKvnF/beautiful-shot-three-bongo-antelopes-standing-grass-ground.jpg'],
-    featured: true
+    featured: false
   },
   {
     id: 'rhinos-forest-10d',
@@ -86,40 +143,12 @@ export const TOURS: Tour[] = [
     duration_days: 10,
     duration_nights: 9,
     price_from: 2238,
-    currency: '€',
+    currency: '$',
     category: 'Wildlife Sanctuary',
     description: 'A journey of rare encounters, tracking rhinos on foot at Ziwa and exploring the deep silence of the rainforest.',
     highlights: ['Ziwa Rhino Sanctuary', 'Murchison Falls', 'Kibale Forest'],
     imageUrls: ['https://i.postimg.cc/zGKgzYNc/indian-rhinoceros-beautiful-nature-looking-habitat-one-horned-rhino-endangered-species-biggest-kind.jpg'],
-    featured: true
-  },
-  {
-    id: 'adventure-13d',
-    name: '13 DAYS OF ADVENTURE Hiking, Rafting and Cycling',
-    slug: 'adventure-hiking-rafting-cycling-13d',
-    duration_days: 13,
-    duration_nights: 12,
-    price_from: 2905,
-    currency: '€',
-    category: 'Active Odyssey',
-    description: 'For the spirited traveler: conquer the Nile rapids, cycle through crater landscapes, and hike the foothills of the sun.',
-    highlights: ['White Water Rafting', 'Mt. Elgon Hiking', 'Cycling Trails'],
-    imageUrls: ['https://i.postimg.cc/HsGMfLDw/group-people-walking-trek-bali.jpg'],
-    featured: true
-  },
-  {
-    id: 'primate-9d',
-    name: '9 DAYS meeting the gorillas and chimpanzees',
-    slug: 'gorillas-chimpanzees-9d',
-    duration_days: 9,
-    duration_nights: 8,
-    price_from: 2694,
-    currency: '€',
-    category: 'Primate Encounters',
-    description: 'An intimate pilgrimage to the hearts of the great apes. Two life-changing encounters in the dense Ugandan jungles.',
-    highlights: ['Gorilla Trekking', 'Chimpanzee Habituation', 'Canopy Walks'],
-    imageUrls: ['https://i.postimg.cc/c1fCtM2J/gorilla.jpg'],
-    featured: true
+    featured: false
   }
 ];
 
@@ -155,45 +184,13 @@ export const LODGES: Lodge[] = [
     region: 'Queen Elizabeth',
     imageUrl: 'https://i.postimg.cc/HnD18xPJ/uzuri-safaris-tanzania-Ti9XCg6QOn4-unsplash.jpg',
     description: 'An intimate wilderness retreat designed to blend into the landscape, offering raw nature and refined comfort.'
-  },
-  {
-    id: 'buffalo-safari-lodge',
-    name: 'Buffalo Safari Lodge',
-    location: 'Kazinga Channel Area',
-    region: 'Queen Elizabeth',
-    imageUrl: 'https://images.unsplash.com/photo-1523805009345-7448845a9e13?auto=format&fit=crop&q=85&w=1200',
-    description: 'Offering breathtaking vistas of the Kazinga Channel and savannah plains, where wildlife frequently wanders through the grounds.'
-  },
-  {
-    id: 'travellers-rest-hotel',
-    name: 'Travellers Rest Hotel',
-    location: 'Kisoro',
-    region: 'Mgahinga',
-    imageUrl: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=85&w=1200',
-    description: 'A historic base for mountain explorers, famously known as the second home of primatologist Dian Fossey.'
-  },
-  {
-    id: 'masindi-hotel',
-    name: 'Masindi Hotel',
-    location: 'Masindi Town',
-    region: 'Masindi',
-    imageUrl: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=85&w=1200',
-    description: "Uganda's oldest hotel, steeped in history since 1923, offering a colonial charm near the gateway to Murchison Falls."
-  },
-  {
-    id: 'arcadia-cottages',
-    name: 'Arcadia Cottages',
-    location: 'Lake Bunyonyi',
-    region: 'Kabale',
-    imageUrl: 'https://images.unsplash.com/photo-1449156001931-82992a47dca0?auto=format&fit=crop&q=85&w=1200',
-    description: 'Perched on a hill with panoramic views of Lake Bunyonyi’s emerald islands, a perfect place for reflection and quietude.'
   }
 ];
 
 export const SERVICES: Service[] = [
   {
     id: 'bespoke-itinerary',
-    name: 'Bespoke Itinerary Design',
+    name: 'Signature Itinerary Design',
     slug: 'itinerary-design',
     description: "The architecture of your journey. We don't sell tours; we design personal legends tailored to your pace, privacy, and passion.",
     features: ['Personalized Mapping', 'Rhythm Calibration', 'Exclusive Access'],
@@ -243,7 +240,7 @@ export const REVIEWS: Review[] = [
     clientName: "Eleanor Vance",
     country: "Switzerland",
     countryCode: "CH",
-    tripTaken: "The Grand Savanna Odyssey",
+    tripTaken: "The Grand Savanna Experience",
     rating: 5,
     comment: "Kuzuri authored a journey that felt less like a tour and more like a return to something primal and profound.",
     date: "2024-02-10",

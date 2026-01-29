@@ -24,6 +24,7 @@ export interface Tour {
   duration_days: number;
   duration_nights: number;
   price_from: number;
+  price_was?: number; // Added for struck-through pricing
   currency: string;
   imageUrls: string[]; 
   category?: string; 

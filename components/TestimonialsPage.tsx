@@ -26,7 +26,7 @@ const LeaveReviewForm: React.FC = () => {
     '6 Days Karamoja Cultural Immersion',
     '3 Days Gorilla Quick Escape',
     '5 Days Kidepo Valley Adventure',
-    'Other Bespoke Odyssey'
+    'Other Signature Experience'
   ];
 
   const countryList = [
@@ -63,7 +63,7 @@ const LeaveReviewForm: React.FC = () => {
           ...formData,
           _replyto: formData.email,
           _to: 'info@kuzuri-escapades.com',
-          _subject: `New Review Manifest from ${formData.name}`
+          _subject: `New Review Experience from ${formData.name}`
         })
       });
 
@@ -155,11 +155,11 @@ const LeaveReviewForm: React.FC = () => {
             value={formData.trip}
             onChange={handleInputChange}
             aria-required="true"
-            aria-label="Bespoke odyssey selected"
+            aria-label="Signature experience selected"
             className="w-full bg-[#FAF8F3] border-b-2 border-black p-5 outline-none focus:border-[#D4AF37] transition-all font-bold cursor-pointer"
             required
           >
-            <option value="">Select an odyssey</option>
+            <option value="">Select an experience</option>
             {tripOptions.map((trip) => (
               <option key={trip} value={trip}>{trip}</option>
             ))}
@@ -239,7 +239,7 @@ const LeaveReviewForm: React.FC = () => {
         disabled={submitStatus === 'loading'}
         className="w-full py-8 bg-[#8B5A2B] text-[#F5F5DC] text-[11px] uppercase tracking-[0.8em] font-black border-2 border-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-700 hover:scale-102 disabled:opacity-50 disabled:grayscale shadow-2xl"
       >
-        {submitStatus === 'loading' ? 'TRANSMITTING...' : 'SUBMIT REVIEW MANIFEST'}
+        {submitStatus === 'loading' ? 'TRANSMITTING...' : 'SUBMIT REVIEW EXPERIENCE'}
       </button>
     </form>
   );
@@ -313,7 +313,7 @@ export const TestimonialsPage: React.FC<{ reviews: Review[], onHelpfulClick?: (i
             </div>
             <div className="reveal-trigger">
               <p className="text-7xl md:text-8xl font-serif font-bold mb-6 text-[#D4AF37]">{stats.total}</p>
-              <p className="text-[11px] uppercase tracking-[0.6em] font-black text-[#1A1A1A]">Verified Manifests</p>
+              <p className="text-[11px] uppercase tracking-[0.6em] font-black text-[#1A1A1A]">Verified Experiences</p>
             </div>
             <div className="reveal-trigger">
               <p className="text-7xl md:text-8xl font-serif font-bold mb-6 text-[#D4AF37]">{stats.countries}+</p>

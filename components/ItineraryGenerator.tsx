@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { generateItinerary } from '../services/geminiService.ts';
 import { TravelPreferences } from '../types.ts';
@@ -39,7 +40,7 @@ export const ItineraryGenerator: React.FC = () => {
   };
 
   return (
-    <section className="py-32 md:py-64 bg-[#F5F5DC] border-y-2 border-[#1A1A1A] px-4" aria-labelledby="atelier-title">
+    <section className="py-16 md:py-24 bg-[#F5F5DC] border-y-2 border-[#1A1A1A] px-4" aria-labelledby="atelier-title">
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
         <div className="max-w-screen-2xl mx-auto">
           

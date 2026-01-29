@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { AppSection, Tour, Destination } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
+import { Ticker } from './components/Ticker.tsx';
 import { Footer } from './components/Footer.tsx';
 import { InquiryModal } from './components/InquiryModal.tsx';
 import { WhatsAppFAB } from './components/WhatsAppFAB.tsx';
@@ -18,6 +19,7 @@ import { AccommodationsPage } from './components/AccommodationsPage.tsx';
 import { Services } from './components/Services.tsx';
 import { AboutSection } from './components/AboutSection.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
+import { PromoPopup } from './components/PromoPopup.tsx';
 import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES } from './constants.tsx';
 import { translateContent, UI_DICTIONARY } from './services/translationService.ts';
 
@@ -25,6 +27,7 @@ const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<AppSection>(AppSection.HOME);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [isPromoOpen, setIsPromoOpen] = useState(false);
   const [inquiryPreFill, setInquiryPreFill] = useState('');
   const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
   
@@ -45,6 +48,16 @@ const App: React.FC = () => {
     if (path && availableLangs.includes(path)) {
       handleLangChange(path);
     }
+
+    // Promotional Pop-up Trigger: 3 Seconds
+    const promoTimer = setTimeout(() => {
+      // Only show promo if the user hasn't already opened an inquiry
+      if (!isInquiryOpen) {
+        setIsPromoOpen(true);
+      }
+    }, 3000);
+
+    return () => clearTimeout(promoTimer);
   }, []);
 
   // Effect to handle pending scrolls once the target element enters the DOM
@@ -52,7 +65,6 @@ const App: React.FC = () => {
     if (pendingScrollId) {
       const element = document.getElementById(pendingScrollId);
       if (element) {
-        // Precise smooth scroll for premium feel
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setPendingScrollId(null);
       }
@@ -65,7 +77,6 @@ const App: React.FC = () => {
     setIsTranslating(true);
     setCurrentLang(langCode);
     
-    // Update URL
     const newPath = langCode === 'EN' ? '/' : `/${langCode.toLowerCase()}/`;
     window.history.pushState({}, '', newPath);
 
@@ -80,7 +91,6 @@ const App: React.FC = () => {
       return;
     }
 
-    // Batch translate dynamic content
     const sourceData = {
       hero: HERO_SLIDES,
       tours: TOURS,
@@ -100,7 +110,6 @@ const App: React.FC = () => {
   };
 
   const handleNavigate = (section: AppSection) => {
-    // Map AppSections to their respective anchor IDs on the Home Page
     const anchorMap: Record<string, string> = {
       [AppSection.CONTACT]: 'contact-us',
       [AppSection.SERVICES]: 'services-section',
@@ -112,12 +121,10 @@ const App: React.FC = () => {
 
     if (anchorId) {
       const element = document.getElementById(anchorId);
-      // If we're already on Home and the element exists, scroll immediately
       if (element && activeSection === AppSection.HOME && !selectedDestination) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setActiveSection(section);
       } else {
-        // If on a different page (e.g. Accommodations), queue the scroll after navigation
         setPendingScrollId(anchorId);
         setActiveSection(AppSection.HOME);
         setSelectedDestination(null);
@@ -131,7 +138,12 @@ const App: React.FC = () => {
   };
 
   const handleRequestBooking = (tour: Tour) => {
-    setInquiryPreFill(`I am interested in the ${tour.name} odyssey. Please share more details.`);
+    setInquiryPreFill(`I am interested in the ${tour.name} experience. Please share more details.`);
+    setIsInquiryOpen(true);
+  };
+
+  const handlePromoEnquiry = () => {
+    setInquiryPreFill("I am inquiring about the Jinja Buyala Bliss Staycation experience.");
     setIsInquiryOpen(true);
   };
 
@@ -163,26 +175,22 @@ const App: React.FC = () => {
         return <AccommodationsPage onEnquire={() => setIsInquiryOpen(true)} />;
       default:
         return (
-          <>
-            {/* HERO SECTION */}
+          <div className="flex flex-col">
             <Hero 
-              minimal={true} 
-              onStartPlanning={() => handleNavigate(AppSection.PLANNER)} 
+              minimal={false} 
+              onStartPlanning={() => setIsInquiryOpen(true)} 
               slides={translatedData.hero}
             />
-
-            {/* ABOUT SECTION - High Impact Brand Narrative */}
+            <Ticker />
             <AboutSection />
-
-            {/* POPULAR ITINERARIES - Assigned ID for navigation */}
-            <section id="kuzuri-tours" className="py-24 md:py-40 bg-white px-6 scroll-mt-24">
+            <section id="kuzuri-tours" className="py-12 md:py-16 bg-white px-6 scroll-mt-24">
               <div className="container mx-auto max-w-7xl text-center">
-                <div className="mb-20 reveal-trigger">
-                  <h2 className="text-3xl md:text-5xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto mb-8 text-center">
+                <div className="mb-12 reveal-trigger">
+                  <h2 className="text-3xl md:text-5xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto mb-6 text-center">
                     {ui.tours.toUpperCase()}
                   </h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
                   {translatedData.tours.map((tour) => (
                     <div key={tour.id} className="reveal-trigger">
                       <TourCard tour={tour} onRequestBooking={handleRequestBooking} currentLang={currentLang} />
@@ -191,41 +199,26 @@ const App: React.FC = () => {
                 </div>
               </div>
             </section>
-
-            {/* EXPERTISE */}
             <Expertise />
-
-            {/* EXCEPTIONAL STAYS GALLERY */}
             <LodgeGallery 
               onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} 
               lodges={translatedData.lodges}
             />
-
-            {/* THE BEAUTY OF UGANDA */}
             <BeautyOfUganda />
-
-            {/* DISCOVER UGANDA - Refined Interaction Section */}
             <DiscoverUganda />
-
-            {/* VISUAL ARCHIVE - The Redesigned Bento Gallery */}
             <BentoGallery />
-
-            {/* SERVICES - The Concierge Manifest */}
             <Services onEnquireService={(svc) => {
               setInquiryPreFill(`I am inquiring about your ${svc} service.`);
               setIsInquiryOpen(true);
             }} />
-
-            {/* AUTHOR YOUR VISION - Final CTA Section */}
             <AuthorYourVision onShareVision={() => setIsInquiryOpen(true)} />
-          </>
+          </div>
         );
     }
   };
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-[#8B5A2B] selection:text-white">
-      {/* Global Translation Loader */}
       {isTranslating && (
         <div className="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center animate-fade-in">
           <div className="w-48 h-[2px] bg-stone-100 overflow-hidden relative mb-8">
@@ -251,6 +244,7 @@ const App: React.FC = () => {
 
       <Footer onEnquire={() => setIsInquiryOpen(true)} />
       <InquiryModal isOpen={isInquiryOpen} onClose={() => setIsInquiryOpen(false)} initialMessage={inquiryPreFill} />
+      {isPromoOpen && <PromoPopup onClose={() => setIsPromoOpen(false)} onEnquire={handlePromoEnquiry} />}
       <WhatsAppFAB />
       <AIChatBot />
 

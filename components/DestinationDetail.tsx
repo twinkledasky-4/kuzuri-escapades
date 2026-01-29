@@ -145,7 +145,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] mix-blend-overlay" />
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <h2 className="text-4xl md:text-8xl font-serif font-bold mb-16 md:mb-24 leading-tight tracking-[0.1em] text-[#D4AF37] italic">
-            Co-author your {destination.name.split(' ')[0]} Odyssey.
+            Co-author your {destination.name.split(' ')[0]} Experience.
           </h2>
           <button 
             className="px-16 py-8 border-2 border-[#1A1A1A] bg-[#8B5A2B] text-[#F5F5DC] text-[12px] uppercase tracking-[1em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 shadow-xl"
