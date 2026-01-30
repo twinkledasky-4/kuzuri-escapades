@@ -183,22 +183,33 @@ const App: React.FC = () => {
             />
             <Ticker />
             <AboutSection />
-            <section id="kuzuri-tours" className="py-12 md:py-16 bg-white px-6 scroll-mt-24">
-              <div className="container mx-auto max-w-7xl text-center">
-                <div className="mb-12 reveal-trigger">
-                  <h2 className="text-3xl md:text-5xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto mb-6 text-center">
+            
+            {/* ITINERARIES GALLERY SECTION */}
+            <section id="kuzuri-tours" className="py-24 md:py-32 lg:py-40 bg-white px-6 scroll-mt-24">
+              <div className="container mx-auto max-w-[1700px] text-center">
+                <div className="mb-20 lg:mb-28 reveal-trigger">
+                  <h2 className="text-3xl md:text-5xl lg:text-7xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-6xl mx-auto mb-10 text-center">
                     {ui.tours.toUpperCase()}
                   </h2>
+                  <div className="w-32 h-[1px] bg-[#D4AF37] mx-auto opacity-40" />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12">
+                
+                {/* 
+                   STRICT 4-COLUMN GRID RESET
+                   Row 1: Top 4 packages
+                   Row 2+: Additional packages, perfectly aligned
+                   items-stretch + h-full ensures equal height across all cards
+                */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 items-stretch">
                   {translatedData.tours.map((tour) => (
-                    <div key={tour.id} className="reveal-trigger">
+                    <div key={tour.id} className="reveal-trigger flex h-full">
                       <TourCard tour={tour} onRequestBooking={handleRequestBooking} currentLang={currentLang} />
                     </div>
                   ))}
                 </div>
               </div>
             </section>
+
             <Expertise />
             <LodgeGallery 
               onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} 

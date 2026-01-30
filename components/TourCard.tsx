@@ -14,11 +14,11 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, curr
 
   return (
     <article 
-      className="relative group overflow-hidden bg-white border border-[#1A1A1A]/10 shadow-sm hover:shadow-2xl transition-all duration-700 flex flex-col h-full"
+      className="relative group overflow-hidden bg-white border border-[#1A1A1A]/10 shadow-sm hover:shadow-2xl transition-all duration-700 flex flex-col h-full w-full"
       aria-labelledby={`tour-title-${tour.id}`}
     >
-      {/* Background Image Panel - Sharp Treatment, Object-Fit Cover, No Blur */}
-      <div className="aspect-[16/10] overflow-hidden relative border-b border-[#1A1A1A]/10 bg-stone-100">
+      {/* Background Image Panel - Sharp Treatment, Consistent Aspect Ratio */}
+      <div className="aspect-[16/10] overflow-hidden relative border-b border-[#1A1A1A]/10 bg-stone-100 shrink-0">
         <img 
           src={tour.imageUrls[0]} 
           alt={tour.name}
@@ -42,39 +42,43 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, curr
         </div>
       </div>
 
-      {/* Content Area - Clean & Solid */}
-      <div className="p-8 md:p-12 flex flex-col flex-grow bg-white">
-        <div className="flex items-center gap-3 mb-5">
-           <div className="w-10 h-[2px] bg-[#D4AF37]" />
+      {/* Content Area - Clean & Solid, flex-grow ensures equal height expansion */}
+      <div className="p-8 md:p-10 flex flex-col flex-grow bg-white">
+        {/* Header Metadata */}
+        <div className="flex items-center gap-3 mb-6 shrink-0">
+           <div className="w-8 h-[2px] bg-[#D4AF37]" />
            <p className="text-[#D4AF37] uppercase tracking-[0.5em] text-[10px] font-black">
              {tour.category}
            </p>
         </div>
         
+        {/* Package Title - Enforced Max 3 Lines for Grid Consistency */}
         <h3 
           id={`tour-title-${tour.id}`} 
-          className="text-2xl md:text-3xl font-sans font-semibold text-[#1A1A1A] mb-8 leading-tight group-hover:text-[#8B5A2B] transition-colors tracking-tight uppercase"
+          className="text-xl md:text-2xl font-sans font-semibold text-[#1A1A1A] mb-6 leading-tight group-hover:text-[#8B5A2B] transition-colors tracking-tight uppercase line-clamp-3 min-h-[3.3em]"
         >
           {tour.name}
         </h3>
         
-        <p className="text-[#1A1A1A] text-lg font-normal leading-relaxed mb-12 flex-grow opacity-90">
+        {/* Description - flex-grow pushes the footer down to the bottom of the card */}
+        <p className="text-[#1A1A1A]/80 text-base font-normal leading-relaxed mb-10 flex-grow">
           {tour.description}
         </p>
         
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8 border-t border-[#F3F4F6] pt-10 mt-auto">
-          <div className="flex items-center gap-5">
-            <span className="text-[11px] text-[#1A1A1A] uppercase tracking-[0.3em] font-black bg-[#FAF8F3] px-5 py-3 border border-[#1A1A1A]/10">
-              {tour.duration_days} {ui.days}
+        {/* Footer actions pinned to the bottom of the card for row-wide alignment */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-t border-[#F3F4F6] pt-8 mt-auto shrink-0">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] text-[#1A1A1A] uppercase tracking-[0.2em] font-black bg-[#FAF8F3] px-3 py-2 border border-[#1A1A1A]/10">
+              {tour.duration_days}D
             </span>
-            <span className="text-[11px] text-[#1A1A1A] uppercase tracking-[0.3em] font-black bg-[#FAF8F3] px-5 py-3 border border-[#1A1A1A]/10">
-              {tour.duration_nights} {ui.nights}
+            <span className="text-[10px] text-[#1A1A1A] uppercase tracking-[0.2em] font-black bg-[#FAF8F3] px-3 py-2 border border-[#1A1A1A]/10">
+              {tour.duration_nights}N
             </span>
           </div>
           
           <button 
             onClick={() => onRequestBooking(tour)}
-            className="text-[#1A1A1A] text-[12px] uppercase tracking-[0.6em] font-black border-b-2 border-[#1A1A1A] pb-2 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all"
+            className="text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all"
           >
             READ MORE
           </button>
