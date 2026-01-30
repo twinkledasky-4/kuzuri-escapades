@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Review } from '../types.ts';
 
-type AdminTab = 'destinations' | 'packages' | 'services' | 'review-manifest' | 'validation';
+type AdminTab = 'destinations' | 'packages' | 'services' | 'review-experience' | 'validation';
 
 interface AdminPanelProps {
   onExit: () => void;
@@ -31,7 +31,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
   };
 
   const handleDelete = (id: string | number) => {
-    if (confirm("Are you sure you wish to expunge this narrative from the manifest?")) {
+    if (confirm("Are you sure you wish to expunge this narrative from the database?")) {
       const updated = reviews.filter(r => r.id !== id);
       onUpdateReviews(updated);
       addLog(`CRITICAL: Experience #${id} expunged from database.`);
@@ -204,7 +204,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
           <aside className="w-full md:w-72 shrink-0">
             <div className="sticky top-48 bg-[#F5F5DC] border-2 border-[#1A1A1A] p-8 space-y-4 shadow-2xl">
               <p className="text-[9px] uppercase tracking-[0.5em] text-[#654321] mb-10 font-extrabold border-b-2 border-[#1A1A1A] pb-4">Curatorium Admin</p>
-              {(['validation', 'review-manifest', 'destinations', 'packages', 'services'] as AdminTab[]).map(tab => (
+              {(['validation', 'review-experience', 'destinations', 'packages', 'services'] as AdminTab[]).map(tab => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -214,7 +214,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
                       : 'bg-transparent border-transparent text-[#1A1A1A] hover:border-[#1A1A1A]'
                   }`}
                 >
-                  {tab === 'review-manifest' ? 'Review Experience' : tab === 'validation' ? 'Phase 4 Auditor' : tab}
+                  {tab === 'review-experience' ? 'Review EXPERIENCE' : tab === 'validation' ? 'Phase 4 Auditor' : tab}
                 </button>
               ))}
               <div className="pt-10 border-t-2 border-[#1A1A1A] mt-10">
@@ -225,7 +225,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
           <main className="flex-grow">
             <div className="bg-[#F5F5DC] border-2 border-[#1A1A1A] p-8 md:p-16 shadow-inner min-h-[75vh]">
               {activeTab === 'validation' ? renderValidationSuite() : 
-               activeTab === 'review-manifest' ? renderReviewManifest() : (
+               activeTab === 'review-experience' ? renderReviewManifest() : (
                 <div className="py-32 text-center animate-fade-in">
                   <h3 className="text-4xl font-serif text-stone-300 italic mb-8">Interface pending...</h3>
                   <p className="text-[10px] uppercase tracking-[0.5em] text-stone-400 font-bold">Drafting UI for {activeTab}</p>

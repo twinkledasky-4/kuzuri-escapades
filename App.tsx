@@ -24,7 +24,7 @@ import { PromoPopup } from './components/PromoPopup.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
 import { BoatSafariPage } from './components/BoatSafariPage.tsx';
 import { ChimpanzeeObservationPage } from './components/ChimpanzeeObservationPage.tsx';
-import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES } from './constants.tsx';
+import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES, DISCOVER_FEATURES, ABOUT_CONTENT } from './constants.tsx';
 import { translateContent, UI_DICTIONARY } from './services/translationService.ts';
 
 const App: React.FC = () => {
@@ -46,20 +46,19 @@ const App: React.FC = () => {
     hero: HERO_SLIDES,
     tours: TOURS,
     destinations: DESTINATIONS,
-    lodges: LODGES
+    lodges: LODGES,
+    discoverFeatures: DISCOVER_FEATURES,
+    about: ABOUT_CONTENT
   });
 
-  // Handle routing based on URL on mount
   useEffect(() => {
     const path = window.location.pathname.split('/').filter(p => p).pop()?.toUpperCase();
-    const availableLangs = ['DA', 'NL', 'FR', 'DE', 'NO', 'ES', 'SV'];
+    const availableLangs = ['FR', 'DE', 'ES'];
     if (path && availableLangs.includes(path)) {
       handleLangChange(path);
     }
 
-    // Promotional Pop-up Trigger: 3 Seconds
     const promoTimer = setTimeout(() => {
-      // Only show promo if the user hasn't already opened an inquiry
       if (!isInquiryOpen) {
         setIsPromoOpen(true);
       }
@@ -68,16 +67,30 @@ const App: React.FC = () => {
     return () => clearTimeout(promoTimer);
   }, []);
 
-  // Effect to handle pending scrolls once the target element enters the DOM
   useEffect(() => {
     if (pendingScrollId) {
-      const element = document.getElementById(pendingScrollId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setPendingScrollId(null);
-      }
+      // Small timeout ensures component is rendered before searching for ID
+      const timer = setTimeout(() => {
+        const element = document.getElementById(pendingScrollId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setPendingScrollId(null);
+        }
+      }, 50);
+      return () => clearTimeout(timer);
     }
-  }, [activeSection, pendingScrollId, selectedDestination, selectedTour]);
+  }, [activeSection, pendingScrollId, selectedDestination, selectedTour, showGorillaPage, showBoatSafariPage, showChimpanzeePage]);
+
+  // Handle Initial Hash on Load
+  useEffect(() => {
+    const handleInitialHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        setPendingScrollId(hash);
+      }
+    };
+    handleInitialHash();
+  }, []);
 
   const handleLangChange = async (langCode: string) => {
     if (langCode === currentLang) return;
@@ -93,7 +106,9 @@ const App: React.FC = () => {
         hero: HERO_SLIDES,
         tours: TOURS,
         destinations: DESTINATIONS,
-        lodges: LODGES
+        lodges: LODGES,
+        discoverFeatures: DISCOVER_FEATURES,
+        about: ABOUT_CONTENT
       });
       setIsTranslating(false);
       return;
@@ -102,7 +117,10 @@ const App: React.FC = () => {
     const sourceData = {
       hero: HERO_SLIDES,
       tours: TOURS,
-      lodges: LODGES
+      lodges: LODGES,
+      destinations: DESTINATIONS,
+      discoverFeatures: DISCOVER_FEATURES,
+      about: ABOUT_CONTENT
     };
 
     const translated = await translateContent(sourceData, langCode);
@@ -110,7 +128,10 @@ const App: React.FC = () => {
       ...prev,
       hero: translated.hero || HERO_SLIDES,
       tours: translated.tours || TOURS,
-      lodges: translated.lodges || LODGES
+      lodges: translated.lodges || LODGES,
+      destinations: translated.destinations || DESTINATIONS,
+      discoverFeatures: translated.discoverFeatures || DISCOVER_FEATURES,
+      about: translated.about || ABOUT_CONTENT
     }));
     
     setIsTranslating(false);
@@ -202,6 +223,23 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleCloseSubPage = (id: string) => {
+    setShowGorillaPage(false);
+    setShowBoatSafariPage(false);
+    setShowChimpanzeePage(false);
+    setSelectedTour(null);
+    setSelectedDestination(null);
+    setActiveSection(AppSection.HOME);
+    
+    // Programmatically set the URL hash to #discover-uganda as requested for the Collection path
+    if (id === 'discover-uganda') {
+      window.location.hash = 'discover-uganda';
+      setPendingScrollId('discover-uganda');
+    } else {
+      setPendingScrollId(id);
+    }
+  };
+
   const handlePromoEnquiry = () => {
     setInquiryPreFill("I am inquiring about the Jinja Buyala Bliss Staycation experience.");
     setIsInquiryOpen(true);
@@ -225,7 +263,7 @@ const App: React.FC = () => {
       return (
         <DestinationDetail 
           destination={selectedDestination} 
-          onBack={() => setSelectedDestination(null)} 
+          onBack={() => handleCloseSubPage('discover-uganda')} 
         />
       );
     }
@@ -234,7 +272,7 @@ const App: React.FC = () => {
       return (
         <TourDetail 
           tour={selectedTour} 
-          onBack={() => setSelectedTour(null)} 
+          onBack={() => handleCloseSubPage('kuzuri-tours')} 
           onBook={handleRequestBooking}
           currentLang={currentLang}
         />
@@ -244,7 +282,7 @@ const App: React.FC = () => {
     if (showGorillaPage) {
       return (
         <GorillaTrekkingPage 
-          onBack={() => setShowGorillaPage(false)}
+          onBack={() => handleCloseSubPage('discover-uganda')}
           onBook={() => {
             setInquiryPreFill("I am interested in the 5-Day Gorilla Trekking experience.");
             setIsInquiryOpen(true);
@@ -256,7 +294,7 @@ const App: React.FC = () => {
     if (showBoatSafariPage) {
       return (
         <BoatSafariPage 
-          onBack={() => setShowBoatSafariPage(false)}
+          onBack={() => handleCloseSubPage('discover-uganda')}
           onBook={() => {
             setInquiryPreFill("I am interested in the Serenity of Water: Boat Safari experience.");
             setIsInquiryOpen(true);
@@ -268,7 +306,7 @@ const App: React.FC = () => {
     if (showChimpanzeePage) {
       return (
         <ChimpanzeeObservationPage 
-          onBack={() => setShowChimpanzeePage(false)}
+          onBack={() => handleCloseSubPage('discover-uganda')}
           onBook={() => {
             setInquiryPreFill("I am interested in the Chimpanzee Observation experience.");
             setIsInquiryOpen(true);
@@ -289,10 +327,9 @@ const App: React.FC = () => {
               slides={translatedData.hero}
             />
             <Ticker />
-            <AboutSection />
+            <AboutSection content={translatedData.about} />
             
-            {/* ITINERARIES GALLERY SECTION: Strict 4-column alignment */}
-            <section id="kuzuri-tours" className="py-24 md:py-32 lg:py-40 bg-white px-6 scroll-mt-[120px]">
+            <section id="kuzuri-tours" className="pt-6 md:pt-8 lg:pt-10 pb-24 md:pb-32 lg:pb-40 bg-white px-6 scroll-mt-[120px]">
               <div className="container mx-auto max-w-[1700px] text-center">
                 <div className="mb-20 lg:mb-28 reveal-trigger">
                   <h2 className="text-3xl md:text-5xl lg:text-7xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-6xl mx-auto mb-10 text-center">
@@ -323,6 +360,7 @@ const App: React.FC = () => {
             />
             <BeautyOfUganda />
             <DiscoverUganda 
+              features={translatedData.discoverFeatures}
               onExploreGorilla={handleExploreGorillaTrek} 
               onExploreBoat={handleExploreBoatSafari} 
               onExploreChimpanzee={handleExploreChimpanzee} 

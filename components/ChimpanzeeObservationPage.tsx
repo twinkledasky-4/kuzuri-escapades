@@ -44,7 +44,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
     }
   ];
 
-  // Fix: Added missing pricingData variable for the investment matrix
   const pricingData = [
     {
       season: "Low Season",
@@ -65,16 +64,16 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
 
   return (
     <div className="bg-[#FAF8F3] min-h-screen selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
-      {/* Navigation */}
+      {/* Navigation - Strategic Placement to clear Navbar */}
       <div className="fixed top-24 left-6 md:left-12 z-50">
         <button 
           onClick={onBack}
-          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl"
+          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl active:scale-95"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" />
           </svg>
-          BACK TO EXPLORE
+          BACK TO COLLECTION
         </button>
       </div>
 
@@ -538,7 +537,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                   onClick={onBook}
                   className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
                 >
-                  REQUEST THE MANIFEST
+                  REQUEST THE EXPERIENCE
                 </button>
               </div>
             </div>
@@ -556,7 +555,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
               onClick={onBack}
               className="w-full md:w-auto px-12 py-7 border-2 border-[#D4AF37] text-[#D4AF37] text-[11px] uppercase tracking-[1em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
             >
-              DISCOVER UGANDA
+              BACK TO COLLECTION
             </button>
             <button 
               onClick={onBook}

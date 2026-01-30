@@ -92,8 +92,8 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
                 </div>
                 <div>
                   <p className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37]/60 font-black mb-1">OFFICIAL CORRESPONDENCE</p>
-                  <a href="mailto:info@kuzuriescapades.com" className="text-white hover:text-[#D4AF37] text-lg font-sans font-medium tracking-tight block transition-colors">
-                    info@kuzuriescapades.com
+                  <a href="mailto:info@kuzuri-escapades.com" className="text-white hover:text-[#D4AF37] text-lg font-sans font-medium tracking-tight block transition-colors">
+                    info@kuzuri-escapades.com
                   </a>
                 </div>
               </div>

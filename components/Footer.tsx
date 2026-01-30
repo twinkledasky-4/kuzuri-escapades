@@ -35,10 +35,10 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
                 <div className="space-y-1">
                   <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37]/60 font-black mb-2">OFFICIAL CORRESPONDENCE</p>
                   <a 
-                    href="mailto:info@kuzuriescapades.com" 
+                    href="mailto:info@kuzuri-escapades.com" 
                     className="text-[#FFFFFF] hover:text-[#D4AF37] text-lg md:text-xl font-sans font-medium transition-all duration-500 tracking-tight block"
                   >
-                    info@kuzuriescapades.com
+                    info@kuzuri-escapades.com
                   </a>
                 </div>
 
@@ -150,7 +150,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
              <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/20">
               © {currentYear} KUZURI ESCAPADES.
             </p>
-            <a href="#" className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/10 hover:text-[#D4AF37] transition-colors">Privacy Manifest</a>
+            <a href="#" className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/10 hover:text-[#D4AF37] transition-colors">Privacy EXPERIENCE</a>
             <a href="#" className="text-[10px] uppercase tracking-[0.4em] font-bold text-white/10 hover:text-[#D4AF37] transition-colors">Terms of Stewardship</a>
           </div>
 

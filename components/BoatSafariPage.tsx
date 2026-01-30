@@ -108,12 +108,12 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
       <div className="fixed top-24 left-6 md:left-12 z-50">
         <button 
           onClick={onBack}
-          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl"
+          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl active:scale-95"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" />
           </svg>
-          BACK TO EXPLORE
+          BACK TO COLLECTION
         </button>
       </div>
 
@@ -127,7 +127,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
 
         <div className={`relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24 transition-all duration-1000 ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-6">AQUATIC ODYSSEY</p>
+          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-6">AQUATIC EXPERIENCE</p>
           <h1 className="text-5xl md:text-7xl lg:text-[8.5rem] font-serif font-bold text-white uppercase tracking-tight leading-[0.85] max-w-6xl mb-12">
             BOAT SAFARIS <br/><span className="italic font-light text-[#D4AF37]">IN UGANDA.</span>
           </h1>
@@ -370,7 +370,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
                   onClick={onBook}
                   className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
                 >
-                  REQUEST THE MANIFEST
+                  REQUEST THE EXPERIENCE
                 </button>
               </div>
             </div>

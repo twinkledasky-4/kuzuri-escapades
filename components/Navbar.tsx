@@ -48,18 +48,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
 
   const languages = [
     { code: 'EN', label: 'English', flag: '🇬🇧' },
-    { code: 'DA', label: 'Dansk', flag: '🇩🇰' },
-    { code: 'NL', label: 'Nederlands', flag: '🇳🇱' },
     { code: 'FR', label: 'Français', flag: '🇫🇷' },
     { code: 'DE', label: 'Deutsch', flag: '🇩🇪' },
-    { code: 'NO', label: 'Norsk', flag: '🇳🇴' },
-    { code: 'ES', label: 'Español', flag: '🇪🇸' },
-    { code: 'SV', label: 'Svenska', flag: '🇸🇪' }
+    { code: 'ES', label: 'Español', flag: '🇪🇸' }
   ];
 
   const activeLangObj = languages.find(l => l.code === currentLang) || languages[0];
 
-  // The high-fidelity lion logo provided by the user
   const logoUrl = 'https://i.postimg.cc/GmrwxJs2/unnamed.jpg';
 
   return (
@@ -69,10 +64,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           isScrolled ? 'bg-white shadow-2xl border-b border-black/5' : 'bg-transparent'
         }`}
       >
-        {/* Container height reduced by 20%: Changed p-5 to p-4 */}
         <div className="w-full p-4 flex justify-between items-center max-w-[1750px] mx-auto">
           
-          {/* Logo Section: Adjusted width to match slimmer header */}
           <div 
             onClick={(e) => handleNavClick(e, AppSection.HOME)}
             className="cursor-pointer group shrink-0"
@@ -91,7 +84,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             </div>
           </div>
           
-          {/* Navigation & Actions: Far Right */}
           <div className="flex items-center gap-10 xl:gap-14">
             <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
               {navItems.map((item) => (
@@ -111,7 +103,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             </div>
 
             <div className="flex items-center gap-6">
-              {/* Language Selector: Reduced vertical padding */}
               <div className="relative" ref={langRef}>
                 <button 
                   onClick={() => setLangOpen(!langOpen)}
@@ -142,7 +133,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 )}
               </div>
 
-              {/* Inquiry Button: Reduced py-3.5 to py-2.5 */}
               <button 
                 onClick={onEnquire}
                 className={`hidden md:block px-8 py-2.5 text-[10px] uppercase tracking-[5px] font-black transition-all duration-700 shadow-2xl active:scale-95 border-none whitespace-nowrap ${

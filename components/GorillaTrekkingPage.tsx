@@ -61,16 +61,16 @@ export const GorillaTrekkingPage: React.FC<GorillaTrekkingPageProps> = ({ onBack
 
   return (
     <div className="bg-[#FAF8F3] min-h-screen selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
-      {/* Navigation */}
+      {/* Navigation - Strategic Placement to clear Navbar */}
       <div className="fixed top-24 left-6 md:left-12 z-50">
         <button 
           onClick={onBack}
-          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl"
+          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl active:scale-95"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" />
           </svg>
-          BACK TO EXPLORE
+          BACK TO COLLECTION
         </button>
       </div>
 
@@ -84,7 +84,7 @@ export const GorillaTrekkingPage: React.FC<GorillaTrekkingPageProps> = ({ onBack
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
 
         <div className={`relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24 transition-all duration-1000 ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-6">EXCLUSIVE ODYSSEY</p>
+          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-6">EXCLUSIVE EXPERIENCE</p>
           <h1 className="text-4xl md:text-7xl lg:text-[7rem] font-serif font-bold text-white uppercase tracking-tight leading-[0.9] max-w-6xl mb-6">
             DISCOVERING GORILLAS <br/><span className="italic font-light text-[#D4AF37]">IN UGANDA.</span>
           </h1>
@@ -278,7 +278,7 @@ export const GorillaTrekkingPage: React.FC<GorillaTrekkingPageProps> = ({ onBack
           <aside className="lg:col-span-4 space-y-12">
             <div className="sticky top-40 bg-white border-2 border-black p-10 shadow-2xl space-y-12">
               <div>
-                <h4 className="text-[11px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] mb-8 border-b border-black/5 pb-4">ODYSSEY ESSENTIALS</h4>
+                <h4 className="text-[11px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] mb-8 border-b border-black/5 pb-4">EXPERIENCE ESSENTIALS</h4>
                 <div className="space-y-6">
                   {[
                     "Private Gorilla Permits Guaranteed",
@@ -302,7 +302,7 @@ export const GorillaTrekkingPage: React.FC<GorillaTrekkingPageProps> = ({ onBack
                   onClick={onBook}
                   className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
                 >
-                  REQUEST THE MANIFEST
+                  REQUEST THE EXPERIENCE
                 </button>
               </div>
             </div>

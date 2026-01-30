@@ -28,6 +28,68 @@ export const HERO_SLIDES = [
   }
 ];
 
+export const ABOUT_CONTENT = {
+  legacyLabel: "OUR LEGACY",
+  headingMain: "NATIVE CURATORS.",
+  headingSub: "UNRIVALED PERSPECTIVES.",
+  signatureStory: "Welcome to Kuzuri Escapades, your gateway to unforgettable adventures across Uganda and beyond! We are passionate about creating immersive travel experiences that connect you with the Pearl of Africa—its breathtaking landscapes, vibrant cultures, and extraordinary wildlife. Whether you're exploring our curated trips, planning a private safari, or seeking a relaxing getaway, we are committed to providing safe, authentic, and inspiring journeys.",
+  quote: "True luxury is found in the moments where time stands still, and the heart finds its rhythm in the wild.",
+  para1: "Kuzuri Escapades was born from a singular vision: to bridge the gap between raw, untamed wilderness and refined, soulful elegance. We do not just show you the Pearl of Africa; we invite you to breathe it.",
+  para2: "From our headquarters at Ham Towers Wandegeya, Room Number H:12, P.O. BOX 202305, Kampala, we craft journeys that are as profound as the roar of a lion and as silent as the mist over Bwindi. We are not just guides; we are the guardians of your Ugandan legacy.",
+  stats: [
+    { value: "7+", label: "Years of Stewardship" },
+    { value: "100%", label: "Native Owned" },
+    { value: "∞", label: "Exclusive Access" }
+  ]
+};
+
+export const DISCOVER_FEATURES = [
+  {
+    id: 'boat',
+    subtitle: 'AQUATIC EXPERIENCE',
+    title: 'SERENITY OF WATER SAFARI',
+    description: "Hop aboard and experience safari from a whole new perspective. Thanks to its rivers and lakes, Uganda is the perfect place for a boat safari – whether you simply want to relax, observe wildlife up close, or awaken your inner adventurer.",
+    detailHeading: 'REGIONAL AQUATIC HIGHLIGHTS',
+    subHighlights: [
+      { label: 'LAKE VICTORIA', text: "Lake Victoria is one of the world's largest freshwater lakes. Sailing smoothly across this natural gem, you can visit islands like Ngamba Island and its chimpanzee sanctuary, or the Ssese Islands, a prime spot for birdwatchers." },
+      { label: 'MURCHISON FALLS', text: "Head to Murchison Falls National Park and experience the ultimate safari with an experienced marine guide. After getting up close to the falls, continue cruising the Victoria Nile Delta, where elephants, hippos, and crocodiles await." },
+      { label: 'KAZINGA CHANNEL', text: "Home to the largest population of hippos in Africa. Keep your eyes peeled for the various mammals, birds, crocodiles, and enormous monitor lizards—some so large they can even be mistaken for baby crocodiles!" },
+      { label: 'LAKE BUNYONYI', text: "Discover Ugandan culture across twenty-nine islands scattered across the lake. While this boat safari focuses on scenery and birds, your guide will share stories and legends known only to the locals." },
+      { label: 'LAKE MBURO', text: "Relaxation at Lake Mburo. In western Uganda lies its smallest lake, yet it boasts an incredibly rich biodiversity. Besides the usual aquatic animals, numerous birds can be spotted, including the endemic African finch." },
+      { label: 'LAKE MUTANDA', text: "One of the most beautiful lakes in the country, where the famous Virunga volcanoes rise from the mist. You can swim and fish with the locals; rest assured, there are no hippos or crocodiles in it." },
+      { label: 'TIMING', text: "The best time is all the time. During the dry months (June-Aug, Dec-Feb), chances of spotting wildlife are higher as they congregate at the water's edge. If you're eager to experience this, be our guest." }
+    ],
+    imageUrl: 'https://i.postimg.cc/HkZK72Sk/frames-for-your-heart-yb-Ea-Jqf-RUHs-unsplash.jpg'
+  },
+  {
+    id: 'gorilla',
+    subtitle: 'MISTY ENCOUNTERS',
+    title: 'GORILLA TREKKING',
+    description: 'The soul of the forest. Venture into the ancient Bwindi Impenetrable Forest for a life-altering encounter with the mountain gorilla.',
+    detailHeading: 'THE SOUL OF THE ANCIENT FOREST',
+    detailDescription: 'Bwindi is not just a forest; it is a living sanctuary of ancient memories. Tracking the mountain gorilla through its misty valleys is a journey that transcends traditional travel—it is a profound reconnection with the natural world. In the silent emerald gloom, meeting the gaze of a silverback is a moment of pure, raw connection.',
+    imageUrl: 'https://i.postimg.cc/VkY4Hkrd/Tourism_in_Uganda.jpg'
+  },
+  {
+    id: 'chimpanzee',
+    subtitle: 'PRIMATE SYMPHONY',
+    title: 'OBSERVE THE CHIMPANZEES',
+    description: 'Experience the wild energy of Kibale National Park, the primate capital of the world. Track our closest relatives through the lush tropical rainforest.',
+    detailHeading: 'THE RHYTHM OF THE RAINFOREST',
+    detailDescription: 'In the heart of Kibale, the air vibrates with the raw energy of our closest living relatives. Observing chimpanzees in their natural habitat is a window into a complex social world of intelligence, play, and survival. As you traverse the forest floor, the overhead calls and rustling canopy create an immersive primate symphony.',
+    imageUrl: 'https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&q=85&w=1200'
+  },
+  {
+    id: 'planning',
+    subtitle: 'THE PERFECT RHYTHM',
+    title: 'PLANNING & BOOKING',
+    description: 'The best time is all the time. Discover the dry months that offer the ultimate wildlife convergence at the water’s edge.',
+    detailHeading: 'PLANNING YOUR JOURNEY',
+    detailDescription: "During the dry months of June, July, August, December, January, and February, the chances of spotting Africa's famous wildlife are higher, as the animals congregate at the water's edge. If you're eager to experience one (or all) of these boat safaris yourself, be our guest – literally.",
+    imageUrl: 'https://images.unsplash.com/photo-1590603740183-980e7f6920eb?auto=format&fit=crop&q=80&w=1200'
+  }
+];
+
 export const DESTINATIONS: Destination[] = [
   {
     id: 'bwindi-forest',
@@ -74,7 +136,7 @@ export const TOURS: Tour[] = [
     price_from: 250,
     price_was: 320,
     currency: '$',
-    category: 'Aquatic Expedition',
+    category: 'Aquatic Experience',
     description: "Experience Uganda from the water. Our signature aquatic safaris take you through the country's most iconic lakes and rivers, offering a perspective of the Pearl of Africa that can only be found from the bow of a private vessel.",
     highlights: ['Private Nile Cruise', 'Sunset over Kazinga', 'Hippopotamus Close-Encounters'],
     imageUrls: ['https://images.unsplash.com/photo-1590603740183-980e7f6920eb?auto=format&fit=crop&q=80&w=1200'],

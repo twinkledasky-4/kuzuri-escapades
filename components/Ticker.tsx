@@ -8,7 +8,7 @@ export const Ticker: React.FC = () => {
   const content = Array(8).fill(promoText).join(" • ");
 
   return (
-    <div className="bg-[#FAF8F3] py-6 border-y border-[#D4AF37]/20 overflow-hidden select-none relative z-30 m-0 block">
+    <div className="bg-[#FAF8F3] py-1.5 border-y border-[#D4AF37]/20 overflow-hidden select-none relative z-30 m-0 block">
       <div className="whitespace-nowrap flex animate-ticker-scroll">
         <span className="text-[#D4AF37] text-[12px] md:text-[14px] font-bold tracking-[0.5em] uppercase px-4 flex items-center">
           {content}

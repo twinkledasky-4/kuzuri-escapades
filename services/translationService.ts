@@ -8,10 +8,13 @@ export const translateContent = async (content: any, targetLang: string) => {
   Your task is to translate the provided JSON object into ${targetLang}. 
   Maintain the "Luxury & Silence" tone: refined, evocative, and high-end. 
   DO NOT translate brand names like "Kuzuri Escapades", "Kazinga Channel", or specific lodge names. 
-  Preserve all JSON keys and structure exactly. Translate all descriptions and itinerary names.`;
+  STRICT RULE: DO NOT translate or alter the official email address "info@kuzuri-escapades.com" in any context.
+  Preserve all JSON keys and structure exactly. 
+  STRICT RULE: Always use the word "EXPERIENCE" (or its exact uppercase equivalent in the target language, e.g., "EXPÉRIENCE" in FR, "EXPERIENCIA" in ES, "ERLEBNIS" in DE) to replace "Odyssey", "Manifesto", or "Manifest" in all contexts.
+  Preserve all HTML tags like <span>, <br/>, or <i> if present in strings.`;
 
   const prompt = `Translate the following website content into ${targetLang}. 
-  Ensure the tone is professional and bespoke.
+  Ensure the tone is professional, bespoke, and extremely high-fidelity.
   
   Content:
   ${JSON.stringify(content)}`;
@@ -41,8 +44,8 @@ export const UI_DICTIONARY: Record<string, any> = {
     services: "Services",
     contact: "Contact",
     inquire: "Inquire",
-    requestManifest: "Request an Experience",
-    beginOdyssey: "Begin Your Experience",
+    requestManifest: "Request an EXPERIENCE",
+    beginOdyssey: "Begin Your EXPERIENCE",
     translating: "Curating Locale...",
     days: "Days",
     nights: "Nights",
@@ -56,8 +59,8 @@ export const UI_DICTIONARY: Record<string, any> = {
     services: "Services",
     contact: "Contact",
     inquire: "S'enquérir",
-    requestManifest: "Demander une Expérience",
-    beginOdyssey: "Commencer l'Expérience",
+    requestManifest: "Demander une EXPÉRIENCE",
+    beginOdyssey: "Commencer l'EXPÉRIENCE",
     translating: "Traduction en cours...",
     days: "Jours",
     nights: "Nuits",
@@ -71,8 +74,8 @@ export const UI_DICTIONARY: Record<string, any> = {
     services: "Servicios",
     contact: "Contacto",
     inquire: "Consultar",
-    requestManifest: "Solicitar una Experiencia",
-    beginOdyssey: "Comenzar una Experiencia",
+    requestManifest: "Solicitar una EXPERIENCIA",
+    beginOdyssey: "Comenzar una EXPERIENCIA",
     translating: "Traduciendo...",
     days: "Días",
     nights: "Noches",
@@ -86,72 +89,12 @@ export const UI_DICTIONARY: Record<string, any> = {
     services: "Leistungen",
     contact: "Kontakt",
     inquire: "Anfragen",
-    requestManifest: "Erlebnis anfordern",
-    beginOdyssey: "Erlebnis beginnen",
+    requestManifest: "ERLEBNIS anfordern",
+    beginOdyssey: "ERLEBNIS beginnen",
     translating: "Wird übersetzt...",
     days: "Tage",
     nights: "Nächte",
     startingFrom: "Ab",
-    currency: "$"
-  },
-  DA: {
-    about: "Om os",
-    tours: "Rejseplaner",
-    accommodations: "Overnatning",
-    services: "Tjenester",
-    contact: "Kontakt",
-    inquire: "Forespørgsel",
-    requestManifest: "Anmod om en oplevelse",
-    beginOdyssey: "Begynd din oplevelse",
-    translating: "Oversætter...",
-    days: "Dage",
-    nights: "Nætter",
-    startingFrom: "Fra",
-    currency: "$"
-  },
-  NL: {
-    about: "Over ons",
-    tours: "Reisschema's",
-    accommodations: "Accommodaties",
-    services: "Diensten",
-    contact: "Contact",
-    inquire: "Inlichtingen",
-    requestManifest: "Vraag een ervaring aan",
-    beginOdyssey: "Begin uw ervaring",
-    translating: "Vertalen...",
-    days: "Dagen",
-    nights: "Nachten",
-    startingFrom: "Vanaf",
-    currency: "$"
-  },
-  NO: {
-    about: "Om oss",
-    tours: "Reiseruter",
-    accommodations: "Overnatning",
-    services: "Tjenester",
-    contact: "Kontakt",
-    inquire: "Forespørsel",
-    requestManifest: "Be om en opplevelse",
-    beginOdyssey: "Begynn din opplevelse",
-    translating: "Oversetter...",
-    days: "Dager",
-    nights: "Netter",
-    startingFrom: "Fra",
-    currency: "$"
-  },
-  SV: {
-    about: "Om oss",
-    tours: "Resplaner",
-    accommodations: "Boenden",
-    services: "Tjänster",
-    contact: "Kontakt",
-    inquire: "Fråga",
-    requestManifest: "Begär en upplevelse",
-    beginOdyssey: "Börja din upplevelse",
-    translating: "Översätter...",
-    days: "Dagar",
-    nights: "Nätter",
-    startingFrom: "Från",
     currency: "$"
   }
 };
