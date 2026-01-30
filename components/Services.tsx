@@ -19,7 +19,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
   };
 
   return (
-    <section id="services-section" className="pt-0 pb-12 md:pb-16 bg-[#1A1412] px-6 scroll-mt-24 border-y border-white/5 m-0 block">
+    <section id="services-section" className="pt-0 pb-12 md:pb-16 bg-[#1A1412] px-6 scroll-mt-[120px] border-y border-white/5 m-0 block">
       <div className="container mx-auto max-w-[1700px]">
         {/* Section Header - Updated to Left Alignment */}
         <div className="mb-20 text-left reveal-trigger pt-16 md:pt-24">

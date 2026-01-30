@@ -10,6 +10,7 @@ import { WhatsAppFAB } from './components/WhatsAppFAB.tsx';
 import { AIChatBot } from './components/AIChatBot.tsx';
 import { DestinationDetail } from './components/DestinationDetail.tsx';
 import { TourCard } from './components/TourCard.tsx';
+import { TourDetail } from './components/TourDetail.tsx';
 import { Expertise } from './components/Expertise.tsx';
 import { LodgeGallery } from './components/LodgeGallery.tsx';
 import { BeautyOfUganda } from './components/BeautyOfUganda.tsx';
@@ -20,12 +21,19 @@ import { Services } from './components/Services.tsx';
 import { AboutSection } from './components/AboutSection.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
 import { PromoPopup } from './components/PromoPopup.tsx';
+import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
+import { BoatSafariPage } from './components/BoatSafariPage.tsx';
+import { ChimpanzeeObservationPage } from './components/ChimpanzeeObservationPage.tsx';
 import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES } from './constants.tsx';
 import { translateContent, UI_DICTIONARY } from './services/translationService.ts';
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<AppSection>(AppSection.HOME);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
+  const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
+  const [showGorillaPage, setShowGorillaPage] = useState(false);
+  const [showBoatSafariPage, setShowBoatSafariPage] = useState(false);
+  const [showChimpanzeePage, setShowChimpanzeePage] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [isPromoOpen, setIsPromoOpen] = useState(false);
   const [inquiryPreFill, setInquiryPreFill] = useState('');
@@ -69,7 +77,7 @@ const App: React.FC = () => {
         setPendingScrollId(null);
       }
     }
-  }, [activeSection, pendingScrollId, selectedDestination]);
+  }, [activeSection, pendingScrollId, selectedDestination, selectedTour]);
 
   const handleLangChange = async (langCode: string) => {
     if (langCode === currentLang) return;
@@ -121,25 +129,77 @@ const App: React.FC = () => {
 
     if (anchorId) {
       const element = document.getElementById(anchorId);
-      if (element && activeSection === AppSection.HOME && !selectedDestination) {
+      if (element && activeSection === AppSection.HOME && !selectedDestination && !selectedTour && !showGorillaPage && !showBoatSafariPage && !showChimpanzeePage) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setActiveSection(section);
       } else {
         setPendingScrollId(anchorId);
         setActiveSection(AppSection.HOME);
         setSelectedDestination(null);
+        setSelectedTour(null);
+        setShowGorillaPage(false);
+        setShowBoatSafariPage(false);
+        setShowChimpanzeePage(false);
       }
       return;
     }
     
     setActiveSection(section);
     setSelectedDestination(null);
+    setSelectedTour(null);
+    setShowGorillaPage(false);
+    setShowBoatSafariPage(false);
+    setShowChimpanzeePage(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleRequestBooking = (tour: Tour) => {
     setInquiryPreFill(`I am interested in the ${tour.name} experience. Please share more details.`);
     setIsInquiryOpen(true);
+  };
+
+  const handleExploreTour = (tour: Tour) => {
+    if (tour.id === 'boat-safaris-uganda') {
+      setShowBoatSafariPage(true);
+      setSelectedTour(null);
+      setSelectedDestination(null);
+      setShowGorillaPage(false);
+      setShowChimpanzeePage(false);
+    } else {
+      setSelectedTour(tour);
+      setSelectedDestination(null);
+      setShowGorillaPage(false);
+      setShowBoatSafariPage(false);
+      setShowChimpanzeePage(false);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleExploreGorillaTrek = () => {
+    setShowGorillaPage(true);
+    setShowBoatSafariPage(false);
+    setShowChimpanzeePage(false);
+    setSelectedTour(null);
+    setSelectedDestination(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleExploreBoatSafari = () => {
+    setShowBoatSafariPage(true);
+    setShowGorillaPage(false);
+    setShowChimpanzeePage(false);
+    setSelectedTour(null);
+    setSelectedDestination(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleExploreChimpanzee = () => {
+    setShowChimpanzeePage(true);
+    setShowGorillaPage(false);
+    setShowBoatSafariPage(false);
+    setSelectedTour(null);
+    setSelectedDestination(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handlePromoEnquiry = () => {
@@ -156,7 +216,7 @@ const App: React.FC = () => {
 
     document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, [selectedDestination, activeSection, translatedData]);
+  }, [selectedDestination, selectedTour, activeSection, translatedData, showGorillaPage, showBoatSafariPage, showChimpanzeePage]);
 
   const ui = UI_DICTIONARY[currentLang] || UI_DICTIONARY.EN;
 
@@ -166,6 +226,53 @@ const App: React.FC = () => {
         <DestinationDetail 
           destination={selectedDestination} 
           onBack={() => setSelectedDestination(null)} 
+        />
+      );
+    }
+
+    if (selectedTour) {
+      return (
+        <TourDetail 
+          tour={selectedTour} 
+          onBack={() => setSelectedTour(null)} 
+          onBook={handleRequestBooking}
+          currentLang={currentLang}
+        />
+      );
+    }
+
+    if (showGorillaPage) {
+      return (
+        <GorillaTrekkingPage 
+          onBack={() => setShowGorillaPage(false)}
+          onBook={() => {
+            setInquiryPreFill("I am interested in the 5-Day Gorilla Trekking experience.");
+            setIsInquiryOpen(true);
+          }}
+        />
+      );
+    }
+
+    if (showBoatSafariPage) {
+      return (
+        <BoatSafariPage 
+          onBack={() => setShowBoatSafariPage(false)}
+          onBook={() => {
+            setInquiryPreFill("I am interested in the Serenity of Water: Boat Safari experience.");
+            setIsInquiryOpen(true);
+          }}
+        />
+      );
+    }
+
+    if (showChimpanzeePage) {
+      return (
+        <ChimpanzeeObservationPage 
+          onBack={() => setShowChimpanzeePage(false)}
+          onBook={() => {
+            setInquiryPreFill("I am interested in the Chimpanzee Observation experience.");
+            setIsInquiryOpen(true);
+          }}
         />
       );
     }
@@ -184,8 +291,8 @@ const App: React.FC = () => {
             <Ticker />
             <AboutSection />
             
-            {/* ITINERARIES GALLERY SECTION */}
-            <section id="kuzuri-tours" className="py-24 md:py-32 lg:py-40 bg-white px-6 scroll-mt-24">
+            {/* ITINERARIES GALLERY SECTION: Strict 4-column alignment */}
+            <section id="kuzuri-tours" className="py-24 md:py-32 lg:py-40 bg-white px-6 scroll-mt-[120px]">
               <div className="container mx-auto max-w-[1700px] text-center">
                 <div className="mb-20 lg:mb-28 reveal-trigger">
                   <h2 className="text-3xl md:text-5xl lg:text-7xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-6xl mx-auto mb-10 text-center">
@@ -194,16 +301,15 @@ const App: React.FC = () => {
                   <div className="w-32 h-[1px] bg-[#D4AF37] mx-auto opacity-40" />
                 </div>
                 
-                {/* 
-                   STRICT 4-COLUMN GRID RESET
-                   Row 1: Top 4 packages
-                   Row 2+: Additional packages, perfectly aligned
-                   items-stretch + h-full ensures equal height across all cards
-                */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 items-stretch">
                   {translatedData.tours.map((tour) => (
-                    <div key={tour.id} className="reveal-trigger flex h-full">
-                      <TourCard tour={tour} onRequestBooking={handleRequestBooking} currentLang={currentLang} />
+                    <div key={tour.id} className="reveal-trigger flex h-auto">
+                      <TourCard 
+                        tour={tour} 
+                        onRequestBooking={handleRequestBooking} 
+                        onExplore={() => handleExploreTour(tour)}
+                        currentLang={currentLang} 
+                      />
                     </div>
                   ))}
                 </div>
@@ -216,7 +322,11 @@ const App: React.FC = () => {
               lodges={translatedData.lodges}
             />
             <BeautyOfUganda />
-            <DiscoverUganda />
+            <DiscoverUganda 
+              onExploreGorilla={handleExploreGorillaTrek} 
+              onExploreBoat={handleExploreBoatSafari} 
+              onExploreChimpanzee={handleExploreChimpanzee} 
+            />
             <BentoGallery />
             <Services onEnquireService={(svc) => {
               setInquiryPreFill(`I am inquiring about your ${svc} service.`);

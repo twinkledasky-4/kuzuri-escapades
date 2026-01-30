@@ -69,15 +69,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           isScrolled ? 'bg-white shadow-2xl border-b border-black/5' : 'bg-transparent'
         }`}
       >
-        {/* Main Header Container: 20px (p-5) Margin for Logo Alignment */}
-        <div className="w-full p-5 flex justify-between items-center">
+        {/* Container height reduced by 20%: Changed p-5 to p-4 */}
+        <div className="w-full p-4 flex justify-between items-center max-w-[1750px] mx-auto">
           
-          {/* Logo Section: Top-Left, 20px Margin, No background block/div */}
+          {/* Logo Section: Adjusted width to match slimmer header */}
           <div 
             onClick={(e) => handleNavClick(e, AppSection.HOME)}
             className="cursor-pointer group shrink-0"
           >
-            <div className="relative w-[110px] transition-transform duration-700 group-hover:scale-105 bg-transparent overflow-hidden">
+            <div className="relative w-[100px] transition-transform duration-700 group-hover:scale-105 bg-transparent overflow-hidden">
                <img 
                 src={logoUrl} 
                 alt="Kuzuri Escapades Logo" 
@@ -85,17 +85,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 style={{ 
                   imageRendering: 'high-quality',
                   backgroundColor: 'transparent',
-                  // If the image is white logo on black background, screen mode makes black transparent
-                  // If it's vice versa, we would use multiply. Forcing 'screen' for hero-section compatibility.
                   mixBlendMode: isScrolled ? 'normal' : 'screen'
                 }}
                />
             </div>
           </div>
           
-          {/* Navigation & Actions: Pushed to the Far Right in a single line */}
-          <div className="flex items-center gap-10 xl:gap-14 pr-5">
-            {/* Horizontal Navigation Links - Adjusted spacing for long text like 'ITINERARIES' */}
+          {/* Navigation & Actions: Far Right */}
+          <div className="flex items-center gap-10 xl:gap-14">
             <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
               {navItems.map((item) => (
                 <a
@@ -113,13 +110,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
               ))}
             </div>
 
-            {/* Actions: Language & Inquiry */}
-            <div className="flex items-center gap-8">
-              {/* Language Selector */}
+            <div className="flex items-center gap-6">
+              {/* Language Selector: Reduced vertical padding */}
               <div className="relative" ref={langRef}>
                 <button 
                   onClick={() => setLangOpen(!langOpen)}
-                  className={`flex items-center px-6 py-2.5 border transition-all duration-300 ${isScrolled ? 'border-black/10 text-black hover:bg-black/5' : 'border-[#D4AF37]/30 text-white hover:bg-white/10'}`}
+                  className={`flex items-center px-4 py-2 border transition-all duration-300 ${isScrolled ? 'border-black/10 text-black hover:bg-black/5' : 'border-[#D4AF37]/30 text-white hover:bg-white/10'}`}
                 >
                   <span className="text-[10px] font-bold uppercase tracking-[3px]">{activeLangObj.code}</span>
                 </button>
@@ -146,10 +142,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 )}
               </div>
 
-              {/* Inquiry Button */}
+              {/* Inquiry Button: Reduced py-3.5 to py-2.5 */}
               <button 
                 onClick={onEnquire}
-                className={`hidden md:block px-10 py-3.5 text-[10px] uppercase tracking-[5px] font-black transition-all duration-700 shadow-2xl active:scale-95 border-none whitespace-nowrap ${
+                className={`hidden md:block px-8 py-2.5 text-[10px] uppercase tracking-[5px] font-black transition-all duration-700 shadow-2xl active:scale-95 border-none whitespace-nowrap ${
                   isScrolled ? 'bg-[#1A1A1A] text-white hover:bg-[#8B5A2B]' : 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-white'
                 }`}
               >

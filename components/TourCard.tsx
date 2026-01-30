@@ -6,14 +6,16 @@ import { UI_DICTIONARY } from '../services/translationService.ts';
 interface TourCardProps {
   tour: Tour;
   onRequestBooking: (tour: Tour) => void;
+  onExplore: (tour: Tour) => void;
   currentLang?: string;
 }
 
-export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, currentLang = 'EN' }) => {
+export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onExplore, currentLang = 'EN' }) => {
   const ui = UI_DICTIONARY[currentLang] || UI_DICTIONARY.EN;
 
   return (
     <article 
+      id={`tour-card-${tour.id}`}
       className="relative group overflow-hidden bg-white border border-[#1A1A1A]/10 shadow-sm hover:shadow-2xl transition-all duration-700 flex flex-col h-full w-full"
       aria-labelledby={`tour-title-${tour.id}`}
     >
@@ -76,12 +78,20 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, curr
             </span>
           </div>
           
-          <button 
-            onClick={() => onRequestBooking(tour)}
-            className="text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all"
-          >
-            READ MORE
-          </button>
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={() => onExplore(tour)}
+              className="text-[#D4AF37] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#D4AF37] pb-1 hover:text-[#1A1A1A] hover:border-[#1A1A1A] transition-all"
+            >
+              EXPLORE
+            </button>
+            <button 
+              onClick={() => onRequestBooking(tour)}
+              className="text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all"
+            >
+              BOOK NOW
+            </button>
+          </div>
         </div>
       </div>
     </article>

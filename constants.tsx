@@ -66,6 +66,28 @@ export const DESTINATIONS: Destination[] = [
 
 export const TOURS: Tour[] = [
   {
+    id: 'boat-safaris-uganda',
+    name: 'SERENITY OF WATER SAFARI',
+    slug: 'boat-safaris-uganda',
+    duration_days: 1,
+    duration_nights: 0,
+    price_from: 250,
+    price_was: 320,
+    currency: '$',
+    category: 'Aquatic Expedition',
+    description: "Experience Uganda from the water. Our signature aquatic safaris take you through the country's most iconic lakes and rivers, offering a perspective of the Pearl of Africa that can only be found from the bow of a private vessel.",
+    highlights: ['Private Nile Cruise', 'Sunset over Kazinga', 'Hippopotamus Close-Encounters'],
+    imageUrls: ['https://images.unsplash.com/photo-1590603740183-980e7f6920eb?auto=format&fit=crop&q=80&w=1200'],
+    featured: true,
+    itinerary: [
+      {
+        day: "Overview",
+        title: "A JOURNEY ACROSS UGANDA'S WATERWAYS",
+        detail: "From the Source of the Nile to the volcanic shores of Lake Mburo, your journey is curated to reveal the aquatic soul of the nation. Detailed exploration paths are authored in our Discover Uganda collection."
+      }
+    ]
+  },
+  {
     id: 'uganda-rwanda-birding-12d',
     name: '12 days Uganda and Rwanda birding comfort safari',
     slug: 'uganda-rwanda-birding-12d',
@@ -107,49 +129,6 @@ export const TOURS: Tour[] = [
     highlights: ['Masai Mara Reserve', 'Serengeti Plains', 'Migration Crossing'],
     imageUrls: ['https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1200'],
     featured: true
-  },
-  {
-    id: 'uganda-big5-lions-14d',
-    name: '14 Days Uganda Big 5 safari with Primates & Tree Climbing Lions',
-    slug: 'uganda-big5-primates-lions-14d',
-    duration_days: 14,
-    duration_nights: 13,
-    price_from: 5090,
-    price_was: 5300,
-    currency: '$',
-    category: 'The Grand Odyssey',
-    description: 'An exhaustive exploration of Uganda’s wildlife diversity, featuring the rare tree-climbing lions of Ishasha, primates, and the full Big 5.',
-    highlights: ['Tree-climbing Lions', 'Big Five Game Drives', 'Primate Tracking'],
-    imageUrls: ['https://images.unsplash.com/photo-1614027164847-1b2809eb7b9b?auto=format&fit=crop&q=80&w=1200'],
-    featured: true
-  },
-  {
-    id: 'murchison-falls-luxury-5d',
-    name: '5 Days Murchison Falls & Nile Luxury Retreat',
-    slug: 'murchison-falls-luxury-5d',
-    duration_days: 5,
-    duration_nights: 4,
-    price_from: 1980,
-    currency: '$',
-    category: 'Riverside Luxury',
-    description: 'A focused journey to the worlds most powerful waterfall, featuring private boat cruises on the Nile and exclusive riverside stays.',
-    highlights: ['Private Nile Cruise', 'Big Five Game Drives', 'Top of the Falls Hike'],
-    imageUrls: ['https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&q=80&w=1200'],
-    featured: false
-  },
-  {
-    id: 'primate-9d',
-    name: '9 DAYS meeting the gorillas and chimpanzees',
-    slug: 'gorillas-chimpanzees-9d',
-    duration_days: 9,
-    duration_nights: 8,
-    price_from: 2694,
-    currency: '$',
-    category: 'Primate Encounters',
-    description: 'An intimate pilgrimage to the hearts of the great apes. Two life-changing encounters in the dense jungles.',
-    highlights: ['Gorilla Trekking', 'Chimpanzee Habituation', 'Canopy Walks'],
-    imageUrls: ['https://i.postimg.cc/c1fCtM2J/gorilla.jpg'],
-    featured: false
   }
 ];
 

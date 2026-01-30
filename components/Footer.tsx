@@ -12,7 +12,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="contact-us" className="bg-[#1A1412] pt-32 pb-16 px-8 md:px-16 selection:bg-[#D4AF37] selection:text-[#1A1412]">
+    <footer id="contact-us" className="bg-[#1A1412] pt-32 pb-16 px-8 md:px-16 selection:bg-[#D4AF37] selection:text-[#1A1412] scroll-mt-[120px]">
       <div className="max-w-[1700px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 lg:gap-12 items-start mb-32 border-b border-white/5 pb-24">
           

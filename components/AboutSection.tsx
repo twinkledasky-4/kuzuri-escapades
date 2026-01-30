@@ -3,7 +3,7 @@ import React from 'react';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about-kuzuri" className="pt-0 pb-12 md:pb-16 bg-[#1A1412] px-6 scroll-mt-24 border-b border-white/5 overflow-hidden m-0 block">
+    <section id="about-kuzuri" className="pt-0 pb-12 md:pb-16 bg-[#1A1412] px-6 scroll-mt-[120px] border-b border-white/5 overflow-hidden m-0 block">
       <div className="container mx-auto max-w-[1700px] p-0">
         <div className="flex flex-col items-center">
           
