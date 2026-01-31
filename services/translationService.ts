@@ -10,6 +10,12 @@ export const translateContent = async (content: any, targetLang: string) => {
   DO NOT translate brand names like "Kuzuri Escapades", "Kazinga Channel", or specific lodge names. 
   STRICT RULE: DO NOT translate or alter the official email address "info@kuzuri-escapades.com" in any context.
   Preserve all JSON keys and structure exactly. 
+  
+  NARRATIVE GUIDANCE:
+  - Translate "Local Experts. Unique Journeys." elegantly to convey native authority and bespoke creation.
+  - "Local Experts" (EN) -> "Experts Locaux" (FR), "Lokale Experten" (DE), "Expertos Locales" (ES).
+  - "Unique Journeys" (EN) -> "Voyages Uniques" (FR), "Einzigartige Reisen" (DE), "Viajes Únicos" (ES).
+  
   STRICT RULE: Always use the word "EXPERIENCE" (or its exact uppercase equivalent in the target language, e.g., "EXPÉRIENCE" in FR, "EXPERIENCIA" in ES, "ERLEBNIS" in DE) to replace "Odyssey", "Manifesto", or "Manifest" in all contexts.
   Preserve all HTML tags like <span>, <br/>, or <i> if present in strings.`;
 
@@ -54,7 +60,7 @@ export const UI_DICTIONARY: Record<string, any> = {
   },
   FR: {
     about: "À Propos",
-    tours: "Itinéraires",
+    tours: "Itineraires",
     accommodations: "Hébergements",
     services: "Services",
     contact: "Contact",

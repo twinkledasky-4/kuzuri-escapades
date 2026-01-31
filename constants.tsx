@@ -30,8 +30,8 @@ export const HERO_SLIDES = [
 
 export const ABOUT_CONTENT = {
   legacyLabel: "OUR LEGACY",
-  headingMain: "NATIVE CURATORS.",
-  headingSub: "UNRIVALED PERSPECTIVES.",
+  headingMain: "Local Experts.",
+  headingSub: "Unique Journeys.",
   signatureStory: "Welcome to Kuzuri Escapades, your gateway to unforgettable adventures across Uganda and beyond! We are passionate about creating immersive travel experiences that connect you with the Pearl of Africa—its breathtaking landscapes, vibrant cultures, and extraordinary wildlife. Whether you're exploring our curated trips, planning a private safari, or seeking a relaxing getaway, we are committed to providing safe, authentic, and inspiring journeys.",
   quote: "True luxury is found in the moments where time stands still, and the heart finds its rhythm in the wild.",
   para1: "Kuzuri Escapades was born from a singular vision: to bridge the gap between raw, untamed wilderness and refined, soulful elegance. We do not just show you the Pearl of Africa; we invite you to breathe it.",

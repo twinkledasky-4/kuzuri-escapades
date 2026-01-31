@@ -31,16 +31,16 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning, minimal = false }) 
       
       {/* Content Layout - Strictly constrained to the Left Third (Cols 1-4 of 12) */}
       <div className="relative z-10 h-full w-full max-w-[1700px] mx-auto grid grid-cols-12 px-6 md:px-20 lg:px-24">
-        <div className="col-span-12 lg:col-span-4 flex flex-col justify-center items-start text-left py-20 animate-fade-in-up">
+        <div className="col-span-12 lg:col-span-5 flex flex-col justify-center items-start text-left py-20 animate-fade-in-up">
           {/* Tagline */}
           <p className="text-[#D4AF37] uppercase tracking-[0.8em] text-[10px] md:text-[11px] font-black mb-6">
             {staticContent.subtitle}
           </p>
 
-          {/* Main Heading: Constrained to the left third (col-span-4) */}
+          {/* Main Heading: Neat boutique size */}
           <h1 
             id="hero-title"
-            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white uppercase tracking-[0.02em] leading-[1.1] mb-8"
+            className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white uppercase tracking-[0.02em] leading-[1.1] mb-8"
             dangerouslySetInnerHTML={{ __html: staticContent.title }}
           />
           
@@ -60,7 +60,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning, minimal = false }) 
           )}
         </div>
         
-        {/* Remaining 8/12 columns left empty to maintain focus on the Left Third and avoid obscuring key background elements */}
+        {/* Remaining cols left empty to maintain focus on the Left and avoid obscuring key background elements */}
       </div>
     </section>
   );

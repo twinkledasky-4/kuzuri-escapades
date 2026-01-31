@@ -46,15 +46,15 @@ export const DiscoverUganda: React.FC<DiscoverUgandaProps> = ({ features, onExpl
   return (
     <section id="discover-uganda" className="bg-white py-12 md:py-16 px-6 scroll-mt-[100px]" aria-labelledby="discover-heading">
       <div className="container mx-auto max-w-[1400px]">
-        <div className="mb-20 text-center reveal-trigger">
+        <div className="mb-16 text-center reveal-trigger">
           <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-6">THE COLLECTION</p>
-          <h2 id="discover-heading" className="text-5xl md:text-8xl font-serif font-bold text-[#1A1A1A] tracking-tighter uppercase">
+          <h2 id="discover-heading" className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-[#1A1A1A] tracking-tighter uppercase">
             DISCOVER <span className="italic font-light">UGANDA</span>
           </h2>
-          <div className="w-20 h-[1px] bg-[#D4AF37] mx-auto mt-8" />
+          <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto mt-6" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
           {features.map((feature, idx) => {
             const isExpanded = activeDetailId === feature.id;
 
@@ -82,7 +82,7 @@ export const DiscoverUganda: React.FC<DiscoverUgandaProps> = ({ features, onExpl
                         {feature.subtitle}
                       </p>
                       
-                      <h3 className={`text-2xl md:text-3xl uppercase leading-tight tracking-tight transition-all duration-700 font-sans ${isExpanded ? 'text-[#D4AF37] font-extrabold' : 'text-[#3B1E14] font-black group-hover:text-[#8B5A2B]'}`}>
+                      <h3 className={`text-xl md:text-2xl lg:text-3xl uppercase leading-tight tracking-tight transition-all duration-700 font-sans ${isExpanded ? 'text-[#D4AF37] font-extrabold' : 'text-[#3B1E14] font-black group-hover:text-[#8B5A2B]'}`}>
                         {isExpanded ? feature.detailHeading : feature.title}
                       </h3>
                     </div>

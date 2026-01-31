@@ -17,7 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
   const langRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -55,30 +55,34 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
 
   const activeLangObj = languages.find(l => l.code === currentLang) || languages[0];
 
-  const logoUrl = 'https://i.postimg.cc/GmrwxJs2/unnamed.jpg';
+  // CRITICAL UPDATE: Official Design from PDF Extraction
+  const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
 
   return (
     <>
       <nav 
         className={`fixed top-0 left-0 right-0 transition-all duration-700 select-none z-[9999] ${
-          isScrolled ? 'bg-white shadow-2xl border-b border-black/5' : 'bg-transparent'
+          isScrolled 
+            ? 'bg-white shadow-2xl border-b border-black/5 py-2' 
+            : 'bg-transparent py-8'
         }`}
       >
-        <div className="w-full p-4 flex justify-between items-center max-w-[1750px] mx-auto">
+        <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto">
           
+          {/* Logo Anchored Top-Left - Integrated Circular Design */}
           <div 
             onClick={(e) => handleNavClick(e, AppSection.HOME)}
             className="cursor-pointer group shrink-0"
           >
-            <div className="relative w-[100px] transition-transform duration-700 group-hover:scale-105 bg-transparent overflow-hidden">
+            <div className="relative w-[75px] md:w-[95px] aspect-square transition-all duration-700 group-hover:scale-105 rounded-full overflow-hidden border-2 border-white/20 shadow-2xl bg-white">
                <img 
                 src={logoUrl} 
-                alt="Kuzuri Escapades Logo" 
-                className="w-full h-auto object-contain transition-all duration-500"
+                alt="Kuzuri Escapades Official Logo" 
+                className={`w-full h-full object-cover transition-all duration-500 ${isScrolled ? 'brightness-100' : 'brightness-100'}`}
                 style={{ 
-                  imageRendering: 'high-quality',
-                  backgroundColor: 'transparent',
-                  mixBlendMode: isScrolled ? 'normal' : 'screen'
+                  filter: isScrolled 
+                    ? 'contrast(1.1)' 
+                    : 'drop-shadow(0 0 15px rgba(255,255,255,0.4))'
                 }}
                />
             </div>
