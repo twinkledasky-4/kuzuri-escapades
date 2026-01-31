@@ -1,4 +1,3 @@
-
 import { Destination, Tour, Service, Review, Lodge } from './types.ts';
 
 export const HERO_SLIDES = [
@@ -139,15 +138,8 @@ export const TOURS: Tour[] = [
     category: 'Aquatic Experience',
     description: "Experience Uganda from the water. Our signature aquatic safaris take you through the country's most iconic lakes and rivers, offering a perspective of the Pearl of Africa that can only be found from the bow of a private vessel.",
     highlights: ['Private Nile Cruise', 'Sunset over Kazinga', 'Hippopotamus Close-Encounters'],
-    imageUrls: ['https://images.unsplash.com/photo-1590603740183-980e7f6920eb?auto=format&fit=crop&q=80&w=1200'],
-    featured: true,
-    itinerary: [
-      {
-        day: "Overview",
-        title: "A JOURNEY ACROSS UGANDA'S WATERWAYS",
-        detail: "From the Source of the Nile to the volcanic shores of Lake Mburo, your journey is curated to reveal the aquatic soul of the nation. Detailed exploration paths are authored in our Discover Uganda collection."
-      }
-    ]
+    imageUrls: ['https://i.postimg.cc/Dfcx09nJ/fishing-boat-sea-thailand.jpg'],
+    featured: true
   },
   {
     id: 'uganda-rwanda-birding-12d',
@@ -161,7 +153,7 @@ export const TOURS: Tour[] = [
     category: 'Signature Birding',
     description: 'An elite avian odyssey across the diverse biomes of Uganda and Rwanda, designed for birding enthusiasts seeking rare sightings and supreme lodge comfort.',
     highlights: ['Albertine Rift Endemics', 'Shoebill Stork Quest', 'Rwandan Highland Trails'],
-    imageUrls: ['https://images.unsplash.com/photo-1552728089-57bdde30ebe3?auto=format&fit=crop&q=80&w=1200'],
+    imageUrls: ['https://i.postimg.cc/TY6XvMQy/closeup-shot-group-cranes-field-181624-19833(1).jpg'],
     featured: true
   },
   {
@@ -175,7 +167,7 @@ export const TOURS: Tour[] = [
     category: 'Multi-Country Expedition',
     description: 'The ultimate East African circuit combining Kenya’s legendary plains with Uganda’s misty primate sanctuaries for a definitive wildlife encounter.',
     highlights: ['Maasai Mara Game Drives', 'Gorilla Tracking Experience', 'The Great Migration'],
-    imageUrls: ['https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1200'],
+    imageUrls: ['https://i.postimg.cc/qvcqHx8d/c6b8b1e4-65a4-4e49-92bd-f4ed040c7b13.jpg'],
     featured: true
   },
   {
@@ -189,7 +181,63 @@ export const TOURS: Tour[] = [
     category: 'Savannah Sovereignty',
     description: 'A focused, high-impact safari through the world’s most famous wildlife ecosystem across the Kenya-Tanzania border during migration peak.',
     highlights: ['Masai Mara Reserve', 'Serengeti Plains', 'Migration Crossing'],
-    imageUrls: ['https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1200'],
+    imageUrls: ['https://i.postimg.cc/9f9FWt3z/9be3ba5d-30ad-463d-9fb9-8226e0f67943.jpg'],
+    featured: true
+  },
+  {
+    id: 'gorilla-quick-3d',
+    name: '3 Days Gorilla Quick Escape',
+    slug: 'gorilla-quick-3d',
+    duration_days: 3,
+    duration_nights: 2,
+    price_from: 1450,
+    currency: '$',
+    category: 'Primate Swift',
+    description: 'A focused, high-intensity escape into the heart of Bwindi for those seeking a direct encounter with the gentle giants.',
+    highlights: ['Bwindi Impenetrable', 'Gorilla Tracking', 'Misty Highlands'],
+    imageUrls: ['https://images.unsplash.com/photo-1518063311540-0640001280cc?auto=format&fit=crop&q=80&w=1200'],
+    featured: true
+  },
+  {
+    id: 'murchison-explorer-7d',
+    name: '7 Days Murchison Falls Explorer',
+    slug: 'murchison-explorer-7d',
+    duration_days: 7,
+    duration_nights: 6,
+    price_from: 2850,
+    currency: '$',
+    category: 'Northern Wilds',
+    description: 'Complete immersion into the thundering power of the Nile and the vast savannahs of Murchison Falls National Park.',
+    highlights: ['Bottom of the Falls Cruise', 'Savannah Game Drives', 'Budongo Chimpanzees'],
+    imageUrls: ['https://i.postimg.cc/HkZK72Sk/frames-for-your-heart-yb-Ea-Jqf-RUHs-unsplash.jpg'],
+    featured: true
+  },
+  {
+    id: 'kidepo-valley-5d',
+    name: '5 Days Kidepo Valley Adventure',
+    slug: 'kidepo-valley-5d',
+    duration_days: 5,
+    duration_nights: 4,
+    price_from: 3120,
+    currency: '$',
+    category: 'Remote Isolation',
+    description: 'Venture to the far north to discover the most rugged and isolated wilderness in the Pearl of Africa.',
+    highlights: ['Naruso Valley Game Drives', 'Karamoja Culture', 'Apoka Wilderness'],
+    imageUrls: ['https://i.postimg.cc/L5V7B0s0/uganda-karamoja.jpg'],
+    featured: true
+  },
+  {
+    id: 'karamoja-cultural-6d',
+    name: '6 Days Karamoja Cultural Immersion',
+    slug: 'karamoja-cultural-6d',
+    duration_days: 6,
+    duration_nights: 5,
+    price_from: 1980,
+    currency: '$',
+    category: 'Ancestral Roots',
+    description: 'Live the life of the Karamojong people, learning their traditions, rhythms, and deep connection to the land.',
+    highlights: ['Manyatta Stay', 'Traditional Crafts', 'Plains Discovery'],
+    imageUrls: ['https://i.postimg.cc/Kv7JNMzm/Kara_Tunga_Tours_Life_in_Manyatta_5_e1643904828756.webp'],
     featured: true
   }
 ];

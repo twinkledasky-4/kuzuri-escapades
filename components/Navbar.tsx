@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { AppSection } from '../types.ts';
 import { UI_DICTIONARY } from '../services/translationService.ts';
+import { Instagram, Facebook } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: AppSection;
@@ -69,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
       >
         <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto">
           
-          {/* Logo Anchored Top-Left - Integrated Circular Design */}
+          {/* Logo Container: Reverted to standard scale and removed experimental padding */}
           <div 
             onClick={(e) => handleNavClick(e, AppSection.HOME)}
             className="cursor-pointer group shrink-0"
@@ -78,7 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                <img 
                 src={logoUrl} 
                 alt="Kuzuri Escapades Official Logo" 
-                className={`w-full h-full object-cover transition-all duration-500 ${isScrolled ? 'brightness-100' : 'brightness-100'}`}
+                className="w-full h-full object-cover transition-all duration-500"
                 style={{ 
                   filter: isScrolled 
                     ? 'contrast(1.1)' 
@@ -89,6 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           </div>
           
           <div className="flex items-center gap-10 xl:gap-14">
+            {/* Nav Menu: Reverted to standard spacing (space-x-8) */}
             <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
               {navItems.map((item) => (
                 <a
@@ -106,7 +107,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
               ))}
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-8">
+              {/* Socials integration */}
+              <div className="hidden sm:flex items-center gap-6">
+                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`}>
+                  <Instagram size={18} strokeWidth={1.5} />
+                </a>
+                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`}>
+                  <Facebook size={18} strokeWidth={1.5} />
+                </a>
+              </div>
+
               <div className="relative" ref={langRef}>
                 <button 
                   onClick={() => setLangOpen(!langOpen)}

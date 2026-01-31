@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export const Expertise: React.FC = () => {
@@ -17,19 +16,19 @@ export const Expertise: React.FC = () => {
 
           {/* Right Column: Image and Pushed Paragraphs (Span 7) */}
           <div className="lg:col-span-7 reveal-trigger flex flex-col">
-            {/* The Safari Jeep Image Container */}
+            {/* The Safari Image Container - Reverted to previous high-fidelity signature image */}
             <div className="relative w-full aspect-[16/10] border-2 border-[#1A1A1A] shadow-3xl overflow-hidden group bg-[#1A1A1A]">
                 <img 
-                    src="https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg" 
-                    alt="Kuzuri Safari Jeep - The vessel for your odyssey"
+                    src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1200" 
+                    alt="Expertly Guided Safari Experience - Native Stewardship"
                     className="w-full h-full object-cover opacity-100 transition-all duration-[12000ms] group-hover:scale-110"
                     style={{ objectPosition: 'center' }}
                 />
                 
                 {/* Floating Info Tag - Solid White Background */}
                 <div className="absolute bottom-8 left-8 bg-white p-6 shadow-2xl border border-black/5 z-20">
-                    <p className="text-[10px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] mb-1" style={{ opacity: 1 }}>EXPEDITION VESSEL</p>
-                    <p className="text-sm font-serif italic text-[#1A1A1A]" style={{ opacity: 1 }}>Custom 4x4 Luxury Land Cruiser</p>
+                    <p className="text-[10px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] mb-1" style={{ opacity: 1 }}>EXPERTLY GUIDED</p>
+                    <p className="text-sm font-serif italic text-[#1A1A1A]" style={{ opacity: 1 }}>Signature Professional Stewardship</p>
                 </div>
                 
                 {/* Clean, Grounded Linear Darkening */}

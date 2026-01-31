@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface AboutSectionProps {
@@ -43,15 +42,16 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ content }) => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start w-full mt-12">
-            {/* Visual Column */}
-            <div className="reveal-trigger relative group">
-              <div className="relative aspect-[4/5] overflow-hidden border-2 border-[#D4AF37]/30 shadow-3xl bg-[#1A1412]">
+            {/* Visual Column: Container Width set to 100% with cinematic 3:2 aspect ratio */}
+            <div className="reveal-trigger relative group w-full">
+              <div className="relative w-full aspect-[3/2] min-h-[450px] overflow-hidden border-2 border-[#D4AF37]/30 shadow-3xl bg-[#1A1412]">
                 <img 
-                  src="https://i.postimg.cc/bYRVDkb8/ugandans.jpg" 
-                  alt="Traditional Ugandan heritage and people" 
-                  className="w-full h-full object-cover transition-transform duration-[10s] group-hover:scale-105 opacity-80"
+                  src="https://i.postimg.cc/y8yW9yQ5/a66809a6-28e3-4e2f-9391-0f6cc547e9cb.jpg" 
+                  alt="Authentic Ugandan discovery - Native perspective" 
+                  className="w-full h-full min-h-[450px] object-cover object-top transition-transform duration-[10s] group-hover:scale-105 opacity-90"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1412] via-transparent to-transparent opacity-70" />
+                {/* Visual anchor gradient for text contrast within the frame */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1412] via-transparent to-transparent opacity-40 pointer-events-none" />
               </div>
               
               <div className="absolute -bottom-6 -right-6 bg-[#D4AF37] p-8 hidden xl:block shadow-2xl">

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { AppSection, Tour, Destination } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
@@ -329,6 +328,7 @@ const App: React.FC = () => {
             <Ticker />
             <AboutSection content={translatedData.about} />
             
+            {/* ITINERARIES section: Moved to be immediately after AboutSection */}
             <section id="kuzuri-tours" className="pt-6 md:pt-8 lg:pt-10 pb-24 md:pb-32 lg:pb-40 bg-white px-6 scroll-mt-[120px]">
               <div className="container mx-auto max-w-[1700px] text-center">
                 <div className="mb-20 lg:mb-28 reveal-trigger">
@@ -354,6 +354,7 @@ const App: React.FC = () => {
             </section>
 
             <Expertise />
+
             <LodgeGallery 
               onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} 
               lodges={translatedData.lodges}
