@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI, Chat } from "@google/genai";
 import { KUZURI_KNOWLEDGE_BASE } from '../constants/knowledge.ts';
+import { MessageSquare, Send, X, Sparkles } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'model';
@@ -15,7 +16,7 @@ export const AIChatBot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      text: "Hello! 👋 I am your Kuzuri concierge assistant. I can guide you through our territories, curated experiences, and signature services. How may I assist your vision today?",
+      text: "Welcome to Kuzuri Escapades. I am your digital curator. I can check territory availability, share lodge insights, or help author your private itinerary. How may I assist your vision today?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
   ]);
@@ -39,7 +40,8 @@ export const AIChatBot: React.FC = () => {
           KNOWLEDGE BASE: ${KUZURI_KNOWLEDGE_BASE}
           TONE: Refined, professional, knowledgeable. Use "we". 
           STYLE: "Silence as Luxury". Focus on evocativeness and high-fidelity native storytelling. Avoid exclamation marks in the body of your responses. 
-          GOAL: Guide users to WhatsApp (+256 708 012030) for specific bookings or provide deep knowledge about our curated territories like Bwindi, Murchison, and Queen Elizabeth.`
+          PRIMARY GOAL: Assist with availability inquiries, lodge details, and itinerary curation. 
+          SECONDARY GOAL: For specific bookings, guide users to our official WhatsApp (+256 708 012030) or email (info@kuzuri-escapades.com).`
         },
       });
     }
@@ -62,14 +64,14 @@ export const AIChatBot: React.FC = () => {
         const response = await chatRef.current.sendMessage({ message: inputValue });
         setMessages(prev => [...prev, {
           role: 'model',
-          text: response.text || "I apologize, our digital concierge is temporarily unavailable. Please contact us at info@kuzuri-escapades.com.",
+          text: response.text || "I apologize, our digital concierge is temporarily quiet. Please contact our lead curator directly.",
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }]);
       }
     } catch (error) {
       setMessages(prev => [...prev, {
         role: 'model',
-        text: "The concierge desk is currently quiet. Please reach us via WhatsApp at +256 708 012030 for immediate assistance.",
+        text: "The concierge desk is currently resetting. For immediate availability, please message us on WhatsApp at +256 708 012030.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }]);
     } finally {
@@ -79,55 +81,77 @@ export const AIChatBot: React.FC = () => {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-[1000] w-[64px] h-[64px] rounded-full bg-[#1A1A1A] border-2 border-[#D4AF37] shadow-2xl flex items-center justify-center hover:scale-110 transition-transform focus:outline-none"
-        aria-label="Open Digital Concierge"
-      >
-        <svg className="w-8 h-8 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-        </svg>
-      </button>
+      {/* Floating Chat/Inquiry Bubble - Bottom Right */}
+      <div className="fixed bottom-8 right-8 z-[1000] flex flex-col items-end gap-4 pointer-events-none">
+        {!isOpen && (
+          <div className="animate-fade-in flex flex-col items-end gap-3 pointer-events-auto">
+             <button
+              onClick={() => setIsOpen(true)}
+              className="relative w-[68px] h-[68px] rounded-full bg-[#1A1A1A] border-2 border-[#D4AF37] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-center hover:scale-110 transition-all duration-500 group cursor-pointer focus:outline-none"
+              aria-label="Ask about availability"
+            >
+              <div className="absolute inset-0 rounded-full border-2 border-[#D4AF37] animate-ping opacity-20 pointer-events-none" />
+              <MessageSquare className="w-7 h-7 text-[#D4AF37] group-hover:rotate-12 transition-transform" strokeWidth={1.5} />
+              
+              {/* Online Indicator */}
+              <div className="absolute top-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-[#1A1A1A]" />
+            </button>
+          </div>
+        )}
+      </div>
 
+      {/* Chat Window */}
       <div 
-        className={`fixed md:bottom-24 md:right-8 bottom-0 right-0 w-full md:w-[420px] h-full md:h-[650px] bg-[#F5F5DC] z-[1001] shadow-2xl border-2 border-[#1A1A1A] flex flex-col transition-all duration-700 ease-[cubic-bezier(0.19, 1, 0.22, 1)] ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}
+        className={`fixed md:bottom-10 md:right-10 bottom-0 right-0 w-full md:w-[450px] h-full md:h-[680px] bg-[#F5F5DC] z-[1001] shadow-[0_30px_100px_rgba(0,0,0,0.6)] border-2 border-[#1A1A1A] flex flex-col transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'}`}
       >
         <div className="bg-[#1A1A1A] p-8 flex justify-between items-center border-b-2 border-[#D4AF37]">
-          <div>
-            <p className="text-xl font-serif font-bold text-white mb-0">Digital Concierge</p>
-            <p className="text-[10px] uppercase tracking-widest text-[#D4AF37] mt-2 font-bold">Native Stewardship</p>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full border border-[#D4AF37] flex items-center justify-center text-[#D4AF37]">
+               <Sparkles size={20} />
+            </div>
+            <div>
+              <p className="text-xl font-serif font-bold text-white mb-0 uppercase tracking-tight">Kuzuri <span className="italic font-light">Concierge</span></p>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                <p className="text-[9px] uppercase tracking-widest text-[#D4AF37] font-black">Native Steward Online</p>
+              </div>
+            </div>
           </div>
-          <button onClick={() => setIsOpen(false)} className="text-white p-2 hover:bg-white/10 rounded-full focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+          <button 
+            onClick={() => setIsOpen(false)} 
+            className="text-white/40 p-2 hover:text-white hover:bg-white/10 rounded-full transition-all focus:outline-none"
+            aria-label="Close Concierge"
+          >
+            <X size={24} strokeWidth={2} />
           </button>
         </div>
 
-        <div ref={scrollRef} className="flex-grow overflow-y-auto p-8 space-y-8 bg-[#FAF8F3]">
+        <div ref={scrollRef} className="flex-grow overflow-y-auto p-8 space-y-8 bg-[#FAF8F3] scrollbar-thin">
           {messages.map((msg, idx) => (
-            <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-              <div className={`max-w-[85%] p-6 border-2 border-[#1A1A1A] shadow-sm ${msg.role === 'user' ? 'bg-[#8B5A2B] text-white' : 'bg-white text-[#1A1A1A]'}`}>
-                <p className={`text-base leading-relaxed ${idx === 0 && msg.role === 'model' ? 'font-medium' : 'font-normal'}`}>
+            <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} animate-fade-in`}>
+              <div className={`max-w-[90%] p-6 border border-[#1A1A1A]/10 shadow-sm ${msg.role === 'user' ? 'bg-[#8B5A2B] text-white rounded-l-2xl rounded-tr-2xl' : 'bg-white text-[#1A1A1A] rounded-r-2xl rounded-tl-2xl'}`}>
+                <p className="text-[15px] leading-relaxed font-normal">
                   {msg.text}
                 </p>
               </div>
-              <span className="text-[10px] mt-3 font-bold opacity-50 uppercase tracking-widest">{msg.timestamp}</span>
+              <span className="text-[9px] mt-3 font-black opacity-30 uppercase tracking-[0.2em]">{msg.timestamp}</span>
             </div>
           ))}
           {isLoading && (
-            <div className="flex gap-2 p-2">
-              <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full animate-bounce" />
-              <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full animate-bounce [animation-delay:-0.15s]" />
-              <div className="w-1.5 h-1.5 bg-[#D4AF37] rounded-full animate-bounce [animation-delay:-0.3s]" />
+            <div className="flex gap-2 p-4 bg-white/50 rounded-full w-fit">
+              <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce [animation-duration:0.6s]" />
+              <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce [animation-duration:0.6s] [animation-delay:0.2s]" />
+              <div className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce [animation-duration:0.6s] [animation-delay:0.4s]" />
             </div>
           )}
         </div>
 
-        <div className="p-8 border-t-2 border-[#1A1A1A] bg-white">
-          <div className="flex gap-3">
+        <div className="p-8 border-t border-[#1A1A1A]/10 bg-white">
+          <div className="flex gap-4">
             <input 
               type="text"
-              placeholder="How shall we author your experience?"
-              className="flex-grow p-5 bg-[#FAF8F3] border-2 border-[#1A1A1A] outline-none text-base font-medium focus:border-[#D4AF37] transition-all"
+              placeholder="Ask about availability..."
+              className="flex-grow py-4 px-6 bg-[#FAF8F3] border border-[#1A1A1A]/10 outline-none text-base font-medium focus:border-[#D4AF37] transition-all rounded-sm"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
@@ -135,11 +159,15 @@ export const AIChatBot: React.FC = () => {
             <button 
               onClick={handleSend} 
               disabled={isLoading || !inputValue.trim()} 
-              className="bg-[#1A1A1A] text-[#D4AF37] px-8 font-bold uppercase text-[11px] tracking-widest transition-all hover:bg-[#8B5A2B] hover:text-white disabled:opacity-30"
+              className="bg-[#1A1A1A] text-[#D4AF37] w-14 h-14 flex items-center justify-center rounded-sm transition-all hover:bg-[#8B5A2B] hover:text-white disabled:opacity-20 active:scale-95 shadow-xl"
+              aria-label="Send message"
             >
-              Send
+              <Send size={20} strokeWidth={2} />
             </button>
           </div>
+          <p className="text-[9px] text-center mt-6 text-[#1A1A1A]/40 font-bold uppercase tracking-widest">
+            Typically responds in under 1 minute
+          </p>
         </div>
       </div>
     </>

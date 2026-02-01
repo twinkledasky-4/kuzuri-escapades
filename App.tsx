@@ -289,7 +289,7 @@ const App: React.FC = () => {
 
     switch (activeSection) {
       case AppSection.ACCOMMODATIONS:
-        return <AccommodationsPage onEnquire={() => setIsInquiryOpen(true)} />;
+        return <AccommodationsPage onBack={() => handleNavigate(AppSection.HOME)} onEnquire={() => setIsInquiryOpen(true)} />;
       case AppSection.TESTIMONIALS:
         return <TestimonialsPage reviews={REVIEWS} onHelpfulClick={(id) => console.log('Helpful click:', id)} />;
       default:
@@ -315,7 +315,10 @@ const App: React.FC = () => {
                 </div>
               </div>
             </section>
-            <Expertise />
+            <Expertise onEnquire={() => {
+              setInquiryPreFill("I would like to consult with your native experts about a bespoke Ugandan journey.");
+              setIsInquiryOpen(true);
+            }} />
             <LodgeGallery onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} lodges={LODGES} />
             <BeautyOfUganda />
             <DiscoverUganda features={DISCOVER_FEATURES} onExploreGorilla={handleExploreGorillaTrek} onExploreBoat={handleExploreBoatSafari} onExploreChimpanzee={handleExploreChimpanzee} />

@@ -57,9 +57,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
       >
         <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto">
           
+          {/* UPDATED: Ensuring the Logo explicitly links to HOME as requested */}
           <div 
             onClick={(e) => handleNavClick(e, AppSection.HOME)}
             className="cursor-pointer group shrink-0"
+            aria-label="Return to Home"
           >
             <div className="relative w-[75px] md:w-[95px] aspect-square transition-all duration-700 group-hover:scale-105 rounded-full overflow-hidden border-2 border-white/20 shadow-2xl bg-white">
                <img 

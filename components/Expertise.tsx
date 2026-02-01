@@ -1,7 +1,13 @@
 import React from 'react';
 import { ShieldCheck } from 'lucide-react';
 
-export const Expertise: React.FC = () => {
+interface ExpertiseProps {
+  onEnquire?: () => void;
+}
+
+export const Expertise: React.FC<ExpertiseProps> = ({ onEnquire }) => {
+  const mailtoLink = "mailto:hello@kuzuri-escapades.com?subject=New Consultation Inquiry - Kuzuri Escapades";
+
   return (
     <section className="py-12 md:py-16 bg-[#F5F5DC] px-6 overflow-hidden">
       <div className="container mx-auto max-w-[1700px]">
@@ -14,7 +20,7 @@ export const Expertise: React.FC = () => {
               CURATED LOCAL EXPERTISE FOR YOUR <span className="italic font-light">UGANDAN ADVENTURE.</span>
             </h2>
 
-            {/* NATIVE STEWARDSHIP GUARANTEE BLOCK: 30px Vertical Margins, 2px Gold Border, 14px Serif Body */}
+            {/* NATIVE STEWARDSHIP GUARANTEE BLOCK */}
             <div className="my-[30px] w-full bg-[#FAF8F3] border-l-2 border-[#D4AF37] p-8 shadow-sm reveal-trigger">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-8 h-8 rounded-full bg-[#1A1A1A] flex items-center justify-center text-[#D4AF37]">
@@ -38,14 +44,7 @@ export const Expertise: React.FC = () => {
               </div>
             </div>
 
-            {/* SIGNATURE WIDE-FORMAT IMAGE CARD: Professional Stewardship Evidence 
-                Specifications: 
-                - 100% width of container
-                - 15px rounded corners
-                - 30px vertical margins (top and bottom)
-                - Subtle soft drop-shadow
-                - Object-Fit: Cover with focal point on the left
-            */}
+            {/* SIGNATURE WIDE-FORMAT IMAGE CARD */}
             <div className="my-[30px] w-full aspect-[21/9] md:aspect-[16/7] rounded-[15px] overflow-hidden border border-[#1A1A1A]/5 shadow-[0_15px_40px_rgba(0,0,0,0.12)] relative group bg-[#1A1A1A] reveal-trigger">
                <img 
                  src="https://i.postimg.cc/dtR4By1q/Lake_Mburo_National_Park_750x450_1_750x450.jpg" 
@@ -53,8 +52,6 @@ export const Expertise: React.FC = () => {
                  className="w-full h-full object-cover transition-transform duration-[15000ms] group-hover:scale-105 opacity-100"
                  style={{ objectPosition: 'left' }}
                />
-               
-               {/* Editorial Overlay for the Evidence Card */}
                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                <div className="absolute bottom-6 left-8 flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#D4AF37]">
@@ -68,9 +65,8 @@ export const Expertise: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Visual and Expanded Narrative (Span 7) */}
+          {/* Right Column */}
           <div className="lg:col-span-7 reveal-trigger flex flex-col">
-            {/* Secondary Safari Image Container */}
             <div className="relative w-full aspect-[16/10] border-2 border-[#1A1A1A] shadow-3xl overflow-hidden group bg-[#1A1A1A]">
                 <img 
                     src="https://i.postimg.cc/FsbDZLR0/Top_8_Safari_Activities_in_Uganda_750x450.jpg" 
@@ -78,24 +74,18 @@ export const Expertise: React.FC = () => {
                     className="w-full h-full object-cover opacity-100 transition-all duration-[12000ms] group-hover:scale-110"
                     style={{ objectPosition: 'center' }}
                 />
-                
-                {/* Floating Info Tag - Solid White Background */}
                 <div className="absolute bottom-8 left-8 bg-white p-6 shadow-2xl border border-black/5 z-20">
                     <p className="text-[10px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] mb-1">EXPERTLY GUIDED</p>
                     <p className="text-sm font-serif italic text-[#1A1A1A]">Signature Professional Stewardship</p>
                 </div>
-                
-                {/* Clean, Grounded Linear Darkening */}
                 <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
             </div>
 
-            {/* Paragraph Content Section */}
             <div className="mt-8 space-y-10 max-w-3xl bg-[#1A1412] p-10 md:p-12 border-l-4 border-[#D4AF37] shadow-2xl text-left">
               <div className="space-y-6">
                 <p className="text-white text-base font-normal leading-relaxed tracking-wide">
                   Uganda is a tapestry of untamed landscapes—from mist-covered rainforests and volcanic peaks to the endless golden savannahs. It is a land so biologically diverse it captivates even the most seasoned global travelers.
                 </p>
-                
                 <p className="text-white text-base font-normal leading-relaxed tracking-wide">
                   Here, you will meet Africa’s legends: the Big Five, majestic mountain gorillas, and over 1,000 vibrant bird species. Our primate treks bring you face-to-face with 24 species of monkeys, while night drives reveal the hidden world of bushbabies and elusive nocturnal hunters.
                 </p>
@@ -105,14 +95,18 @@ export const Expertise: React.FC = () => {
                 <p className="text-white text-xl md:text-2xl font-light italic leading-relaxed tracking-tight mb-8">
                   Whether you are a photography enthusiast, a trekking fan, or a nature lover, we design journeys for everyone.
                 </p>
-                <button 
-                  className="group relative inline-flex items-center gap-6 text-[10px] font-sans font-black uppercase tracking-[0.8em] text-[#D4AF37] transition-all hover:text-white"
+                
+                {/* UPDATED: Signature Ghost Button with Clickable Arrow integrated into the mailto anchor */}
+                <a 
+                  href={mailtoLink}
+                  className="group relative inline-flex items-center gap-6 px-10 py-5 border-2 border-[#D4AF37] bg-transparent text-[10px] font-sans font-black uppercase tracking-[0.8em] text-[#D4AF37] transition-all duration-500 hover:bg-[#D4AF37] hover:text-[#1A1A12] focus:outline-none no-underline shadow-2xl"
+                  aria-label="Begin Consultation via Email"
                 >
-                  <span className="border-b-2 border-[#D4AF37] pb-2 group-hover:border-white transition-all">Begin the Consultation</span>
-                  <div className="w-12 h-12 border border-[#D4AF37] flex items-center justify-center group-hover:bg-[#D4AF37] group-hover:text-[#1A1A12] transition-all duration-500 text-xl font-light leading-none pt-1">
+                  <span>Begin the Consultation</span>
+                  <div className="w-8 h-8 border border-[#D4AF37] flex items-center justify-center group-hover:border-[#1A1A12] transition-all duration-500 text-xl font-light leading-none pt-1">
                     &gt;
                   </div>
-                </button>
+                </a>
               </div>
             </div>
           </div>
