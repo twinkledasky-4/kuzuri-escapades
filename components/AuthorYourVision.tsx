@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { PhoneLink } from './PhoneLink.tsx';
-import { Mail, MapPin, Phone, MessageSquare } from 'lucide-react';
+import { Mail, MapPin, Phone, Smartphone } from 'lucide-react';
 
 interface AuthorYourVisionProps {
   onShareVision: () => void;
@@ -98,21 +97,36 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
                 </div>
               </div>
 
+              {/* Landline */}
               <div className="flex items-start gap-5 group">
                 <div className="mt-1 p-2 bg-[#1A1A1A] border border-[#D4AF37]/30 group-hover:border-[#D4AF37] transition-colors">
-                  <span role="img" aria-label="Phone" className="text-[#D4AF37]"><Phone size={18} strokeWidth={1.5} /></span>
+                  <span role="img" aria-label="Landline" className="text-[#D4AF37]"><Phone size={18} strokeWidth={1.5} /></span>
                 </div>
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37]/60 font-black mb-1">PRIMARY LINE</p>
-                    <PhoneLink 
-                      number="+256 708 012030" 
-                      label="Nasif - Lead Curator"
-                      className="text-white hover:text-[#D4AF37] text-lg font-sans font-medium tracking-tight block transition-colors"
-                      showIcon={false}
-                    />
-                    <span className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-bold mt-1 block">Nasif - Lead Curator</span>
-                  </div>
+                <div>
+                  <p className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37]/60 font-black mb-1">OFFICE LINE (LANDLINE)</p>
+                  <PhoneLink 
+                    number="0200910729" 
+                    label="Landline"
+                    className="text-white hover:text-[#D4AF37] text-lg font-sans font-medium tracking-tight block transition-colors"
+                    showIcon={false}
+                  />
+                </div>
+              </div>
+
+              {/* Mobile */}
+              <div className="flex items-start gap-5 group">
+                <div className="mt-1 p-2 bg-[#1A1A1A] border border-[#D4AF37]/30 group-hover:border-[#D4AF37] transition-colors">
+                  <span role="img" aria-label="Mobile" className="text-[#D4AF37]"><Smartphone size={18} strokeWidth={1.5} /></span>
+                </div>
+                <div>
+                  <p className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37]/60 font-black mb-1">PRIMARY MOBILE / WHATSAPP</p>
+                  <PhoneLink 
+                    number="+256 708 012030" 
+                    label="Nasif - Lead Curator"
+                    className="text-white hover:text-[#D4AF37] text-lg font-sans font-medium tracking-tight block transition-colors"
+                    showIcon={false}
+                  />
+                  <span className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-bold mt-1 block">Nasif - Lead Curator</span>
                 </div>
               </div>
 

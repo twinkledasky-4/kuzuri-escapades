@@ -1,4 +1,3 @@
-
 export interface Destination {
   id: string;
   name: string;
@@ -58,6 +57,8 @@ export interface ReviewResponse {
 export interface Review {
   id: number | string;
   clientName: string;
+  title?: string; // New field for bold review headings
+  avatarUrl?: string;
   email?: string;
   country: string;
   countryCode: string;

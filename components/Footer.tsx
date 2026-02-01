@@ -1,12 +1,26 @@
-
 import React from 'react';
 import { PhoneLink } from './PhoneLink.tsx';
-import { Instagram, Facebook, Globe, ShieldCheck, Landmark, Smartphone } from 'lucide-react';
+import { Instagram, Facebook, Globe, ShieldCheck, Landmark, Smartphone, Phone } from 'lucide-react';
 
 interface FooterProps {
   onEnquire?: () => void;
   onAdminAccess?: () => void;
 }
+
+const TikTokIcon = ({ size = 28, strokeWidth = 1.5 }: { size?: number, strokeWidth?: number }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth={strokeWidth} 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
   const currentYear = new Date().getFullYear();
@@ -42,9 +56,25 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
                   </a>
                 </div>
 
-                <div className="space-y-4">
-                   <div className="space-y-1">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37]/60 font-black">PRIMARY LINE</p>
+                <div className="space-y-4 w-full">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center gap-2">
+                      <Phone size={12} className="text-[#D4AF37]/60" />
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37]/60 font-black">OFFICIAL OFFICE LINE (LANDLINE)</p>
+                    </div>
+                    <PhoneLink 
+                      number="0200910729" 
+                      label="Landline"
+                      className="text-[#FFFFFF] hover:text-[#D4AF37] text-lg md:text-xl font-sans font-medium transition-all duration-500 tracking-tight block"
+                      showIcon={false}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center gap-2">
+                      <Smartphone size={12} className="text-[#D4AF37]/60" />
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37]/60 font-black">PRIMARY MOBILE / WHATSAPP</p>
+                    </div>
                     <PhoneLink 
                       number="+256 708 012030" 
                       label="Nasif - Lead Curator"
@@ -54,8 +84,11 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
                     <span className="text-[10px] text-white/30 uppercase tracking-[0.2em] font-bold">Nasif - Lead Curator</span>
                   </div>
                   
-                  <div className="space-y-1">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37]/60 font-black">SECONDARY LINE</p>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center gap-2">
+                      <Smartphone size={12} className="text-[#D4AF37]/60" />
+                      <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37]/60 font-black">SECONDARY MOBILE</p>
+                    </div>
                     <PhoneLink 
                       number="+256 760 419271" 
                       label="Support Line"
@@ -70,9 +103,6 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
                   <p className="text-[#FFFFFF] text-[11px] uppercase tracking-[0.4em] font-bold leading-loose opacity-80">
                     Ham Towers Wandegeya, Room Number H:12,<br />
                     P.O. BOX 202305, Kampala
-                  </p>
-                  <p className="text-[9px] text-white/30 font-bold uppercase tracking-[0.1em] mt-2">
-                    Our central studio for signature journey architecture.
                   </p>
                 </div>
               </div>
@@ -93,6 +123,9 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
                 </a>
                 <a href="#" className="text-[#D4AF37] hover:text-white transition-all duration-500" aria-label="Facebook">
                   <Facebook size={28} strokeWidth={1.5} />
+                </a>
+                <a href="#" className="text-[#D4AF37] hover:text-white transition-all duration-500" aria-label="TikTok">
+                  <TikTokIcon size={28} strokeWidth={1.5} />
                 </a>
               </div>
             </div>

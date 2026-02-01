@@ -16,6 +16,8 @@ import { BeautyOfUganda } from './components/BeautyOfUganda.tsx';
 import { DiscoverUganda } from './components/DiscoverUganda.tsx';
 import { AuthorYourVision } from './components/AuthorYourVision.tsx';
 import { AccommodationsPage } from './components/AccommodationsPage.tsx';
+import { Testimonials } from './components/Testimonials.tsx';
+import { TestimonialsPage } from './components/TestimonialsPage.tsx';
 import { Services } from './components/Services.tsx';
 import { AboutSection } from './components/AboutSection.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
@@ -23,7 +25,7 @@ import { PromoPopup } from './components/PromoPopup.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
 import { BoatSafariPage } from './components/BoatSafariPage.tsx';
 import { ChimpanzeeObservationPage } from './components/ChimpanzeeObservationPage.tsx';
-import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES, DISCOVER_FEATURES, ABOUT_CONTENT } from './constants.tsx';
+import { DESTINATIONS, TOURS, HERO_SLIDES, LODGES, DISCOVER_FEATURES, ABOUT_CONTENT, REVIEWS } from './constants.tsx';
 import { translateContent, UI_DICTIONARY } from './services/translationService.ts';
 
 const App: React.FC = () => {
@@ -68,7 +70,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (pendingScrollId) {
-      // Small timeout ensures component is rendered before searching for ID
       const timer = setTimeout(() => {
         const element = document.getElementById(pendingScrollId);
         if (element) {
@@ -80,7 +81,6 @@ const App: React.FC = () => {
     }
   }, [activeSection, pendingScrollId, selectedDestination, selectedTour, showGorillaPage, showBoatSafariPage, showChimpanzeePage]);
 
-  // Handle Initial Hash on Load
   useEffect(() => {
     const handleInitialHash = () => {
       const hash = window.location.hash.replace('#', '');
@@ -143,6 +143,7 @@ const App: React.FC = () => {
       [AppSection.SERVICES]: 'services-section',
       [AppSection.ABOUT]: 'about-kuzuri',
       [AppSection.PLANNER]: 'kuzuri-tours',
+      [AppSection.TESTIMONIALS]: 'travellers-reviews',
     };
 
     const anchorId = anchorMap[section];
@@ -230,7 +231,6 @@ const App: React.FC = () => {
     setSelectedDestination(null);
     setActiveSection(AppSection.HOME);
     
-    // Programmatically set the URL hash to #discover-uganda as requested for the Collection path
     if (id === 'discover-uganda') {
       window.location.hash = 'discover-uganda';
       setPendingScrollId('discover-uganda');
@@ -317,6 +317,8 @@ const App: React.FC = () => {
     switch (activeSection) {
       case AppSection.ACCOMMODATIONS:
         return <AccommodationsPage onEnquire={() => setIsInquiryOpen(true)} />;
+      case AppSection.TESTIMONIALS:
+        return <TestimonialsPage reviews={REVIEWS} onHelpfulClick={(id) => console.log('Helpful click:', id)} />;
       default:
         return (
           <div className="flex flex-col">
@@ -328,7 +330,7 @@ const App: React.FC = () => {
             <Ticker />
             <AboutSection content={translatedData.about} />
             
-            {/* ITINERARIES section: Moved to be immediately after AboutSection */}
+            {/* ITINERARIES section */}
             <section id="kuzuri-tours" className="pt-6 md:pt-8 lg:pt-10 pb-24 md:pb-32 lg:pb-40 bg-white px-6 scroll-mt-[120px]">
               <div className="container mx-auto max-w-[1700px] text-center">
                 <div className="mb-20 lg:mb-28 reveal-trigger">
@@ -372,6 +374,12 @@ const App: React.FC = () => {
               setIsInquiryOpen(true);
             }} />
             <AuthorYourVision onShareVision={() => setIsInquiryOpen(true)} />
+
+            {/* TRAVELLERS' REVIEWS section - Positioned IMMEDIATELY ABOVE FOOTER */}
+            <Testimonials 
+              reviews={REVIEWS} 
+              onNavigateToAll={() => handleNavigate(AppSection.TESTIMONIALS)}
+            />
           </div>
         );
     }

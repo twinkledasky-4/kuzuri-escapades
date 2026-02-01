@@ -7,23 +7,23 @@ interface StarRatingProps {
   interactive?: boolean;
   showText?: boolean;
   ariaLabel?: string;
+  color?: string; // New prop for custom star color
 }
 
 export const StarRating: React.FC<StarRatingProps> = ({
   rating = 0,
-  // Fixed: Ensure the default onRate function matches the (rating: number) => void signature
-  // to prevent TypeScript errors when it's called with an argument on line 60.
   onRate = (_rating: number) => {},
   size = 24,
   interactive = false,
   showText = true,
-  ariaLabel
+  ariaLabel,
+  color // Optional color override
 }) => {
   const [hovered, setHovered] = useState(0);
 
-  // Brand color constants from technical brief
+  // Brand color constants or requested override
   const COLORS = {
-    filled: '#D4AF37',
+    filled: color || '#D4AF37', // Default to Gold if not provided
     empty: '#E0E0E0'
   };
 
@@ -53,13 +53,12 @@ export const StarRating: React.FC<StarRatingProps> = ({
       role={interactive ? "radiogroup" : "img"}
       aria-label={ariaLabel || defaultAriaLabel}
     >
-      <div className="flex gap-2">
+      <div className="flex gap-1.5">
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
             type="button"
             disabled={!interactive}
-            // Calling onRate with the star value; correctly inferred now with fixed default value on line 16.
             onClick={() => interactive && onRate(star)}
             onMouseEnter={() => interactive && setHovered(star)}
             onMouseLeave={() => interactive && setHovered(0)}

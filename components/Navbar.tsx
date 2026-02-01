@@ -11,6 +11,21 @@ interface NavbarProps {
   onLangChange: (langCode: string) => void;
 }
 
+const TikTokIcon = ({ size = 18, strokeWidth = 1.5 }: { size?: number, strokeWidth?: number }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth={strokeWidth} 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
 export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnquire, currentLang, onLangChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -55,7 +70,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
 
   const activeLangObj = languages.find(l => l.code === currentLang) || languages[0];
 
-  // CRITICAL UPDATE: Official Design from PDF Extraction
   const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
 
   return (
@@ -69,7 +83,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
       >
         <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto">
           
-          {/* Logo Container: Reverted to standard scale and removed experimental padding */}
           <div 
             onClick={(e) => handleNavClick(e, AppSection.HOME)}
             className="cursor-pointer group shrink-0"
@@ -89,7 +102,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           </div>
           
           <div className="flex items-center gap-10 xl:gap-14">
-            {/* Nav Menu: Reverted to standard spacing (space-x-8) */}
             <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
               {navItems.map((item) => (
                 <a
@@ -108,13 +120,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             </div>
 
             <div className="flex items-center gap-8">
-              {/* Socials integration */}
               <div className="hidden sm:flex items-center gap-6">
-                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`}>
+                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`} aria-label="Instagram">
                   <Instagram size={18} strokeWidth={1.5} />
                 </a>
-                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`}>
+                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`} aria-label="Facebook">
                   <Facebook size={18} strokeWidth={1.5} />
+                </a>
+                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`} aria-label="TikTok">
+                  <TikTokIcon size={18} strokeWidth={1.5} />
                 </a>
               </div>
 

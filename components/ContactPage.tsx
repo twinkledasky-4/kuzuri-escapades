@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { PhoneLink } from './PhoneLink.tsx';
+import { Phone, Smartphone, Mail, MessageSquare } from 'lucide-react';
 
 export const ContactPage: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -49,15 +49,35 @@ export const ContactPage: React.FC = () => {
             {/* Phone Numbers */}
             <div className="space-y-10">
               <h3 className="font-bold text-xl uppercase tracking-widest text-[#8B5A2B] flex items-center gap-3">
-                <span role="img" aria-label="Phone">📞</span> Phone Numbers
+                <span role="img" aria-label="Phone">📞</span> Communications
               </h3>
               
               <div className="space-y-8">
+                {/* Landline */}
+                <div className="group">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Phone size={14} className="text-[#654321] opacity-75" />
+                    <p className="text-[10px] uppercase tracking-[0.4em] text-[#654321] opacity-75 font-bold">
+                      Official Office Line (Landline)
+                    </p>
+                  </div>
+                  <PhoneLink 
+                    number="0200910729" 
+                    label="Office Line"
+                    className="text-2xl font-bold tracking-widest text-[#D4AF37]"
+                    showIcon={false}
+                    isButton={true}
+                  />
+                </div>
+
                 {/* Primary */}
                 <div className="group">
-                  <p className="text-[10px] uppercase tracking-[0.4em] text-[#654321] opacity-75 mb-3 font-bold">
-                    Primary Curator Line (Preferred)
-                  </p>
+                  <div className="flex items-center gap-3 mb-3">
+                    <Smartphone size={14} className="text-[#654321] opacity-75" />
+                    <p className="text-[10px] uppercase tracking-[0.4em] text-[#654321] opacity-75 font-bold">
+                      Primary Mobile / WhatsApp
+                    </p>
+                  </div>
                   <PhoneLink 
                     number="+256 708 012030" 
                     label="Primary Line"
@@ -70,9 +90,12 @@ export const ContactPage: React.FC = () => {
 
                 {/* Secondary */}
                 <div className="group opacity-80 hover:opacity-100 transition-opacity">
-                  <p className="text-[10px] uppercase tracking-[0.4em] text-[#654321] opacity-75 mb-3 font-bold">
-                    Alternative Support Line
-                  </p>
+                  <div className="flex items-center gap-3 mb-3">
+                    <Smartphone size={14} className="text-[#654321] opacity-75" />
+                    <p className="text-[10px] uppercase tracking-[0.4em] text-[#654321] opacity-75 font-bold">
+                      Alternative Mobile Support
+                    </p>
+                  </div>
                   <PhoneLink 
                     number="+256 760 419271" 
                     label="Secondary Line"
@@ -88,7 +111,7 @@ export const ContactPage: React.FC = () => {
             {/* Email */}
             <div className="space-y-6">
               <h3 className="font-bold text-xl uppercase tracking-widest text-[#8B5A2B] flex items-center gap-3">
-                <span role="img" aria-label="Email">📧</span> Official Email
+                <Mail size={18} /> Official Email
               </h3>
               <a 
                 href="mailto:info@kuzuri-escapades.com"
@@ -102,7 +125,7 @@ export const ContactPage: React.FC = () => {
             {/* WhatsApp */}
             <div className="space-y-8">
               <h3 className="font-bold text-xl uppercase tracking-widest text-[#8B5A2B] flex items-center gap-3">
-                <span role="img" aria-label="WhatsApp">💬</span> WhatsApp
+                <MessageSquare size={18} /> Instant Message
               </h3>
               <a 
                 href={`https://wa.me/256708012030?text=${encodedMessage}`}

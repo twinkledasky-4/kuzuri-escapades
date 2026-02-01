@@ -16,10 +16,10 @@ export const Expertise: React.FC = () => {
 
           {/* Right Column: Image and Pushed Paragraphs (Span 7) */}
           <div className="lg:col-span-7 reveal-trigger flex flex-col">
-            {/* The Safari Image Container - Reverted to previous high-fidelity signature image */}
+            {/* The Safari Image Container - Updated with new high-fidelity signature image */}
             <div className="relative w-full aspect-[16/10] border-2 border-[#1A1A1A] shadow-3xl overflow-hidden group bg-[#1A1A1A]">
                 <img 
-                    src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1200" 
+                    src="https://i.postimg.cc/FsbDZLR0/Top_8_Safari_Activities_in_Uganda_750x450.jpg" 
                     alt="Expertly Guided Safari Experience - Native Stewardship"
                     className="w-full h-full object-cover opacity-100 transition-all duration-[12000ms] group-hover:scale-110"
                     style={{ objectPosition: 'center' }}

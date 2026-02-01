@@ -1,104 +1,106 @@
 import React, { useState, useEffect } from 'react';
 import { Review } from '../types.ts';
 import { ReviewCard } from './ReviewCard.tsx';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ReviewCarouselProps {
   reviews: Review[];
-  onHelpfulClick?: (id: string | number) => void;
 }
 
-export const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews, onHelpfulClick }) => {
+export const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsPerView, setCardsPerView] = useState(1);
+  const [itemsToShow, setItemsToShow] = useState(3);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Responsive card display
   useEffect(() => {
-    const updateCardsPerView = () => {
-      if (window.innerWidth >= 1024) setCardsPerView(3);
-      else if (window.innerWidth >= 768) setCardsPerView(2);
-      else setCardsPerView(1);
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 768);
+      if (width >= 1280) setItemsToShow(3);
+      else if (width >= 768) setItemsToShow(2);
+      else setItemsToShow(1);
     };
-
-    updateCardsPerView();
-    window.addEventListener('resize', updateCardsPerView);
-    return () => window.removeEventListener('resize', updateCardsPerView);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const totalSteps = Math.max(1, reviews.length - itemsToShow + 1);
+
   const nextSlide = () => {
-    setCurrentIndex((prev) => 
-      (prev + cardsPerView) >= reviews.length ? 0 : prev + cardsPerView
-    );
+    setCurrentIndex((prev) => (prev + 1) % totalSteps);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => 
-      (prev - cardsPerView) < 0 ? (Math.floor((reviews.length - 1) / cardsPerView) * cardsPerView) : prev - cardsPerView
-    );
+    setCurrentIndex((prev) => (prev - 1 + totalSteps) % totalSteps);
   };
 
-  // Get visible reviews
-  const visibleReviews = [];
-  for (let i = 0; i < cardsPerView; i++) {
-    const index = (currentIndex + i) % reviews.length;
-    visibleReviews.push(reviews[index]);
+  // Stack vertically on mobile as requested for easy reading
+  if (isMobile) {
+    return (
+      <div className="flex flex-col gap-10">
+        {reviews.map((review) => (
+          <div key={review.id} className="w-full">
+            <ReviewCard review={review} />
+          </div>
+        ))}
+      </div>
+    );
   }
 
   return (
-    <div className="relative w-full">
-      {/* Carousel Container */}
-      <div className="review-carousel grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 transition-all duration-700 animate-fade-in">
-        {visibleReviews.map((review) => (
-          <ReviewCard key={review.id} review={review} onHelpfulClick={onHelpfulClick} />
-        ))}
-      </div>
-
-      {/* Navigation Buttons */}
-      <div className="carousel-nav flex justify-center items-center gap-6 mt-12">
-        <button
+    <div className="relative w-full group/carousel px-4">
+      {/* Navigation Arrows - Abs positioned for high contrast on blurred background */}
+      <div className="absolute top-1/2 -left-4 md:-left-16 lg:-left-24 -translate-y-1/2 z-30">
+        <button 
           onClick={prevSlide}
-          className="p-4 rounded-full border-2 border-black transition transform hover:scale-110 active:scale-90 shadow-lg"
-          style={{ backgroundColor: '#8B5A2B', color: '#F5F5DC' }}
+          className="w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:border-[#D4AF37] transition-all duration-500 rounded-full group/btn"
           aria-label="Previous reviews"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-
-        {/* Dot Indicators */}
-        <div className="flex items-center gap-3">
-          {[...Array(Math.ceil(reviews.length / cardsPerView))].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIndex(i * cardsPerView)}
-              className="w-3 h-3 rounded-full transition-all duration-300"
-              style={{
-                backgroundColor: 
-                  i === Math.floor(currentIndex / cardsPerView) 
-                    ? '#D4AF37' 
-                    : '#D4D4D4',
-                transform: i === Math.floor(currentIndex / cardsPerView) ? 'scale(1.2)' : 'scale(1)'
-              }}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
-
-        <button
-          onClick={nextSlide}
-          className="p-4 rounded-full border-2 border-black transition transform hover:scale-110 active:scale-90 shadow-lg"
-          style={{ backgroundColor: '#8B5A2B', color: '#F5F5DC' }}
-          aria-label="Next reviews"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-          </svg>
+          <ChevronLeft size={28} strokeWidth={2} className="group-hover/btn:-translate-x-1 transition-transform" />
         </button>
       </div>
 
-      {/* Review Count */}
-      <div className="text-center mt-8 text-sm font-bold uppercase tracking-widest opacity-60" style={{ color: '#654321' }}>
-        Showing {visibleReviews.length} of {reviews.length} reviews
+      <div className="absolute top-1/2 -right-4 md:-right-16 lg:-right-24 -translate-y-1/2 z-30">
+        <button 
+          onClick={nextSlide}
+          className="w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:border-[#D4AF37] transition-all duration-500 rounded-full group/btn"
+          aria-label="Next reviews"
+        >
+          <ChevronRight size={28} strokeWidth={2} className="group-hover/btn:translate-x-1 transition-transform" />
+        </button>
+      </div>
+
+      {/* Slider Viewport */}
+      <div className="overflow-hidden">
+        <div 
+          className="flex transition-transform duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)]"
+          style={{ transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)` }}
+        >
+          {reviews.map((review) => (
+            <div 
+              key={review.id} 
+              className="flex-shrink-0 px-4 h-full"
+              style={{ width: `${100 / itemsToShow}%` }}
+            >
+              <ReviewCard review={review} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Progress Indicators */}
+      <div className="flex justify-center gap-4 mt-16">
+        {Array.from({ length: totalSteps }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentIndex(i)}
+            className={`h-1 transition-all duration-700 rounded-full ${
+              i === currentIndex ? 'w-16 bg-[#D4AF37]' : 'w-4 bg-white/20 hover:bg-white/40'
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
       </div>
     </div>
   );

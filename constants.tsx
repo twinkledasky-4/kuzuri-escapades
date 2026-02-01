@@ -167,7 +167,7 @@ export const TOURS: Tour[] = [
     category: 'Multi-Country Expedition',
     description: 'The ultimate East African circuit combining Kenya’s legendary plains with Uganda’s misty primate sanctuaries for a definitive wildlife encounter.',
     highlights: ['Maasai Mara Game Drives', 'Gorilla Tracking Experience', 'The Great Migration'],
-    imageUrls: ['https://i.postimg.cc/qvcqHx8d/c6b8b1e4-65a4-4e49-92bd-f4ed040c7b13.jpg'],
+    imageUrls: ['https://i.postimg.cc/J0r1cfsX/90e57c35-c104-4c92-b085-d10243cac4cd.jpg'],
     featured: true
   },
   {
@@ -195,7 +195,7 @@ export const TOURS: Tour[] = [
     category: 'Primate Swift',
     description: 'A focused, high-intensity escape into the heart of Bwindi for those seeking a direct encounter with the gentle giants.',
     highlights: ['Bwindi Impenetrable', 'Gorilla Tracking', 'Misty Highlands'],
-    imageUrls: ['https://images.unsplash.com/photo-1518063311540-0640001280cc?auto=format&fit=crop&q=80&w=1200'],
+    imageUrls: ['https://i.postimg.cc/d03qBkbL/Kyambura_Game_Reserve_Chimpanzee_trekking_750x400.jpg'],
     featured: true
   },
   {
@@ -209,7 +209,7 @@ export const TOURS: Tour[] = [
     category: 'Northern Wilds',
     description: 'Complete immersion into the thundering power of the Nile and the vast savannahs of Murchison Falls National Park.',
     highlights: ['Bottom of the Falls Cruise', 'Savannah Game Drives', 'Budongo Chimpanzees'],
-    imageUrls: ['https://i.postimg.cc/HkZK72Sk/frames-for-your-heart-yb-Ea-Jqf-RUHs-unsplash.jpg'],
+    imageUrls: ['https://i.postimg.cc/RhFXcb5J/aruu_falls_1_750x450.png'],
     featured: true
   },
   {
@@ -223,7 +223,7 @@ export const TOURS: Tour[] = [
     category: 'Remote Isolation',
     description: 'Venture to the far north to discover the most rugged and isolated wilderness in the Pearl of Africa.',
     highlights: ['Naruso Valley Game Drives', 'Karamoja Culture', 'Apoka Wilderness'],
-    imageUrls: ['https://i.postimg.cc/L5V7B0s0/uganda-karamoja.jpg'],
+    imageUrls: ['https://i.postimg.cc/Px4HxSSt/1979d9c0_1bbb_4bdb_97e0_f9287cc86395.jpg'],
     featured: true
   },
   {
@@ -328,16 +328,86 @@ export const REVIEWS: Review[] = [
   {
     id: 1,
     clientName: "Eleanor Vance",
+    title: "A Primal Return to Nature",
+    avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
     country: "Switzerland",
     countryCode: "CH",
     tripTaken: "The Grand Savanna Experience",
     rating: 5,
-    comment: "Kuzuri authored a journey that felt less like a tour and more like a return to something primal and profound.",
+    comment: "Kuzuri authored a journey that felt less like a tour and more like a return to something primal and profound. Every detail was curated with an invisible hand of excellence.",
     date: "2024-02-10",
     verified: true,
     approved: true,
     published: true,
     responses: [],
     helpful: 24
+  },
+  {
+    id: 2,
+    clientName: "Marcus Thorne",
+    title: "Misty Mountain Magic",
+    avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
+    country: "United Kingdom",
+    countryCode: "GB",
+    tripTaken: "5 Days Bwindi Gorilla Trekking",
+    rating: 5,
+    comment: "The silence of the Bwindi forest is a luxury I never knew existed. Meeting the mountain gorillas was curated with absolute excellence by Nasif. An experience that stays with you forever.",
+    date: "2024-01-15",
+    verified: true,
+    approved: true,
+    published: true,
+    responses: [{ author: "Lead Curator", text: "It was an honor to steward your journey, Marcus. The silence is where the soul breathes.", date: "2024-01-16" }],
+    helpful: 42
+  },
+  {
+    id: 3,
+    clientName: "Emilia Rossi",
+    title: "Magical Murchison Falls",
+    avatarUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+    country: "Italy",
+    countryCode: "IT",
+    tripTaken: "Murchison Falls Explorer",
+    rating: 5,
+    comment: "The thundering Nile and the golden horizons were breathtaking. Absolute excellence in logistics and guiding. A truly native perspective that revealed the secret soul of Uganda.",
+    date: "2023-11-28",
+    verified: true,
+    approved: true,
+    published: true,
+    responses: [],
+    helpful: 19
+  },
+  {
+    id: 4,
+    clientName: "Julianne Moore",
+    title: "The Ultimate African Odyssey",
+    avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200",
+    country: "United States",
+    countryCode: "US",
+    tripTaken: "Grand Uganda Odyssey",
+    rating: 5,
+    comment: "Two weeks of absolute perfection. From the tree-climbing lions to the quiet evenings on the Nile. Kuzuri Escapades is the definitive choice for discerning world travelers.",
+    date: "2023-10-12",
+    verified: true,
+    approved: true,
+    published: true,
+    responses: [],
+    helpful: 56
+  },
+  {
+    id: 5,
+    clientName: "Arjun Mehta",
+    title: "Primate Perfection",
+    avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200",
+    country: "India",
+    countryCode: "IN",
+    tripTaken: "Primate Symphony",
+    rating: 5,
+    comment: "Tracking chimpanzees in Kibale was a high-fidelity experience. The native stewardship made all the difference. We felt safe, respected, and deeply connected to nature.",
+    date: "2023-09-05",
+    verified: true,
+    approved: true,
+    published: true,
+    responses: [],
+    helpful: 31
   }
 ];

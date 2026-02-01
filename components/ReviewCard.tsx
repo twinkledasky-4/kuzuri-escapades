@@ -1,139 +1,88 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Review } from '../types.ts';
 import { StarRating } from './StarRating.tsx';
+import { ShieldCheck } from 'lucide-react';
 
 interface ReviewCardProps {
   review: Review;
-  onHelpfulClick?: (id: string | number) => void;
 }
 
-export const ReviewCard: React.FC<ReviewCardProps> = ({ review, onHelpfulClick }) => {
-  const [hasVoted, setHasVoted] = useState(false);
-
-  // Flag emoji map for native display
-  const flagMap: Record<string, string> = {
-    'GB': '🇬🇧',
-    'SG': '🇸🇬',
-    'ES': '🇪🇸',
-    'AU': '🇦🇺',
-    'IN': '🇮🇳',
-    'US': '🇺🇸',
-    'CA': '🇨🇦',
-    'FR': '🇫🇷',
-    'DE': '🇩🇪',
-    'JP': '🇯🇵',
-    'ZA': '🇿🇦',
-    'KE': '🇰🇪',
-    'CH': '🇨🇭',
-    'MC': '🇲🇨'
-  };
-
-  const handleHelpful = () => {
-    if (hasVoted) return;
-    setHasVoted(true);
-    onHelpfulClick?.(review.id);
-  };
-
+export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
-    <div 
-      className="card review-card relative p-10 rounded-sm border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full overflow-hidden"
-      style={{ backgroundColor: '#F5F5DC', minHeight: '440px' }}
-    >
-      {/* Editorial Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] mix-blend-overlay" />
-
-      {/* Header with Client Info */}
-      <div className="relative z-10 flex items-start justify-between mb-8 pb-6 border-b border-black/10">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <h3 className="text-xl font-bold font-serif text-[#1A1A1A]">
+    <div className="bg-white p-8 md:p-10 flex flex-col h-full shadow-2xl transition-all duration-700 group hover:-translate-y-2 border border-white/5 relative">
+      {/* 1. Profile Section: Avatar, Name, Date, Verified Badge */}
+      <div className="flex items-center gap-5 mb-8 pb-6 border-b border-black/5">
+        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#D4AF37] shrink-0 bg-stone-50 shadow-inner">
+          {review.avatarUrl ? (
+            <img 
+              src={review.avatarUrl} 
+              alt={review.clientName} 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-[#1A1A1A] text-[#D4AF37] font-black text-xl uppercase">
+              {review.clientName.charAt(0)}
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col flex-grow">
+          <div className="flex items-center gap-2 mb-0.5">
+            <h3 className="text-base font-sans font-black text-[#1A1A1A] uppercase tracking-tight">
               {review.clientName}
             </h3>
             {review.verified && (
-              <span 
-                title="Verified Experience" 
-                className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-sm" 
-                style={{ backgroundColor: '#D4AF37', color: '#1A1A1A' }}
-              >
-                ✓ Verified
-              </span>
+              <div title="Verified Traveller" className="flex items-center text-[#2D5A27]">
+                <ShieldCheck size={16} fill="currentColor" className="text-white" />
+              </div>
             )}
           </div>
-          <p className="text-xs uppercase tracking-widest font-bold text-[#654321] opacity-70">
-            {review.country} {flagMap[review.countryCode] || '🌍'}
+          <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#8B5A2B] opacity-60">
+            {new Date(review.date).toLocaleDateString('en-GB', { 
+              day: 'numeric', 
+              month: 'short', 
+              year: 'numeric' 
+            })}
           </p>
         </div>
-
-        {/* Static Star Rating with gold branding */}
-        <StarRating 
-          rating={review.rating as number} 
-          size={18} 
-          interactive={false} 
-          showText={false} 
-          ariaLabel={`${review.clientName}'s experience rating: ${review.rating} out of 5 stars`}
-        />
       </div>
 
-      {/* Trip Information */}
-      <div className="relative z-10 mb-8">
-        <p className="text-[10px] uppercase tracking-[0.2em] opacity-50 font-black text-[#654321] mb-2">
-          Expedition Narrative
-        </p>
-        <p className="text-sm font-bold tracking-wide text-[#8B5A2B]">
-          {review.tripTaken}
-        </p>
-      </div>
-
-      {/* Comment */}
-      <div className="relative z-10 flex-grow mb-8">
-        <p className="text-[#1A1A1A] text-lg leading-relaxed italic font-light opacity-90">
-          "{review.comment}"
-        </p>
-      </div>
-
-      {/* Admin Responses - Editorial Box */}
-      {review.responses && review.responses.length > 0 && (
-        <div className="relative z-10 mb-10 p-6 bg-white/40 border-l-4 border-[#D4AF37] animate-fade-in shadow-inner">
-          <p className="text-[10px] uppercase tracking-[0.4em] font-black text-[#8B5A2B] mb-3">
-            Curator Response
-          </p>
-          {review.responses.map((resp, idx) => (
-            <div key={idx} className="space-y-2">
-              <p className="text-sm font-serif font-bold text-[#1A1A1A] italic">
-                {resp.author}
-              </p>
-              <p className="text-sm text-[#1A1A1A] font-medium leading-relaxed opacity-80">
-                {resp.text}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Footer with Helpful & Date */}
-      <div className="relative z-10 flex justify-between items-center border-t border-black/10 pt-6">
-        <div className="text-[10px] uppercase tracking-widest opacity-40 font-bold text-[#654321]">
-          {new Date(review.date).toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}
+      {/* 2. Rating & Bold Title */}
+      <div className="space-y-6 mb-8">
+        <div className="flex">
+          <StarRating 
+            rating={review.rating} 
+            size={16} 
+            interactive={false} 
+            showText={false} 
+            color="#2D5A27" // Trust Green
+          />
         </div>
         
-        <button 
-          onClick={handleHelpful}
-          disabled={hasVoted}
-          className={`flex items-center gap-2 px-4 py-2 border-2 text-[9px] uppercase tracking-widest font-black transition-all ${
-            hasVoted 
-              ? 'bg-[#1A1A1A] text-[#D4AF37] border-black cursor-default scale-100' 
-              : 'bg-transparent text-[#654321] border-black/20 hover:border-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 active:scale-95'
-          }`}
-          aria-label={hasVoted ? "Marked as helpful" : "Mark review as helpful"}
-        >
-          <span>{hasVoted ? '✓ Helpful' : 'Helpful'}</span>
-          <span>({review.helpful})</span>
-        </button>
+        {review.title && (
+          <h4 className="text-xl md:text-2xl font-serif font-black text-[#1A1A1A] leading-tight italic">
+            "{review.title}"
+          </h4>
+        )}
+      </div>
+
+      {/* 3. Testimonial Narrative */}
+      <div className="flex-grow mb-10">
+        <p className="text-[#1A1A1A]/90 text-lg font-serif italic leading-relaxed">
+          {review.comment}
+        </p>
+      </div>
+
+      {/* 4. Trip Metadata Footer */}
+      <div className="mt-auto pt-6 border-t border-black/5 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-4 h-[1px] bg-[#D4AF37]" />
+          <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#8B5A2B]">
+            {review.tripTaken}
+          </span>
+        </div>
+        <span className="text-[9px] font-black uppercase tracking-widest text-black/20">
+          {review.countryCode}
+        </span>
       </div>
     </div>
   );

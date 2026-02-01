@@ -1,4 +1,3 @@
-
 export const KUZURI_KNOWLEDGE_BASE = `
 # Kuzuri Escapades - Definitive Technical & Brand Knowledge
 
@@ -24,8 +23,9 @@ export const KUZURI_KNOWLEDGE_BASE = `
 - **Murchison Falls Explorer:** 4 Days. Savannah sovereignty.
 
 ## 5. Logistics & Support
-- **WhatsApp/Primary:** +256 708 012030 (24/7 Curator Support).
-- **Secondary Contact:** +256 760 419271 (Alternative Support / Backup).
+- **Official Office Line (Landline):** 0200910729.
+- **Primary Mobile / WhatsApp:** +256 708 012030 (24/7 Curator Support).
+- **Secondary Mobile Contact:** +256 760 419271 (Alternative Support / Backup).
 - **Fleet:** Modified V8 Land Cruisers with pop-up roofs.
 - **Protocol:** VIP fast-track immigration at Entebbe Airport.
 `;
