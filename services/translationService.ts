@@ -1,45 +1,9 @@
+// This service is largely deprecated in favor of the Google Translate widget integration in App.tsx.
+// We keep the UI_DICTIONARY for non-dynamic component labels where instant reactive changes are preferred.
 
-import { GoogleGenAI, Type } from "@google/genai";
-
-export const translateContent = async (content: any, targetLang: string) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  
-  const systemInstruction = `You are an expert translator for Kuzuri Escapades, a luxury travel platform in Uganda. 
-  Your task is to translate the provided JSON object into ${targetLang}. 
-  Maintain the "Luxury & Silence" tone: refined, evocative, and high-end. 
-  DO NOT translate brand names like "Kuzuri Escapades", "Kazinga Channel", or specific lodge names. 
-  STRICT RULE: DO NOT translate or alter the official email address "info@kuzuri-escapades.com" in any context.
-  Preserve all JSON keys and structure exactly. 
-  
-  NARRATIVE GUIDANCE:
-  - Translate "Local Experts. Unique Journeys." elegantly to convey native authority and bespoke creation.
-  - "Local Experts" (EN) -> "Experts Locaux" (FR), "Lokale Experten" (DE), "Expertos Locales" (ES).
-  - "Unique Journeys" (EN) -> "Voyages Uniques" (FR), "Einzigartige Reisen" (DE), "Viajes Únicos" (ES).
-  
-  STRICT RULE: Always use the word "EXPERIENCE" (or its exact uppercase equivalent in the target language, e.g., "EXPÉRIENCE" in FR, "EXPERIENCIA" in ES, "ERLEBNIS" in DE) to replace "Odyssey", "Manifesto", or "Manifest" in all contexts.
-  Preserve all HTML tags like <span>, <br/>, or <i> if present in strings.`;
-
-  const prompt = `Translate the following website content into ${targetLang}. 
-  Ensure the tone is professional, bespoke, and extremely high-fidelity.
-  
-  Content:
-  ${JSON.stringify(content)}`;
-
-  try {
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: prompt,
-      config: {
-        systemInstruction,
-        responseMimeType: "application/json",
-      }
-    });
-
-    return JSON.parse(response.text);
-  } catch (error) {
-    console.error("Translation Error:", error);
-    return content;
-  }
+export const translateContent = async (content: any, _targetLang: string) => {
+  // Manual translation is disabled. Google Translate widget handles full-page translation.
+  return content;
 };
 
 export const UI_DICTIONARY: Record<string, any> = {
