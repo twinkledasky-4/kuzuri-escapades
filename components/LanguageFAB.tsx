@@ -208,7 +208,7 @@ export const LanguageFAB: React.FC<LanguageFABProps> = ({ currentLang, onLangCha
                     }`}
                     style={{ animationDelay: `${idx * 2}ms` }}
                   >
-                    {/* Circular Frame for Flags - Restored and Centered */}
+                    {/* Circular Frame for Flags: Ensuring visibility against Gold background */}
                     <div className={`w-16 h-16 rounded-full flex items-center justify-center overflow-hidden mb-4 transition-transform duration-500 group-hover/langbox:scale-110 shadow-lg border aspect-square ${
                       isActive ? 'bg-white border-black/10' : 'bg-black/40 border-white/10'
                     }`}>

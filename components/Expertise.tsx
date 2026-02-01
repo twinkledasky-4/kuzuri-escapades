@@ -1,4 +1,5 @@
 import React from 'react';
+import { ShieldCheck } from 'lucide-react';
 
 export const Expertise: React.FC = () => {
   return (
@@ -6,17 +7,70 @@ export const Expertise: React.FC = () => {
       <div className="container mx-auto max-w-[1700px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-start">
           
-          {/* Left Column: Heading (Span 5) */}
-          <div className="lg:col-span-5 reveal-trigger text-left">
+          {/* Left Column: Narrative (Span 5) */}
+          <div className="lg:col-span-5 reveal-trigger text-left flex flex-col">
             <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-black mb-6" style={{ opacity: 1 }}>OUR PHILOSOPHY</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-sans font-black text-[#3B1E14] uppercase tracking-[0.05em] leading-[1.1] mb-8" style={{ opacity: 1 }}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-sans font-black text-[#3B1E14] uppercase tracking-[0.05em] leading-[1.1]" style={{ opacity: 1 }}>
               CURATED LOCAL EXPERTISE FOR YOUR <span className="italic font-light">UGANDAN ADVENTURE.</span>
             </h2>
+
+            {/* NATIVE STEWARDSHIP GUARANTEE BLOCK: 30px Vertical Margins, 2px Gold Border, 14px Serif Body */}
+            <div className="my-[30px] w-full bg-[#FAF8F3] border-l-2 border-[#D4AF37] p-8 shadow-sm reveal-trigger">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-8 h-8 rounded-full bg-[#1A1A1A] flex items-center justify-center text-[#D4AF37]">
+                  <ShieldCheck size={16} />
+                </div>
+                <p className="text-[9px] uppercase tracking-[0.4em] font-black text-[#8B5A2B]">THE NATIVE GUARANTEE</p>
+              </div>
+              <p className="text-[14px] font-serif italic text-[#1A1A1A] leading-relaxed">
+                "We don't just guide; we protect the rhythm of your journey. Every expedition is 100% native-led, ensuring the deepest connections to the land and its secrets."
+              </p>
+              <div className="mt-6 pt-6 border-t border-black/5 flex items-center gap-6">
+                 <div className="flex flex-col">
+                   <span className="text-[10px] font-black uppercase text-[#1A1A1A] tracking-widest">100%</span>
+                   <span className="text-[8px] uppercase text-[#8B5A2B] font-bold">Native Owned</span>
+                 </div>
+                 <div className="w-[1px] h-8 bg-black/10" />
+                 <div className="flex flex-col">
+                   <span className="text-[10px] font-black uppercase text-[#1A1A1A] tracking-widest">10Y+</span>
+                   <span className="text-[8px] uppercase text-[#8B5A2B] font-bold">Field Mastery</span>
+                 </div>
+              </div>
+            </div>
+
+            {/* SIGNATURE WIDE-FORMAT IMAGE CARD: Professional Stewardship Evidence 
+                Specifications: 
+                - 100% width of container
+                - 15px rounded corners
+                - 30px vertical margins (top and bottom)
+                - Subtle soft drop-shadow
+                - Object-Fit: Cover with focal point on the left
+            */}
+            <div className="my-[30px] w-full aspect-[21/9] md:aspect-[16/7] rounded-[15px] overflow-hidden border border-[#1A1A1A]/5 shadow-[0_15px_40px_rgba(0,0,0,0.12)] relative group bg-[#1A1A1A] reveal-trigger">
+               <img 
+                 src="https://i.postimg.cc/dtR4By1q/Lake_Mburo_National_Park_750x450_1_750x450.jpg" 
+                 alt="Expert native guide facilitating a close wildlife encounter in Lake Mburo"
+                 className="w-full h-full object-cover transition-transform duration-[15000ms] group-hover:scale-105 opacity-100"
+                 style={{ objectPosition: 'left' }}
+               />
+               
+               {/* Editorial Overlay for the Evidence Card */}
+               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+               <div className="absolute bottom-6 left-8 flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#D4AF37]">
+                    <ShieldCheck size={18} />
+                  </div>
+                  <div>
+                    <p className="text-[9px] uppercase tracking-[0.4em] font-black text-[#D4AF37] mb-0.5">FIELD MASTERY</p>
+                    <p className="text-sm font-serif italic text-white/90">The Unspoken Native Connection</p>
+                  </div>
+               </div>
+            </div>
           </div>
 
-          {/* Right Column: Image and Pushed Paragraphs (Span 7) */}
+          {/* Right Column: Visual and Expanded Narrative (Span 7) */}
           <div className="lg:col-span-7 reveal-trigger flex flex-col">
-            {/* The Safari Image Container - Updated with new high-fidelity signature image */}
+            {/* Secondary Safari Image Container */}
             <div className="relative w-full aspect-[16/10] border-2 border-[#1A1A1A] shadow-3xl overflow-hidden group bg-[#1A1A1A]">
                 <img 
                     src="https://i.postimg.cc/FsbDZLR0/Top_8_Safari_Activities_in_Uganda_750x450.jpg" 
@@ -27,33 +81,32 @@ export const Expertise: React.FC = () => {
                 
                 {/* Floating Info Tag - Solid White Background */}
                 <div className="absolute bottom-8 left-8 bg-white p-6 shadow-2xl border border-black/5 z-20">
-                    <p className="text-[10px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] mb-1" style={{ opacity: 1 }}>EXPERTLY GUIDED</p>
-                    <p className="text-sm font-serif italic text-[#1A1A1A]" style={{ opacity: 1 }}>Signature Professional Stewardship</p>
+                    <p className="text-[10px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] mb-1">EXPERTLY GUIDED</p>
+                    <p className="text-sm font-serif italic text-[#1A1A1A]">Signature Professional Stewardship</p>
                 </div>
                 
                 {/* Clean, Grounded Linear Darkening */}
                 <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
             </div>
 
-            {/* Paragraph Content - Compressed Margin */}
+            {/* Paragraph Content Section */}
             <div className="mt-8 space-y-10 max-w-3xl bg-[#1A1412] p-10 md:p-12 border-l-4 border-[#D4AF37] shadow-2xl text-left">
               <div className="space-y-6">
-                <p className="text-white text-base font-normal leading-relaxed tracking-wide" style={{ opacity: 1 }}>
+                <p className="text-white text-base font-normal leading-relaxed tracking-wide">
                   Uganda is a tapestry of untamed landscapes—from mist-covered rainforests and volcanic peaks to the endless golden savannahs. It is a land so biologically diverse it captivates even the most seasoned global travelers.
                 </p>
                 
-                <p className="text-white text-base font-normal leading-relaxed tracking-wide" style={{ opacity: 1 }}>
+                <p className="text-white text-base font-normal leading-relaxed tracking-wide">
                   Here, you will meet Africa’s legends: the Big Five, majestic mountain gorillas, and over 1,000 vibrant bird species. Our primate treks bring you face-to-face with 24 species of monkeys, while night drives reveal the hidden world of bushbabies and elusive nocturnal hunters.
                 </p>
               </div>
               
               <div className="pt-10 border-t border-white/10">
-                <p className="text-white text-xl md:text-2xl font-light italic leading-relaxed tracking-tight mb-8" style={{ opacity: 1 }}>
+                <p className="text-white text-xl md:text-2xl font-light italic leading-relaxed tracking-tight mb-8">
                   Whether you are a photography enthusiast, a trekking fan, or a nature lover, we design journeys for everyone.
                 </p>
                 <button 
                   className="group relative inline-flex items-center gap-6 text-[10px] font-sans font-black uppercase tracking-[0.8em] text-[#D4AF37] transition-all hover:text-white"
-                  style={{ opacity: 1 }}
                 >
                   <span className="border-b-2 border-[#D4AF37] pb-2 group-hover:border-white transition-all">Begin the Consultation</span>
                   <div className="w-12 h-12 border border-[#D4AF37] flex items-center justify-center group-hover:bg-[#D4AF37] group-hover:text-[#1A1A12] transition-all duration-500 text-xl font-light leading-none pt-1">

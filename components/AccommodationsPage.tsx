@@ -1,7 +1,7 @@
-
 import React, { useState, useMemo } from 'react';
 import { LODGES } from '../constants.tsx';
 import { Lodge } from '../types.ts';
+import { ShieldCheck } from 'lucide-react';
 
 const REGIONS = [
   'Entebbe', 'Bwindi', 'Jinja', 'Kabale', 'Kampala', 'Kibale', 
@@ -30,26 +30,62 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onEnquir
   }, [selectedRegions]);
 
   return (
-    <div className="bg-[#FAF8F3] min-h-screen pt-32 pb-24 selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
-      {/* Hero Header */}
-      <section className="bg-[#1A1A1A] py-32 md:py-48 px-8 border-b-2 border-black">
-        <div className="max-w-[1700px] mx-auto">
-          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-bold mb-8">THE SANCTUARIES</p>
-          <h1 className="text-5xl md:text-9xl font-serif font-bold text-white tracking-tighter leading-none mb-12">
-            Exceptional <span className="italic font-light">Accommodations.</span>
-          </h1>
-          <p className="max-w-3xl text-white/60 text-xl font-light leading-relaxed">
-            Our curators have hand-selected these boutique lodges and luxury campsites for their commitment to authenticity, silent luxury, and impeccable native hospitality.
-          </p>
+    <div className="bg-[#FAF8F3] min-h-screen pt-0 pb-24 selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
+      {/* Hero Header: Full-Screen Landing with Center-Aligned Background and 50% Dark Overlay */}
+      <section className="relative h-screen flex items-center px-8 border-b-2 border-black overflow-hidden bg-[#1A1A1A]">
+        {/* Background Image Layer: Filling viewport with Cover/Center properties */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://i.postimg.cc/xC8tsQZN/beautiful-scenery-mangal-das-garcas-park-city-belem-brazil.jpg" 
+            alt="Breathtaking Ugandan scenery background"
+            className="w-full h-full object-cover object-center transition-transform duration-[25000ms] scale-110 animate-slow-zoom"
+          />
+          {/* REQUESTED: Dark Overlay (Opacity: 50%) for perfect readability */}
+          <div className="absolute inset-0 bg-black/50" />
+        </div>
+
+        <div className="max-w-[1700px] mx-auto relative z-10 w-full">
+          <div className="max-w-4xl">
+            <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-8 reveal-trigger">THE SANCTUARIES</p>
+            
+            {/* Headline: Strictly White */}
+            <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white tracking-tighter leading-none mb-10 reveal-trigger">
+              EXCEPTIONAL <span className="italic font-light">ACCOMMODATIONS.</span>
+            </h1>
+            
+            {/* SIGNATURE WIDE-FORMAT IMAGE CARD: Editorial visual anchor */}
+            <div className="my-[30px] w-full aspect-[21/9] md:aspect-[16/6] rounded-[15px] overflow-hidden border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.6)] relative group bg-[#000] reveal-trigger">
+               <img 
+                 src="https://i.postimg.cc/5NvrVjHW/bed_with_canopy.jpg" 
+                 alt="Luxury canopy bed in a boutique sanctuary - Silent Luxury"
+                 className="w-full h-full object-cover transition-transform duration-[12000ms] group-hover:scale-105 opacity-90"
+               />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+               <div className="absolute bottom-8 left-10 flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#D4AF37]">
+                    <ShieldCheck size={22} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.5em] font-black text-[#D4AF37] mb-1">CURATED ACCESS</p>
+                    <p className="text-lg font-serif italic text-white/90">The Interior Landscape of Silence</p>
+                  </div>
+               </div>
+            </div>
+
+            {/* Sub-header / Body: Strictly White */}
+            <p className="max-w-3xl text-white text-lg md:text-xl font-normal leading-relaxed tracking-wide reveal-trigger">
+              Our curators have hand-selected these boutique sanctuaries for their commitment to authenticity, silent luxury, and impeccable native hospitality. Every stay is a chapter in your Ugandan narrative.
+            </p>
+          </div>
         </div>
       </section>
 
-      <div className="max-w-[1700px] mx-auto px-8 md:px-16 pt-20">
+      <div className="max-w-[1700px] mx-auto px-8 md:px-16 pt-24" id="accommodations-list">
         <div className="flex flex-col lg:flex-row gap-16 xl:gap-24 items-start">
           
           {/* Left Column (25%): Sticky Sidebar for Filters */}
           <aside className="w-full lg:w-1/4 lg:sticky lg:top-40">
-            <div className="border-2 border-black p-10 bg-white shadow-xl">
+            <div className="border-2 border-black p-10 bg-white shadow-xl reveal-trigger">
               <h2 className="text-[12px] uppercase tracking-[0.5em] font-black text-[#1A1A1A] mb-10 border-b-2 border-black pb-6">
                 Location / region
               </h2>
@@ -93,7 +129,7 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onEnquir
 
           {/* Right Column (75%): Vertical list of lodge cards */}
           <main className="w-full lg:w-3/4">
-            <div className="flex justify-between items-end mb-12 border-b-2 border-black pb-8">
+            <div className="flex justify-between items-end mb-12 border-b-2 border-black pb-8 reveal-trigger">
               <p className="text-[11px] uppercase tracking-[0.4em] font-black text-[#654321]">
                 Showing {filteredLodges.length} Result{filteredLodges.length !== 1 ? 's' : ''}
               </p>
@@ -103,7 +139,7 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onEnquir
               {filteredLodges.map((lodge) => (
                 <article 
                   key={lodge.id}
-                  className="group flex flex-col md:flex-row bg-white border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-700 overflow-hidden"
+                  className="group flex flex-col md:flex-row bg-white border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-700 overflow-hidden reveal-trigger"
                 >
                   {/* Photo Section */}
                   <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto overflow-hidden relative">
@@ -124,17 +160,14 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onEnquir
                     <p className="text-[#8B5A2B] uppercase tracking-[0.4em] text-[10px] font-black mb-4">
                       {lodge.location}
                     </p>
-                    {/* Title: Dark Brown, All-Caps, Semi-Bold */}
-                    <h3 className="text-3xl md:text-4xl font-sans font-semibold text-[#3B1E14] uppercase mb-8 transition-all duration-700 tracking-tight">
+                    <h3 className="text-2xl md:text-3xl font-sans font-semibold text-[#3B1E14] uppercase mb-8 transition-all duration-700 tracking-tight">
                       {lodge.name}
                     </h3>
-                    {/* Description: Clean, normal-weight, leading-relaxed */}
                     <p className="text-[#1A1A1A]/80 text-lg font-normal leading-relaxed mb-12 italic">
                       "{lodge.description}"
                     </p>
                     
                     <div className="flex justify-between items-center pt-8 border-t border-black/10">
-                      {/* Button: Rectangular, dark brown background, white text */}
                       <button className="px-8 py-4 bg-[#3B1E14] text-white text-[10px] uppercase tracking-[0.4em] font-black hover:bg-[#8B5A2B] transition-all shadow-md">
                         VIEW THIS ACCOMMODATION
                       </button>
@@ -149,7 +182,7 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onEnquir
               ))}
               
               {filteredLodges.length === 0 && (
-                <div className="py-40 text-center">
+                <div className="py-40 text-center reveal-trigger">
                   <h3 className="text-4xl font-serif text-stone-300 italic mb-8">No sanctuaries found in this region.</h3>
                   <button 
                     onClick={() => setSelectedRegions([])}
@@ -176,6 +209,15 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onEnquir
           </main>
         </div>
       </div>
+      <style>{`
+        @keyframes slowZoom {
+          0% { transform: scale(1.1); }
+          100% { transform: scale(1.0); }
+        }
+        .animate-slow-zoom {
+          animation: slowZoom 25s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 };
