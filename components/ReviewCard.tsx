@@ -9,18 +9,18 @@ interface ReviewCardProps {
 
 export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
-    <div className="bg-white p-8 md:p-10 flex flex-col h-full shadow-2xl transition-all duration-700 group hover:-translate-y-2 border border-white/5 relative">
+    <div className="bg-white p-8 md:p-10 flex flex-col h-full shadow-2xl transition-all duration-700 group hover:-translate-y-2 border border-white/5 relative rounded-[15px]">
       {/* 1. Profile Section: Avatar, Name, Date, Verified Badge */}
       <div className="flex items-center gap-5 mb-8 pb-6 border-b border-black/5">
-        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#D4AF37] shrink-0 bg-stone-50 shadow-inner">
+        <div className="w-16 h-16 rounded-[15px] overflow-hidden border-2 border-[#D4AF37] shrink-0 bg-stone-50 shadow-inner">
           {review.avatarUrl ? (
             <img 
               src={review.avatarUrl} 
               alt={review.clientName} 
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 rounded-[15px]" 
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-[#1A1A1A] text-[#D4AF37] font-black text-xl uppercase">
+            <div className="w-full h-full flex items-center justify-center bg-[#1A1A1A] text-[#D4AF37] font-black text-xl uppercase rounded-[15px]">
               {review.clientName.charAt(0)}
             </div>
           )}
@@ -54,7 +54,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
             size={16} 
             interactive={false} 
             showText={false} 
-            color="#2D5A27" // Trust Green
+            color="#2D5A27" 
           />
         </div>
         

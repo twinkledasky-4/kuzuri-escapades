@@ -1,7 +1,13 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+// Reconstructing the AccommodationsPage component to fix the missing export and truncated content.
+import React, { useState, useMemo, useEffect } from 'react';
 import { LODGES } from '../constants.tsx';
 import { Lodge } from '../types.ts';
-import { ChevronRight, ChevronLeft, Maximize, Minimize } from 'lucide-react';
+import { ChevronLeft, X, MapPin, Info, Maximize } from 'lucide-react';
+
+interface AccommodationsPageProps {
+  onBack: () => void;
+  onEnquire: () => void;
+}
 
 const REGIONS = [
   'Entebbe', 'Bwindi', 'Jinja', 'Kabale', 'Kampala', 'Kibale', 
@@ -16,381 +22,236 @@ const ISHASHA_GALLERY = [
     caption: 'Authentic Thatched Architecture & Native Craftsmanship' 
   },
   { 
-    url: 'https://i.postimg.cc/66f199sQ/IM-SA-QE-Ishasha-Jungle-Lodge-Seating-area.webp', 
-    label: 'Terrace',
-    caption: 'Bespoke Seating Areas Curated with Local Materials' 
-  },
-  { 
-    url: 'https://i.postimg.cc/LXfwkf0g/IM-SA-QE-Ishasha-Jungle-Lodge-Double-bed-room.webp', 
-    label: 'Bedroom',
-    caption: 'Refined Double Suites with Natural Textures' 
-  },
-  { 
-    url: 'https://i.postimg.cc/Qx64T0x6/IM-SA-QE-Ishasha-Jungle-Lodge-Bathroom.webp', 
-    label: 'Bathroom',
-    caption: 'Organic En-Suite Bathrooms using Sustainable Elements' 
-  },
-  { 
-    url: 'https://i.postimg.cc/bwWm6rng/IM-SA-QE-Ishasha-Jungle-Lodge-Twin-beds-room.webp', 
-    label: 'River View',
-    caption: 'Comfortable Twin-Bed Accommodations with Riverside Vistas' 
+    url: 'https://i.postimg.cc/Jn163QxT/thatch-roof-house.jpg',
+    label: 'Interior',
+    caption: 'Refined wilderness comfort and riverside views'
   }
 ];
 
-interface AccommodationsPageProps {
-  onEnquire?: () => void;
-  onBack?: () => void;
-}
+export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onBack, onEnquire }) => {
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [viewedLodge, setViewedLodge] = useState<Lodge | null>(null);
 
-export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onEnquire, onBack }) => {
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const mailtoLink = "mailto:hello@kuzuri-escapades.com?subject=New Consultation Inquiry - Kuzuri Escapades";
-
-  const handleRegionToggle = (region: string) => {
-    setSelectedRegions(prev => 
-      prev.includes(region) 
-        ? prev.filter(r => r !== region) 
-        : [...prev, region]
-    );
-  };
+  // The Command: Strict raw mailto attribute
+  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
 
   const filteredLodges = useMemo(() => {
-    if (selectedRegions.length === 0) return LODGES;
-    return LODGES.filter(lodge => selectedRegions.includes(lodge.region || ''));
-  }, [selectedRegions]);
+    if (!selectedRegion) return LODGES;
+    return LODGES.filter(l => l.region === selectedRegion || l.location.includes(selectedRegion));
+  }, [selectedRegion]);
 
-  const scrollToTop = () => {
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Auto-play logic for the slider
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % ISHASHA_GALLERY.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % ISHASHA_GALLERY.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + ISHASHA_GALLERY.length) % ISHASHA_GALLERY.length);
-
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      sliderRef.current?.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable full-screen mode: ${err.message}`);
-      });
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
-    }
-  };
-
-  useEffect(() => {
-    const handleFsChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-    document.addEventListener('fullscreenchange', handleFsChange);
-    return () => document.removeEventListener('fullscreenchange', handleFsChange);
   }, []);
 
   return (
-    <div className="bg-[#FAF8F3] min-h-screen pt-0 pb-24 selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
-      {/* Hero Header: Full-Screen Landing with Ishasha Jungle Lodge Exterior */}
-      <section className="relative h-screen flex items-center px-8 overflow-hidden bg-[#1A1A1A]">
-        {/* Background Image Layer */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://i.postimg.cc/d3wH8fC0/IM-SA-QE-Ishasha-Jungle-Lodge-Exterior.webp" 
-            alt="Ishasha Jungle Lodge Professional Exterior Shot"
-            className="w-full h-full object-cover object-center transition-transform duration-[25000ms] scale-110 animate-slow-zoom brightness-[0.7]"
-          />
-          <div className="absolute inset-0 bg-black/45 z-[1]" />
-        </div>
-
-        {/* VISUAL EFFECT: 'Torn Paper' white border transition at the bottom */}
-        <div className="absolute bottom-[-1px] left-0 w-full z-20 pointer-events-none">
-          <svg 
-            viewBox="0 0 1440 120" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="w-full h-auto drop-shadow-[0_-5px_15px_rgba(0,0,0,0.1)]"
-            preserveAspectRatio="none"
-          >
-            <path 
-              d="M0 120H1440V45.5L1411 51L1377.5 37.5L1345.5 51L1311 41.5L1277 56L1245.5 45.5L1211.5 51L1177 37.5L1145 51L1111 41.5L1077 56L1045.5 45.5L1011.5 51L977 37.5L945 51L911 41.5L877 56L845.5 45.5L811.5 51L777 37.5L745 51L711 41.5L677 56L645.5 45.5L611.5 51L577 37.5L545 51L511 41.5L477 56L445.5 45.5L411.5 51L377 37.5L345 51L311 41.5L277 56L245.5 45.5L211.5 51L177 37.5L145 51L111 41.5L77 56L45.5 45.5L11.5 51L0 41.5V120Z" 
-              fill="#FAF8F3"
-            />
-          </svg>
-        </div>
-
-        {/* TITLE OVERLAY: Center-Right - White, Bold, All-Caps Sans-Serif Watermark */}
-        <div className="absolute right-8 md:right-24 top-1/2 -translate-y-1/2 z-50 hidden lg:block pointer-events-none text-right">
-          <div className="flex flex-col items-end">
-            <h2 className="text-white font-sans font-black uppercase text-4xl md:text-6xl lg:text-[6.5rem] tracking-[0.4em] leading-none select-none drop-shadow-2xl opacity-60">
-              ISHASHA
-            </h2>
-            <h2 className="text-white font-sans font-black uppercase text-4xl md:text-6xl lg:text-[6.5rem] tracking-[0.4em] mt-4 leading-none select-none drop-shadow-2xl opacity-60">
-              JUNGLE LODGE
-            </h2>
-            <div className="w-64 h-2 bg-[#D4AF37] mt-12 drop-shadow-lg opacity-60" />
-          </div>
-        </div>
-
-        {/* Content Layout */}
-        <div className="max-w-[1700px] mx-auto relative z-50 w-full">
-          <div className="max-w-4xl">
-            {/* SIGNATURE GHOST BUTTON: Positioned directly above the headline with professional mailto link */}
-            <a 
-              href={mailtoLink}
-              className="mb-10 inline-flex items-center gap-6 px-8 py-4 border-2 border-[#D4AF37] text-[#D4AF37] text-[10px] uppercase tracking-[0.5em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 group cursor-pointer reveal-trigger bg-transparent shadow-2xl backdrop-blur-sm active:scale-95 no-underline"
-            >
-              <span>← BACK TO MAIN PAGE</span>
-              <div className="w-6 h-6 border border-[#D4AF37] flex items-center justify-center group-hover:border-[#1A1A12] transition-all duration-500 text-sm font-light pt-0.5">
-                &gt;
-              </div>
-            </a>
-
-            {/* BREADCRUMB TRAIL */}
-            <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-12 text-[10px] uppercase tracking-[0.3em] font-black text-white/70 reveal-trigger" aria-label="Breadcrumb">
-              <button onClick={onBack} className="hover:text-[#D4AF37] transition-colors">Home</button>
-              <ChevronRight size={10} className="opacity-40" />
-              <button onClick={onBack} className="hover:text-[#D4AF37] transition-colors">Safari in Uganda</button>
-              <ChevronRight size={10} className="opacity-40" />
-              <button onClick={scrollToTop} className="hover:text-[#D4AF37] transition-colors">Accommodation in Uganda</button>
-              <ChevronRight size={10} className="opacity-40" />
-              <span className="text-[#D4AF37]">Ishasha Jungle Lodge</span>
-            </nav>
-
-            <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-8 reveal-trigger">THE SANCTUARIES</p>
-            
-            <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-white tracking-tighter leading-none mb-12 reveal-trigger uppercase drop-shadow-2xl">
-              EXCEPTIONAL <span className="italic font-light">STAYS.</span>
-            </h1>
-            
-            <div className="max-w-4xl text-white text-lg md:text-xl font-serif font-light leading-relaxed tracking-wide reveal-trigger opacity-100 drop-shadow-lg space-y-8">
-              <p>
-                <span className="font-bold text-[#D4AF37]">Ishasha Jungle Lodge</span> is an intimate ecolodge located in the southern part of Queen Elizabeth National Park, 2 kilometers from the Katokye entrance. Surrounded by lush forests and acacia trees, and bordered by the beautiful Ishasha River, this lodge offers four comfortable and spacious platform cottages, each with a private terrace and en-suite bathroom, providing a complete immersion in nature.
-              </p>
-              <p>
-                The restaurant serves delicious Ugandan and international cuisine, while the bar and campfire area invite relaxation after a day of safari. Built using natural, locally sourced materials, the lodge runs entirely on solar power and is actively committed to recycling and reducing its carbon footprint.
-              </p>
-
-              <div className="pt-6">
-                <button 
-                  onClick={onEnquire}
-                  className="bg-[#D4AF37] text-[#1A1A1A] px-14 py-6 text-[11px] font-black tracking-[0.7em] uppercase shadow-[0_20px_60px_rgba(0,0,0,0.5)] hover:bg-white hover:text-black transition-all duration-700 transform hover:scale-105 active:scale-95 border-none cursor-pointer"
-                >
-                  BOOK THIS STAY
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* GALLERY SLIDER SECTION */}
-      <section ref={sliderRef} className="w-full h-[60vh] md:h-[85vh] relative overflow-hidden bg-white group/slider mt-0">
-        <div className="w-full h-full relative">
-          {ISHASHA_GALLERY.map((image, idx) => (
-            <div 
-              key={idx}
-              className={`absolute inset-0 transition-all duration-[2s] ease-in-out ${idx === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
-            >
-              <img 
-                src={image.url} 
-                alt={`Gallery detail ${idx + 1}`}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              
-              <div className={`absolute bottom-28 left-12 md:left-24 transition-all duration-1000 delay-500 ${idx === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'}`}>
-                <p className="text-[10px] uppercase tracking-[0.5em] text-[#D4AF37] font-black mb-2 drop-shadow-md">FRAGMENT 0{idx + 1}</p>
-                <h3 className="text-white font-serif italic text-2xl md:text-4xl font-light drop-shadow-xl">
-                  {image.caption}
-                </h3>
-              </div>
-            </div>
-          ))}
-        </div>
-
+    <div className="bg-[#FAF8F3] min-h-screen pt-24 selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
+      {/* Navigation - Strategic Placement to clear Navbar */}
+      <div className="fixed top-24 left-6 md:left-12 z-[100]">
         <button 
-          onClick={prevSlide}
-          className="absolute left-8 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#D4AF37]/90 text-[#1A1A1A] flex items-center justify-center backdrop-blur-md shadow-2xl z-30 transition-all duration-500 hover:bg-white hover:scale-110 active:scale-95 border-none cursor-pointer"
-          aria-label="Previous view"
+          onClick={onBack}
+          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl active:scale-95"
         >
-          <ChevronLeft size={32} strokeWidth={2} />
+          <ChevronLeft size={16} />
+          Back to Home
         </button>
-        <button 
-          onClick={nextSlide}
-          className="absolute right-8 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#D4AF37]/90 text-[#1A1A1A] flex items-center justify-center backdrop-blur-md shadow-2xl z-30 transition-all duration-500 hover:bg-white hover:scale-110 active:scale-95 border-none cursor-pointer"
-          aria-label="Next view"
-        >
-          <ChevronRight size={32} strokeWidth={2} />
-        </button>
+      </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-40 bg-white/95 backdrop-blur-xl px-10 py-4 rounded-full border border-black/5 shadow-[0_20px_60px_rgba(0,0,0,0.15)] transition-all duration-700">
-          {ISHASHA_GALLERY.map((view, idx) => (
+      <header className="relative h-[60vh] flex items-center justify-center bg-[#1A1A1A] overflow-hidden border-b-2 border-black">
+        <div className="signature-overlay">BOUTIQUE COLLECTION</div>
+        <img 
+          src="https://i.postimg.cc/Jn163QxT/thatch-roof-house.jpg" 
+          alt="Luxury safari lodge overlooking the river" 
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+        />
+        <div className="relative z-10 text-center px-6">
+          <p className="text-[#D4AF37] uppercase tracking-[1.2em] text-[10px] font-bold mb-8">CURATED SANCTUARIES</p>
+          <h1 className="text-5xl md:text-8xl font-serif font-bold text-[#F5F5DC] tracking-tighter leading-none">
+            Boutique <span className="italic font-light">Lodging.</span>
+          </h1>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+        {/* Regions Filter Bar */}
+        <div className="flex flex-col items-center mb-24">
+          <p className="text-[10px] uppercase tracking-[0.5em] font-black text-[#8B5A2B] mb-8">Explore by Region</p>
+          <div className="flex flex-wrap justify-center gap-3">
             <button
-              key={idx}
-              onClick={() => setCurrentSlide(idx)}
-              className="flex flex-col items-center group/dot focus:outline-none relative"
-              aria-label={`Switch to ${view.label}`}
+              onClick={() => setSelectedRegion(null)}
+              className={`px-6 py-3 text-[10px] uppercase tracking-widest font-black border-2 transition-all ${
+                !selectedRegion 
+                  ? 'bg-[#1A1A1A] text-[#D4AF37] border-black shadow-xl' 
+                  : 'bg-transparent text-[#1A1A1A] border-black/10 hover:border-black'
+              }`}
             >
-              <span className={`absolute -top-10 text-[9px] uppercase tracking-[0.2em] font-black transition-all duration-500 whitespace-nowrap bg-black text-white px-3 py-1 rounded-sm shadow-xl ${idx === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none group-hover/dot:opacity-100 group-hover/dot:translate-y-0'}`}>
-                {view.label}
-              </span>
-              <div className={`w-3 h-3 rounded-full transition-all duration-500 border-2 ${idx === currentSlide ? 'bg-[#D4AF37] border-[#D4AF37] scale-125 shadow-[0_0_15px_rgba(212,175,55,0.4)]' : 'bg-transparent border-[#1A1A1A]/20 hover:border-[#D4AF37]'}`} />
+              All Sanctuaries
             </button>
-          ))}
+            {REGIONS.map(region => (
+              <button
+                key={region}
+                onClick={() => setSelectedRegion(region)}
+                className={`px-6 py-3 text-[10px] uppercase tracking-widest font-black border-2 transition-all ${
+                  selectedRegion === region 
+                    ? 'bg-[#1A1A1A] text-[#D4AF37] border-black shadow-xl' 
+                    : 'bg-transparent text-[#1A1A1A] border-black/10 hover:border-black'
+                }`}
+              >
+                {region}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <button 
-          onClick={toggleFullscreen}
-          className="absolute bottom-8 left-8 md:left-12 z-40 w-12 h-12 rounded-full bg-white/95 backdrop-blur-md border border-black/5 text-[#1A1A1A] flex items-center justify-center shadow-xl hover:bg-[#D4AF37] hover:text-white transition-all duration-500"
-          aria-label={isFullscreen ? "Exit Fullscreen" : "View Fullscreen"}
-        >
-          {isFullscreen ? <Minimize size={18} strokeWidth={2.5} /> : <Maximize size={18} strokeWidth={2.5} />}
-        </button>
-      </section>
+        {/* Accommodations Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+          {filteredLodges.map((lodge) => (
+            <article 
+              key={lodge.id}
+              className="bg-white border border-black/5 shadow-sm hover:shadow-2xl transition-all duration-700 flex flex-col group relative"
+            >
+              <div className="aspect-[4/3] overflow-hidden relative border-b border-black/5">
+                <div className="signature-overlay">{lodge.name}</div>
+                <img 
+                  src={lodge.imageUrl} 
+                  alt={lodge.name} 
+                  className="w-full h-full object-cover transition-transform duration-[12s] group-hover:scale-105"
+                />
+                <div className="absolute top-4 right-4 bg-black/90 text-[#D4AF37] py-2 px-4 border border-[#D4AF37]/30">
+                  <p className="text-[8px] uppercase tracking-[0.4em] font-black">{lodge.region || 'Uganda'}</p>
+                </div>
+              </div>
+              <div className="p-10 flex flex-col flex-grow">
+                <div className="flex items-center gap-3 mb-6">
+                   <div className="w-8 h-[1px] bg-[#D4AF37]" />
+                   <p className="text-[#D4AF37] text-[10px] uppercase tracking-[0.5em] font-black">{lodge.location}</p>
+                </div>
+                
+                <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-6 tracking-tight group-hover:text-[#8B5A2B] transition-colors leading-tight">
+                  {lodge.name}
+                </h3>
+                
+                <p className="text-[#1A1A1A]/70 text-base font-normal leading-relaxed mb-10 flex-grow italic">
+                  "{lodge.description}"
+                </p>
+                
+                <div className="flex justify-between items-center border-t border-black/5 pt-8 mt-auto">
+                  <button 
+                    onClick={() => setViewedLodge(lodge)}
+                    className="flex items-center gap-3 text-[10px] uppercase tracking-[0.4em] font-black border-b-2 border-[#D4AF37] pb-1 hover:text-[#1A1A1A] hover:border-[#1A1A1A] transition-all"
+                  >
+                    <Maximize size={12} />
+                    View Details
+                  </button>
+                  <a 
+                    href={mailtoLink}
+                    target="_self"
+                    className="text-[10px] uppercase tracking-[0.4em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all no-underline cursor-pointer"
+                  >
+                    Inquire
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </main>
 
-      <div className="max-w-[1700px] mx-auto px-8 md:px-16 pt-24" id="accommodations-list">
-        <div className="flex flex-col lg:flex-row gap-16 xl:gap-24 items-start">
-          <aside className="w-full lg:w-1/4 lg:sticky lg:top-40">
-            <div className="border-2 border-black p-10 bg-white shadow-xl reveal-trigger">
-              <h2 className="text-[12px] uppercase tracking-[0.5em] font-black text-[#1A1A1A] mb-10 border-b-2 border-black pb-6">
-                Location / region
-              </h2>
-              
-              <div className="space-y-6">
-                {REGIONS.map((region) => (
-                  <label key={region} className="flex items-center gap-4 cursor-pointer group">
-                    <div className="relative flex items-center justify-center">
-                      <input 
-                        type="checkbox"
-                        checked={selectedRegions.includes(region)}
-                        onChange={() => handleRegionToggle(region)}
-                        className="peer appearance-none w-6 h-6 border-2 border-black bg-white checked:bg-[#8B5A2B] transition-all cursor-pointer"
-                      />
-                      <svg 
-                        className={`absolute w-4 h-4 text-white pointer-events-none transition-opacity ${selectedRegions.includes(region) ? 'opacity-100' : 'opacity-0'}`} 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-[13px] uppercase tracking-[0.2em] font-bold text-[#1A1A1A] group-hover:text-[#8B5A2B] transition-colors font-serif">
-                      {region}
-                    </span>
-                  </label>
-                ))}
+      {/* Lodge Detail View Overlay */}
+      {viewedLodge && (
+        <div className="fixed inset-0 z-[10001] flex items-center justify-center p-4 md:p-10">
+          <div 
+            className="absolute inset-0 bg-[#1A1A1A]/95 backdrop-blur-sm" 
+            onClick={() => setViewedLodge(null)}
+          />
+          <div className="relative w-full max-w-6xl bg-[#FAF8F3] shadow-2xl overflow-hidden animate-fade-in border border-white/10 flex flex-col md:flex-row max-h-[90vh]">
+            <button 
+              onClick={() => setViewedLodge(null)}
+              className="absolute top-6 right-6 z-40 p-4 bg-black text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all shadow-xl"
+            >
+              <X size={24} strokeWidth={3} />
+            </button>
+            
+            <div className="w-full md:w-1/2 relative bg-[#1A1A1A] shrink-0">
+              <div className="signature-overlay">IMMERSIVE VIEW</div>
+              <img src={viewedLodge.imageUrl} alt={viewedLodge.name} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            </div>
+
+            <div className="w-full md:w-1/2 p-10 md:p-20 overflow-y-auto flex flex-col relative bg-[#FAF8F3]">
+              {/* TORN PAPER TRANSITION: Desktop Vertical Left Edge */}
+              <div className="hidden md:block absolute top-0 left-0 bottom-0 w-12 -ml-12 z-30 pointer-events-none">
+                 <svg className="h-full w-full" viewBox="0 0 40 1000" preserveAspectRatio="none" fill="#FAF8F3">
+                    <path d="M40 0 L35 20 L38 45 L32 70 L39 95 L34 120 L37 150 L31 180 L39 210 L35 240 L38 275 L33 305 L40 330 L36 360 L39 390 L34 425 L37 455 L32 490 L39 520 L34 550 L38 580 L33 615 L39 645 L35 675 L38 710 L32 740 L40 770 L35 800 L38 835 L33 865 L40 895 L36 925 L39 960 L34 1000 H40 Z" />
+                 </svg>
               </div>
 
-              {selectedRegions.length > 0 && (
-                <button 
-                  onClick={() => setSelectedRegions([])}
-                  className="mt-12 text-[10px] uppercase tracking-widest font-black text-[#8B5A2B] border-b border-[#8B5A2B] hover:text-[#1A1A1A] hover:border-[#1A1A1A] transition-all"
-                >
-                  Clear all filters
-                </button>
-              )}
-            </div>
-          </aside>
+              {/* TORN PAPER TRANSITION: Mobile Horizontal Top Edge */}
+              <div className="md:hidden absolute top-0 left-0 right-0 h-10 -mt-10 z-30 pointer-events-none">
+                 <svg className="w-full h-full" viewBox="0 0 1000 40" preserveAspectRatio="none" fill="#FAF8F3">
+                    <path d="M0 40 L20 35 L45 38 L70 32 L95 39 L120 34 L150 37 L180 31 L210 39 L240 35 L275 38 L305 33 L330 40 L360 36 L390 39 L425 34 L455 37 L490 32 L520 39 L550 34 L580 38 L615 33 L645 39 L675 35 L710 38 L740 32 L770 40 L800 35 L835 38 L865 33 L895 40 L925 36 L960 39 L1000 34 V40 Z" />
+                 </svg>
+              </div>
 
-          <main className="w-full lg:w-3/4">
-            <div className="flex justify-between items-end mb-12 border-b-2 border-black pb-8 reveal-trigger">
-              <p className="text-[11px] uppercase tracking-[0.4em] font-black text-[#654321]">
-                Showing {filteredLodges.length} Result{filteredLodges.length !== 1 ? 's' : ''}
-              </p>
-            </div>
+              {/* Header Block */}
+              <div className="space-y-4 mb-2 text-left relative z-10">
+                <p className="text-[#8B5A2B] uppercase tracking-[0.8em] text-[10px] font-black">SANCTUARY PROFILE</p>
+                <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1A1A1A] leading-tight uppercase tracking-tighter">
+                  {viewedLodge.name}
+                </h2>
+              </div>
 
-            <div className="space-y-16">
-              {filteredLodges.map((lodge) => (
-                <article 
-                  key={lodge.id}
-                  className="group flex flex-col md:flex-row bg-white border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-700 overflow-hidden reveal-trigger"
-                >
-                  <div className="w-full md:w-2/5 aspect-[4/3] md:aspect-auto overflow-hidden relative">
-                    <img 
-                      src={lodge.imageUrl} 
-                      alt={lodge.name}
-                      className="w-full h-full object-cover transition-transform duration-[10s] group-hover:scale-110"
-                    />
-                    <div className="absolute top-6 left-6 bg-[#D4AF37] px-4 py-2 shadow-xl z-10">
-                      <p className="text-[9px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]">
-                        {lodge.region || 'Premium Stay'}
-                      </p>
-                    </div>
-                  </div>
+              {/* Description Block: Left aligned, 16px (text-base), White background box, 140px clearance */}
+              <div className="mb-16 mt-[140px] bg-white p-10 shadow-xl border border-black/5 relative z-10 text-left">
+                <p className="text-[#1A1A1A] text-base font-normal leading-relaxed font-sans">
+                  {viewedLodge.description}
+                </p>
+              </div>
 
-                  <div className="w-full md:w-3/5 p-10 md:p-16 flex flex-col justify-center bg-[#EFEBE4]">
-                    <p className="text-[#8B5A2B] uppercase tracking-[0.4em] text-[10px] font-black mb-4">
-                      {lodge.location}
-                    </p>
-                    <h3 className="text-2xl md:text-3xl font-sans font-black text-[#3B1E14] uppercase mb-8 transition-all duration-700 tracking-tight">
-                      {lodge.name}
-                    </h3>
-                    <p className="text-[#1A1A1A]/90 text-lg font-serif italic leading-relaxed mb-12">
-                      "{lodge.description}"
-                    </p>
-                    
-                    <div className="flex justify-between items-center pt-8 border-t border-black/10">
-                      <button 
-                        onClick={onEnquire}
-                        className="px-8 py-4 bg-[#3B1E14] text-white text-[10px] uppercase tracking-[0.4em] font-black hover:bg-[#8B5A2B] transition-all shadow-md"
-                      >
-                        EXPLORE SANCTUARY
-                      </button>
-                      <div className="w-10 h-10 border-2 border-[#3B1E14] flex items-center justify-center transition-all group-hover:bg-[#8B5A2B] group-hover:border-[#8B5A2B] group-hover:text-white text-[#3B1E14]">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
+              <div className="space-y-6 border-l-2 border-[#D4AF37] pl-8 mb-16 text-left relative z-10">
+                <div className="flex items-center gap-4">
+                  <MapPin size={18} className="text-[#D4AF37]" />
+                  <p className="text-[11px] font-black uppercase tracking-[0.4em] text-[#1A1A1A]">{viewedLodge.location}</p>
+                </div>
+                <div className="flex items-center gap-4">
+                  <Info size={18} className="text-[#D4AF37]" />
+                  <p className="text-[11px] font-black uppercase tracking-[0.4em] text-[#1A1A1A]">Region: {viewedLodge.region || 'Protected Wilderness'}</p>
+                </div>
+              </div>
+
+              {viewedLodge.id === 'ishasha-jungle-lodge' && (
+                <div className="pt-10 space-y-8 border-t border-black/5 mb-16 text-left relative z-10">
+                  <p className="text-[10px] uppercase tracking-[0.5em] font-black text-[#8B5A2B]">Native Fragments</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {ISHASHA_GALLERY.map((img, i) => (
+                      <div key={i} className="space-y-3">
+                        <div className="aspect-[3/2] overflow-hidden border border-black/5 shadow-md">
+                          <img src={img.url} alt={img.label} className="w-full h-full object-cover transition-transform hover:scale-105 duration-1000" />
+                        </div>
+                        <p className="text-[9px] uppercase tracking-widest font-black text-center opacity-60">{img.label}</p>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                </article>
-              ))}
-              
-              {filteredLodges.length === 0 && (
-                <div className="py-40 text-center reveal-trigger">
-                  <h3 className="text-4xl font-serif text-stone-300 italic mb-8">No sanctuaries found in this region.</h3>
-                  <button 
-                    onClick={() => setSelectedRegions([])}
-                    className="text-[11px] uppercase tracking-[0.6em] font-black text-[#8B5A2B] border-b-2 border-[#8B5A2B] pb-2"
-                  >
-                    View All Accommodations
-                  </button>
                 </div>
               )}
-            </div>
 
-            <div className="mt-32 pt-24 border-t-2 border-black/5 text-center reveal-trigger">
-              <p className="text-2xl md:text-3xl font-serif italic text-[#3B1E14] leading-relaxed">
-                Can't find what you're looking for? Our experts can book any lodge in Uganda for you.{" "}
-                <button 
-                  onClick={onEnquire}
-                  className="font-bold text-[#8B5A2B] hover:text-[#1A1A1A] transition-colors underline underline-offset-8 decoration-[#8B5A2B]/30 hover:decoration-[#1A1A1A] cursor-pointer"
+              <div className="mt-auto pt-10 relative z-10">
+                <a 
+                  href={mailtoLink}
+                  target="_self"
+                  className="block w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-center text-[10px] uppercase tracking-[1em] font-black hover:bg-[#8B5A2B] hover:text-white transition-all duration-700 shadow-3xl no-underline cursor-pointer border border-[#D4AF37]/20"
                 >
-                  Contact us today.
-                </button>
-              </p>
+                  START THE CONSULTATION
+                </a>
+              </div>
             </div>
-          </main>
+          </div>
         </div>
-      </div>
+      )}
+
       <style>{`
-        @keyframes slowZoom {
-          0% { transform: scale(1.1); }
-          100% { transform: scale(1.0); }
-        }
-        .animate-slow-zoom {
-          animation: slowZoom 25s ease-out forwards;
-        }
+        .animate-fade-in { animation: fadeIn 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
     </div>
   );

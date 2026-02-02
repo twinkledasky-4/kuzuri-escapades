@@ -8,10 +8,6 @@ interface Language {
   googleCode: string;
 }
 
-/**
- * Exhaustive Global Library mapped to Flagpedia CDN (ISO-3166)
- * and Google Translate Engine codes.
- */
 const languages: Language[] = [
   { code: 'AF', label: 'Afghanistan', flagCode: 'af', googleCode: 'ps' },
   { code: 'AL', label: 'Albania', flagCode: 'al', googleCode: 'sq' },
@@ -87,6 +83,7 @@ const languages: Language[] = [
   { code: 'TR', label: 'Turkey', flagCode: 'tr', googleCode: 'tr' },
   { code: 'UG', label: 'Uganda', flagCode: 'ug', googleCode: 'en' },
   { code: 'UA', label: 'Ukraine', flagCode: 'ua', googleCode: 'uk' },
+  // Fix: Added missing googleCode property and corrected flagCode for UAE
   { code: 'AE', label: 'UAE', flagCode: 'ae', googleCode: 'ar' },
   { code: 'GB', label: 'United Kingdom', flagCode: 'gb', googleCode: 'en' },
   { code: 'US', label: 'USA', flagCode: 'us', googleCode: 'en' },
@@ -133,11 +130,10 @@ export const LanguageFAB: React.FC<LanguageFABProps> = ({ currentLang, onLangCha
 
   return (
     <>
-      {/* Floating Action Button */}
       <div className="fixed bottom-[110px] left-8 z-[10002]">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`lang-toggle-btn py-[8px] px-[20px] rounded-full border-2 border-[#1A1A1A] shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center justify-center gap-3 transition-all duration-500 hover:-translate-y-1 active:scale-95 group ${
+          className={`lang-toggle-btn py-[8px] px-[20px] rounded-[15px] border-2 border-[#1A1A1A] shadow-[0_20px_50px_rgba(0,0,0,0.4)] flex items-center justify-center gap-3 transition-all duration-500 hover:-translate-y-1 active:scale-95 group ${
             isOpen ? 'bg-white text-[#1A1A1A]' : 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-white font-black'
           }`}
           aria-label="Toggle Global Voyager Language Selector"
@@ -148,12 +144,11 @@ export const LanguageFAB: React.FC<LanguageFABProps> = ({ currentLang, onLangCha
           </span>
           
           {!isOpen && (
-            <div className="absolute inset-0 rounded-full border-2 border-[#1A1A1A]/10 animate-ping pointer-events-none" />
+            <div className="absolute inset-0 rounded-[15px] border-2 border-[#1A1A1A]/10 animate-ping pointer-events-none" />
           )}
         </button>
       </div>
 
-      {/* Full-width Horizontal Drawer */}
       <div 
         ref={barRef}
         className={`fixed bottom-0 left-0 w-full bg-[#1A1A1A] border-t-2 border-[#D4AF37] z-[10001] shadow-[0_-20px_80px_rgba(0,0,0,0.6)] transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${
@@ -161,7 +156,6 @@ export const LanguageFAB: React.FC<LanguageFABProps> = ({ currentLang, onLangCha
         }`}
       >
         <div className="max-w-[2200px] mx-auto flex flex-col">
-          {/* Header Section */}
           <div className="px-8 md:px-12 py-6 border-b border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-8">
               <div className="hidden sm:block">
@@ -192,7 +186,6 @@ export const LanguageFAB: React.FC<LanguageFABProps> = ({ currentLang, onLangCha
             </button>
           </div>
 
-          {/* Grid of Regional Flag Icons */}
           <div className="max-h-[60vh] md:max-h-[480px] overflow-y-auto px-8 md:px-12 py-12 scrollbar-premium">
             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-6 md:gap-8">
               {filteredLanguages.map((lang, idx) => {
@@ -201,21 +194,20 @@ export const LanguageFAB: React.FC<LanguageFABProps> = ({ currentLang, onLangCha
                   <button
                     key={lang.code}
                     onClick={() => handleSelect(lang)}
-                    className={`flex flex-col items-center justify-center p-5 border transition-all duration-500 group/langbox h-full ${
+                    className={`flex flex-col items-center justify-center p-5 border transition-all duration-500 group/langbox h-full rounded-[15px] ${
                       isActive 
                         ? 'bg-[#D4AF37] border-[#D4AF37] shadow-[0_0_25px_rgba(212,175,55,0.4)]' 
                         : 'bg-white/5 border-white/5 hover:border-[#D4AF37] hover:bg-white/10 shadow-sm'
                     }`}
                     style={{ animationDelay: `${idx * 2}ms` }}
                   >
-                    {/* Circular Frame for Flags: Ensuring visibility against Gold background */}
-                    <div className={`w-16 h-16 rounded-full flex items-center justify-center overflow-hidden mb-4 transition-transform duration-500 group-hover/langbox:scale-110 shadow-lg border aspect-square ${
+                    <div className={`w-16 h-16 rounded-[15px] flex items-center justify-center overflow-hidden mb-4 transition-transform duration-500 group-hover/langbox:scale-110 shadow-lg border aspect-square ${
                       isActive ? 'bg-white border-black/10' : 'bg-black/40 border-white/10'
                     }`}>
                       <img 
                         src={`https://flagcdn.com/w160/${lang.flagCode.toLowerCase()}.png`}
                         alt={`${lang.label} flag`}
-                        className="block w-full h-full object-cover select-none brightness-[1.1] contrast-[1.1]"
+                        className="block w-full h-full object-cover select-none brightness-[1.1] contrast-[1.1] rounded-[15px]"
                         loading="eager"
                         decoding="async"
                       />

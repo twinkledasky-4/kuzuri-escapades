@@ -24,6 +24,8 @@ const TikTokIcon = ({ size = 28, strokeWidth = 1.5 }: { size?: number, strokeWid
 
 export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
   const currentYear = new Date().getFullYear();
+  // Protocol: Strict raw mailto link. Target Logic: _self.
+  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
 
   return (
     <footer id="contact-us" className="bg-[#1A1412] pt-32 pb-16 px-8 md:px-16 selection:bg-[#D4AF37] selection:text-[#1A1412] scroll-mt-[120px]">
@@ -49,10 +51,11 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
                 <div className="space-y-1">
                   <p className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37]/60 font-black mb-2">OFFICIAL CORRESPONDENCE</p>
                   <a 
-                    href="mailto:info@kuzuri-escapades.com" 
-                    className="text-[#FFFFFF] hover:text-[#D4AF37] text-lg md:text-xl font-sans font-medium transition-all duration-500 tracking-tight block"
+                    href={mailtoLink} 
+                    target="_self"
+                    className="text-[#FFFFFF] hover:text-[#D4AF37] text-lg md:text-xl font-sans font-medium transition-all duration-500 tracking-tight block no-underline cursor-pointer"
                   >
-                    info@kuzuri-escapades.com
+                    hello@kuzuri-escapedes.com
                   </a>
                 </div>
 
@@ -130,12 +133,13 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
               </div>
             </div>
 
-            <button 
-              onClick={onEnquire}
-              className="px-14 py-6 bg-[#D4AF37] text-[#1A1412] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-white transition-all duration-700 shadow-xl"
+            <a 
+              href={mailtoLink}
+              target="_self"
+              className="px-14 py-6 bg-[#D4AF37] text-[#1A1412] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-white transition-all duration-700 shadow-xl no-underline text-center cursor-pointer border-2 border-transparent"
             >
               Start Your Experience
-            </button>
+            </a>
           </div>
         </div>
 

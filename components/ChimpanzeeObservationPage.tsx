@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Clock, Check, Calendar, Info, Users, Euro, Minus, Trees, Zap, Binoculars, Mountain, Camera, Waves, Brain, Sparkles, ShieldAlert, Backpack, Heart, Anchor } from 'lucide-react';
 
@@ -24,22 +23,25 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
       subtitle: "THE PRIMATE CAPITAL",
       detail: "Known as the 'Primate Capital of the World,' Kibale is home to the highest density of chimpanzees in Africa. It offers the most successful sightings and the famous Chimpanzee Habituation Experience (CHEX), where you can witness the intricate daily lives of our cousins in a world-class conservation setting.",
       image: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&q=85&w=1200",
+      overlay: "PRIMATE CAPITAL",
       icon: <Trees size={24} />
     },
     {
       id: 'kyambura',
       title: "KYAMBURA GORGE",
       subtitle: "THE UNDERGROUND FOREST",
-      detail: "Experience the 'Underground Forest' in Queen Elizabeth National Park. This deep, lush canyon provides a dramatic backdrop for tracking a community of chimpanzees isolated within the savanna. The vertical landscape and atmospheric mist create a truly unique tracking perspective.",
-      image: "https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg",
+      detail: "Experience the 'Underground Forest' in Queen Elizabeth National Park. This deep, lush canyon provides a backdrop for tracking a community of chimpanzees isolated within the savanna. The vertical landscape and atmospheric mist create a unique tracking perspective.",
+      image: "https://i.postimg.cc/qvcqHx8d/c6b8b1e4_65a4_4e49_92bd_f4ed040c7b13.jpg",
+      overlay: "UNDERGROUND FOREST",
       icon: <Mountain size={24} />
     },
     {
       id: 'budongo',
       title: "BUDONGO FOREST",
       subtitle: "MAHOGANY SANCTUARY",
-      detail: "Located within the Murchison Falls Conservation Area, this forest is famous for its towering mahogany trees and is one of the largest habitats for chimpanzees in Uganda. It provides a peaceful, less-traversed atmosphere for observing chimpanzees as they forage and play in the high branches.",
+      detail: "Located within the Murchison Falls Conservation Area, this forest is famous for its mahogany trees and is one of the largest habitats for chimpanzees in Uganda. It provides a peaceful, less-traversed atmosphere for observing chimpanzees.",
       image: "https://i.postimg.cc/VkY4Hkrd/Tourism_in_Uganda.jpg",
+      overlay: "MAHOGANY SANCTUARY",
       icon: <Binoculars size={24} />
     }
   ];
@@ -79,6 +81,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
 
       {/* Hero Header */}
       <section className="relative h-screen overflow-hidden flex items-end bg-[#1A1A1A]">
+        <div className="signature-overlay">KIBALE PRIMATES</div>
         <img
           src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&q=85&w=1600"
           alt="Close-up of a chimpanzee in its natural forest habitat"
@@ -138,10 +141,11 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
             <div className={`grid grid-cols-1 lg:grid-cols-2 items-stretch`}>
               {/* Image Side */}
               <div className={`relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-[#1A1A1A] ${idx % 2 !== 0 ? 'lg:order-2' : ''}`}>
+                <div className="signature-overlay">{region.overlay}</div>
                 <img 
                   src={region.image} 
                   alt={region.title} 
-                  className="w-full h-full object-cover opacity-100 transition-transform duration-[10s] hover:scale-105"
+                  className="w-full h-full object-cover object-center opacity-100 transition-transform duration-[10s] hover:scale-105"
                 />
                 <div className="absolute top-10 left-10 bg-white p-6 shadow-2xl border border-black/5 z-20">
                   <div className="text-[#D4AF37]">{region.icon}</div>
@@ -173,12 +177,16 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
       {/* Special Mention: Ngamba Island Sanctuary Spotlight */}
       <section className="relative min-h-[90vh] flex items-center bg-[#1A1A1A] overflow-hidden">
         <div className="absolute inset-0">
+          <div className="signature-overlay">NGAMBA SANCTUARY</div>
+          {/* BACKGROUND: High-res full-bleed background for spotlight impact */}
           <img 
-            src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1600" 
-            alt="Ngamba Island Chimpanzee Sanctuary - Lake Victoria"
-            className="w-full h-full object-cover opacity-60"
+            src="https://i.postimg.cc/qvMp6vwr/beautiful-nice-chimpanzee-nature-looking-habitatpan-troglodytes-wild-animal-bars.jpg" 
+            alt="Intimate Close-up of a Chimpanzee - Ngamba Sanctuary Spotlight"
+            className="w-full h-full object-cover object-center opacity-100 transition-transform duration-[15s] hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A] via-[#1A1A1A]/80 to-transparent" />
+          {/* LEGIBILITY SHIELD: Pure 55% Dark Radial Gradient Overlay centered on text */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.85)_100%)] z-[2]" />
+          <div className="absolute inset-0 bg-black/40 z-[1]" />
         </div>
 
         <div className="container mx-auto max-w-[1700px] px-6 md:px-12 lg:px-24 relative z-10">
@@ -190,15 +198,17 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
               <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black">SANCTUARY SPOTLIGHT</p>
             </div>
             
+            {/* TEXT PROTECTION: White Headline and Gold Sub-headline strictly maintained */}
             <h2 className="text-5xl md:text-8xl font-serif font-bold text-white leading-tight uppercase tracking-tighter mb-12">
               NGAMBA <br/><span className="italic font-light text-[#D4AF37]">ISLAND.</span>
             </h2>
             
-            <div className="space-y-8 text-xl font-serif leading-relaxed text-white/80 italic mb-12">
-              <p>
+            {/* BODY TEXT LEGIBILITY: Pure white text positioned over darkened layer for 100% legibility */}
+            <div className="space-y-8 text-xl font-serif leading-relaxed text-white italic mb-12">
+              <p className="drop-shadow-sm">
                 A sanctuary for orphaned and rescued chimpanzees located on Lake Victoria. Ngamba Island offers a rare, intimate look at the conservation efforts dedicated to protecting these intelligent primates.
               </p>
-              <p>
+              <p className="drop-shadow-sm">
                 Witness daily feeding sessions and learn about the intricate rehabilitation processes from the stewards who have dedicated their lives to primate welfare.
               </p>
             </div>
@@ -208,14 +218,14 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                  <Anchor size={20} className="text-[#D4AF37] mt-1" />
                  <div>
                     <p className="text-white font-bold uppercase tracking-widest text-[11px] mb-2">ACCESS</p>
-                    <p className="text-white/60 text-sm leading-relaxed">Private boat charter from Entebbe across Lake Victoria.</p>
+                    <p className="text-white/80 text-sm leading-relaxed">Private boat charter from Entebbe across Lake Victoria.</p>
                  </div>
               </div>
               <div className="flex items-start gap-4">
                  <Info size={20} className="text-[#D4AF37] mt-1" />
                  <div>
                     <p className="text-white font-bold uppercase tracking-widest text-[11px] mb-2">MISSION</p>
-                    <p className="text-white/60 text-sm leading-relaxed">Sustainable tourism directly funding rescue and education.</p>
+                    <p className="text-white/80 text-sm leading-relaxed">Sustainable tourism directly funding rescue and education.</p>
                  </div>
               </div>
             </div>
@@ -317,42 +327,69 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-6 reveal-trigger relative">
-               <div className="aspect-[4/5] border-2 border-[#D4AF37] overflow-hidden">
-                 <img src="https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg" alt="Chimpanzee reflection" className="w-full h-full object-cover grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-[2000ms]" />
+            
+            {/* UI COMPONENT: IMAGE CARD & SYNCHRONIZED CAPTION */}
+            <div className="lg:col-span-6 reveal-trigger flex flex-col items-center">
+               {/* 10px Rounded Corners + 2px Gold Right Border + 1.05x Hover Zoom Effect */}
+               <div className="w-full aspect-[4/5] border-r-2 border-[#D4AF37] overflow-hidden rounded-[10px] shadow-2xl relative group bg-[#1A1A1A]">
+                 <div className="signature-overlay">REFLECTIVE INTELLIGENCE</div>
+                 <img 
+                    src="https://i.postimg.cc/G3F1vx46/tourist-places-in-Uganda.jpg" 
+                    alt="Chimpanzee in its natural habitat - High-Resolution Close-Up" 
+                    className="w-full h-full object-cover object-center transition-all duration-[800ms] group-hover:scale-105" 
+                 />
                </div>
-               <div className="absolute -bottom-10 -left-10 bg-white p-12 shadow-3xl text-[#1A1A1A] hidden xl:block">
-                  <p className="text-[10px] uppercase tracking-[0.5em] font-black mb-4">MOMENT OF CONNECTION</p>
-                  <p className="text-2xl font-serif italic leading-tight">"In their eyes, you will find a reflection of your own soul."</p>
+               
+               {/* TEXT SYNCHRONIZATION: Aligned to bottom of card flow, NO overlap with photo, text updated per brief */}
+               <div className="w-full bg-white p-10 md:p-12 shadow-3xl text-[#1A1A1A] border border-black/5 rounded-[10px] mt-12 relative z-10">
+                  <p className="text-[10px] uppercase tracking-[0.5em] font-black mb-4 text-[#8B5A2B]">MOMENT OF CONNECTION</p>
+                  <p className="text-2xl font-serif italic leading-tight text-[#1A1A1A]">
+                    "We place the finest, highly intelligent primates in the world at the center of your private journey."
+                  </p>
+                  <div className="w-12 h-[2px] bg-[#D4AF37] mt-8" />
                </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Travel Planning Section */}
-      <section className="py-24 md:py-40 bg-[#1A1A1A] text-white">
-        <div className="container mx-auto max-w-[1700px] px-6 md:px-12 lg:px-24">
+      {/* UI DESIGN ENHANCEMENT: EXPEDITION INTEL BACKGROUND */}
+      <section className="relative py-24 md:py-40 bg-[#1A1A1A] overflow-hidden">
+        {/* ENHANCED BACKGROUND LAYER: MINIMALIST ZEBRAS IMAGE */}
+        <div 
+          className="absolute inset-0 z-0 bg-no-repeat"
+          style={{ 
+            backgroundImage: "url('https://i.postimg.cc/MKKwZ78b/group_zebras_africa.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center'
+          }}
+        >
+          {/* CLEANLINESS SETTINGS: 20px Backdrop Blur & 75% Black Overlay for 'Texture' feel */}
+          <div className="absolute inset-0 bg-black/75 backdrop-blur-[20px] z-[1]" />
+        </div>
+
+        <div className="container mx-auto max-w-[1700px] px-6 md:px-12 lg:px-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
-            <div className="lg:col-span-6 reveal-trigger">
+            <div className="lg:col-span-6 reveal-trigger flex flex-col justify-center">
               <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-8">EXPEDITION INTEL</p>
+              {/* SHARP GOLD HEADER - NO HEAVY SHADOWS FOR MAXIMUM CONTRAST */}
               <h2 className="text-4xl md:text-7xl font-serif font-bold text-white leading-none uppercase tracking-tighter mb-12">
                 THE BEST TIME <br/><span className="italic font-light text-[#D4AF37]">IS ALL THE TIME.</span>
               </h2>
-              <div className="space-y-8 text-xl font-serif leading-relaxed text-white/80 max-w-2xl italic">
+              <div className="space-y-8 text-xl font-serif leading-relaxed text-white max-w-2xl italic">
                 <p>
                   While primate treks are magical year-round, the dry months from June to February offer the most optimal tracking conditions. During these windows, the forest floor is less damp, and the chimpanzees are often found lower in the canopy for easier observation.
                 </p>
-                <p className="border-l-4 border-[#D4AF37] pl-8">
-                  <span className="font-bold text-white not-italic block mb-2">CURATOR'S TIP:</span>
+                <p className="border-l-4 border-[#D4AF37] pl-8 text-white">
+                  <span className="font-bold text-[#D4AF37] not-italic block mb-2">CURATOR'S TIP:</span>
                   "To capture the rapid intelligence in a chimpanzee's gaze or their rapid movements through the branches, we highly recommend bringing a <strong>powerful zoom lens</strong>. The jungle light is dappled, so speed and distance are your best allies."
                 </p>
               </div>
             </div>
             
             <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Gear Card */}
-              <div className="bg-white p-10 border-2 border-[#D4AF37] shadow-3xl text-[#1A1A1A] space-y-8 flex flex-col justify-between reveal-trigger">
+              {/* Gear Card - Rounded 10px, 100% Opaque White (Brightest element) */}
+              <div className="bg-white p-10 border-2 border-[#D4AF37] shadow-3xl text-[#1A1A1A] space-y-8 flex flex-col justify-between reveal-trigger rounded-[10px] transform hover:scale-[1.02] transition-transform opacity-100 relative z-[20]">
                 <div className="space-y-6">
                   <div className="flex items-center gap-4 text-[#D4AF37]">
                     <Backpack size={32} strokeWidth={1.5} />
@@ -368,11 +405,11 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                 </div>
               </div>
 
-              {/* Protocol Card */}
-              <div className="bg-[#FAF8F3] p-10 border-2 border-[#1A1A1A] shadow-3xl text-[#1A1A1A] space-y-8 flex flex-col justify-between reveal-trigger">
+              {/* Protocol Card - Rounded 10px, 100% Opaque White (Brightest element) */}
+              <div className="bg-white p-10 border-2 border-[#D4AF37] shadow-3xl text-[#1A1A1A] space-y-8 flex flex-col justify-between reveal-trigger rounded-[10px] transform hover:scale-[1.02] transition-transform opacity-100 relative z-[20]">
                 <div className="space-y-6">
                   <div className="flex items-center gap-4 text-[#1A1A1A]">
-                    <ShieldAlert size={32} strokeWidth={1.5} />
+                    <ShieldAlert size={32} strokeWidth={1.5} className="text-[#D4AF37]" />
                     <p className="text-[10px] uppercase tracking-[0.4em] font-black">TRACKER'S PROTOCOL</p>
                   </div>
                   <h3 className="text-2xl font-serif font-bold italic leading-tight">Safety & Age.</h3>
@@ -545,9 +582,22 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
         </div>
       </div>
 
-      <section className="py-24 md:py-48 bg-[#1A1A1A] text-center text-white border-t-2 border-[#D4AF37]">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl md:text-7xl font-serif font-bold mb-16 italic text-[#D4AF37]">
+      <section className="relative py-32 md:py-64 text-center text-white border-t-2 border-[#D4AF37] overflow-hidden bg-black">
+        {/* Immersive High-Res Background */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://i.postimg.cc/qvcqHx8d/c6b8b1e4_65a4_4e49_92bd_f4ed040c7b13.jpg" 
+            alt="Majestic Primate Background"
+            className="w-full h-full object-cover object-center"
+          />
+          {/* 60% Dark Overlay for typographic focus */}
+          <div className="absolute inset-0 bg-black/60 z-[1]" />
+          {/* Subtle gradient edges to blend with content/footer */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 z-[2]" />
+        </div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto px-6">
+          <h2 className="text-4xl md:text-8xl font-serif font-bold mb-16 italic text-[#D4AF37] tracking-tight [text-shadow:0_4px_40px_rgba(0,0,0,0.95)]">
             Return to the Heart of the Forest.
           </h2>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">

@@ -17,6 +17,9 @@ export const ContactPage: React.FC = () => {
 
   const message = "Hi Kuzuri Escapades! I'm interested in booking a tour.";
   const encodedMessage = encodeURIComponent(message);
+  
+  // Strict raw mailto string as per Manual Override.
+  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
 
   return (
     <div className="bg-[#F5F5DC] min-h-screen selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
@@ -114,10 +117,11 @@ export const ContactPage: React.FC = () => {
                 <Mail size={18} /> Official Email
               </h3>
               <a 
-                href="mailto:info@kuzuri-escapades.com"
-                className="text-xl font-bold tracking-widest text-[#D4AF37] hover:underline underline-offset-8 transition-all"
+                href={mailtoLink}
+                target="_self"
+                className="text-xl font-bold tracking-widest text-[#D4AF37] hover:underline underline-offset-8 transition-all no-underline cursor-pointer"
               >
-                info@kuzuri-escapades.com
+                hello@kuzuri-escapedes.com
               </a>
               <p className="text-xs text-[#1A1A1A] opacity-60 italic">We aim to respond to all visions within 24 hours.</p>
             </div>
@@ -151,7 +155,7 @@ export const ContactPage: React.FC = () => {
                   <input 
                     type="text"
                     required
-                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30"
+                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30 font-bold"
                     placeholder="e.g. Julianne Moore"
                   />
                 </div>
@@ -161,7 +165,7 @@ export const ContactPage: React.FC = () => {
                   <input 
                     type="email"
                     required
-                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30"
+                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30 font-bold"
                     placeholder="email@example.com"
                   />
                 </div>
@@ -171,7 +175,7 @@ export const ContactPage: React.FC = () => {
                   <textarea 
                     rows={6}
                     required
-                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all resize-none placeholder:opacity-30"
+                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all resize-none placeholder:opacity-30 font-medium"
                     placeholder="Share the rhythm of your desired journey..."
                   />
                 </div>

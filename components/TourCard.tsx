@@ -15,6 +15,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
       aria-labelledby={`tour-title-${tour.id}`}
     >
       <div className="aspect-[16/10] overflow-hidden relative border-b border-[#1A1A1A]/10 bg-stone-100 shrink-0">
+        <div className="signature-overlay">{tour.category}</div>
         <img 
           src={tour.imageUrls[0]} 
           alt={tour.name}

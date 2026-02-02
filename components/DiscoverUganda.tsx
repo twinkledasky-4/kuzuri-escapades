@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 interface SubHighlight {
@@ -60,20 +59,21 @@ export const DiscoverUganda: React.FC<DiscoverUgandaProps> = ({ features, onExpl
 
             return (
               <div key={feature.id} className="reveal-trigger group flex flex-col h-full">
-                <div className="relative aspect-[16/10] overflow-hidden border border-[#1A1A1A]/10 shadow-xl bg-[#F9F9F9] mb-8">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[15px] border border-[#1A1A1A]/10 shadow-xl bg-[#F9F9F9] mb-8">
+                  <div className="signature-overlay">{feature.title}</div>
                   <img 
                     src={feature.imageUrl} 
                     alt={feature.title} 
-                    className="w-full h-full object-cover opacity-100 transition-transform duration-[10s] group-hover:scale-105"
+                    className="w-full h-full object-cover opacity-100 transition-transform duration-[10s] group-hover:scale-105 rounded-[15px]"
                     loading="lazy"
                   />
-                  <div className="absolute top-0 left-0 bg-[#1A1A1A] px-6 py-3">
+                  <div className="absolute top-0 left-0 bg-[#1A1A1A] px-6 py-3 rounded-br-[15px]">
                     <span className="text-white text-xs font-black tracking-widest">0{idx + 1}</span>
                   </div>
                 </div>
 
                 <div 
-                  className={`relative flex flex-col flex-grow justify-between cursor-pointer border border-[#1A1A1A]/5 shadow-sm bg-[#FAF8F3] transition-all duration-700 p-8 ${isExpanded ? 'ring-2 ring-[#D4AF37]/30' : ''}`}
+                  className={`relative flex flex-col flex-grow justify-between cursor-pointer border border-[#1A1A1A]/5 shadow-sm bg-[#FAF8F3] transition-all duration-700 p-8 rounded-[15px] ${isExpanded ? 'ring-2 ring-[#D4AF37]/30' : ''}`}
                   onClick={() => handleToggleDetail(feature.id)}
                 >
                   <div key={isExpanded ? 'detail' : 'summary'} className="animate-fade-in space-y-6 flex-grow">

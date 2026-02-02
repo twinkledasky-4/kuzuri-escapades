@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { SERVICES } from '../constants.tsx';
 import { Compass, Car, Binoculars, ShieldCheck } from 'lucide-react';
@@ -19,11 +18,25 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
   };
 
   return (
-    <section id="services-section" className="pt-0 pb-12 md:pb-16 bg-[#1A1412] px-6 scroll-mt-[120px] border-y border-white/5 m-0 block">
-      <div className="container mx-auto max-w-[1700px]">
+    <section id="services-section" className="relative pt-0 pb-12 md:pb-16 bg-[#1A1412] px-6 scroll-mt-[120px] border-y border-white/5 m-0 block overflow-hidden">
+      {/* CLEAN BACKGROUND INTEGRATION: MINIMALIST BLURRED ZEBRAS */}
+      <div 
+        className="absolute inset-0 z-0 bg-no-repeat"
+        style={{ 
+          backgroundImage: "url('https://i.postimg.cc/MKKwZ78b/group_zebras_africa.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center'
+        }}
+      >
+        {/* CLEANLINESS SETTINGS: 20px Backdrop Blur & 75% Black Overlay for 'Texture' feel */}
+        <div className="absolute inset-0 bg-black/75 backdrop-blur-[20px] z-[1]" />
+      </div>
+
+      <div className="container mx-auto max-w-[1700px] relative z-10">
         {/* Section Header - Updated to Left Alignment */}
         <div className="mb-20 text-left reveal-trigger pt-16 md:pt-24">
           <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-bold mb-8">THE CONCIERGE EXPERIENCE</p>
+          {/* SHARP GOLD HEADER - NO HEAVY SHADOWS FOR MAXIMUM CONTRAST */}
           <h2 className="text-5xl md:text-8xl font-serif font-bold text-[#D4AF37] mb-8 tracking-tighter">Invisible Care.</h2>
           <p className="text-white text-xl font-light italic opacity-100 max-w-2xl">
             Luxury is found in the things you don't have to notice.
@@ -33,7 +46,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
         {/* 4-Column Grid for Desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
           {SERVICES.map((svc) => (
-            <div key={svc.id} className="reveal-trigger group flex flex-col h-full bg-[#1F1917] p-10 border border-white/5 hover:border-[#D4AF37]/30 transition-all duration-700 shadow-2xl relative overflow-hidden text-left">
+            <div key={svc.id} className="reveal-trigger group flex flex-col h-full bg-[#1F1917]/80 backdrop-blur-sm p-10 border border-white/5 hover:border-[#D4AF37]/30 transition-all duration-700 shadow-2xl relative overflow-hidden text-left">
               {/* Background Accent */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/5 -mr-12 -mt-12 rounded-full blur-2xl group-hover:bg-[#D4AF37]/10 transition-colors" />
 
@@ -68,7 +81,7 @@ export const Services: React.FC<ServicesProps> = ({ onEnquireService }) => {
               <div className="flex items-center justify-between border-t border-white/10 pt-6 mt-auto">
                 <button 
                   onClick={() => onEnquireService?.(svc.name)}
-                  className="text-[10px] uppercase tracking-[0.6em] font-black border-b-2 border-[#D4AF37] pb-1 text-white hover:text-[#D4AF37] transition-all opacity-100"
+                  className="text-[10px] uppercase tracking-[0.6em] font-black border-b-2 border-[#D4AF37] pb-1 text-white hover:text-[#D4AF37] transition-all duration-700 opacity-100"
                 >
                   Inquire
                 </button>

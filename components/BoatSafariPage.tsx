@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Clock, Check, Calendar, Info, Users, Euro, Minus, Waves, Anchor, Ship, Bird, Fish, Mountain, Camera } from 'lucide-react';
 
@@ -22,7 +21,8 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
       title: "LAKE VICTORIA",
       subtitle: "THE GREAT INLAND SEA",
       detail: "Sailing smoothly across this natural gem, you can visit islands like Ngamba Island and its world-renowned chimpanzee sanctuary, or the Ssese Islands—a prime spot for birdwatchers. Our signature romantic sunset cruises offer a moment of pure serenity as the sun dips below the horizon of the Victoria.",
-      image: "https://images.unsplash.com/photo-1590603740183-980e7f6920eb?auto=format&fit=crop&q=80&w=1200",
+      image: "https://i.postimg.cc/BnbDJsdd/indonesian-sunset-gili-trawangan.jpg",
+      overlay: "THE GREAT INLAND SEA",
       icon: <Waves size={24} />
     },
     {
@@ -30,7 +30,8 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
       title: "MURCHISON FALLS",
       subtitle: "THUNDERING NILE EXPEDITIONS",
       detail: "Experience the ultimate safari with an experienced marine guide. For the thrill-seekers, the journey to the base of the falls reveals the raw power of the Nile. Continue cruising to the Victoria Nile Delta, where elephants, hippos, and crocodiles await in the thundering heart of the wild.",
-      image: "https://i.postimg.cc/HkZK72Sk/frames-for-your-heart-yb-Ea-Jqf-RUHs-unsplash.jpg",
+      image: "https://i.postimg.cc/DZWv9h7k/local-female-visitor-enjoying-bungee-jump-at-the-Nile-in-Jinja-Uganda-photo-by-Visit-Jinja-City-750x.jpg",
+      overlay: "THE MIGHTY NILE",
       icon: <Anchor size={24} />
     },
     {
@@ -38,7 +39,8 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
       title: "LAKE MUTANDA",
       subtitle: "VOLCANIC SERENITY",
       detail: "One of the most beautiful lakes in the country, where the famous Virunga volcanoes rise from the mist. Here, you can enjoy a unique cultural experience fishing with locals in waters completely free of hippos and crocodiles—offering a rare, tranquil connection to the land.",
-      image: "https://images.unsplash.com/photo-1481142889578-df45d4f9080e?auto=format&fit=crop&q=80&w=1200",
+      image: "https://i.postimg.cc/wBXcDCCq/motorboat_sea_with_green_landscape_coast.jpg",
+      overlay: "VOLCANIC SERENITY",
       icon: <Mountain size={24} />
     },
     {
@@ -46,7 +48,8 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
       title: "LAKE BUNYONYI",
       subtitle: "LEGENDS OF THE 29 ISLANDS",
       detail: "Discover Ugandan culture across twenty-nine islands scattered across the lake. While this boat safari focuses on scenery and birds, your guide will share local legends and cultural stories known only to the locals of this mist-covered sanctuary.",
-      image: "https://images.unsplash.com/photo-1502219684198-f9188219994d?auto=format&fit=crop&q=80&w=1200",
+      image: "https://i.postimg.cc/DZw3MjWY/river-calm-scenery.jpg",
+      overlay: "29 ISLANDS",
       icon: <Bird size={24} />
     },
     {
@@ -54,7 +57,8 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
       title: "KAZINGA CHANNEL",
       subtitle: "THE HIGHWAY OF GIANTS",
       detail: "Home to the largest population of hippos in Africa. Keep your eyes peeled for the various mammals, birds, crocodiles, and enormous 'Giant Monitor Lizards'—some so large they can even be mistaken for baby crocodiles as they line the banks to hunt.",
-      image: "https://i.postimg.cc/8k9K1thN/crossroad-car-safari-scene-(1).jpg",
+      image: "https://i.postimg.cc/Sxm49xyv/fisherman-with-net-river.jpg",
+      overlay: "HIGHWAY OF GIANTS",
       icon: <Ship size={24} />
     },
     {
@@ -63,6 +67,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
       subtitle: "BIODIVERSITY OF THE BLUE MOSAIC",
       detail: "In western Uganda lies its smallest lake, yet it boasts an incredibly rich biodiversity. Beyond the usual aquatic animals, numerous birds can be spotted, including the endemic African finch and rare otters playing along the shoreline.",
       image: "https://i.postimg.cc/7Y6XWLt6/lake-mburo-national-park-700x450.jpg",
+      overlay: "BLUE MOSAIC",
       icon: <Fish size={24} />
     }
   ];
@@ -124,6 +129,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
           alt="High-resolution Ugandan waterway sunset"
           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[15s] ease-out opacity-100 ${isRevealed ? 'scale-110' : 'scale-100'}`}
         />
+        <div className="signature-overlay">THE SOURCE</div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
 
         <div className={`relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24 transition-all duration-1000 ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -166,6 +172,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
                   alt={region.title} 
                   className="w-full h-full object-cover opacity-100 transition-transform duration-[10s] hover:scale-105"
                 />
+                <div className="signature-overlay">{region.overlay}</div>
                 <div className="absolute top-10 left-10 bg-white p-6 shadow-2xl border border-black/5 z-20">
                   <div className="text-[#D4AF37]">{region.icon}</div>
                 </div>
@@ -378,14 +385,27 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
         </div>
       </div>
 
-      <section className="py-24 md:py-48 bg-[#1A1A1A] text-center text-white border-t-2 border-[#D4AF37]">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl md:text-7xl font-serif font-bold mb-16 italic text-[#D4AF37]">
+      <section className="relative py-32 md:py-64 text-center text-white border-t-2 border-[#D4AF37] overflow-hidden bg-black">
+        {/* Immersive High-Res Background */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://i.postimg.cc/qvcqHx8d/c6b8b1e4_65a4_4e49_92bd_f4ed040c7b13.jpg" 
+            alt="Majestic Aquatic Life Background"
+            className="w-full h-full object-cover object-center"
+          />
+          {/* 60% Dark Overlay for typographic focus */}
+          <div className="absolute inset-0 bg-black/60 z-[1]" />
+          {/* Subtle gradient edges to blend with content/footer */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 z-[2]" />
+        </div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto px-6">
+          <h2 className="text-4xl md:text-8xl font-serif font-bold mb-16 italic text-[#D4AF37] tracking-tight [text-shadow:0_4px_40px_rgba(0,0,0,0.95)]">
             Return to the Serenity of the Source.
           </h2>
           <button 
             onClick={onBook}
-            className="px-16 py-7 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[1em] font-black hover:bg-white transition-all duration-500 shadow-2xl"
+            className="px-20 py-8 bg-[#D4AF37] text-[#1A1A1A] text-[12px] uppercase tracking-[1em] font-black hover:bg-white transition-all duration-500 shadow-[0_20px_60px_rgba(0,0,0,0.7)] border-none transform hover:scale-105 active:scale-95"
           >
             START CO-AUTHORING
           </button>

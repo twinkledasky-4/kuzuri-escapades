@@ -45,6 +45,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
   };
 
   const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
+  
+  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
 
   return (
     <>
@@ -57,17 +59,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
       >
         <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto">
           
-          {/* UPDATED: Ensuring the Logo explicitly links to HOME as requested */}
+          {/* Logo return home */}
           <div 
             onClick={(e) => handleNavClick(e, AppSection.HOME)}
             className="cursor-pointer group shrink-0"
             aria-label="Return to Home"
           >
-            <div className="relative w-[75px] md:w-[95px] aspect-square transition-all duration-700 group-hover:scale-105 rounded-full overflow-hidden border-2 border-white/20 shadow-2xl bg-white">
+            <div className="relative w-[75px] md:w-[95px] aspect-square transition-all duration-700 group-hover:scale-105 rounded-[15px] overflow-hidden border-2 border-white/20 shadow-2xl bg-white">
                <img 
                 src={logoUrl} 
                 alt="Kuzuri Escapades Official Logo" 
-                className="w-full h-full object-cover transition-all duration-500"
+                className="w-full h-full object-cover transition-all duration-500 rounded-[15px]"
                 style={{ 
                   filter: isScrolled 
                     ? 'contrast(1.1)' 
@@ -108,14 +110,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 </a>
               </div>
 
-              <button 
-                onClick={onEnquire}
-                className={`hidden md:block px-8 py-2.5 text-[10px] uppercase tracking-[5px] font-black transition-all duration-700 shadow-2xl active:scale-95 border-none whitespace-nowrap ${
+              <a 
+                href={mailtoLink} 
+                target="_self"
+                className={`hidden md:block px-8 py-2.5 text-[10px] text-center uppercase tracking-[5px] font-black transition-all duration-700 shadow-2xl active:scale-95 border-none whitespace-nowrap no-underline cursor-pointer ${
                   isScrolled ? 'bg-[#1A1A1A] text-white hover:bg-[#8B5A2B]' : 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-white'
                 }`}
               >
                 Inquire
-              </button>
+              </a>
             </div>
           </div>
         </div>

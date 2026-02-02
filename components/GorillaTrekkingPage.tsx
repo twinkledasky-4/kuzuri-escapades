@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Clock, Check, Calendar, Info, Users, Euro, Minus } from 'lucide-react';
 
@@ -65,7 +64,7 @@ export const GorillaTrekkingPage: React.FC<GorillaTrekkingPageProps> = ({ onBack
       <div className="fixed top-24 left-6 md:left-12 z-50">
         <button 
           onClick={onBack}
-          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-[#1A1A1A] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl active:scale-95"
+          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-black text-white bg-black hover:bg-[#D4AF37] hover:text-black transition-all duration-500 border border-white/10 px-8 py-4 shadow-2xl active:scale-95"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" />
@@ -74,14 +73,19 @@ export const GorillaTrekkingPage: React.FC<GorillaTrekkingPageProps> = ({ onBack
         </button>
       </div>
 
-      {/* Hero Header */}
-      <section className="relative h-[85vh] md:h-[90vh] overflow-hidden flex items-end bg-[#1A1A1A] border-b-2 border-[#1A1A1A]">
+      {/* Hero Header - TARGET CONTAINER: 'Discovering Gorillas in Uganda' */}
+      <section className="relative h-[85vh] md:h-[90vh] overflow-hidden flex items-end bg-black border-b-2 border-black">
+        <div className="signature-overlay">BWINDI IMPENETRABLE</div>
+        
+        {/* UI DESIGN ENHANCEMENT: HIGH-RESOLUTION BACKGROUND LAYER */}
         <img
-          src="https://images.unsplash.com/photo-1518063311540-0640001280cc?auto=format&fit=crop&q=80&w=1600"
-          alt="Silverback mountain gorilla in Bwindi Impenetrable Forest"
-          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[15s] ease-out opacity-100 ${isRevealed ? 'scale-110' : 'scale-100'}`}
+          src="https://i.postimg.cc/qvcqHx8d/c6b8b1e4_65a4_4e49_92bd_f4ed040c7b13.jpg"
+          alt="Majestic Mountain Gorilla in Bwindi Forest"
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[15s] ease-out opacity-100 ${isRevealed ? 'scale-110' : 'scale-100'}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
+        
+        {/* LEGIBILITY SHIELD: 60% Dark Linear Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80 z-10" />
 
         <div className={`relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24 transition-all duration-1000 ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-6">EXCLUSIVE EXPERIENCE</p>
@@ -320,14 +324,27 @@ export const GorillaTrekkingPage: React.FC<GorillaTrekkingPageProps> = ({ onBack
         </div>
       </div>
 
-      <section className="py-24 md:py-48 bg-[#1A1A1A] text-center text-white border-t-2 border-[#D4AF37]">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl md:text-7xl font-serif font-bold mb-16 italic text-[#D4AF37]">
+      <section className="relative py-32 md:py-64 text-center text-white border-t-2 border-[#D4AF37] overflow-hidden bg-black">
+        {/* Immersive High-Res Background */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://i.postimg.cc/qvcqHx8d/c6b8b1e4_65a4_4e49_92bd_f4ed040c7b13.jpg" 
+            alt="Majestic Silverback Background"
+            className="w-full h-full object-cover object-center"
+          />
+          {/* 60% Dark Overlay for typographic focus */}
+          <div className="absolute inset-0 bg-black/60 z-[1]" />
+          {/* Subtle gradient edges to blend with content/footer */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 z-[2]" />
+        </div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto px-6">
+          <h2 className="text-4xl md:text-8xl font-serif font-bold mb-16 italic text-[#D4AF37] tracking-tight [text-shadow:0_4px_40px_rgba(0,0,0,0.95)]">
             Return to the Silence of the Forest.
           </h2>
           <button 
             onClick={onBook}
-            className="px-16 py-7 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[1em] font-black hover:bg-white transition-all duration-500 shadow-2xl"
+            className="px-20 py-8 bg-[#D4AF37] text-[#1A1A1A] text-[12px] uppercase tracking-[1em] font-black hover:bg-white transition-all duration-500 shadow-[0_20px_60px_rgba(0,0,0,0.7)] border-none transform hover:scale-105 active:scale-95"
           >
             START CO-AUTHORING
           </button>

@@ -26,13 +26,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ content }) => {
                 {content.legacyLabel}
               </p>
               
-              {/* Heading: perfectly centered, boutique scale (reduced from massive) */}
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-[#D4AF37] leading-[1.1] tracking-tight mb-8 text-center max-w-4xl">
                 {content.headingMain} <br />
                 <span className="italic font-light block mt-3 text-white opacity-90">{content.headingSub}</span>
               </h2>
               
-              {/* Centered Signature Story with editorial spacing */}
               <p className="text-[#FFFFFF] text-base md:text-lg font-normal leading-[1.8] tracking-wide opacity-95 font-sans max-w-3xl mx-auto mb-12">
                 {content.signatureStory}
               </p>
@@ -44,17 +42,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ content }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start w-full mt-12">
             {/* Visual Column: Container Width set to 100% with cinematic 3:2 aspect ratio */}
             <div className="reveal-trigger relative group w-full">
-              <div className="relative w-full aspect-[3/2] min-h-[450px] overflow-hidden border-2 border-[#D4AF37]/30 shadow-3xl bg-[#1A1412]">
+              <div className="relative w-full aspect-[3/2] min-h-[450px] overflow-hidden rounded-[15px] border-2 border-[#D4AF37]/30 shadow-3xl bg-[#1A1412]">
+                <div className="signature-overlay">NATIVE STEWARDSHIP</div>
                 <img 
                   src="https://i.postimg.cc/y8yW9yQ5/a66809a6-28e3-4e2f-9391-0f6cc547e9cb.jpg" 
                   alt="Authentic Ugandan discovery - Native perspective" 
-                  className="w-full h-full min-h-[450px] object-cover object-top transition-transform duration-[10s] group-hover:scale-105 opacity-90"
+                  className="w-full h-full min-h-[450px] object-cover object-top transition-transform duration-[10s] group-hover:scale-105 opacity-90 rounded-[15px]"
                 />
-                {/* Visual anchor gradient for text contrast within the frame */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1412] via-transparent to-transparent opacity-40 pointer-events-none" />
               </div>
               
-              <div className="absolute -bottom-6 -right-6 bg-[#D4AF37] p-8 hidden xl:block shadow-2xl">
+              <div className="absolute -bottom-6 -right-6 bg-[#D4AF37] p-8 hidden xl:block shadow-2xl rounded-[15px]">
                 <p className="text-[#1A1212] text-[9px] uppercase tracking-[0.4em] font-black mb-1">ESTABLISHED</p>
                 <p className="text-[#1A1212] font-serif text-2xl font-bold">2018</p>
               </div>
@@ -76,7 +74,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ content }) => {
                 </p>
               </div>
 
-              {/* High-Impact Stat Grid */}
               <div className="pt-10 grid grid-cols-1 sm:grid-cols-3 gap-10 border-t border-white/10">
                 {content.stats.map((stat, i) => (
                   <div key={i} className="flex flex-col">
