@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Clock, Check, Calendar, Info, Users, Euro, Minus, Trees, Zap, Binoculars, Mountain, Camera, Waves, Brain, Sparkles, ShieldAlert, Backpack, Heart, Anchor } from 'lucide-react';
+import { intelligenceService } from '../services/analyticsService.ts';
 
 interface ChimpanzeeObservationPageProps {
   onBack: () => void;
-  onBook: () => void;
+  onBook: (context?: string) => void;
 }
 
 export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps> = ({ onBack, onBook }) => {
@@ -15,6 +16,11 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
     const timer = setTimeout(() => setIsRevealed(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleNgambaTrack = () => {
+    intelligenceService.trackInteraction('ngamba-island');
+    onBook('Ngamba Island Sanctuary');
+  };
 
   const regions = [
     {
@@ -163,7 +169,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                   {region.detail}
                 </p>
                 <button 
-                  onClick={onBook}
+                  onClick={() => onBook(region.title)}
                   className="inline-flex items-center gap-6 text-[10px] font-sans font-black uppercase tracking-[0.6em] text-[#1A1A1A] border-b-2 border-[#D4AF37] pb-2 hover:text-[#8B5A2B] transition-colors w-fit"
                 >
                   INQUIRE ABOUT {region.title}
@@ -178,13 +184,11 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
       <section className="relative min-h-[90vh] flex items-center bg-[#1A1A1A] overflow-hidden">
         <div className="absolute inset-0">
           <div className="signature-overlay">NGAMBA SANCTUARY</div>
-          {/* BACKGROUND: High-res full-bleed background for spotlight impact */}
           <img 
             src="https://i.postimg.cc/qvMp6vwr/beautiful-nice-chimpanzee-nature-looking-habitatpan-troglodytes-wild-animal-bars.jpg" 
             alt="Intimate Close-up of a Chimpanzee - Ngamba Sanctuary Spotlight"
             className="w-full h-full object-cover object-center opacity-100 transition-transform duration-[15s] hover:scale-105"
           />
-          {/* LEGIBILITY SHIELD: Pure 55% Dark Radial Gradient Overlay centered on text */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.85)_100%)] z-[2]" />
           <div className="absolute inset-0 bg-black/40 z-[1]" />
         </div>
@@ -198,12 +202,10 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
               <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black">SANCTUARY SPOTLIGHT</p>
             </div>
             
-            {/* TEXT PROTECTION: White Headline and Gold Sub-headline strictly maintained */}
             <h2 className="text-5xl md:text-8xl font-serif font-bold text-white leading-tight uppercase tracking-tighter mb-12">
               NGAMBA <br/><span className="italic font-light text-[#D4AF37]">ISLAND.</span>
             </h2>
             
-            {/* BODY TEXT LEGIBILITY: Pure white text positioned over darkened layer for 100% legibility */}
             <div className="space-y-8 text-xl font-serif leading-relaxed text-white italic mb-12">
               <p className="drop-shadow-sm">
                 A sanctuary for orphaned and rescued chimpanzees located on Lake Victoria. Ngamba Island offers a rare, intimate look at the conservation efforts dedicated to protecting these intelligent primates.
@@ -213,7 +215,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 pt-10 border-t border-white/20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 py-10 border-y border-white/20">
               <div className="flex items-start gap-4">
                  <Anchor size={20} className="text-[#D4AF37] mt-1" />
                  <div>
@@ -228,6 +230,15 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                     <p className="text-white/80 text-sm leading-relaxed">Sustainable tourism directly funding rescue and education.</p>
                  </div>
               </div>
+            </div>
+
+            <div className="mt-12">
+               <button 
+                 onClick={handleNgambaTrack}
+                 className="px-12 py-6 bg-[#D4AF37] text-[#1A1A1A] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-white transition-all duration-700 shadow-2xl"
+               >
+                 START NGAMBA CONSULTATION
+               </button>
             </div>
           </div>
         </div>
@@ -328,9 +339,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
               </div>
             </div>
             
-            {/* UI COMPONENT: IMAGE CARD & SYNCHRONIZED CAPTION */}
             <div className="lg:col-span-6 reveal-trigger flex flex-col items-center">
-               {/* 10px Rounded Corners + 2px Gold Right Border + 1.05x Hover Zoom Effect */}
                <div className="w-full aspect-[4/5] border-r-2 border-[#D4AF37] overflow-hidden rounded-[10px] shadow-2xl relative group bg-[#1A1A1A]">
                  <div className="signature-overlay">REFLECTIVE INTELLIGENCE</div>
                  <img 
@@ -340,7 +349,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                  />
                </div>
                
-               {/* TEXT SYNCHRONIZATION: Aligned to bottom of card flow, NO overlap with photo, text updated per brief */}
                <div className="w-full bg-white p-10 md:p-12 shadow-3xl text-[#1A1A1A] border border-black/5 rounded-[10px] mt-12 relative z-10">
                   <p className="text-[10px] uppercase tracking-[0.5em] font-black mb-4 text-[#8B5A2B]">MOMENT OF CONNECTION</p>
                   <p className="text-2xl font-serif italic leading-tight text-[#1A1A1A]">
@@ -353,9 +361,8 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
         </div>
       </section>
 
-      {/* UI DESIGN ENHANCEMENT: EXPEDITION INTEL BACKGROUND */}
+      {/* Expedition Intel Section */}
       <section className="relative py-24 md:py-40 bg-[#1A1A1A] overflow-hidden">
-        {/* ENHANCED BACKGROUND LAYER: MINIMALIST ZEBRAS IMAGE */}
         <div 
           className="absolute inset-0 z-0 bg-no-repeat"
           style={{ 
@@ -364,7 +371,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
             backgroundPosition: 'center center'
           }}
         >
-          {/* CLEANLINESS SETTINGS: 20px Backdrop Blur & 75% Black Overlay for 'Texture' feel */}
           <div className="absolute inset-0 bg-black/75 backdrop-blur-[20px] z-[1]" />
         </div>
 
@@ -372,7 +378,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
             <div className="lg:col-span-6 reveal-trigger flex flex-col justify-center">
               <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-8">EXPEDITION INTEL</p>
-              {/* SHARP GOLD HEADER - NO HEAVY SHADOWS FOR MAXIMUM CONTRAST */}
               <h2 className="text-4xl md:text-7xl font-serif font-bold text-white leading-none uppercase tracking-tighter mb-12">
                 THE BEST TIME <br/><span className="italic font-light text-[#D4AF37]">IS ALL THE TIME.</span>
               </h2>
@@ -388,7 +393,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
             </div>
             
             <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Gear Card - Rounded 10px, 100% Opaque White (Brightest element) */}
               <div className="bg-white p-10 border-2 border-[#D4AF37] shadow-3xl text-[#1A1A1A] space-y-8 flex flex-col justify-between reveal-trigger rounded-[10px] transform hover:scale-[1.02] transition-transform opacity-100 relative z-[20]">
                 <div className="space-y-6">
                   <div className="flex items-center gap-4 text-[#D4AF37]">
@@ -405,7 +409,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
                 </div>
               </div>
 
-              {/* Protocol Card - Rounded 10px, 100% Opaque White (Brightest element) */}
               <div className="bg-white p-10 border-2 border-[#D4AF37] shadow-3xl text-[#1A1A1A] space-y-8 flex flex-col justify-between reveal-trigger rounded-[10px] transform hover:scale-[1.02] transition-transform opacity-100 relative z-[20]">
                 <div className="space-y-6">
                   <div className="flex items-center gap-4 text-[#1A1A1A]">
@@ -434,7 +437,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
           
           <div className="lg:col-span-8 space-y-24">
-            {/* Investment Matrix */}
             <div className="reveal-trigger">
                <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#1A1A1A] uppercase tracking-tight mb-12 flex items-center gap-6">
                 <span className="w-16 h-[2px] bg-[#D4AF37]" />
@@ -501,7 +503,6 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
               </div>
             </div>
 
-            {/* Logistics Grid */}
             <div className="reveal-trigger">
                <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#1A1A1A] uppercase tracking-tight mb-12 flex items-center gap-6">
                 <span className="w-16 h-[2px] bg-[#D4AF37]" />
@@ -571,7 +572,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
 
               <div className="pt-8 border-t border-black/5">
                 <button 
-                  onClick={onBook}
+                  onClick={() => onBook('Signature Primate Journey')}
                   className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
                 >
                   REQUEST THE EXPERIENCE
@@ -583,16 +584,13 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
       </div>
 
       <section className="relative py-32 md:py-64 text-center text-white border-t-2 border-[#D4AF37] overflow-hidden bg-black">
-        {/* Immersive High-Res Background */}
         <div className="absolute inset-0 z-0">
           <img 
             src="https://i.postimg.cc/qvcqHx8d/c6b8b1e4_65a4_4e49_92bd_f4ed040c7b13.jpg" 
             alt="Majestic Primate Background"
             className="w-full h-full object-cover object-center"
           />
-          {/* 60% Dark Overlay for typographic focus */}
           <div className="absolute inset-0 bg-black/60 z-[1]" />
-          {/* Subtle gradient edges to blend with content/footer */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 z-[2]" />
         </div>
         
@@ -608,7 +606,7 @@ export const ChimpanzeeObservationPage: React.FC<ChimpanzeeObservationPageProps>
               BACK TO COLLECTION
             </button>
             <button 
-              onClick={onBook}
+              onClick={() => onBook('Chimpanzee Observation Trek')}
               className="w-full md:w-auto px-12 py-7 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[1em] font-black hover:bg-white transition-all duration-500 shadow-2xl"
             >
               BOOK A CHIMPANZEE TREK

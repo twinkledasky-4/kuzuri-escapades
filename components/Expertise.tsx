@@ -2,13 +2,10 @@ import React from 'react';
 import { ShieldCheck } from 'lucide-react';
 
 interface ExpertiseProps {
-  onEnquire?: () => void;
+  onEnquire?: (context?: string) => void;
 }
 
 export const Expertise: React.FC<ExpertiseProps> = ({ onEnquire }) => {
-  // Protocol: Strict raw mailto link as per manual override instructions.
-  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
-
   return (
     <section className="py-16 md:py-24 bg-[#F5F5DC] px-6 overflow-hidden">
       <div className="container mx-auto max-w-[1700px]">
@@ -99,17 +96,16 @@ export const Expertise: React.FC<ExpertiseProps> = ({ onEnquire }) => {
                   Whether you are a photography enthusiast, a trekking fan, or a nature lover, we design journeys for everyone.
                 </p>
                 
-                <a 
-                  href={mailtoLink}
-                  target="_self"
+                <button 
+                  onClick={() => onEnquire?.('Philosophy Consultation')}
                   className="group relative inline-flex items-center gap-6 px-12 py-6 border-2 border-[#D4AF37] bg-transparent text-[11px] font-sans font-black uppercase tracking-[0.8em] text-[#D4AF37] transition-all duration-500 hover:bg-[#D4AF37] hover:text-[#1A1A12] focus:outline-none no-underline shadow-2xl cursor-pointer"
-                  aria-label="Begin Consultation via Email"
+                  aria-label="Begin Consultation via CRM Gateway"
                 >
                   <span>Begin the Consultation</span>
                   <div className="w-8 h-8 border border-[#D4AF37] flex items-center justify-center group-hover:border-[#1A1A12] transition-all duration-500 text-xl font-light leading-none pt-1">
                     &gt;
                   </div>
-                </a>
+                </button>
               </div>
             </div>
           </div>

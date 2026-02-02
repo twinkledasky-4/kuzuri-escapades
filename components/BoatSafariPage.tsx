@@ -3,7 +3,7 @@ import { Clock, Check, Calendar, Info, Users, Euro, Minus, Waves, Anchor, Ship, 
 
 interface BoatSafariPageProps {
   onBack: () => void;
-  onBook: () => void;
+  onBook: (context?: string) => void;
 }
 
 export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }) => {
@@ -189,7 +189,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
                   {region.detail}
                 </p>
                 <button 
-                  onClick={onBook}
+                  onClick={() => onBook(region.title)}
                   className="inline-flex items-center gap-6 text-[10px] font-sans font-black uppercase tracking-[0.6em] text-[#1A1A1A] border-b-2 border-[#D4AF37] pb-2 hover:text-[#8B5A2B] transition-colors w-fit"
                 >
                   INQUIRE ABOUT {region.title}
@@ -374,7 +374,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
 
               <div className="pt-8 border-t border-black/5">
                 <button 
-                  onClick={onBook}
+                  onClick={() => onBook('Signature Boat Safari')}
                   className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
                 >
                   REQUEST THE EXPERIENCE
@@ -404,7 +404,7 @@ export const BoatSafariPage: React.FC<BoatSafariPageProps> = ({ onBack, onBook }
             Return to the Serenity of the Source.
           </h2>
           <button 
-            onClick={onBook}
+            onClick={() => onBook('River Nile Boat Safari')}
             className="px-20 py-8 bg-[#D4AF37] text-[#1A1A1A] text-[12px] uppercase tracking-[1em] font-black hover:bg-white transition-all duration-500 shadow-[0_20px_60px_rgba(0,0,0,0.7)] border-none transform hover:scale-105 active:scale-95"
           >
             START CO-AUTHORING

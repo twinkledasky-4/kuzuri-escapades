@@ -26,6 +26,9 @@ import { PromoPopup } from './components/PromoPopup.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
 import { BoatSafariPage } from './components/BoatSafariPage.tsx';
 import { ChimpanzeeObservationPage } from './components/ChimpanzeeObservationPage.tsx';
+import { AdminPanel } from './components/AdminPanel.tsx';
+import { AdminLogin } from './components/AdminLogin.tsx';
+import { intelligenceService } from './services/analyticsService.ts';
 import { DESTINATIONS, TOURS, LODGES, DISCOVER_FEATURES, ABOUT_CONTENT, REVIEWS } from './constants.tsx';
 
 const App: React.FC = () => {
@@ -37,14 +40,16 @@ const App: React.FC = () => {
   const [showChimpanzeePage, setShowChimpanzeePage] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [isPromoOpen, setIsPromoOpen] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => localStorage.getItem('kuzuri_admin_auth') === 'true');
+  const [loginError, setLoginError] = useState('');
   const [inquiryPreFill, setInquiryPreFill] = useState('');
+  const [packageContext, setPackageContext] = useState('');
   const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
   
-  // Persistence: Fetch stored choice or look for existing Google Translate cookie
   const [currentLang, setCurrentLang] = useState(() => {
     const saved = localStorage.getItem('kuzuri_lang');
     if (saved) return saved;
-    // Check cookie for persistence if user reloads
     const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
     return match ? match[1].toUpperCase() : 'EN';
   });
@@ -54,26 +59,18 @@ const App: React.FC = () => {
     const expiry = new Date();
     expiry.setTime(expiry.getTime() + (365 * 24 * 60 * 60 * 1000));
     const expires = "expires=" + expiry.toUTCString();
-    
-    // Core cookie for Google Translate widget
     document.cookie = `googtrans=/en/${code}; path=/; ${expires}`;
-    document.cookie = `googtrans=/en/${code}; path=/; domain=.${window.location.hostname}; ${expires}`;
-    
-    if (window.location.hostname === 'localhost') {
-      document.cookie = `googtrans=/en/${code}; path=/; domain=localhost; ${expires}`;
-    }
   };
 
   useEffect(() => {
     const promoTimer = setTimeout(() => {
-      if (!isInquiryOpen) {
+      if (!isInquiryOpen && !showAdmin) {
         setIsPromoOpen(true);
       }
-    }, 3000);
+    }, 5000);
     return () => clearTimeout(promoTimer);
-  }, []);
+  }, [showAdmin]);
 
-  // Sync translation engine state on initial mount
   useEffect(() => {
     if (currentLang !== 'EN') {
       setTranslationCookie(currentLang);
@@ -93,32 +90,12 @@ const App: React.FC = () => {
     }
   }, [activeSection, pendingScrollId, selectedDestination, selectedTour, showGorillaPage, showBoatSafariPage, showChimpanzeePage]);
 
-  useEffect(() => {
-    const handleInitialHash = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        setPendingScrollId(hash);
-      }
-    };
-    handleInitialHash();
-  }, []);
-
   const handleLangChange = (langCode: string) => {
     if (langCode === currentLang) return;
-    
     setCurrentLang(langCode);
     localStorage.setItem('kuzuri_lang', langCode);
     setTranslationCookie(langCode);
-    
-    // Trigger Google Widget re-scan
-    const googleSelect = document.querySelector('select.goog-te-combo') as HTMLSelectElement;
-    if (googleSelect) {
-      googleSelect.value = langCode.toLowerCase();
-      googleSelect.dispatchEvent(new Event('change'));
-    } else {
-      // Hard refresh as fallback to ensure engine initializes with new cookie
-      window.location.reload();
-    }
+    window.location.reload();
   };
 
   const handleNavigate = (section: AppSection) => {
@@ -143,6 +120,7 @@ const App: React.FC = () => {
         setShowGorillaPage(false);
         setShowBoatSafariPage(false);
         setShowChimpanzeePage(false);
+        setShowAdmin(false);
       }
       return;
     }
@@ -152,15 +130,18 @@ const App: React.FC = () => {
     setShowGorillaPage(false);
     setShowBoatSafariPage(false);
     setShowChimpanzeePage(false);
+    setShowAdmin(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleRequestBooking = (tour: Tour) => {
     setInquiryPreFill(`I am interested in the ${tour.name} experience. Please share more details.`);
+    setPackageContext(tour.name);
     setIsInquiryOpen(true);
   };
 
   const handleExploreTour = (tour: Tour) => {
+    intelligenceService.trackInteraction(tour.id);
     if (tour.id === 'boat-safaris-uganda') {
       setShowBoatSafariPage(true);
       setSelectedTour(null);
@@ -178,6 +159,7 @@ const App: React.FC = () => {
   };
 
   const handleExploreGorillaTrek = () => {
+    intelligenceService.trackInteraction('gorilla-trekking');
     setShowGorillaPage(true);
     setShowBoatSafariPage(false);
     setShowChimpanzeePage(false);
@@ -187,6 +169,7 @@ const App: React.FC = () => {
   };
 
   const handleExploreBoatSafari = () => {
+    intelligenceService.trackInteraction('boat-safari');
     setShowBoatSafariPage(true);
     setShowGorillaPage(false);
     setShowChimpanzeePage(false);
@@ -196,6 +179,7 @@ const App: React.FC = () => {
   };
 
   const handleExploreChimpanzee = () => {
+    intelligenceService.trackInteraction('chimpanzee-trekking');
     setShowChimpanzeePage(true);
     setShowGorillaPage(false);
     setShowBoatSafariPage(false);
@@ -221,7 +205,24 @@ const App: React.FC = () => {
 
   const handlePromoEnquiry = () => {
     setInquiryPreFill("I am inquiring about the Jinja Buyala Bliss Staycation experience.");
+    setPackageContext("Jinja Staycation Offer");
     setIsInquiryOpen(true);
+  };
+
+  const handleAdminLogin = (password: string) => {
+    if (password === 'Kuzuri2025') {
+      setIsAuthenticated(true);
+      localStorage.setItem('kuzuri_admin_auth', 'true');
+      setLoginError('');
+    } else {
+      setLoginError('Invalid curator credentials.');
+    }
+  };
+
+  const handleAdminLogout = () => {
+    setIsAuthenticated(false);
+    setShowAdmin(false);
+    localStorage.removeItem('kuzuri_admin_auth');
   };
 
   useEffect(() => {
@@ -232,9 +233,27 @@ const App: React.FC = () => {
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, [selectedDestination, selectedTour, activeSection, showGorillaPage, showBoatSafariPage, showChimpanzeePage]);
+  }, [selectedDestination, selectedTour, activeSection, showGorillaPage, showBoatSafariPage, showChimpanzeePage, showAdmin, isAuthenticated]);
 
   const renderContent = () => {
+    if (showAdmin) {
+      if (!isAuthenticated) {
+        return (
+          <AdminLogin 
+            onLogin={handleAdminLogin} 
+            onCancel={() => setShowAdmin(false)} 
+            error={loginError} 
+          />
+        );
+      }
+      return (
+        <AdminPanel 
+          onExit={handleAdminLogout} 
+          reviews={REVIEWS} 
+          onUpdateReviews={(revs) => console.log('Reviews updated:', revs)} 
+        />
+      );
+    }
     if (selectedDestination) {
       return (
         <DestinationDetail 
@@ -257,8 +276,9 @@ const App: React.FC = () => {
       return (
         <GorillaTrekkingPage 
           onBack={() => handleCloseSubPage('discover-uganda')}
-          onBook={() => {
-            setInquiryPreFill("I am interested in the 5-Day Gorilla Trekking experience.");
+          onBook={(ctx) => {
+            setInquiryPreFill(`I am interested in the ${ctx || 'Gorilla Trekking'} experience.`);
+            setPackageContext(ctx || 'Gorilla Trekking');
             setIsInquiryOpen(true);
           }}
         />
@@ -268,8 +288,9 @@ const App: React.FC = () => {
       return (
         <BoatSafariPage 
           onBack={() => handleCloseSubPage('discover-uganda')}
-          onBook={() => {
-            setInquiryPreFill("I am interested in the Serenity of Water: Boat Safari experience.");
+          onBook={(ctx) => {
+            setInquiryPreFill(`I am interested in the ${ctx || 'Boat Safari'} experience.`);
+            setPackageContext(ctx || 'Boat Safari');
             setIsInquiryOpen(true);
           }}
         />
@@ -279,8 +300,9 @@ const App: React.FC = () => {
       return (
         <ChimpanzeeObservationPage 
           onBack={() => handleCloseSubPage('discover-uganda')}
-          onBook={() => {
-            setInquiryPreFill("I am interested in the Chimpanzee Observation experience.");
+          onBook={(ctx) => {
+            setInquiryPreFill(`I am interested in the ${ctx || 'Chimpanzee Observation'} experience.`);
+            setPackageContext(ctx || 'Chimpanzee Observation');
             setIsInquiryOpen(true);
           }}
         />
@@ -289,21 +311,27 @@ const App: React.FC = () => {
 
     switch (activeSection) {
       case AppSection.ACCOMMODATIONS:
-        return <AccommodationsPage onBack={() => handleNavigate(AppSection.HOME)} onEnquire={() => setIsInquiryOpen(true)} />;
+        return <AccommodationsPage onBack={() => handleNavigate(AppSection.HOME)} onEnquire={(ctx) => {
+          setInquiryPreFill(`I am inquiring about ${ctx || 'accommodations'}.`);
+          setPackageContext(ctx || 'Sanctuary Registry');
+          setIsInquiryOpen(true);
+        }} />;
       case AppSection.TESTIMONIALS:
-        return <TestimonialsPage reviews={REVIEWS} onHelpfulClick={(id) => console.log('Helpful click:', id)} />;
+        return <TestimonialsPage reviews={REVIEWS} />;
       default:
         return (
           <div className="flex flex-col">
-            <Hero minimal={false} onStartPlanning={() => setIsInquiryOpen(true)} />
+            <Hero minimal={false} onStartPlanning={() => {
+              setInquiryPreFill("I would like to start planning a signature Ugandan journey.");
+              setPackageContext("General Planning");
+              setIsInquiryOpen(true);
+            }} />
             <Ticker />
             <AboutSection content={ABOUT_CONTENT} />
-            <section id="kuzuri-tours" className="pt-6 md:pt-8 lg:pt-10 pb-24 md:pb-32 lg:pb-40 bg-white px-6 scroll-mt-[120px]">
+            <section id="kuzuri-tours" className="pt-6 pb-24 md:pb-40 bg-white px-6 scroll-mt-[120px]">
               <div className="container mx-auto max-w-[1700px] text-center">
                 <div className="mb-20 lg:mb-28 reveal-trigger">
-                  <h2 className="text-3xl md:text-5xl lg:text-7xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-6xl mx-auto mb-10 text-center">
-                    ITINERARIES
-                  </h2>
+                  <h2 className="text-3xl md:text-5xl lg:text-7xl font-sans font-semibold text-[#4A3728] uppercase tracking-[0.2em] leading-tight max-w-6xl mx-auto mb-10 text-center">ITINERARIES</h2>
                   <div className="w-32 h-[1px] bg-[#D4AF37] mx-auto opacity-40" />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-12 items-stretch">
@@ -315,8 +343,9 @@ const App: React.FC = () => {
                 </div>
               </div>
             </section>
-            <Expertise onEnquire={() => {
-              setInquiryPreFill("I would like to consult with your native experts about a bespoke Ugandan journey.");
+            <Expertise onEnquire={(ctx) => {
+              setInquiryPreFill(`I would like to consult with your native experts regarding ${ctx || 'a bespoke journey'}.`);
+              setPackageContext(ctx || 'Bespoke Consultation');
               setIsInquiryOpen(true);
             }} />
             <LodgeGallery onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} lodges={LODGES} />
@@ -325,9 +354,14 @@ const App: React.FC = () => {
             <BentoGallery />
             <Services onEnquireService={(svc) => {
               setInquiryPreFill(`I am inquiring about your ${svc} service.`);
+              setPackageContext(`Service: ${svc}`);
               setIsInquiryOpen(true);
             }} />
-            <AuthorYourVision onShareVision={() => setIsInquiryOpen(true)} />
+            <AuthorYourVision onShareVision={() => {
+              setInquiryPreFill("I have shared my basic details and wish to commence a bespoke adventure consultation.");
+              setPackageContext("Final Chapter Lead");
+              setIsInquiryOpen(true);
+            }} />
             <Testimonials reviews={REVIEWS} onNavigateToAll={() => handleNavigate(AppSection.TESTIMONIALS)} />
           </div>
         );
@@ -336,31 +370,27 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-[#8B5A2B] selection:text-white">
-      <Navbar activeSection={activeSection} onNavigate={handleNavigate} onEnquire={() => setIsInquiryOpen(true)} />
+      <Navbar activeSection={activeSection} onNavigate={handleNavigate} onEnquire={() => {
+        setInquiryPreFill("Hello, I am reaching out from the global navigation to inquire about your services.");
+        setPackageContext("Global Navbar Lead");
+        setIsInquiryOpen(true);
+      }} />
       <main>{renderContent()}</main>
-      <Footer onEnquire={() => setIsInquiryOpen(true)} />
-      <InquiryModal isOpen={isInquiryOpen} onClose={() => setIsInquiryOpen(false)} initialMessage={inquiryPreFill} />
+      <Footer onEnquire={() => {
+        setInquiryPreFill("Hello, I am reaching out from the footer to inquire about your services.");
+        setPackageContext("Footer Lead");
+        setIsInquiryOpen(true);
+      }} onAdminAccess={() => setShowAdmin(true)} />
+      <InquiryModal 
+        isOpen={isInquiryOpen} 
+        onClose={() => setIsInquiryOpen(false)} 
+        initialMessage={inquiryPreFill} 
+        packageContext={packageContext}
+      />
       {isPromoOpen && <PromoPopup onClose={() => setIsPromoOpen(false)} onEnquire={handlePromoEnquiry} />}
       <WhatsAppFAB />
       <AIChatBot />
       <LanguageFAB currentLang={currentLang} onLangChange={handleLangChange} />
-      <style>{`
-        /* Standard Google Translate widget cleanup */
-        .goog-te-banner-frame.skiptranslate, 
-        .goog-te-gadget-icon,
-        .goog-te-gadget-simple span { 
-          display: none !important; 
-        }
-        body { top: 0px !important; }
-        .skiptranslate iframe { display: none !important; }
-        #google_translate_element { display: none !important; }
-        
-        /* Ensure font weights are preserved during translation */
-        .goog-text-highlight {
-          background: none !important;
-          box-shadow: none !important;
-        }
-      `}</style>
     </div>
   );
 };

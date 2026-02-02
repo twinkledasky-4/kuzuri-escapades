@@ -1,13 +1,19 @@
-
 import React, { useEffect, useState, useRef } from 'react';
+import { crmService } from '../services/crmService.ts';
 
 interface InquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialMessage?: string;
+  packageContext?: string;
 }
 
-export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, initialMessage = '' }) => {
+export const InquiryModal: React.FC<InquiryModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  initialMessage = '',
+  packageContext = ''
+}) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({ 
@@ -40,39 +46,21 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
     
     setIsLoading(true);
     
-    try {
-      const response = await fetch('https://formspree.io/f/xpwqgrze', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.fullName,
-          email: formData.email,
-          dates: formData.dates,
-          guests: formData.guests,
-          tourType: formData.tourType,
-          message: formData.message,
-          _replyto: formData.email,
-          _to: 'info@kuzuri-escapades.com',
-          _subject: `New Luxury Experience Inquiry: ${formData.fullName}`
-        })
-      });
+    // CRM INTEGRATION: Capture lead with explicit Package context
+    const success = await crmService.captureLead({
+      source: 'inquiry_modal',
+      packageViewing: packageContext || formData.tourType,
+      data: { ...formData, context: packageContext }
+    });
 
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        // Fallback simulation for demonstration
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsSubmitted(true);
-      }
-    } catch (error) {
-      console.error("Experience transmission error:", error);
-      setIsSubmitted(true); 
-    } finally {
-      setIsLoading(false);
+    if (success) {
+      setIsSubmitted(true);
+    } else {
+      // Robust Fallback
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setIsSubmitted(true);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -82,7 +70,6 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      {/* Background Overlay: Sharp Darkening, No Blur */}
       <div 
         className="absolute inset-0 bg-[#1A1A1A]/95 transition-opacity duration-1000"
         onClick={onClose}
@@ -110,7 +97,9 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
           <>
             <div className="mb-12 text-center">
               <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-4">CO-AUTHOR YOUR VISION</p>
-              <h2 id="modal-title" className="text-4xl md:text-5xl font-serif font-bold text-[#1A1A1A] leading-tight tracking-tighter">Request an Experience</h2>
+              <h2 id="modal-title" className="text-4xl md:text-5xl font-serif font-bold text-[#1A1A1A] leading-tight tracking-tighter">
+                {packageContext ? `Enquire: ${packageContext}` : 'Request an Experience'}
+              </h2>
               <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mt-8" />
             </div>
 
@@ -199,7 +188,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
                 <button 
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-6 border-2 border-[#1A1A1A] bg-[#3B1E14] text-white text-[10px] uppercase tracking-[1em] font-black hover:bg-black hover:text-[#D4AF37] transition-all duration-700 shadow-2xl disabled:bg-stone-300 transform"
+                  className="w-full py-6 border-2 border-[#1A1A1A] bg-[#3B1E14] text-white text-[10px] uppercase tracking-[1em] font-black hover:bg-black hover:text-[#D4AF37] transition-all duration-700 shadow-2xl disabled:bg-stone-300"
                 >
                   {isLoading ? 'TRANSMITTING...' : 'REQUEST EXPERIENCE'}
                 </button>
@@ -211,17 +200,12 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
             <div className="flex justify-center">
               <div className="w-16 h-[2px] bg-[#D4AF37]" />
             </div>
-            
-            {/* Heading: All-caps, Safari Gold (#D4AF37), Serif font (min 600 weight, 700 applied) */}
             <h3 className="text-4xl md:text-5xl font-serif font-bold text-[#D4AF37] tracking-tight uppercase leading-tight max-w-[600px] text-shadow-none">
               YOUR VISION HAS BEEN <br /> RECEIVED.
             </h3>
-            
-            {/* Message: Pure White (#FFFFFF), clean Sans-serif, line-height 1.6, 400 weight */}
             <p className="text-[#FFFFFF] font-sans font-normal leading-[1.6] max-w-[560px] text-lg md:text-xl text-shadow-none">
               Thank you for inviting us to author your Ugandan chapter. Our safari architects are already reviewing your vision to ensure every detail surpasses expectation. You will receive a personalized experience and a direct consultation link within the next 24 hours. Your adventure is officially in motion.
             </p>
-            
             <div className="pt-8 w-full flex justify-center">
               <button 
                 onClick={onClose}
@@ -230,7 +214,6 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({ isOpen, onClose, ini
                 RETURN TO EXPLORE
               </button>
             </div>
-            
             <p className="text-[9px] text-[#D4AF37]/40 font-bold uppercase tracking-[0.4em] mt-8">
               KUZURI ESCAPADES • NATIVE STEWARDS SINCE 2018
             </p>

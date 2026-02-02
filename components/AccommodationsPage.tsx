@@ -1,12 +1,11 @@
-// Reconstructing the AccommodationsPage component to fix the missing export and truncated content.
 import React, { useState, useMemo, useEffect } from 'react';
-import { LODGES } from '../constants.tsx';
+import { cmsDatabase } from '../services/cmsService.ts';
 import { Lodge } from '../types.ts';
 import { ChevronLeft, X, MapPin, Info, Maximize } from 'lucide-react';
 
 interface AccommodationsPageProps {
   onBack: () => void;
-  onEnquire: () => void;
+  onEnquire: (context?: string) => void;
 }
 
 const REGIONS = [
@@ -15,34 +14,21 @@ const REGIONS = [
   'Mount Elgon', 'Murchison Falls', 'Mgahinga', 'Queen Elizabeth'
 ];
 
-const ISHASHA_GALLERY = [
-  { 
-    url: 'https://i.postimg.cc/d3wH8fC0/IM-SA-QE-Ishasha-Jungle-Lodge-Exterior.webp', 
-    label: 'Exterior',
-    caption: 'Authentic Thatched Architecture & Native Craftsmanship' 
-  },
-  { 
-    url: 'https://i.postimg.cc/Jn163QxT/thatch-roof-house.jpg',
-    label: 'Interior',
-    caption: 'Refined wilderness comfort and riverside views'
-  }
-];
-
 export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onBack, onEnquire }) => {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [viewedLodge, setViewedLodge] = useState<Lodge | null>(null);
-
-  // The Command: Strict raw mailto attribute
-  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
-
-  const filteredLodges = useMemo(() => {
-    if (!selectedRegion) return LODGES;
-    return LODGES.filter(l => l.region === selectedRegion || l.location.includes(selectedRegion));
-  }, [selectedRegion]);
+  const [sanctuaries, setSanctuaries] = useState<Lodge[]>([]);
 
   useEffect(() => {
+    // Initial fetch from CMS Service
+    setSanctuaries(cmsDatabase.getAll());
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+  const filteredLodges = useMemo(() => {
+    if (!selectedRegion) return sanctuaries;
+    return sanctuaries.filter(l => l.region === selectedRegion || l.location.includes(selectedRegion));
+  }, [selectedRegion, sanctuaries]);
 
   return (
     <div className="bg-[#FAF8F3] min-h-screen pt-24 selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
@@ -143,13 +129,12 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onBack, 
                     <Maximize size={12} />
                     View Details
                   </button>
-                  <a 
-                    href={mailtoLink}
-                    target="_self"
-                    className="text-[10px] uppercase tracking-[0.4em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all no-underline cursor-pointer"
+                  <button 
+                    onClick={() => onEnquire(`Sanctuary Inquiry: ${lodge.name}`)}
+                    className="text-[10px] uppercase tracking-[0.4em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all"
                   >
                     Inquire
-                  </a>
+                  </button>
                 </div>
               </div>
             </article>
@@ -179,17 +164,10 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onBack, 
             </div>
 
             <div className="w-full md:w-1/2 p-10 md:p-20 overflow-y-auto flex flex-col relative bg-[#FAF8F3]">
-              {/* TORN PAPER TRANSITION: Desktop Vertical Left Edge */}
+              {/* TORN PAPER TRANSITION */}
               <div className="hidden md:block absolute top-0 left-0 bottom-0 w-12 -ml-12 z-30 pointer-events-none">
                  <svg className="h-full w-full" viewBox="0 0 40 1000" preserveAspectRatio="none" fill="#FAF8F3">
                     <path d="M40 0 L35 20 L38 45 L32 70 L39 95 L34 120 L37 150 L31 180 L39 210 L35 240 L38 275 L33 305 L40 330 L36 360 L39 390 L34 425 L37 455 L32 490 L39 520 L34 550 L38 580 L33 615 L39 645 L35 675 L38 710 L32 740 L40 770 L35 800 L38 835 L33 865 L40 895 L36 925 L39 960 L34 1000 H40 Z" />
-                 </svg>
-              </div>
-
-              {/* TORN PAPER TRANSITION: Mobile Horizontal Top Edge */}
-              <div className="md:hidden absolute top-0 left-0 right-0 h-10 -mt-10 z-30 pointer-events-none">
-                 <svg className="w-full h-full" viewBox="0 0 1000 40" preserveAspectRatio="none" fill="#FAF8F3">
-                    <path d="M0 40 L20 35 L45 38 L70 32 L95 39 L120 34 L150 37 L180 31 L210 39 L240 35 L275 38 L305 33 L330 40 L360 36 L390 39 L425 34 L455 37 L490 32 L520 39 L550 34 L580 38 L615 33 L645 39 L675 35 L710 38 L740 32 L770 40 L800 35 L835 38 L865 33 L895 40 L925 36 L960 39 L1000 34 V40 Z" />
                  </svg>
               </div>
 
@@ -201,7 +179,6 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onBack, 
                 </h2>
               </div>
 
-              {/* Description Block: Left aligned, 16px (text-base), White background box, 140px clearance */}
               <div className="mb-16 mt-[140px] bg-white p-10 shadow-xl border border-black/5 relative z-10 text-left">
                 <p className="text-[#1A1A1A] text-base font-normal leading-relaxed font-sans">
                   {viewedLodge.description}
@@ -219,11 +196,11 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onBack, 
                 </div>
               </div>
 
-              {viewedLodge.id === 'ishasha-jungle-lodge' && (
+              {viewedLodge.gallery && viewedLodge.gallery.length > 0 && (
                 <div className="pt-10 space-y-8 border-t border-black/5 mb-16 text-left relative z-10">
                   <p className="text-[10px] uppercase tracking-[0.5em] font-black text-[#8B5A2B]">Native Fragments</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {ISHASHA_GALLERY.map((img, i) => (
+                    {viewedLodge.gallery.map((img, i) => (
                       <div key={i} className="space-y-3">
                         <div className="aspect-[3/2] overflow-hidden border border-black/5 shadow-md">
                           <img src={img.url} alt={img.label} className="w-full h-full object-cover transition-transform hover:scale-105 duration-1000" />
@@ -236,13 +213,12 @@ export const AccommodationsPage: React.FC<AccommodationsPageProps> = ({ onBack, 
               )}
 
               <div className="mt-auto pt-10 relative z-10">
-                <a 
-                  href={mailtoLink}
-                  target="_self"
-                  className="block w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-center text-[10px] uppercase tracking-[1em] font-black hover:bg-[#8B5A2B] hover:text-white transition-all duration-700 shadow-3xl no-underline cursor-pointer border border-[#D4AF37]/20"
+                <button 
+                  onClick={() => onEnquire(`Detailed Consultation: ${viewedLodge.name}`)}
+                  className="block w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-center text-[10px] uppercase tracking-[1em] font-black hover:bg-[#8B5A2B] hover:text-white transition-all duration-700 shadow-3xl border border-[#D4AF37]/20"
                 >
                   START THE CONSULTATION
-                </a>
+                </button>
               </div>
             </div>
           </div>

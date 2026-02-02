@@ -74,6 +74,12 @@ export interface Review {
   images?: string[];
 }
 
+export interface LodgeGalleryItem {
+  url: string;
+  label: string;
+  caption?: string;
+}
+
 export interface Lodge {
   id: string;
   name: string;
@@ -81,6 +87,9 @@ export interface Lodge {
   imageUrl: string;
   description: string;
   region?: string;
+  featured?: boolean;
+  active?: boolean;
+  gallery?: LodgeGalleryItem[];
 }
 
 export interface ItineraryDay {
