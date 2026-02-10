@@ -67,7 +67,7 @@ export const DISCOVER_FEATURES = [
     description: 'The soul of the forest. Venture into the ancient Bwindi Impenetrable Forest for a life-altering encounter with the mountain gorilla.',
     detailHeading: 'THE SOUL OF THE ANCIENT FOREST',
     detailDescription: 'Bwindi is not just a forest; it is a living sanctuary of ancient memories. Tracking the mountain gorilla through its misty valleys is a journey that transcends traditional travel—it is a profound reconnection with the natural world. In the silent emerald gloom, meeting the gaze of a silverback is a moment of pure, raw connection.',
-    imageUrl: 'https://i.postimg.cc/VkY4Hkrd/Tourism_in_Uganda.jpg'
+    imageUrl: 'https://i.postimg.cc/qvMp6vwr/beautiful-nice-chimpanzee-nature-looking-habitatpan-troglodytes-wild-animal-bars.jpg'
   },
   {
     id: 'chimpanzee',
