@@ -21,6 +21,7 @@ import { Testimonials } from './components/Testimonials.tsx';
 import { TestimonialsPage } from './components/TestimonialsPage.tsx';
 import { Services } from './components/Services.tsx';
 import { AboutSection } from './components/AboutSection.tsx';
+import { AboutPage } from './components/AboutPage.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
 import { PromoPopup } from './components/PromoPopup.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
@@ -102,7 +103,6 @@ const App: React.FC = () => {
     const anchorMap: Record<string, string> = {
       [AppSection.CONTACT]: 'contact-us',
       [AppSection.SERVICES]: 'services-section',
-      [AppSection.ABOUT]: 'about-kuzuri',
       [AppSection.PLANNER]: 'kuzuri-tours',
       [AppSection.TESTIMONIALS]: 'travellers-reviews',
     };
@@ -318,6 +318,8 @@ const App: React.FC = () => {
         }} />;
       case AppSection.TESTIMONIALS:
         return <TestimonialsPage reviews={REVIEWS} />;
+      case AppSection.ABOUT:
+        return <AboutPage onBack={() => handleNavigate(AppSection.HOME)} onContact={() => setIsInquiryOpen(true)} />;
       default:
         return (
           <div className="flex flex-col">
@@ -327,7 +329,10 @@ const App: React.FC = () => {
               setIsInquiryOpen(true);
             }} />
             <Ticker />
-            <AboutSection content={ABOUT_CONTENT} />
+            <AboutSection 
+              content={ABOUT_CONTENT} 
+              onReadMore={() => handleNavigate(AppSection.ABOUT)}
+            />
             <section id="kuzuri-tours" className="pt-6 pb-24 md:pb-40 bg-white px-6 scroll-mt-[120px]">
               <div className="container mx-auto max-w-[1700px] text-center">
                 <div className="mb-20 lg:mb-28 reveal-trigger">

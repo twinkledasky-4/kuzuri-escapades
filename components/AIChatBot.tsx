@@ -41,7 +41,7 @@ export const AIChatBot: React.FC = () => {
           TONE: Refined, professional, knowledgeable. Use "we". 
           STYLE: "Silence as Luxury". Focus on evocativeness and high-fidelity native storytelling. Avoid exclamation marks in the body of your responses. 
           PRIMARY GOAL: Assist with availability inquiries, lodge details, and itinerary curation. 
-          SECONDARY GOAL: For specific bookings, guide users to our official WhatsApp (+256 708 012030) or email (info@kuzuri-escapades.com).`
+          SECONDARY GOAL: For specific bookings, guide users to our official WhatsApp (+256 708 012030) or email (info@kuzuri-escapedes.com).`
         },
       });
     }

@@ -27,7 +27,7 @@ export interface Lead {
 class CRMService {
   private leads: Lead[] = [];
   private readonly STORAGE_KEY = 'kuzuri_crm_leads';
-  private readonly CURATOR_EMAIL = 'hello@kuzuri-escapedes.com';
+  private readonly CURATOR_EMAIL = 'info@kuzuri-escapedes.com';
   // Formspree acts as our SMTP Relay Gateway for this implementation
   private readonly RELAY_ENDPOINT = 'https://formspree.io/f/xpwqgrze';
 
@@ -53,7 +53,7 @@ class CRMService {
   /**
    * CAPTURE PROTOCOL:
    * 1. Logs lead in local Pearl Registry
-   * 2. Triggers High-Priority SMTP Relay to hello@kuzuri-escapedes.com
+   * 2. Triggers High-Priority SMTP Relay to info@kuzuri-escapedes.com
    */
   public async captureLead(leadData: Omit<Lead, 'id' | 'timestamp' | 'status'>): Promise<boolean> {
     const newLead: Lead = {

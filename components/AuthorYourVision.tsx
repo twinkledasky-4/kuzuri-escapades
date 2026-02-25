@@ -19,7 +19,7 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
   };
 
   // Protocol: Strict raw mailto link as per manual override instructions.
-  const mailtoLink = "mailto:hello@kuzuri-escapedes.com?subject=Consultation%20Inquiry";
+  const mailtoLink = "mailto:info@kuzuri-escapedes.com?subject=Consultation%20Inquiry";
 
   return (
     <section className="bg-[#F5F5DC] py-12 md:py-16 px-6 overflow-hidden" aria-labelledby="author-title">
@@ -77,7 +77,7 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
               <div className="pt-6">
                 <button 
                   type="submit"
-                  className="w-full py-5 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.8em] font-black hover:bg-white transition-all duration-500 shadow-xl"
+                  className="w-full py-5 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.8em] font-black hover:bg-white transition-all duration-500 shadow-md border-none"
                 >
                   REQUEST AN EXPERIENCE
                 </button>
@@ -95,7 +95,7 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
                 <div>
                   <p className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37]/60 font-black mb-1">OFFICIAL CORRESPONDENCE</p>
                   <a href={mailtoLink} className="text-white hover:text-[#D4AF37] text-lg font-sans font-medium tracking-tight block transition-colors no-underline cursor-pointer">
-                    hello@kuzuri-escapedes.com
+                    info@kuzuri-escapedes.com
                   </a>
                 </div>
               </div>

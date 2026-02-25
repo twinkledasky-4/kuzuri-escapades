@@ -1,27 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { AppSection } from '../types.ts';
-import { Instagram, Facebook, Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Clock, Phone, Mail, MapPin } from 'lucide-react';
 
 interface NavbarProps {
   activeSection: AppSection;
   onNavigate: (section: AppSection) => void;
   onEnquire: () => void;
 }
-
-const TikTokIcon = ({ size = 18, strokeWidth = 1.5 }: { size?: number, strokeWidth?: number }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth={strokeWidth} 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-  >
-    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
-  </svg>
-);
 
 export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnquire }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,10 +28,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
   }, [isMobileMenuOpen]);
 
   const navItems = [
-    { id: AppSection.HOME, label: "Home", href: '#home' },
-    { id: AppSection.PLANNER, label: "Signature Itineraries", href: '#kuzuri-tours' },
-    { id: AppSection.ABOUT, label: "Expedition Intel", href: '#discover-uganda' },
-    { id: AppSection.CONTACT, label: "Contact Us", href: '#contact-us' }
+    { id: AppSection.HOME, label: "HOME", href: '#home' },
+    { id: AppSection.ABOUT, label: "ABOUT US", href: '#about-kuzuri' },
+    { id: AppSection.DESTINATIONS, label: "DESTINATIONS", href: '#discover-uganda' },
+    { id: AppSection.GORILLA_SAFARIS, label: "GORILLA SAFARIS", href: '#gorilla-safaris' },
+    { id: AppSection.COMBINED_SAFARIS, label: "COMBINED SAFARIS", href: '#combined-safaris' },
+    { id: AppSection.FILMING, label: "FILMING", href: '#filming' },
+    { id: AppSection.BIRDING, label: "BIRDING", href: '#birding' },
+    { id: AppSection.ACCOMMODATIONS, label: "ACCOMMODATION", href: '#accommodations' },
+    { id: AppSection.CONTACT, label: "CONTACT US", href: '#contact-us' }
   ];
 
   const handleNavClick = (e: React.MouseEvent, id: AppSection) => {
@@ -62,87 +52,107 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
   };
 
   const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
-  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
+  const mailtoLink = "mailto:info@kuzuri-escapedes.com";
 
   return (
     <>
       <nav 
         className={`fixed top-0 left-0 right-0 transition-all duration-700 select-none z-[9999] ${
           isScrolled 
-            ? 'bg-white shadow-2xl border-b border-black/5 py-2' 
-            : 'bg-transparent py-8'
+            ? 'bg-white shadow-2xl' 
+            : 'bg-transparent'
         }`}
       >
-        <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto">
-          
-          {/* Logo return home */}
-          <div 
-            onClick={(e) => handleNavClick(e, AppSection.HOME)}
-            className="cursor-pointer group shrink-0"
-            aria-label="Return to Home"
-          >
-            <div className="relative w-[65px] md:w-[95px] aspect-square transition-all duration-700 group-hover:scale-105 rounded-[12px] md:rounded-[15px] overflow-hidden border-2 border-white/20 shadow-2xl bg-white">
-               <img 
-                src={logoUrl} 
-                alt="Kuzuri Escapades Official Logo" 
-                className="w-full h-full object-cover transition-all duration-500 rounded-[12px] md:rounded-[15px]"
-                style={{ 
-                  filter: isScrolled 
-                    ? 'contrast(1.1)' 
-                    : 'drop-shadow(0 0 15px rgba(255,255,255,0.4))'
-                }}
-               />
+        {/* Top Bar */}
+        <div className={`bg-[#004d00] text-white transition-all duration-500 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-auto py-2 opacity-100'} hidden md:block`}>
+          <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto text-[10px] font-bold tracking-[0.15em]">
+            <div className="flex items-center gap-8 uppercase">
+              <div className="flex items-center gap-2.5">
+                <Clock size={13} className="text-[#D4AF37]" />
+                <span>Mon - Sat 8.00 - 18.00</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <MapPin size={13} className="text-[#D4AF37]" />
+                <span>Ham Towers Wandegeya</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-8">
+              <a href="tel:+256708012030" className="flex items-center gap-2.5 hover:text-[#D4AF37] transition-colors uppercase">
+                <Phone size={13} className="text-[#D4AF37]" />
+                <span>+256 708012030</span>
+              </a>
+              <a href="mailto:info@kuzuri-escapedes.com" className="flex items-center gap-2.5 hover:text-[#D4AF37] transition-colors lowercase">
+                <Mail size={13} className="text-[#D4AF37]" />
+                <span>info@kuzuri-escapedes.com</span>
+              </a>
             </div>
           </div>
-          
-          <div className="flex items-center gap-6 md:gap-10 xl:gap-14">
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
-              {navItems.map((item) => (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.id)}
-                  className={`text-[11px] uppercase tracking-[3px] font-bold transition-all hover:text-[#D4AF37] whitespace-nowrap ${
-                    isScrolled 
-                      ? (activeSection === item.id ? 'text-[#8B5A2B]' : 'text-[#1A1A1A]') 
-                      : (activeSection === item.id ? 'text-white' : 'text-[#D4AF37]')
-                  }`}
-                >
-                  {item.label}
-                </a>
-              ))}
+        </div>
+
+        {/* Main Navbar Area */}
+        <div className="w-full transition-all duration-700">
+          <div className={`w-full px-6 md:px-12 flex items-center max-w-[1750px] mx-auto transition-all duration-700 ${isScrolled ? 'py-2' : 'py-6'}`}>
+            
+            {/* Logo return home - Left Aligned */}
+            <div 
+              onClick={(e) => handleNavClick(e, AppSection.HOME)}
+              className="cursor-pointer group shrink-0 z-10"
+              aria-label="Return to Home"
+            >
+              <div className="relative w-[50px] md:w-[70px] transition-all duration-700 group-hover:scale-105 overflow-hidden">
+                 <img 
+                  src={logoUrl} 
+                  alt="Kuzuri Escapades Official Logo" 
+                  className="w-full h-auto object-contain transition-all duration-500"
+                  style={{ 
+                    filter: isScrolled 
+                      ? 'contrast(1.1)' 
+                      : 'drop-shadow(0 0 10px rgba(255,255,255,0.2))'
+                  }}
+                 />
+              </div>
+            </div>
+            
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden lg:flex flex-grow justify-center items-center px-4">
+              <div className="flex items-center space-x-2 xl:space-x-3">
+                {navItems.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.id)}
+                    className={`relative text-[9px] xl:text-[10px] uppercase tracking-[1px] font-bold transition-all hover:text-[#D4AF37] whitespace-nowrap py-1 px-1 ${
+                      isScrolled 
+                        ? (activeSection === item.id ? 'text-[#8B5A2B]' : 'text-[#1A1A1A]') 
+                        : 'text-white'
+                    }`}
+                  >
+                    {item.label}
+                    {activeSection === item.id && (
+                      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
+                    )}
+                  </a>
+                ))}
+              </div>
             </div>
 
-            <div className="flex items-center gap-4 md:gap-8">
-              {/* Desktop Socials */}
-              <div className="hidden sm:flex items-center gap-6">
-                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`} aria-label="Instagram">
-                  <Instagram size={18} strokeWidth={1.5} />
-                </a>
-                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`} aria-label="Facebook">
-                  <Facebook size={18} strokeWidth={1.5} />
-                </a>
-                <a href="#" className={`transition-colors ${isScrolled ? 'text-black/40 hover:text-[#D4AF37]' : 'text-white/40 hover:text-[#D4AF37]'}`} aria-label="TikTok">
-                  <TikTokIcon size={18} strokeWidth={1.5} />
-                </a>
-              </div>
-
+            {/* Right Side Actions */}
+            <div className="flex items-center gap-4 md:gap-6 shrink-0 z-10">
               {/* Desktop Inquire Button */}
               <a 
                 href={mailtoLink} 
                 target="_self"
-                className={`hidden md:block px-8 py-2.5 text-[10px] text-center uppercase tracking-[5px] font-black transition-all duration-700 shadow-2xl active:scale-95 border-none whitespace-nowrap no-underline cursor-pointer ${
+                className={`hidden md:block px-6 py-2 text-[9px] text-center uppercase tracking-[3px] font-black transition-all duration-700 shadow-md active:scale-95 border-none whitespace-nowrap no-underline cursor-pointer ${
                   isScrolled ? 'bg-[#1A1A1A] text-white hover:bg-[#8B5A2B]' : 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-white'
                 }`}
               >
                 Inquire
               </a>
 
-              {/* Mobile Menu Toggle Button: Clean Hamburger Trigger */}
+              {/* Mobile Menu Toggle Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className={`lg:hidden p-3 rounded-full transition-all duration-500 hover:scale-110 active:scale-95 border border-white/10 ${
+                className={`lg:hidden p-3 rounded-full transition-all duration-500 hover:scale-110 active:scale-95 ${
                   isScrolled ? 'bg-[#1A1A1A] text-white shadow-xl' : 'bg-white/10 text-white backdrop-blur-md'
                 }`}
                 aria-label="Open Mobile Navigation"
@@ -168,14 +178,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
         
         {/* Sidebar Container: Slides in from the right */}
         <div 
-          className={`absolute inset-y-0 right-0 w-[310px] md:w-[420px] bg-[#1A1412] shadow-[-20px_0_60px_rgba(0,0,0,0.8)] border-l border-[#D4AF37]/20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+          className={`absolute inset-y-0 right-0 w-[310px] md:w-[420px] bg-[#1A1412] shadow-[-20px_0_60px_rgba(0,0,0,0.8)] flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${
             isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
           {/* Sidebar Header */}
-          <div className="p-8 flex justify-between items-center border-b border-white/5 bg-black/40">
+          <div className="p-8 flex justify-between items-center bg-black/40">
             <div className="flex items-center gap-4">
-               <div className="w-10 h-10 rounded-[10px] bg-white flex items-center justify-center p-1 shadow-xl">
+               <div className="w-12 h-12 flex items-center justify-center">
                   <img src={logoUrl} alt="Kuzuri Logo" className="w-full h-full object-contain" />
                </div>
                <div>
@@ -185,7 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             </div>
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="p-3 bg-white/5 text-[#D4AF37] hover:text-white transition-all rounded-full border border-white/10"
+              className="p-3 bg-white/5 text-[#D4AF37] hover:text-white transition-all rounded-full"
               aria-label="Close Mobile Navigation"
             >
               <X size={24} strokeWidth={2} />
@@ -217,7 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
 
               {/* High Priority: Jinja Staycation */}
               <div 
-                 style={{ transitionDelay: isMobileMenuOpen ? '500ms' : '0ms' }}
+                 style={{ transitionDelay: isMobileMenuOpen ? `${(navItems.length + 1) * 100}ms` : '0ms' }}
                  className={`transition-all duration-700 transform ${
                   isMobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
                 }`}
@@ -225,7 +235,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 <a
                   href="#jinja-staycation"
                   onClick={handleJinjaClick}
-                  className="group relative inline-flex flex-col p-6 bg-[#D4AF37]/5 border border-[#D4AF37]/20 rounded-sm overflow-hidden"
+                  className="group relative inline-flex flex-col p-6 bg-[#D4AF37]/5 rounded-sm overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 p-2 bg-[#D4AF37] text-black">
                     <p className="text-[7px] font-black uppercase tracking-widest">High Priority</p>
@@ -258,22 +268,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           </div>
 
           {/* Sidebar Footer */}
-          <div className="p-10 border-t border-white/5 bg-black/60 backdrop-blur-lg">
+          <div className="p-10 bg-black/60 backdrop-blur-lg">
             <p className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37]/60 font-black mb-8">Consult our Curators</p>
             
             <div className="flex flex-col space-y-5 mb-12">
               <a href={mailtoLink} className="text-white hover:text-[#D4AF37] text-sm font-medium transition-colors tracking-tight">
-                hello@kuzuri-escapedes.com
+                info@kuzuri-escapedes.com
               </a>
               <a href="tel:+256708012030" className="text-white hover:text-[#D4AF37] text-sm font-medium transition-colors tracking-widest">
                 +256 708 012030
               </a>
-            </div>
-
-            <div className="flex items-center gap-10">
-              <a href="#" className="text-white/40 hover:text-[#D4AF37] transition-all"><Instagram size={20} /></a>
-              <a href="#" className="text-white/40 hover:text-[#D4AF37] transition-all"><Facebook size={20} /></a>
-              <a href="#" className="text-white/40 hover:text-[#D4AF37] transition-all"><TikTokIcon size={20} /></a>
             </div>
           </div>
         </div>

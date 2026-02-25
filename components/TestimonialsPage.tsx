@@ -62,7 +62,7 @@ const LeaveReviewForm: React.FC = () => {
         body: JSON.stringify({
           ...formData,
           _replyto: formData.email,
-          _to: 'info@kuzuri-escapades.com',
+          _to: 'info@kuzuri-escapedes.com',
           _subject: `New Review Experience from ${formData.name}`
         })
       });
@@ -230,7 +230,7 @@ const LeaveReviewForm: React.FC = () => {
 
       {submitStatus === 'error' && (
         <div role="alert" className="p-8 bg-red-50 border-2 border-red-600 text-red-700 text-center font-bold text-sm">
-          ✗ An error occurred. Please try again or reach out to <a href="mailto:info@kuzuri-escapades.com" className="underline hover:text-red-900 transition-colors">info@kuzuri-escapades.com</a>.
+          ✗ An error occurred. Please try again or reach out to <a href="mailto:info@kuzuri-escapedes.com" className="underline hover:text-red-900 transition-colors">info@kuzuri-escapedes.com</a>.
         </div>
       )}
 

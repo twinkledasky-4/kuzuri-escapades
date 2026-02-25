@@ -8,7 +8,7 @@ export const KUZURI_KNOWLEDGE_BASE = `
 
 ## 2. Technical Manifest (Production Details)
 - **Primary Domain:** kuzuri-escapedes.com
-- **Official Email:** hello@kuzuri-escapedes.com
+- **Official Email:** info@kuzuri-escapedes.com
 - **Physical Address:** Ham Towers Wandegeya, Room Number H:12, P.O. BOX 202305, Kampala.
 
 ## 3. The Collection (Destinations)

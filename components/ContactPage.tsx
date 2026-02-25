@@ -19,7 +19,7 @@ export const ContactPage: React.FC = () => {
   const encodedMessage = encodeURIComponent(message);
   
   // Strict raw mailto string as per Manual Override.
-  const mailtoLink = "mailto:hello@kuzuri-escapedes.com";
+  const mailtoLink = "mailto:info@kuzuri-escapedes.com";
 
   return (
     <div className="bg-[#F5F5DC] min-h-screen selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
@@ -46,12 +46,12 @@ export const ContactPage: React.FC = () => {
           <div className="space-y-16 reveal-trigger">
             <div className="border-l-2 border-[#1A1A1A] pl-10">
               <h2 className="text-4xl font-serif font-bold text-[#1A1A1A] mb-4">The Experience Desk</h2>
-              <p className="text-[#8B5A2B] text-[10px] uppercase tracking-[0.5em] font-bold">Native Stewardship & Private Care</p>
+              <p className="text-[#D4AF37] text-[10px] uppercase tracking-[0.5em] font-bold">Native Stewardship & Private Care</p>
             </div>
 
             {/* Phone Numbers */}
             <div className="space-y-10">
-              <h3 className="font-bold text-xl uppercase tracking-widest text-[#8B5A2B] flex items-center gap-3">
+              <h3 className="font-bold text-xl uppercase tracking-widest text-[#D4AF37] flex items-center gap-3">
                 <span role="img" aria-label="Phone">📞</span> Communications
               </h3>
               
@@ -102,7 +102,7 @@ export const ContactPage: React.FC = () => {
                   <PhoneLink 
                     number="+256 760 419271" 
                     label="Secondary Line"
-                    className="text-xl font-bold tracking-widest text-[#8B5A2B]"
+                    className="text-xl font-bold tracking-widest text-[#D4AF37]"
                     showIcon={false}
                     isButton={true}
                   />
@@ -113,7 +113,7 @@ export const ContactPage: React.FC = () => {
 
             {/* Email */}
             <div className="space-y-6">
-              <h3 className="font-bold text-xl uppercase tracking-widest text-[#8B5A2B] flex items-center gap-3">
+              <h3 className="font-bold text-xl uppercase tracking-widest text-[#D4AF37] flex items-center gap-3">
                 <Mail size={18} /> Official Email
               </h3>
               <a 
@@ -121,14 +121,14 @@ export const ContactPage: React.FC = () => {
                 target="_self"
                 className="text-xl font-bold tracking-widest text-[#D4AF37] hover:underline underline-offset-8 transition-all no-underline cursor-pointer"
               >
-                hello@kuzuri-escapedes.com
+                info@kuzuri-escapedes.com
               </a>
               <p className="text-xs text-[#1A1A1A] opacity-60 italic">We aim to respond to all visions within 24 hours.</p>
             </div>
 
             {/* WhatsApp */}
             <div className="space-y-8">
-              <h3 className="font-bold text-xl uppercase tracking-widest text-[#8B5A2B] flex items-center gap-3">
+              <h3 className="font-bold text-xl uppercase tracking-widest text-[#D4AF37] flex items-center gap-3">
                 <MessageSquare size={18} /> Instant Message
               </h3>
               <a 
@@ -183,7 +183,7 @@ export const ContactPage: React.FC = () => {
                 <button 
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-8 border-2 border-black bg-[#8B5A2B] text-[#F5F5DC] text-[11px] uppercase tracking-[1em] font-black hover:bg-black hover:text-[#D4AF37] transition-all duration-700 shadow-2xl disabled:bg-stone-300"
+                  className="w-full py-8 border-2 border-black bg-[#D4AF37] text-[#F5F5DC] text-[11px] uppercase tracking-[1em] font-black hover:bg-black hover:text-[#D4AF37] transition-all duration-700 shadow-2xl disabled:bg-stone-300"
                 >
                   {isLoading ? 'TRANSMITTING...' : 'SEND MESSAGE'}
                 </button>

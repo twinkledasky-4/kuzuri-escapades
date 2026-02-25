@@ -48,7 +48,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
         
         <h3 
           id={`tour-title-${tour.id}`} 
-          className="text-xl md:text-2xl font-sans font-semibold text-[#1A1A1A] mb-6 leading-tight group-hover:text-[#8B5A2B] transition-colors tracking-tight uppercase line-clamp-3 min-h-[3.3em]"
+          className="text-xl md:text-2xl font-sans font-semibold text-[#1A1A1A] mb-6 leading-tight group-hover:text-[#D4AF37] transition-colors tracking-tight uppercase line-clamp-3 min-h-[3.3em]"
         >
           {tour.name}
         </h3>
@@ -76,7 +76,7 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
             </button>
             <button 
               onClick={() => onRequestBooking(tour)}
-              className="text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#8B5A2B] hover:border-[#8B5A2B] transition-all"
+              className="text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all"
             >
               BOOK NOW
             </button>

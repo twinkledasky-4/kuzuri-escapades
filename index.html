@@ -8,14 +8,14 @@
   
   <!-- OpenGraph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kuzuriescapades.com/">
+  <meta property="og:url" content="https://kuzuri-escapedes.com/">
   <meta property="og:title" content="Kuzuri Escapades - Authentic Uganda Travel Experiences">
   <meta property="og:description" content="Signature luxury Ugandan escapades. Native curators of silence, elegance, and deep wilderness immersion.">
   <meta property="og:image" content="https://i.postimg.cc/bYRVDkb8/ugandans.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://kuzuriescapades.com/">
+  <meta property="twitter:url" content="https://kuzuri-escapedes.com/">
   <meta property="twitter:title" content="Kuzuri Escapades - Authentic Uganda Travel Experiences">
   <meta property="twitter:description" content="Signature luxury Ugandan escapades. Native curators of silence, elegance, and deep wilderness immersion.">
   <meta property="twitter:image" content="https://i.postimg.cc/bYRVDkb8/ugandans.jpg">
@@ -27,6 +27,18 @@
   <link rel="preconnect" href="https://i.postimg.cc">
   
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Montserrat', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
   <link rel="stylesheet" href="index.css">
   
   <script>
@@ -46,6 +58,7 @@
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
   <!-- Google Translate Hidden Container -->
@@ -64,5 +77,6 @@
 
   <div id="root"></div>
   <script type="module" src="./index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
       <div className="fixed top-24 left-6 md:left-12 z-50">
         <button 
           onClick={onBack}
-          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-extrabold text-[#F5F5DC] bg-[#8B5A2B] hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 border-2 border-[#1A1A1A] px-8 py-4 rounded-sm shadow-xl"
+          className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.5em] font-extrabold text-[#F5F5DC] bg-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 border-2 border-[#1A1A1A] px-8 py-4 rounded-sm shadow-xl"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" />
@@ -73,7 +73,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
             <div className="experience-cards grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
               {isQE ? (
                 <>
-                  <div className="card group border-l-2 border-[#8B5A2B] pl-10 py-4 hover:border-[#D4AF37] transition-all duration-700">
+                  <div className="card group border-l-2 border-[#D4AF37] pl-10 py-4 hover:border-[#D4AF37] transition-all duration-700">
                     <span className="block text-[10px] text-[#654321] font-bold mb-6 tracking-widest">HIGHLIGHT 01</span>
                     <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-6 group-hover:italic transition-all duration-700">
                       Kazinga Channel Cruise
@@ -83,7 +83,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
                       natural channel connecting Lake Edward and Lake George.
                     </p>
                   </div>
-                  <div className="card group border-l-2 border-[#8B5A2B] pl-10 py-4 hover:border-[#D4AF37] transition-all duration-700">
+                  <div className="card group border-l-2 border-[#D4AF37] pl-10 py-4 hover:border-[#D4AF37] transition-all duration-700">
                     <span className="block text-[10px] text-[#654321] font-bold mb-6 tracking-widest">HIGHLIGHT 02</span>
                     <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-6 group-hover:italic transition-all duration-700">
                       Tree-Climbing Lions
@@ -96,7 +96,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
                 </>
               ) : (
                 destination.highlights.map((highlight, idx) => (
-                  <div key={idx} className="card group border-l-2 border-[#8B5A2B] pl-10 py-4 hover:border-[#D4AF37] transition-all duration-700">
+                  <div key={idx} className="card group border-l-2 border-[#D4AF37] pl-10 py-4 hover:border-[#D4AF37] transition-all duration-700">
                     <span className="block text-[10px] text-[#654321] font-bold mb-6 tracking-widest">HIGHLIGHT 0{idx + 1}</span>
                     <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-6 group-hover:italic transition-all duration-700">
                       {highlight.includes(':') ? highlight.split(':')[0] : highlight}
@@ -115,7 +115,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
       <section className="py-24 md:py-48 bg-white border-b-2 border-[#1A1A1A] px-4">
         <div className="container mx-auto px-6 md:px-12 lg:px-24 text-center">
           <div className="mb-24">
-            <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-6">VISUAL ARCHIVE</p>
+            <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-bold mb-6">VISUAL ARCHIVE</p>
             <h3 className="text-4xl md:text-6xl font-serif font-bold text-[#1A1A1A] tracking-tight">Immersive Fragments.</h3>
           </div>
           
@@ -148,7 +148,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({ destinatio
             Co-author your {destination.name.split(' ')[0]} Experience.
           </h2>
           <button 
-            className="px-16 py-8 border-2 border-[#1A1A1A] bg-[#8B5A2B] text-[#F5F5DC] text-[12px] uppercase tracking-[1em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 shadow-xl"
+            className="px-16 py-8 border-2 border-[#1A1A1A] bg-[#D4AF37] text-[#F5F5DC] text-[12px] uppercase tracking-[1em] font-extrabold hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:scale-105 transition-all duration-500 shadow-xl"
             onClick={onBack}
           >
             Return to Exploration

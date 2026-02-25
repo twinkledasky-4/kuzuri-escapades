@@ -114,6 +114,11 @@ export enum AppSection {
   SERVICES = 'services',
   PLANNER = 'planner',
   ABOUT = 'about',
+  ABOUT_PAGE = 'about-page',
+  GORILLA_SAFARIS = 'gorilla-safaris',
+  COMBINED_SAFARIS = 'combined-safaris',
+  FILMING = 'filming',
+  BIRDING = 'birding',
   CONTACT = 'contact',
   TESTIMONIALS = 'testimonials',
   ADMIN = 'admin'

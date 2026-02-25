@@ -1,6 +1,8 @@
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 interface AboutSectionProps {
+  onReadMore: () => void;
   content: {
     legacyLabel: string;
     headingMain: string;
@@ -13,7 +15,7 @@ interface AboutSectionProps {
   };
 }
 
-export const AboutSection: React.FC<AboutSectionProps> = ({ content }) => {
+export const AboutSection: React.FC<AboutSectionProps> = ({ content, onReadMore }) => {
   return (
     <section id="about-kuzuri" className="pt-0 pb-12 md:pb-16 bg-[#1A1412] px-6 scroll-mt-[120px] border-b border-white/5 overflow-hidden m-0 block">
       <div className="container mx-auto max-w-[1700px] p-0">
@@ -72,6 +74,15 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ content }) => {
                 <p className="text-[#FFFFFF] text-base font-normal leading-relaxed tracking-wide opacity-90 font-sans">
                   {content.para2}
                 </p>
+
+                <div className="pt-4">
+                  <button 
+                    onClick={onReadMore}
+                    className="flex items-center gap-3 text-[#D4AF37] text-[10px] font-black uppercase tracking-[0.4em] hover:text-white transition-all group"
+                  >
+                    Read Our Full Story <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </button>
+                </div>
               </div>
 
               <div className="pt-10 grid grid-cols-1 sm:grid-cols-3 gap-10 border-t border-white/10">
