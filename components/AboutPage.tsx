@@ -402,6 +402,22 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact }) => {
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
+              {/* Wildlife Landscape Image - Full Width of Left Column */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+              >
+                <img 
+                  src="https://i.postimg.cc/Y9yfHcwY/Whats_App_Image_2026_02_24_at_2_25_07_AM.jpg" 
+                  alt="Ugandan Wildlife Landscape" 
+                  className="w-full h-full object-cover object-center"
+                  referrerPolicy="no-referrer"
+                  loading="lazy"
+                />
+              </motion.div>
+
               <div className="space-y-4">
                 <p className="text-[#D4AF37] uppercase tracking-[0.8em] text-[10px] font-bold">START YOUR LEGACY</p>
                 <h2 className="text-4xl md:text-6xl font-serif font-bold leading-tight">Ready to Author <br />Your Vision?</h2>
@@ -484,6 +500,28 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact }) => {
                       <option>Budget</option>
                       <option>Camping</option>
                     </select>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400 block">Your Interests</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {[
+                      "Gorilla Trekking", "Wildlife Viewing", "Bird Watching", 
+                      "Chimpanzee Tracking", "Primate Tour", "Cultural Tour", 
+                      "Whitewater Rafting", "Mountaineering", "Horseback Riding", 
+                      "Boat Cruise", "Honeymoon Holiday"
+                    ].map((interest) => (
+                      <label key={interest} className="flex items-center gap-2 cursor-pointer group/interest">
+                        <input type="checkbox" className="hidden peer" />
+                        <div className="w-4 h-4 border border-stone-200 rounded flex items-center justify-center peer-checked:bg-[#D4AF37] peer-checked:border-[#D4AF37] transition-all">
+                          <svg className="w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </div>
+                        <span className="text-xs text-stone-600 group-hover/interest:text-[#D4AF37] transition-colors">{interest}</span>
+                      </label>
+                    ))}
                   </div>
                 </div>
 

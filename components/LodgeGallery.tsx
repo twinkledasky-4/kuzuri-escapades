@@ -10,7 +10,7 @@ export const LodgeGallery: React.FC<LodgeGalleryProps> = ({ onViewAll, lodges })
   const featuredLodges = lodges.slice(0, 4);
 
   return (
-    <section className="py-20 md:py-32 bg-[#3B1E14] px-6 overflow-hidden">
+    <section id="accommodations" className="py-20 md:py-32 bg-[#3B1E14] px-6 overflow-hidden scroll-mt-[120px]">
       <div className="container mx-auto max-w-[1700px]">
         {/* Header - Updated to Left Alignment */}
         <div className="text-left mb-24 reveal-trigger">

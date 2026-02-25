@@ -36,7 +36,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning, minimal = false }) 
   ];
 
   return (
-    <section className="hero-section h-screen relative overflow-hidden bg-[#1A1A1A]" aria-labelledby="hero-title">
+    <section id="home" className="hero-section h-screen relative overflow-hidden bg-[#1A1A1A]" aria-labelledby="hero-title">
       {/* Social Sidebar */}
       <div className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-4">
         {socialLinks.map((social) => (

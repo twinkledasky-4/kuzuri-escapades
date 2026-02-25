@@ -101,6 +101,13 @@ const App: React.FC = () => {
 
   const handleNavigate = (section: AppSection) => {
     const anchorMap: Record<string, string> = {
+      [AppSection.HOME]: 'home',
+      [AppSection.ABOUT]: 'about-kuzuri',
+      [AppSection.DESTINATIONS]: 'discover-uganda',
+      [AppSection.GORILLA_SAFARIS]: 'discover-uganda',
+      [AppSection.COMBINED_SAFARIS]: 'combined-safaris',
+      [AppSection.FILMING]: 'services-section',
+      [AppSection.BIRDING]: 'services-section',
       [AppSection.CONTACT]: 'contact-us',
       [AppSection.SERVICES]: 'services-section',
       [AppSection.PLANNER]: 'kuzuri-tours',

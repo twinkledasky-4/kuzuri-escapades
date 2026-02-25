@@ -7,7 +7,7 @@ interface ExpertiseProps {
 
 export const Expertise: React.FC<ExpertiseProps> = ({ onEnquire }) => {
   return (
-    <section className="py-16 md:py-24 bg-[#F5F5DC] px-6 overflow-hidden">
+    <section id="combined-safaris" className="py-16 md:py-24 bg-[#F5F5DC] px-6 overflow-hidden scroll-mt-[120px]">
       <div className="container mx-auto max-w-[1700px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-20 items-start">
           

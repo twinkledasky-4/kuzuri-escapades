@@ -116,23 +116,93 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             {/* Desktop Navigation - Centered */}
             <div className="hidden lg:flex flex-grow justify-center items-center px-4">
               <div className="flex items-center space-x-2 xl:space-x-3">
-                {navItems.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.id)}
-                    className={`relative text-[9px] xl:text-[10px] uppercase tracking-[1px] font-bold transition-all hover:text-[#D4AF37] whitespace-nowrap py-1 px-1 ${
-                      isScrolled 
-                        ? (activeSection === item.id ? 'text-[#8B5A2B]' : 'text-[#1A1A1A]') 
-                        : 'text-white'
-                    }`}
-                  >
-                    {item.label}
-                    {activeSection === item.id && (
-                      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
-                    )}
-                  </a>
-                ))}
+                {navItems.map((item) => {
+                  const isCombinedSafaris = item.id === AppSection.COMBINED_SAFARIS;
+                  return (
+                    <div key={item.id} className="relative group flex items-center">
+                      <a
+                        href={item.href}
+                        onClick={(e) => handleNavClick(e, item.id)}
+                        className={`relative text-[9px] xl:text-[10px] uppercase tracking-[1px] font-bold transition-all whitespace-nowrap py-1 px-1 hover:text-[#D4AF37] ${
+                          isScrolled 
+                            ? (activeSection === item.id ? 'text-[#8B5A2B]' : 'text-[#1A1A1A]') 
+                            : 'text-white'
+                        }`}
+                      >
+                        {item.label}
+                        {activeSection === item.id && (
+                          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
+                        )}
+                      </a>
+                      {isCombinedSafaris && (
+                        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 hidden group-hover:flex flex-col bg-white text-[#1A1A1A] py-1 shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-stone-100 rounded-sm z-[100] animate-fade-in min-w-[120px]">
+                          <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-l border-b border-stone-100 rotate-45" />
+                          {[
+                            { 
+                              label: "UG / RW", 
+                              itineraries: [
+                                "3 day world life safari in lake mburo national park",
+                                "9 days rwanda gorilla adventure & tanzania",
+                                "12 day rwanda & uganda birding comfort",
+                                "14 days rwanda & uganda gorilla and chimps"
+                              ]
+                            },
+                            { 
+                              label: "UG / KE", 
+                              itineraries: [
+                                "5 DAY GORILLA TREKKING AND MASAI MARA wild life safari",
+                                "14 days kenya & uganda wildlife & gorilla tracking",
+                                "16 days combined east african wild life",
+                                "16 days tanzania, kenya and uganda safari"
+                              ]
+                            },
+                            { 
+                              label: "UG / TZ", 
+                              itineraries: [
+                                "5 days best of Kenya and tanzania comfort safari",
+                                "11 days uganda, tanzania and kenya wildlife safari",
+                                "13 days uganda and tanzania safari",
+                                "17 days wildlife safari of uganda, kenya & tanzania"
+                              ]
+                            },
+                            { 
+                              label: "UG / RW / DRC", 
+                              itineraries: [
+                                "15 days of uganda, rwanda and congo safari",
+                                "7 days uganda wildlife & source of river nile",
+                                "11 days best of ugandan safari",
+                                "3 days chimpanzee tracking rwanda"
+                              ]
+                            }
+                          ].map((combo) => (
+                            <div key={combo.label} className="group/sub px-3 py-1.5 hover:bg-stone-50 transition-colors cursor-default flex items-center justify-between gap-3">
+                              <span className="text-[7px] font-black tracking-widest uppercase whitespace-nowrap font-sans">
+                                {combo.label}
+                              </span>
+                              
+                              {/* Level Two Pop-Aside - Positioned relative to the level-one container by not making the row relative */}
+                              <div className="absolute left-full top-0 ml-1 hidden group-hover/sub:flex flex-col bg-white text-[#1A1A1A] p-2 shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-stone-100 rounded-sm z-[110] animate-fade-in pointer-events-auto min-w-[180px]">
+                                <div className="absolute -left-1 top-4 w-2 h-2 bg-white border-l border-b border-stone-100 rotate-45" />
+                                {combo.itineraries && (
+                                  <div className="flex flex-col space-y-1.5">
+                                    {combo.itineraries.map((itinerary, i) => (
+                                      <div key={i} className="group/item flex items-start gap-1.5 cursor-pointer">
+                                        <span className="text-[#D4AF37] mt-0.5 shrink-0 text-[6px]">•</span>
+                                        <span className="text-[6px] font-bold tracking-widest uppercase leading-tight text-[#1A1A1A] font-sans group-hover/item:text-[#D4AF37] transition-colors">
+                                          {itinerary}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
@@ -219,9 +289,16 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                   }`}
                 >
                   <span className="text-[#D4AF37] font-serif italic text-lg opacity-40 group-hover:opacity-100 transition-opacity">0{idx + 1}</span>
-                  <span className="text-lg md:text-xl font-serif font-bold text-white uppercase tracking-[0.2em] group-hover:text-[#D4AF37] transition-all">
-                    {item.label}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className={`text-lg md:text-xl font-serif font-bold uppercase tracking-[0.2em] transition-all ${item.id === AppSection.COMBINED_SAFARIS ? 'text-[#D4AF37]' : 'text-white group-hover:text-[#D4AF37]'}`}>
+                      {item.label}
+                    </span>
+                    {item.id === AppSection.COMBINED_SAFARIS && (
+                      <span className="text-[8px] text-white/40 uppercase tracking-widest font-bold mt-1">
+                        UG / RW, UG / KE, UG / TZ, and UG / RW / DRC.
+                      </span>
+                    )}
+                  </div>
                 </a>
               ))}
 

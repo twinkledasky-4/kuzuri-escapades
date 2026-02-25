@@ -22,7 +22,7 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
   const mailtoLink = "mailto:info@kuzuri-escapedes.com?subject=Consultation%20Inquiry";
 
   return (
-    <section className="bg-[#F5F5DC] py-12 md:py-16 px-6 overflow-hidden" aria-labelledby="author-title">
+    <section id="contact-us" className="bg-[#F5F5DC] py-12 md:py-16 px-6 overflow-hidden scroll-mt-[120px]" aria-labelledby="author-title">
       <div className="container mx-auto max-w-[1200px]">
         <div className="text-center mb-12 md:mb-16 reveal-trigger">
           <p className="text-[#8B5A2B] uppercase tracking-[1em] text-[10px] font-bold mb-5">THE FINAL CHAPTER</p>
