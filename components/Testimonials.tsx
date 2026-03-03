@@ -14,7 +14,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ onNavigateToAll, rev
   return (
     <section 
       id="travellers-reviews"
-      className="relative py-10 md:py-12 overflow-hidden scroll-mt-[120px] bg-[#1A1A1A] max-h-[500px] flex flex-col justify-center min-h-[450px]" 
+      className="relative py-16 md:py-24 overflow-hidden scroll-mt-[120px] bg-[#1A1A1A] flex flex-col justify-center min-h-[600px]" 
     >
       {/* Background Layer: Fixed Parallax, Cover, Centered, with 60% Black Overlay */}
       <div 
@@ -26,15 +26,38 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ onNavigateToAll, rev
       </div>
 
       <div className="relative z-10 w-full max-w-[1750px] mx-auto px-6 md:px-20 lg:px-32 flex flex-col items-center">
-        {/* Section Header: Tightened margins for 500px constraint */}
-        <div className="text-center mb-4 md:mb-6 reveal-trigger">
+        {/* Section Header */}
+        <div className="text-center mb-8 md:mb-12 reveal-trigger">
           <p className="text-[#D4AF37] uppercase tracking-[1em] text-[9px] font-black mb-2">
             VOICES OF THE WILD
           </p>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-sans font-black text-white uppercase tracking-[0.2em] mb-3 leading-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-sans font-black text-white uppercase tracking-[0.2em] mb-4 leading-tight">
             TRAVELLERS' REVIEWS
           </h2>
-          <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto" />
+          <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mb-8" />
+          
+          {/* Trust Badges */}
+          <div className="flex items-center justify-center gap-8 md:gap-12 opacity-60 hover:opacity-100 transition-opacity duration-500">
+            <div className="flex flex-col items-center gap-2">
+              <img 
+                src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg" 
+                alt="TripAdvisor" 
+                className="h-6 md:h-8 invert brightness-200"
+                referrerPolicy="no-referrer"
+              />
+              <span className="text-[8px] font-black text-[#D4AF37] tracking-[0.3em] uppercase">Verified Reviews</span>
+            </div>
+            <div className="w-[1px] h-10 bg-white/10" />
+            <div className="flex flex-col items-center gap-2">
+              <img 
+                src="https://www.safaribookings.com/img/logo-safaribookings.png" 
+                alt="SafariBookings" 
+                className="h-6 md:h-8 brightness-0 invert"
+                referrerPolicy="no-referrer"
+              />
+              <span className="text-[8px] font-black text-[#D4AF37] tracking-[0.3em] uppercase">Top Rated</span>
+            </div>
+          </div>
         </div>
 
         {/* Review Carousel Container */}

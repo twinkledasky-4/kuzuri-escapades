@@ -1,20 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PhoneLink } from './PhoneLink.tsx';
 import { Mail, MapPin, Phone, Smartphone } from 'lucide-react';
 
 interface AuthorYourVisionProps {
   onShareVision: () => void;
+  initialDestination?: string;
 }
 
-export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVision }) => {
+export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVision, initialDestination = '' }) => {
   const [formData, setFormData] = useState({
     name: '',
-    destination: '',
-    phone: ''
+    email: '',
+    phone: '',
+    nationality: '',
+    destination: initialDestination
   });
+
+  useEffect(() => {
+    if (initialDestination) {
+      setFormData(prev => ({ ...prev, destination: initialDestination }));
+    }
+  }, [initialDestination]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.email || !formData.phone || !formData.nationality) {
+      alert("Please ensure Email, Phone, and Nationality are provided.");
+      return;
+    }
     onShareVision();
   };
 
@@ -37,19 +50,61 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
         <div className="grid grid-cols-1 lg:grid-cols-2 bg-[#1A1A1A] border-2 border-[#D4AF37] shadow-3xl overflow-hidden reveal-trigger">
           <div className="p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-[#D4AF37]/20">
             <h3 className="text-[#D4AF37] font-serif text-2xl mb-10 uppercase tracking-widest font-bold">The Brief</h3>
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="group relative">
-                <label htmlFor="form-name" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Full Name</label>
-                <input 
-                  id="form-name"
-                  type="text" 
-                  required
-                  placeholder="e.g. Julianne Moore"
-                  className="w-full bg-[#1A1412] border border-[#D4AF37]/30 py-3 px-6 text-white placeholder:text-white/10 outline-none focus:border-[#D4AF37] transition-all font-sans"
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="group relative">
+                  <label htmlFor="form-name" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Full Name</label>
+                  <input 
+                    id="form-name"
+                    type="text" 
+                    required
+                    placeholder="Julianne Moore"
+                    className="w-full bg-[#1A1412] border border-[#D4AF37]/30 py-3 px-6 text-white placeholder:text-white/10 outline-none focus:border-[#D4AF37] transition-all font-sans"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  />
+                </div>
+                <div className="group relative">
+                  <label htmlFor="form-email" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Email Address</label>
+                  <input 
+                    id="form-email"
+                    type="email" 
+                    required
+                    placeholder="julianne@example.com"
+                    className="w-full bg-[#1A1412] border border-[#D4AF37]/30 py-3 px-6 text-white placeholder:text-white/10 outline-none focus:border-[#D4AF37] transition-all font-sans"
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  />
+                </div>
               </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="group relative">
+                  <label htmlFor="form-phone" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Phone Number</label>
+                  <input 
+                    id="form-phone"
+                    type="tel" 
+                    required
+                    placeholder="+44 ..."
+                    className="w-full bg-[#1A1412] border border-[#D4AF37]/30 py-3 px-6 text-white placeholder:text-white/10 outline-none focus:border-[#D4AF37] transition-all font-sans"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  />
+                </div>
+                <div className="group relative">
+                  <label htmlFor="form-nat" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Nationality</label>
+                  <input 
+                    id="form-nat"
+                    type="text" 
+                    required
+                    placeholder="British"
+                    className="w-full bg-[#1A1412] border border-[#D4AF37]/30 py-3 px-6 text-white placeholder:text-white/10 outline-none focus:border-[#D4AF37] transition-all font-sans"
+                    value={formData.nationality}
+                    onChange={(e) => setFormData({...formData, nationality: e.target.value})}
+                  />
+                </div>
+              </div>
+
               <div className="group relative">
                 <label htmlFor="form-dest" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Desired Destination</label>
                 <input 
@@ -60,18 +115,6 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
                   className="w-full bg-[#1A1412] border border-[#D4AF37]/30 py-3 px-6 text-white placeholder:text-white/10 outline-none focus:border-[#D4AF37] transition-all font-sans"
                   value={formData.destination}
                   onChange={(e) => setFormData({...formData, destination: e.target.value})}
-                />
-              </div>
-              <div className="group relative">
-                <label htmlFor="form-phone" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Phone Number</label>
-                <input 
-                  id="form-phone"
-                  type="tel" 
-                  required
-                  placeholder="+44 ..."
-                  className="w-full bg-[#1A1412] border border-[#D4AF37]/30 py-3 px-6 text-white placeholder:text-white/10 outline-none focus:border-[#D4AF37] transition-all font-sans"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 />
               </div>
               <div className="pt-6">

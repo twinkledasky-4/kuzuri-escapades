@@ -245,7 +245,7 @@ const LeaveReviewForm: React.FC = () => {
   );
 };
 
-export const TestimonialsPage: React.FC<{ reviews: Review[], onHelpfulClick?: (id: string | number) => void }> = ({ reviews, onHelpfulClick }) => {
+export const TestimonialsPage: React.FC<{ reviews: Review[] }> = ({ reviews }) => {
   const [filter, setFilter] = useState<ReviewFilter>('all');
   
   const publishedReviews = useMemo(() => reviews.filter(r => r.published), [reviews]);
@@ -341,10 +341,10 @@ export const TestimonialsPage: React.FC<{ reviews: Review[], onHelpfulClick?: (i
 
         {/* Testimonials Grid */}
         {filteredReviews.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-16 lg:gap-20 mb-48">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-48">
             {filteredReviews.map((review) => (
               <div key={review.id} className="reveal-trigger animate-fade-in">
-                <ReviewCard review={review} onHelpfulClick={onHelpfulClick} />
+                <ReviewCard review={review} />
               </div>
             ))}
           </div>

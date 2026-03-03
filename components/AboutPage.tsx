@@ -6,9 +6,38 @@ import { ABOUT_CONTENT } from '../constants.tsx';
 interface AboutPageProps {
   onBack: () => void;
   onContact: () => void;
+  onExploreTour: (tourName: string) => void;
 }
 
-export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact }) => {
+export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExploreTour }) => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchResults, setSearchResults] = React.useState<string[]>([]);
+
+  const allSafaris = [
+    "23-day Luxury Uganda Safari with primates and wildlife",
+    "14 Days Uganda Big 5 safari – Primates and Tree Climbing Lions",
+    "14 days Kenya & Uganda wildlife and Gorilla tracking safari",
+    "1-day Mabamba excursion tour",
+    "1-day birding in Akagera national park",
+    "3-day Gorilla Trekking & Lake Bunyonyi relaxation",
+    "3 days Gorillas and Birds of Volcanoes National park",
+    "4 Day Luxury Gorilla trekking safari from Rwanda",
+    "3-Day gorilla trekking safari in Bwindi"
+  ];
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (query.trim().length > 2) {
+      const filtered = allSafaris.filter(s => 
+        s.toLowerCase().includes(query.toLowerCase()) || 
+        query.toLowerCase().includes('gorilla') && s.toLowerCase().includes('gorilla') ||
+        query.toLowerCase().includes('birding') && s.toLowerCase().includes('birding')
+      );
+      setSearchResults(filtered);
+    } else {
+      setSearchResults([]);
+    }
+  };
   return (
     <div className="bg-white min-h-screen pt-[80px] font-sans">
       {/* Hero Header */}
@@ -175,34 +204,41 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact }) => {
                     type="text" 
                     placeholder="Search our safaris..." 
                     className="w-full bg-transparent border-b border-stone-200 py-2 pr-10 text-sm focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-stone-300 font-light"
+                    value={searchQuery}
+                    onChange={(e) => handleSearch(e.target.value)}
                   />
                   <Search className="absolute right-0 top-1/2 -translate-y-1/2 text-stone-400 w-4 h-4 group-focus-within:text-[#D4AF37] transition-colors" />
                 </div>
+                
+                {searchResults.length > 0 && (
+                  <div className="mt-4 space-y-2 animate-fade-in">
+                    <p className="text-[8px] uppercase tracking-widest text-[#D4AF37] font-bold">Results</p>
+                    {searchResults.map((result, idx) => (
+                      <button 
+                        key={idx}
+                        onClick={() => onExploreTour(result)}
+                        className="text-left w-full text-[10px] font-bold text-[#1A1A1A] hover:text-[#D4AF37] transition-colors block py-1 border-b border-stone-50"
+                      >
+                        {result}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Remarkable Safaris */}
               <div className="bg-white p-8 rounded-2xl shadow-sm border border-stone-100 space-y-8">
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#1A1A1A]">Remarkable Safaris</h4>
                 <ul className="space-y-5">
-                  {[
-                    "23-day Luxury Uganda Safari with primates and wildlife",
-                    "14 Days Uganda Big 5 safari – Primates and Tree Climbing Lions",
-                    "14 days Kenya & Uganda wildlife and Gorilla tracking safari",
-                    "1-day Mabamba excursion tour",
-                    "1-day birding in Akagera national park",
-                    "3-day Gorilla Trekking & Lake Bunyonyi relaxation",
-                    "3 days Gorillas and Birds of Volcanoes National park",
-                    "4 Day Luxury Gorilla trekking safari from Rwanda",
-                    "3-Day gorilla trekking safari in Bwindi"
-                  ].map((safari, idx) => (
+                  {allSafaris.map((safari, idx) => (
                     <li key={idx} className="group">
-                      <a 
-                        href="#" 
-                        className="text-[#D4AF37] hover:text-[#1A1A1A] text-xs leading-relaxed transition-all font-semibold block uppercase tracking-wider"
+                      <button 
+                        onClick={() => onExploreTour(safari)}
+                        className="text-left w-full text-[#D4AF37] hover:text-[#1A1A1A] text-xs leading-relaxed transition-all font-semibold block uppercase tracking-wider"
                       >
                         <span className="inline-block mr-2 opacity-30 group-hover:opacity-100 transition-opacity">/</span>
                         {safari}
-                      </a>
+                      </button>
                     </li>
                   ))}
                 </ul>

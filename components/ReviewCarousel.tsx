@@ -35,39 +35,27 @@ export const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
     setCurrentIndex((prev) => (prev - 1 + totalSteps) % totalSteps);
   };
 
-  // Stack vertically on mobile as requested for easy reading
-  if (isMobile) {
-    return (
-      <div className="flex flex-col gap-10">
-        {reviews.map((review) => (
-          <div key={review.id} className="w-full">
-            <ReviewCard review={review} />
-          </div>
-        ))}
-      </div>
-    );
-  }
-
+  // Horizontal slider on all devices
   return (
     <div className="relative w-full group/carousel px-4">
-      {/* Navigation Arrows - Abs positioned for high contrast on blurred background */}
-      <div className="absolute top-1/2 -left-4 md:-left-16 lg:-left-24 -translate-y-1/2 z-30">
+      {/* Navigation Arrows - Small Gold Arrows */}
+      <div className="absolute top-1/2 -left-2 md:-left-12 lg:-left-16 -translate-y-1/2 z-30">
         <button 
           onClick={prevSlide}
-          className="w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:border-[#D4AF37] transition-all duration-500 rounded-full group/btn"
+          className="w-8 h-8 md:w-12 md:h-12 bg-[#D4AF37]/10 backdrop-blur-md border border-[#D4AF37]/30 shadow-xl flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 rounded-full group/btn"
           aria-label="Previous reviews"
         >
-          <ChevronLeft size={28} strokeWidth={2} className="group-hover/btn:-translate-x-1 transition-transform" />
+          <ChevronLeft size={isMobile ? 16 : 24} strokeWidth={2.5} className="group-hover/btn:-translate-x-0.5 transition-transform" />
         </button>
       </div>
 
-      <div className="absolute top-1/2 -right-4 md:-right-16 lg:-right-24 -translate-y-1/2 z-30">
+      <div className="absolute top-1/2 -right-2 md:-right-12 lg:-right-16 -translate-y-1/2 z-30">
         <button 
           onClick={nextSlide}
-          className="w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-[#1A1A1A] hover:border-[#D4AF37] transition-all duration-500 rounded-full group/btn"
+          className="w-8 h-8 md:w-12 md:h-12 bg-[#D4AF37]/10 backdrop-blur-md border border-[#D4AF37]/30 shadow-xl flex items-center justify-center text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 rounded-full group/btn"
           aria-label="Next reviews"
         >
-          <ChevronRight size={28} strokeWidth={2} className="group-hover/btn:translate-x-1 transition-transform" />
+          <ChevronRight size={isMobile ? 16 : 24} strokeWidth={2.5} className="group-hover/btn:translate-x-0.5 transition-transform" />
         </button>
       </div>
 
@@ -80,7 +68,7 @@ export const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
           {reviews.map((review) => (
             <div 
               key={review.id} 
-              className="flex-shrink-0 px-4 h-full"
+              className="flex-shrink-0 px-2 md:px-4 h-full"
               style={{ width: `${100 / itemsToShow}%` }}
             >
               <ReviewCard review={review} />
@@ -89,14 +77,16 @@ export const ReviewCarousel: React.FC<ReviewCarouselProps> = ({ reviews }) => {
         </div>
       </div>
 
-      {/* Progress Indicators */}
-      <div className="flex justify-center gap-4 mt-16">
+      {/* Progress Indicators - Gold Dots */}
+      <div className="flex justify-center gap-3 mt-8 md:mt-12">
         {Array.from({ length: totalSteps }).map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}
-            className={`h-1 transition-all duration-700 rounded-full ${
-              i === currentIndex ? 'w-16 bg-[#D4AF37]' : 'w-4 bg-white/20 hover:bg-white/40'
+            className={`transition-all duration-500 rounded-full ${
+              i === currentIndex 
+                ? 'w-8 h-1.5 bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.5)]' 
+                : 'w-1.5 h-1.5 bg-[#D4AF37]/20 hover:bg-[#D4AF37]/40'
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />

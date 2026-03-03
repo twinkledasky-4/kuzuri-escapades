@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Tour } from '../types.ts';
 import { UI_DICTIONARY } from '../services/translationService.ts';
 import { Check, X, Clock, MapPin, Calendar, Tag } from 'lucide-react';
+import { PaymentSection } from './PaymentSection.tsx';
 
 interface TourDetailProps {
   tour: Tour;
@@ -147,6 +148,8 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
                 </button>
               </div>
             </div>
+
+            <PaymentSection tourName={tour.name} defaultAmount={tour.price_from} />
 
             {/* Inclusions / Exclusions */}
             <div className="p-10 bg-[#FAF8F3] border border-black/5 space-y-10">

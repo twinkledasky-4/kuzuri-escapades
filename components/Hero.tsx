@@ -83,14 +83,16 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning, minimal = false }) 
             {staticContent.description}
           </h2>
 
-          {/* CTA Button */}
+          {/* CTA Buttons */}
           {!minimal && (
-            <button 
-              onClick={onStartPlanning}
-              className="bg-[#D4AF37] text-[#000000] px-8 py-3 text-[8px] font-bold tracking-[0.4em] uppercase shadow-lg hover:bg-white hover:text-black transition-all duration-500 transform active:scale-95 border-none rounded-[2px]"
-            >
-              BOOK NOW
-            </button>
+            <div className="flex flex-col md:flex-row gap-4">
+              <button 
+                onClick={onStartPlanning}
+                className="bg-[#D4AF37] text-[#000000] px-8 py-3 text-[8px] font-bold tracking-[0.4em] uppercase shadow-lg hover:bg-white hover:text-black transition-all duration-500 transform active:scale-95 border-none rounded-[2px]"
+              >
+                BOOK NOW
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -22,6 +22,7 @@ import { TestimonialsPage } from './components/TestimonialsPage.tsx';
 import { Services } from './components/Services.tsx';
 import { AboutSection } from './components/AboutSection.tsx';
 import { AboutPage } from './components/AboutPage.tsx';
+import { CombinedSafariPage } from './components/CombinedSafariPage.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
 import { PromoPopup } from './components/PromoPopup.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
@@ -36,6 +37,7 @@ const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<AppSection>(AppSection.HOME);
   const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
+  const [selectedCombinedSafari, setSelectedCombinedSafari] = useState<Tour | null>(null);
   const [showGorillaPage, setShowGorillaPage] = useState(false);
   const [showBoatSafariPage, setShowBoatSafariPage] = useState(false);
   const [showChimpanzeePage, setShowChimpanzeePage] = useState(false);
@@ -47,6 +49,7 @@ const App: React.FC = () => {
   const [inquiryPreFill, setInquiryPreFill] = useState('');
   const [packageContext, setPackageContext] = useState('');
   const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
+  const [formDestination, setFormDestination] = useState('');
   
   const [currentLang, setCurrentLang] = useState(() => {
     const saved = localStorage.getItem('kuzuri_lang');
@@ -116,7 +119,7 @@ const App: React.FC = () => {
     const anchorId = anchorMap[section];
     if (anchorId) {
       const element = document.getElementById(anchorId);
-      if (element && activeSection === AppSection.HOME && !selectedDestination && !selectedTour && !showGorillaPage && !showBoatSafariPage && !showChimpanzeePage) {
+      if (element && activeSection === AppSection.HOME && !selectedDestination && !selectedTour && !selectedCombinedSafari && !showGorillaPage && !showBoatSafariPage && !showChimpanzeePage) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setActiveSection(section);
       } else {
@@ -124,6 +127,7 @@ const App: React.FC = () => {
         setActiveSection(AppSection.HOME);
         setSelectedDestination(null);
         setSelectedTour(null);
+        setSelectedCombinedSafari(null);
         setShowGorillaPage(false);
         setShowBoatSafariPage(false);
         setShowChimpanzeePage(false);
@@ -134,6 +138,7 @@ const App: React.FC = () => {
     setActiveSection(section);
     setSelectedDestination(null);
     setSelectedTour(null);
+    setSelectedCombinedSafari(null);
     setShowGorillaPage(false);
     setShowBoatSafariPage(false);
     setShowChimpanzeePage(false);
@@ -142,9 +147,7 @@ const App: React.FC = () => {
   };
 
   const handleRequestBooking = (tour: Tour) => {
-    setInquiryPreFill(`I am interested in the ${tour.name} experience. Please share more details.`);
-    setPackageContext(tour.name);
-    setIsInquiryOpen(true);
+    scrollToForm(tour.name);
   };
 
   const handleExploreTour = (tour: Tour) => {
@@ -195,11 +198,26 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleExploreCombined = (tourName: string) => {
+    const tour = TOURS.find(t => t.name.toLowerCase() === tourName.toLowerCase());
+    if (tour) {
+      setSelectedCombinedSafari(tour);
+      setActiveSection(AppSection.COMBINED_SAFARI_DETAIL);
+      setSelectedTour(null);
+      setSelectedDestination(null);
+      setShowGorillaPage(false);
+      setShowBoatSafariPage(false);
+      setShowChimpanzeePage(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleCloseSubPage = (id: string) => {
     setShowGorillaPage(false);
     setShowBoatSafariPage(false);
     setShowChimpanzeePage(false);
     setSelectedTour(null);
+    setSelectedCombinedSafari(null);
     setSelectedDestination(null);
     setActiveSection(AppSection.HOME);
     if (id === 'discover-uganda') {
@@ -241,6 +259,14 @@ const App: React.FC = () => {
     document.querySelectorAll('.reveal-trigger').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, [selectedDestination, selectedTour, activeSection, showGorillaPage, showBoatSafariPage, showChimpanzeePage, showAdmin, isAuthenticated]);
+
+  const scrollToForm = (destination?: string) => {
+    if (destination) setFormDestination(destination);
+    const element = document.getElementById('contact-us');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const renderContent = () => {
     if (showAdmin) {
@@ -316,6 +342,20 @@ const App: React.FC = () => {
       );
     }
 
+    if (selectedCombinedSafari) {
+      return (
+        <CombinedSafariPage 
+          tour={selectedCombinedSafari} 
+          onBack={() => handleCloseSubPage('combined-safaris')}
+          onBook={(name) => {
+            setInquiryPreFill(`I am interested in the ${name} Combined Safari.`);
+            setPackageContext(name);
+            setIsInquiryOpen(true);
+          }}
+        />
+      );
+    }
+
     switch (activeSection) {
       case AppSection.ACCOMMODATIONS:
         return <AccommodationsPage onBack={() => handleNavigate(AppSection.HOME)} onEnquire={(ctx) => {
@@ -326,15 +366,27 @@ const App: React.FC = () => {
       case AppSection.TESTIMONIALS:
         return <TestimonialsPage reviews={REVIEWS} />;
       case AppSection.ABOUT:
-        return <AboutPage onBack={() => handleNavigate(AppSection.HOME)} onContact={() => setIsInquiryOpen(true)} />;
+        return (
+          <AboutPage 
+            onBack={() => handleNavigate(AppSection.HOME)} 
+            onContact={() => {
+              handleNavigate(AppSection.HOME);
+              setPendingScrollId('contact-us');
+            }} 
+            onExploreTour={(tourName) => {
+              setInquiryPreFill(`I am interested in the ${tourName} experience. Please share more details.`);
+              setPackageContext(tourName);
+              setIsInquiryOpen(true);
+            }}
+          />
+        );
       default:
         return (
           <div className="flex flex-col">
-            <Hero minimal={false} onStartPlanning={() => {
-              setInquiryPreFill("I would like to start planning a signature Ugandan journey.");
-              setPackageContext("General Planning");
-              setIsInquiryOpen(true);
-            }} />
+            <Hero 
+              minimal={false} 
+              onStartPlanning={() => scrollToForm()} 
+            />
             <Ticker />
             <AboutSection 
               content={ABOUT_CONTENT} 
@@ -369,11 +421,14 @@ const App: React.FC = () => {
               setPackageContext(`Service: ${svc}`);
               setIsInquiryOpen(true);
             }} />
-            <AuthorYourVision onShareVision={() => {
-              setInquiryPreFill("I have shared my basic details and wish to commence a bespoke adventure consultation.");
-              setPackageContext("Final Chapter Lead");
-              setIsInquiryOpen(true);
-            }} />
+            <AuthorYourVision 
+              onShareVision={() => {
+                setInquiryPreFill("I have shared my basic details and wish to commence a bespoke adventure consultation.");
+                setPackageContext("Final Chapter Lead");
+                setIsInquiryOpen(true);
+              }} 
+              initialDestination={formDestination}
+            />
             <Testimonials reviews={REVIEWS} onNavigateToAll={() => handleNavigate(AppSection.TESTIMONIALS)} />
           </div>
         );
@@ -382,9 +437,20 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-[#8B5A2B] selection:text-white">
-      <Navbar activeSection={activeSection} onNavigate={handleNavigate} onEnquire={() => {
-        setInquiryPreFill("Hello, I am reaching out from the global navigation to inquire about your services.");
-        setPackageContext("Global Navbar Lead");
+      <Navbar activeSection={activeSection} onNavigate={handleNavigate} onEnquire={(ctx) => {
+        if (ctx) {
+          // Check if ctx is one of our combined safaris
+          const isCombined = TOURS.some(t => t.name.toLowerCase() === ctx.toLowerCase() && t.category === 'Combined Safari');
+          if (isCombined) {
+            handleExploreCombined(ctx);
+            return;
+          }
+          setInquiryPreFill(`I am interested in the ${ctx} experience. Please share more details.`);
+          setPackageContext(ctx);
+        } else {
+          setInquiryPreFill("Hello, I am reaching out from the global navigation to inquire about your services.");
+          setPackageContext("Global Navbar Lead");
+        }
         setIsInquiryOpen(true);
       }} />
       <main>{renderContent()}</main>

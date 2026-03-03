@@ -5,7 +5,7 @@ import { Menu, X, ArrowRight, Clock, Phone, Mail, MapPin } from 'lucide-react';
 interface NavbarProps {
   activeSection: AppSection;
   onNavigate: (section: AppSection) => void;
-  onEnquire: () => void;
+  onEnquire: (context?: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnquire }) => {
@@ -135,23 +135,24 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                         )}
                       </a>
                       {isCombinedSafaris && (
-                        <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 hidden group-hover:flex flex-col bg-white text-[#1A1A1A] py-1 shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-stone-100 rounded-sm z-[100] animate-fade-in min-w-[120px]">
-                          <div className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-l border-b border-stone-100 rotate-45" />
-                          {[
+                        <div className="absolute top-full left-0 pt-2 hidden group-hover:flex flex-col z-[100]">
+                          <div className="bg-white text-[#1A1A1A] py-2 shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-stone-100 rounded-sm animate-fade-in min-w-[140px]">
+                            <div className="absolute -top-1.5 left-4 w-3 h-3 bg-white border-l border-t border-stone-100 rotate-45" />
+                            {[
                             { 
                               label: "UG / RW", 
                               itineraries: [
-                                "3 day world life safari in lake mburo national park",
+                                "12 days Uganda and Rwanda birding comfort safari",
+                                "14 days rwanda & uganda gorilla and chimps",
                                 "9 days rwanda gorilla adventure & tanzania",
-                                "12 day rwanda & uganda birding comfort",
-                                "14 days rwanda & uganda gorilla and chimps"
+                                "3 day world life safari in lake mburo national park"
                               ]
                             },
                             { 
                               label: "UG / KE", 
                               itineraries: [
                                 "5 DAY GORILLA TREKKING AND MASAI MARA wild life safari",
-                                "14 days kenya & uganda wildlife & gorilla tracking",
+                                "14 days Kenya & Uganda wildlife and Gorilla tracking safari",
                                 "16 days combined east african wild life",
                                 "16 days tanzania, kenya and uganda safari"
                               ]
@@ -159,34 +160,38 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                             { 
                               label: "UG / TZ", 
                               itineraries: [
-                                "5 days best of Kenya and tanzania comfort safari",
-                                "11 days uganda, tanzania and kenya wildlife safari",
-                                "13 days uganda and tanzania safari",
-                                "17 days wildlife safari of uganda, kenya & tanzania"
+                                "6 Days Masai Mara and Serengeti safari",
+                                "11 Days Uganda, Tanzania and Kenya Wildlife Safari",
+                                "13 Days Uganda and Tanzania Safari",
+                                "17 Days Wildlife Safari of Uganda, Kenya & Tanzania"
                               ]
                             },
                             { 
                               label: "UG / RW / DRC", 
                               itineraries: [
-                                "15 days of uganda, rwanda and congo safari",
-                                "7 days uganda wildlife & source of river nile",
-                                "11 days best of ugandan safari",
-                                "3 days chimpanzee tracking rwanda"
+                                "15 Days of Uganda, Rwanda and Congo Safari",
+                                "7 Days Uganda Wildlife & Source of River Nile",
+                                "11 Days Best of Ugandan Safari",
+                                "3 Days Chimpanzee Tracking Rwanda"
                               ]
                             }
                           ].map((combo) => (
-                            <div key={combo.label} className="group/sub px-3 py-1.5 hover:bg-stone-50 transition-colors cursor-default flex items-center justify-between gap-3">
+                            <div key={combo.label} className="relative group/sub px-3 py-1.5 hover:bg-stone-50 transition-colors cursor-default flex items-center justify-between gap-3">
                               <span className="text-[7px] font-black tracking-widest uppercase whitespace-nowrap font-sans">
                                 {combo.label}
                               </span>
                               
-                              {/* Level Two Pop-Aside - Positioned relative to the level-one container by not making the row relative */}
-                              <div className="absolute left-full top-0 ml-1 hidden group-hover/sub:flex flex-col bg-white text-[#1A1A1A] p-2 shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-stone-100 rounded-sm z-[110] animate-fade-in pointer-events-auto min-w-[180px]">
-                                <div className="absolute -left-1 top-4 w-2 h-2 bg-white border-l border-b border-stone-100 rotate-45" />
+                              {/* Level Two Pop-Aside - Positioned relative to the row */}
+                              <div className="absolute left-full top-0 ml-0.5 hidden group-hover/sub:flex flex-col bg-white text-[#1A1A1A] p-1.5 shadow-[0_8px_25px_rgba(0,0,0,0.12)] border border-stone-100 rounded-sm z-[110] animate-fade-in pointer-events-auto min-w-[160px]">
+                                <div className="absolute -left-1 top-2 w-2 h-2 bg-white border-l border-b border-stone-100 rotate-45" />
                                 {combo.itineraries && (
-                                  <div className="flex flex-col space-y-1.5">
+                                  <div className="flex flex-col space-y-1">
                                     {combo.itineraries.map((itinerary, i) => (
-                                      <div key={i} className="group/item flex items-start gap-1.5 cursor-pointer">
+                                      <div 
+                                        key={i} 
+                                        className="group/item flex items-start gap-1.5 cursor-pointer"
+                                        onClick={() => onEnquire(itinerary)}
+                                      >
                                         <span className="text-[#D4AF37] mt-0.5 shrink-0 text-[6px]">•</span>
                                         <span className="text-[6px] font-bold tracking-widest uppercase leading-tight text-[#1A1A1A] font-sans group-hover/item:text-[#D4AF37] transition-colors">
                                           {itinerary}
@@ -199,10 +204,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                             </div>
                           ))}
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
               </div>
             </div>
 

@@ -14,6 +14,9 @@ export interface TourItineraryDay {
   day: number | string;
   title: string;
   detail: string;
+  accommodation?: string;
+  meals?: string;
+  activities?: string;
 }
 
 export interface Tour {
@@ -34,6 +37,11 @@ export interface Tour {
   itinerary?: TourItineraryDay[];
   featured: boolean;
   order_index?: number;
+  countries?: string;
+  startCity?: string;
+  endCity?: string;
+  transportMode?: string;
+  primaryFocus?: string;
 }
 
 export interface Service {
@@ -121,5 +129,6 @@ export enum AppSection {
   BIRDING = 'birding',
   CONTACT = 'contact',
   TESTIMONIALS = 'testimonials',
+  COMBINED_SAFARI_DETAIL = 'combined-safari-detail',
   ADMIN = 'admin'
 }
