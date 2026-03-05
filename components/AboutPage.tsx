@@ -1,41 +1,38 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight, Award, Users, Globe, ShieldCheck, ArrowRight, Compass, Calendar, Heart, HandHeart, Car, Tag, Search } from 'lucide-react';
-import { ABOUT_CONTENT } from '../constants.tsx';
+import { ABOUT_CONTENT, TOURS } from '../constants.tsx';
 
 interface AboutPageProps {
   onBack: () => void;
   onContact: () => void;
   onExploreTour: (tourName: string) => void;
+  onSearchTriggered: (query: string) => void;
 }
 
-export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExploreTour }) => {
+export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExploreTour, onSearchTriggered }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [searchResults, setSearchResults] = React.useState<string[]>([]);
+  const [suggestions, setSuggestions] = React.useState<string[]>([]);
 
-  const allSafaris = [
-    "23-day Luxury Uganda Safari with primates and wildlife",
-    "14 Days Uganda Big 5 safari – Primates and Tree Climbing Lions",
-    "14 days Kenya & Uganda wildlife and Gorilla tracking safari",
-    "1-day Mabamba excursion tour",
-    "1-day birding in Akagera national park",
-    "3-day Gorilla Trekking & Lake Bunyonyi relaxation",
-    "3 days Gorillas and Birds of Volcanoes National park",
-    "4 Day Luxury Gorilla trekking safari from Rwanda",
-    "3-Day gorilla trekking safari in Bwindi"
-  ];
+  const allSafaris = TOURS.map(t => t.name);
 
-  const handleSearch = (query: string) => {
+  const handleSearchInput = (query: string) => {
     setSearchQuery(query);
-    if (query.trim().length > 2) {
-      const filtered = allSafaris.filter(s => 
-        s.toLowerCase().includes(query.toLowerCase()) || 
-        query.toLowerCase().includes('gorilla') && s.toLowerCase().includes('gorilla') ||
-        query.toLowerCase().includes('birding') && s.toLowerCase().includes('birding')
-      );
-      setSearchResults(filtered);
+    if (query.trim().length > 0) {
+      const keywords = query.toLowerCase().split(' ').filter(k => k.length > 0);
+      const filtered = allSafaris.filter(s => {
+        const name = s.toLowerCase();
+        return keywords.every(k => name.includes(k));
+      });
+      setSuggestions(filtered);
     } else {
-      setSearchResults([]);
+      setSuggestions([]);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && searchQuery.trim().length > 0) {
+      onSearchTriggered(searchQuery);
     }
   };
   return (
@@ -205,19 +202,25 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
                     placeholder="Search our safaris..." 
                     className="w-full bg-transparent border-b border-stone-200 py-2 pr-10 text-sm focus:outline-none focus:border-[#D4AF37] transition-all placeholder:text-stone-300 font-light"
                     value={searchQuery}
-                    onChange={(e) => handleSearch(e.target.value)}
+                    onChange={(e) => handleSearchInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
                   />
-                  <Search className="absolute right-0 top-1/2 -translate-y-1/2 text-stone-400 w-4 h-4 group-focus-within:text-[#D4AF37] transition-colors" />
+                  <button 
+                    onClick={() => searchQuery.trim().length > 0 && onSearchTriggered(searchQuery)}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 text-stone-400 hover:text-[#D4AF37] transition-colors"
+                  >
+                    <Search className="w-4 h-4" />
+                  </button>
                 </div>
                 
-                {searchResults.length > 0 && (
-                  <div className="mt-4 space-y-2 animate-fade-in">
-                    <p className="text-[8px] uppercase tracking-widest text-[#D4AF37] font-bold">Results</p>
-                    {searchResults.map((result, idx) => (
+                {suggestions.length > 0 && (
+                  <div className="mt-4 space-y-2 animate-fade-in bg-stone-50/50 p-4 rounded-lg border border-stone-100">
+                    <p className="text-[8px] uppercase tracking-widest text-[#D4AF37] font-bold mb-2">Auto-Suggest</p>
+                    {suggestions.map((result, idx) => (
                       <button 
                         key={idx}
                         onClick={() => onExploreTour(result)}
-                        className="text-left w-full text-[10px] font-bold text-[#1A1A1A] hover:text-[#D4AF37] transition-colors block py-1 border-b border-stone-50"
+                        className="text-left w-full text-[10px] font-bold text-[#1A1A1A] hover:text-[#D4AF37] transition-colors block py-2 border-b border-stone-100 last:border-0"
                       >
                         {result}
                       </button>
@@ -414,21 +417,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
         </div>
       </section>
 
-      {/* Trust & Partners Section */}
-      <section className="py-20 bg-stone-50 px-6">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center space-y-12">
-            <p className="text-[#D4AF37] uppercase tracking-[0.8em] text-[10px] font-bold">TRUSTED BY THE BEST</p>
-            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale hover:grayscale-0 transition-all duration-700">
-              <img src="https://utb.go.ug/sites/default/files/utb-logo.png" alt="UTB" className="h-12 md:h-16 w-auto object-contain" />
-              <img src="https://www.ugandawildlife.org/images/uwa-logo.png" alt="UWA" className="h-16 md:h-20 w-auto object-contain" />
-              <img src="https://ugandatouroperators.org/wp-content/uploads/2021/05/AUTO-Logo.png" alt="AUTO" className="h-12 md:h-16 w-auto object-contain" />
-              <img src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg" alt="TripAdvisor" className="h-8 md:h-10 w-auto object-contain" />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Booking / Consultation Section */}
       <section className="py-24 md:py-32 px-6 bg-[#1A1A1A] text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
@@ -580,6 +568,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
           >
             Start Your Journey
           </button>
+        </div>
+      </section>
+
+      {/* SafariBookings Verification */}
+      <section className="pb-16 px-6 text-center">
+        <div className="container mx-auto max-w-3xl">
+          <p className="text-stone-500 text-sm font-light leading-relaxed">
+            We are proud to be represented on <a href="https://www.safaribookings.com" target="_blank" rel="noopener noreferrer" className="underline text-[#1A1A1A] hover:text-[#D4AF37] transition-colors font-medium">SafariBookings.com</a>, the world's leading online marketplace for African safari tours.
+          </p>
         </div>
       </section>
     </div>

@@ -1,8 +1,9 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Clock, MapPin, CheckCircle2, Calendar, Users, ShieldCheck, Hotel, Utensils, Compass } from 'lucide-react';
+import { ArrowLeft, Clock, MapPin, CheckCircle2, Calendar, Users, ShieldCheck, Hotel, Utensils, Car, Compass } from 'lucide-react';
 import { Tour } from '../types.ts';
+import { crmService } from '../services/crmService.ts';
 
 interface CombinedSafariPageProps {
   tour: Tour;
@@ -11,9 +12,37 @@ interface CombinedSafariPageProps {
 }
 
 export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, onBack, onBook }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [quoteData, setQuoteData] = useState({
+    fullName: '',
+    email: '',
+    travelDates: ''
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleQuickQuote = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    await crmService.captureLead({
+      source: 'tour_booking',
+      packageViewing: tour.name,
+      data: {
+        fullName: quoteData.fullName,
+        email: quoteData.email,
+        travelDate: quoteData.travelDates,
+        message: `Quick Quote Request for ${tour.name}`
+      }
+    });
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    setTimeout(() => setIsSubmitted(false), 5000);
+  };
 
   return (
     <div className="bg-white min-h-screen font-sans selection:bg-[#D4AF37] selection:text-white">
@@ -114,22 +143,29 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
                           </div>
 
                           {/* Daily Iconography */}
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                            <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-sm">
+                          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-4">
+                            <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-sm border border-stone-100">
                               <Hotel size={16} className="text-[#D4AF37]" />
                               <div className="flex flex-col">
                                 <span className="text-[9px] font-black uppercase tracking-widest text-stone-400">Accommodation</span>
                                 <span className="text-[11px] font-bold text-[#1A1A1A]">{day.accommodation || 'Luxury Safari Lodge'}</span>
                               </div>
                             </div>
-                            <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-sm">
+                            <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-sm border border-stone-100">
                               <Utensils size={16} className="text-[#D4AF37]" />
                               <div className="flex flex-col">
                                 <span className="text-[9px] font-black uppercase tracking-widest text-stone-400">Meals</span>
                                 <span className="text-[11px] font-bold text-[#1A1A1A]">{day.meals || 'Breakfast, Lunch, Dinner'}</span>
                               </div>
                             </div>
-                            <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-sm">
+                            <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-sm border border-stone-100">
+                              <Car size={16} className="text-[#D4AF37]" />
+                              <div className="flex flex-col">
+                                <span className="text-[9px] font-black uppercase tracking-widest text-stone-400">Transport</span>
+                                <span className="text-[11px] font-bold text-[#1A1A1A] uppercase tracking-tighter">4x4 Land Cruiser</span>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-sm border border-stone-100">
                               <Compass size={16} className="text-[#D4AF37]" />
                               <div className="flex flex-col">
                                 <span className="text-[9px] font-black uppercase tracking-widest text-stone-400">Activities</span>
@@ -196,20 +232,20 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
 
               {/* Trust Footer */}
               <div className="pt-20 border-t border-stone-100 reveal-trigger">
-                <div className="flex flex-col items-center justify-center text-center space-y-10">
+                <div className="flex flex-col items-center justify-center text-center space-y-12">
                   <div className="space-y-4">
                     <span className="text-[#D4AF37] text-[10px] font-black uppercase tracking-[0.4em] block">Our Credentials</span>
-                    <h3 className="text-2xl font-serif font-bold text-[#1A1A1A]">Travel with <span className="italic text-[#D4AF37]">Absolute Confidence.</span></h3>
+                    <h3 className="text-3xl md:text-4xl font-serif font-bold text-[#1A1A1A]">Travel with <span className="italic text-[#D4AF37]">Absolute Confidence.</span></h3>
                   </div>
                   
-                  <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-700">
-                    <img src="https://i.postimg.cc/85mR6vY7/utb-logo.png" alt="UTB" className="h-16 md:h-20 object-contain" referrerPolicy="no-referrer" />
-                    <img src="https://i.postimg.cc/m2fX9X7P/tripadvisor.png" alt="TripAdvisor" className="h-12 md:h-16 object-contain" referrerPolicy="no-referrer" />
-                    <img src="https://i.postimg.cc/vH6X6X6X/safaribookings.png" alt="SafariBookings" className="h-10 md:h-14 object-contain" referrerPolicy="no-referrer" />
+                  <div className="flex flex-wrap justify-center items-center gap-16 md:gap-24 opacity-80 grayscale hover:grayscale-0 transition-all duration-700">
+                    <img src="https://i.postimg.cc/85mR6vY7/utb-logo.png" alt="UTB" className="h-20 md:h-28 object-contain" referrerPolicy="no-referrer" />
+                    <img src="https://i.postimg.cc/m2fX9X7P/tripadvisor.png" alt="TripAdvisor" className="h-16 md:h-24 object-contain" referrerPolicy="no-referrer" />
+                    <img src="https://i.postimg.cc/vH6X6X6X/safaribookings.png" alt="SafariBookings" className="h-14 md:h-20 object-contain" referrerPolicy="no-referrer" />
                   </div>
                   
-                  <p className="text-stone-400 text-[10px] uppercase tracking-[0.2em] font-bold max-w-md">
-                    Licensed by the Uganda Tourism Board & Highly Rated across Global Safari Platforms.
+                  <p className="text-stone-400 text-[11px] uppercase tracking-[0.3em] font-bold max-w-xl leading-loose">
+                    Licensed by the Uganda Tourism Board & Highly Rated across Global Safari Platforms. Your journey is protected by our commitment to excellence.
                   </p>
                 </div>
               </div>
@@ -243,10 +279,10 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
 
                 {/* Investment Card */}
                 <div className="bg-[#1A1A1A] text-white p-10 rounded-sm shadow-2xl reveal-trigger">
-                  <span className="text-[#D4AF37] text-[9px] font-black uppercase tracking-[0.4em] mb-6 block font-sans">Investment</span>
+                  <span className="text-white text-[11px] font-bold uppercase tracking-[0.3em] mb-4 block font-sans">{tour.category}</span>
                   <div className="flex items-baseline gap-2 mb-8">
-                    <span className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest font-sans">From</span>
-                    <span className="text-5xl font-serif font-bold">{tour.currency}{tour.price_from}</span>
+                    <span className="text-[8px] font-black text-[#D4AF37] uppercase tracking-[0.4em] font-sans">STARTING FROM</span>
+                    <span className="text-5xl font-serif font-bold">{tour.currency}{tour.price_from.toLocaleString()}</span>
                     <span className="text-xs text-white/40 uppercase tracking-widest ml-2 font-sans">Per Person</span>
                   </div>
                   
@@ -277,23 +313,55 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
                 <div className="bg-stone-50 p-8 rounded-sm border border-stone-100 reveal-trigger">
                   <span className="text-[#D4AF37] text-[9px] font-black uppercase tracking-[0.4em] mb-4 block font-sans">Quick Quote</span>
                   <h3 className="text-xl font-serif font-bold text-[#1A1A1A] mb-6">Request a <span className="italic text-[#D4AF37]">Signature Price.</span></h3>
-                  <form className="space-y-4 font-sans" onSubmit={(e) => { e.preventDefault(); onBook(tour.name); }}>
-                    <div className="space-y-1.5">
-                      <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Full Name</label>
-                      <input type="text" className="w-full bg-white border border-stone-200 p-3 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors" placeholder="John Doe" required />
+                  
+                  {isSubmitted ? (
+                    <div className="p-6 bg-white border border-[#D4AF37] text-center animate-fade-in">
+                      <p className="text-[#1A1A1A] font-bold text-sm uppercase tracking-widest">Vision Received</p>
+                      <p className="text-xs text-stone-500 mt-2">Our architects will contact you shortly.</p>
                     </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Email Address</label>
-                      <input type="email" className="w-full bg-white border border-stone-200 p-3 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors" placeholder="john@example.com" required />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Travel Dates</label>
-                      <input type="text" className="w-full bg-white border border-stone-200 p-3 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors" placeholder="e.g. July 2024" />
-                    </div>
-                    <button type="submit" className="w-full py-4 bg-[#D4AF37] text-black text-[9px] font-black uppercase tracking-[0.4em] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500 shadow-md">
-                      Submit Request
-                    </button>
-                  </form>
+                  ) : (
+                    <form className="space-y-4 font-sans" onSubmit={handleQuickQuote}>
+                      <div className="space-y-1.5">
+                        <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Full Name</label>
+                        <input 
+                          type="text" 
+                          className="w-full bg-white border border-stone-200 p-3 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors" 
+                          placeholder="John Doe" 
+                          required 
+                          value={quoteData.fullName}
+                          onChange={(e) => setQuoteData({...quoteData, fullName: e.target.value})}
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Email Address</label>
+                        <input 
+                          type="email" 
+                          className="w-full bg-white border border-stone-200 p-3 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors" 
+                          placeholder="john@example.com" 
+                          required 
+                          value={quoteData.email}
+                          onChange={(e) => setQuoteData({...quoteData, email: e.target.value})}
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Travel Dates</label>
+                        <input 
+                          type="text" 
+                          className="w-full bg-white border border-stone-200 p-3 text-xs focus:outline-none focus:border-[#D4AF37] transition-colors" 
+                          placeholder="e.g. July 2024" 
+                          value={quoteData.travelDates}
+                          onChange={(e) => setQuoteData({...quoteData, travelDates: e.target.value})}
+                        />
+                      </div>
+                      <button 
+                        type="submit" 
+                        disabled={isSubmitting}
+                        className="w-full py-4 bg-[#D4AF37] text-black text-[9px] font-black uppercase tracking-[0.4em] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500 shadow-md disabled:opacity-50"
+                      >
+                        {isSubmitting ? 'Transmitting...' : 'Submit Request'}
+                      </button>
+                    </form>
+                  )}
                 </div>
 
                 {/* Tour Highlights */}

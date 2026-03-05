@@ -16,6 +16,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [formData, setFormData] = useState({ 
     fullName: '', 
     email: '', 
@@ -57,8 +58,18 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email) return;
     
+    const newErrors: Record<string, boolean> = {};
+    if (!formData.fullName) newErrors.fullName = true;
+    if (!formData.email) newErrors.email = true;
+    if (!formData.phoneNumber) newErrors.phoneNumber = true;
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setIsLoading(true);
     
     // CRM INTEGRATION: Capture lead with explicit Package context
@@ -125,7 +136,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mt-6" />
             </div>
 
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6" onSubmit={handleSubmit} method="POST">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="group">
                   <label htmlFor="fullName" className="block text-[10px] uppercase tracking-[0.4em] text-[#1A1A1A] mb-2 font-bold">Full Name</label>
@@ -134,10 +145,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     type="text" 
                     required
                     autoFocus
-                    className="w-full bg-white border-b border-[#1A1A1A]/10 py-2 px-1 text-base focus:border-[#D4AF37] outline-none transition-all font-normal text-[#1A1A1A] placeholder:opacity-30"
+                    className={`w-full bg-white border-b ${errors.fullName ? 'border-red-500' : 'border-[#1A1A1A]/10'} py-2 px-1 text-base focus:border-[#D4AF37] outline-none transition-all font-normal text-[#1A1A1A] placeholder:opacity-30`}
                     placeholder="Alexandra Bennett"
                     value={formData.fullName}
-                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                    onChange={(e) => {
+                      setFormData({...formData, fullName: e.target.value});
+                      if (errors.fullName) setErrors({...errors, fullName: false});
+                    }}
                   />
                 </div>
 
@@ -147,10 +161,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     id="email"
                     type="email" 
                     required
-                    className="w-full bg-white border-b border-[#1A1A1A]/10 py-2 px-1 text-base focus:border-[#D4AF37] outline-none transition-all font-normal text-[#1A1A1A] placeholder:opacity-30"
+                    className={`w-full bg-white border-b ${errors.email ? 'border-red-500' : 'border-[#1A1A1A]/10'} py-2 px-1 text-base focus:border-[#D4AF37] outline-none transition-all font-normal text-[#1A1A1A] placeholder:opacity-30`}
                     placeholder="email@example.com"
                     value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) => {
+                      setFormData({...formData, email: e.target.value});
+                      if (errors.email) setErrors({...errors, email: false});
+                    }}
                   />
                 </div>
               </div>
@@ -234,10 +251,13 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                     <input 
                       id="phoneNumber"
                       type="tel" 
-                      className="w-full bg-white border-b border-[#1A1A1A]/10 py-2 px-1 text-base focus:border-[#D4AF37] outline-none transition-all font-normal text-[#1A1A1A]"
+                      className={`w-full bg-white border-b ${errors.phoneNumber ? 'border-red-500' : 'border-[#1A1A1A]/10'} py-2 px-1 text-base focus:border-[#D4AF37] outline-none transition-all font-normal text-[#1A1A1A]`}
                       placeholder="708012030"
                       value={formData.phoneNumber}
-                      onChange={(e) => setFormData({...formData, phoneNumber: e.target.value})}
+                      onChange={(e) => {
+                        setFormData({...formData, phoneNumber: e.target.value});
+                        if (errors.phoneNumber) setErrors({...errors, phoneNumber: false});
+                      }}
                     />
                   </div>
                 </div>
@@ -292,7 +312,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
                 <button 
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-5 bg-[#D4AF37] text-[#1A1A1A] text-[10px] uppercase tracking-[1em] font-black hover:bg-white transition-all duration-700 shadow-lg disabled:bg-stone-300 border-none"
+                  className="w-full py-5 bg-[#D4AF37] text-white text-[10px] uppercase tracking-[1em] font-black hover:bg-white hover:text-[#1A1A1A] transition-all duration-700 shadow-lg disabled:bg-stone-300 border-none"
                 >
                   {isLoading ? 'TRANSMITTING...' : 'REQUEST EXPERIENCE'}
                 </button>
@@ -313,7 +333,7 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
             <div className="pt-8 w-full flex justify-center">
               <button 
                 onClick={onClose}
-                className="w-full md:w-auto px-16 py-7 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.8em] font-black hover:bg-white transition-all duration-500 shadow-xl hover:scale-105 active:scale-95 border-none"
+                className="w-full md:w-auto px-16 py-7 bg-[#D4AF37] text-white text-[11px] uppercase tracking-[0.8em] font-black hover:bg-white hover:text-[#1A1A1A] transition-all duration-500 shadow-xl hover:scale-105 active:scale-95 border-none"
               >
                 RETURN TO EXPLORE
               </button>

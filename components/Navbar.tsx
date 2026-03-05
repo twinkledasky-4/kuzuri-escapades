@@ -160,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                             { 
                               label: "UG / TZ", 
                               itineraries: [
-                                "6 Days Masai Mara and Serengeti safari",
+                                "5 Days Best of Kenya and Tanzania Comfort Safari",
                                 "11 Days Uganda, Tanzania and Kenya Wildlife Safari",
                                 "13 Days Uganda and Tanzania Safari",
                                 "17 Days Wildlife Safari of Uganda, Kenya & Tanzania"
@@ -215,15 +215,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             {/* Right Side Actions */}
             <div className="flex items-center gap-4 md:gap-6 shrink-0 z-10">
               {/* Desktop Inquire Button */}
-              <a 
-                href={mailtoLink} 
-                target="_self"
+              <button 
+                onClick={() => onEnquire()}
                 className={`hidden md:block px-6 py-2 text-[9px] text-center uppercase tracking-[3px] font-black transition-all duration-700 shadow-md active:scale-95 border-none whitespace-nowrap no-underline cursor-pointer ${
                   isScrolled ? 'bg-[#1A1A1A] text-white hover:bg-[#8B5A2B]' : 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-white'
                 }`}
               >
                 Inquire
-              </a>
+              </button>
 
               {/* Mobile Menu Toggle Button */}
               <button

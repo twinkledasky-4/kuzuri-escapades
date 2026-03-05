@@ -1,16 +1,45 @@
 import React, { useState } from 'react';
 import { PhoneLink } from './PhoneLink.tsx';
 import { Phone, Smartphone, Mail, MessageSquare } from 'lucide-react';
+import { crmService } from '../services/crmService.ts';
 
 export const ContactPage: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    message: ''
+  });
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const newErrors: Record<string, boolean> = {};
+    if (!formData.fullName) newErrors.fullName = true;
+    if (!formData.email) newErrors.email = true;
+    if (!formData.message) newErrors.message = true;
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setIsLoading(true);
-    // Simulation of form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // CRM INTEGRATION: Capture lead from the contact page
+    await crmService.captureLead({
+      source: 'tour_booking',
+      packageViewing: 'General Contact Inquiry',
+      data: {
+        fullName: formData.fullName,
+        email: formData.email,
+        message: formData.message
+      }
+    });
+
     setIsSubmitted(true);
     setIsLoading(false);
   };
@@ -149,14 +178,19 @@ export const ContactPage: React.FC = () => {
             <h2 className="text-3xl font-serif font-bold text-[#1A1A1A] mb-12">Send us a <span className="italic font-light">Message</span></h2>
 
             {!isSubmitted ? (
-              <form onSubmit={handleContactSubmit} className="space-y-10">
+              <form onSubmit={handleContactSubmit} className="space-y-10" method="POST">
                 <div className="group">
                   <label className="block text-[10px] uppercase tracking-[0.4em] text-[#1A1A1A] mb-4 font-bold">Your Name</label>
                   <input 
                     type="text"
                     required
-                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30 font-bold"
+                    className={`w-full bg-stone-50 border-b-2 ${errors.fullName ? 'border-red-500' : 'border-black'} p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30 font-bold`}
                     placeholder="e.g. Julianne Moore"
+                    value={formData.fullName}
+                    onChange={(e) => {
+                      setFormData({...formData, fullName: e.target.value});
+                      if (errors.fullName) setErrors({...errors, fullName: false});
+                    }}
                   />
                 </div>
                 
@@ -165,8 +199,13 @@ export const ContactPage: React.FC = () => {
                   <input 
                     type="email"
                     required
-                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30 font-bold"
+                    className={`w-full bg-stone-50 border-b-2 ${errors.email ? 'border-red-500' : 'border-black'} p-4 text-base focus:border-[#D4AF37] outline-none transition-all placeholder:opacity-30 font-bold`}
                     placeholder="email@example.com"
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({...formData, email: e.target.value});
+                      if (errors.email) setErrors({...errors, email: false});
+                    }}
                   />
                 </div>
                 
@@ -175,24 +214,29 @@ export const ContactPage: React.FC = () => {
                   <textarea 
                     rows={6}
                     required
-                    className="w-full bg-stone-50 border-b-2 border-black p-4 text-base focus:border-[#D4AF37] outline-none transition-all resize-none placeholder:opacity-30 font-medium"
+                    className={`w-full bg-stone-50 border-b-2 ${errors.message ? 'border-red-500' : 'border-black'} p-4 text-base focus:border-[#D4AF37] outline-none transition-all resize-none placeholder:opacity-30 font-medium`}
                     placeholder="Share the rhythm of your desired journey..."
+                    value={formData.message}
+                    onChange={(e) => {
+                      setFormData({...formData, message: e.target.value});
+                      if (errors.message) setErrors({...errors, message: false});
+                    }}
                   />
                 </div>
 
                 <button 
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-8 border-2 border-black bg-[#D4AF37] text-[#F5F5DC] text-[11px] uppercase tracking-[1em] font-black hover:bg-black hover:text-[#D4AF37] transition-all duration-700 shadow-2xl disabled:bg-stone-300"
+                  className="w-full py-8 border-2 border-black bg-[#D4AF37] text-white text-[11px] uppercase tracking-[1em] font-black hover:bg-black hover:text-[#D4AF37] transition-all duration-700 shadow-2xl disabled:bg-stone-300"
                 >
                   {isLoading ? 'TRANSMITTING...' : 'SEND MESSAGE'}
                 </button>
               </form>
             ) : (
               <div className="py-24 text-center animate-fade-in">
-                <h3 className="text-4xl font-serif text-[#1A1A1A] mb-8 italic">Experience Received.</h3>
+                <h3 className="text-3xl font-serif text-[#1A1A1A] mb-8 italic">Thank you for your inquiry.</h3>
                 <p className="text-[#1A1A1A] font-light leading-relaxed mb-12 max-w-xs mx-auto">
-                  Our Lead Curator has been alerted. We will reach out to co-author your narrative shortly.
+                  A Kuzuri Escapades specialist will contact you within 24 hours.
                 </p>
                 <button 
                   onClick={() => setIsSubmitted(false)}

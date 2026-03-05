@@ -47,7 +47,7 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-10" />
 
         <div className={`relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 lg:px-24 pb-16 md:pb-24 transition-all duration-1000 ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-[#D4AF37] uppercase tracking-[1em] text-[10px] font-black mb-6 md:mb-10">THE VISION</p>
+          <p className="text-white uppercase tracking-[0.3em] text-[11px] font-bold mb-6 md:mb-10">{tour.category}</p>
           <h1 className="text-4xl md:text-7xl lg:text-8xl font-sans font-black text-white uppercase tracking-tight leading-[0.9] max-w-6xl mb-12">
             {tour.name}
           </h1>
@@ -63,7 +63,7 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
             <div className="flex items-center gap-4">
               <Tag className="text-[#D4AF37]" size={20} />
               <div>
-                <p className="text-white/40 text-[9px] uppercase tracking-widest font-black">STARTING FROM</p>
+                <p className="text-[#D4AF37] text-[9px] uppercase tracking-widest font-black">STARTING FROM</p>
                 <p className="text-white text-sm font-bold">{ui.currency}{tour.price_from.toLocaleString()}</p>
               </div>
             </div>

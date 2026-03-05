@@ -15,7 +15,6 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
       aria-labelledby={`tour-title-${tour.id}`}
     >
       <div className="aspect-[16/10] overflow-hidden relative border-b border-[#1A1A1A]/10 bg-stone-100 shrink-0">
-        <div className="signature-overlay">{tour.category}</div>
         <img 
           src={tour.imageUrls[0]} 
           alt={tour.name}
@@ -23,12 +22,15 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
           style={{ objectPosition: 'center' }}
         />
         
-        <div className="absolute top-0 right-0 bg-[#1A1A1A] py-5 px-7 border-l border-b border-[#D4AF37]/40 shadow-2xl z-20 text-right">
-          <p className="text-[10px] text-[#D4AF37] uppercase tracking-[0.4em] font-black mb-1.5 leading-none">
+        <div className="absolute top-0 right-0 bg-[#1A1A1A] p-8 border-l border-b border-[#D4AF37]/40 shadow-2xl z-20 text-right">
+          <p className="text-[11px] text-white uppercase tracking-[0.3em] font-bold mb-4 leading-none">
+            {tour.category}
+          </p>
+          <p className="text-[8px] text-[#D4AF37] uppercase tracking-[0.4em] font-black mb-2 leading-none opacity-90">
             STARTING FROM
           </p>
           {tour.price_was && (
-            <p className="text-xs font-sans text-white/40 line-through mb-1 tracking-tight">
+            <p className="text-[10px] font-sans text-white/40 line-through mb-1 tracking-tight">
               ${tour.price_was.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           )}
@@ -39,13 +41,6 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
       </div>
 
       <div className="p-8 md:p-10 flex flex-col flex-grow bg-white">
-        <div className="flex items-center gap-3 mb-6 shrink-0">
-           <div className="w-8 h-[2px] bg-[#D4AF37]" />
-           <p className="text-[#D4AF37] uppercase tracking-[0.5em] text-[10px] font-black">
-             {tour.category}
-           </p>
-        </div>
-        
         <h3 
           id={`tour-title-${tour.id}`} 
           className="text-xl md:text-2xl font-sans font-semibold text-[#1A1A1A] mb-6 leading-tight group-hover:text-[#D4AF37] transition-colors tracking-tight uppercase line-clamp-3 min-h-[3.3em]"

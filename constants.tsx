@@ -127,6 +127,26 @@ export const DESTINATIONS: Destination[] = [
 
 export const TOURS: Tour[] = [
   {
+    id: 'ug-23d-luxury',
+    name: '23-day Luxury Uganda Safari with primates and wildlife',
+    slug: 'ug-23d-luxury',
+    duration_days: 23,
+    duration_nights: 22,
+    price_from: 12450,
+    currency: '$',
+    category: 'Signature Odyssey',
+    description: 'The ultimate Ugandan legacy. A 23-day master-class in high-fidelity native stewardship, covering every corner of the Pearl of Africa from the thundering Nile to the misty primate sanctuaries.',
+    highlights: ['Complete Uganda Circuit', 'Gorilla & Chimp Tracking', 'Murchison Falls Cruise', 'Kidepo Valley Isolation'],
+    imageUrls: ['https://i.postimg.cc/Y9yfHcwY/Whats_App_Image_2026_02_24_at_2_25_07_AM.jpg'],
+    featured: true,
+    countries: 'Uganda',
+    inclusions: ['All Permits', 'Luxury Lodging', 'Private 4x4 V8', 'Internal Flights', 'All Meals'],
+    itinerary: [
+      { day: 1, title: 'Day 1: Arrival & Entebbe Serenity', detail: 'Welcome to the Pearl of Africa. Your curator will meet you at Entebbe International Airport and transfer you to your boutique lakeside retreat.' },
+      { day: 23, title: 'Day 23: Departure', detail: 'Final morning in the Pearl of Africa before your transfer to Entebbe for your international departure.' }
+    ]
+  },
+  {
     id: 'ug-rw-mburo-3d',
     name: '3 day world life safari in lake mburo national park',
     slug: 'ug-rw-mburo-3d',
@@ -442,75 +462,103 @@ export const TOURS: Tour[] = [
     primaryFocus: 'Big Five & 360° Primate Experience',
     inclusions: ['Gorilla Permit', 'Chimpanzee Permit', 'Regional Flights', 'Luxury Lodge Stays', 'Private 4x4 Safari Vehicle', 'All Meals & Park Fees'],
     itinerary: [
-      { 
-        day: 1, 
-        title: 'Day 1: Arrival in Nairobi - The Safari Capital', 
-        detail: 'Welcome to Kenya. Upon arrival at Jomo Kenyatta International Airport, you will be met by your Kuzuri Escapades curator and transferred to your luxury city hotel. \n\nSpend the evening at leisure, perhaps enjoying a gourmet dinner at the world-renowned Carnivore Restaurant or simply relaxing after your flight. Overnight at a signature city retreat.' 
+      {
+        day: 1,
+        title: 'Day 1: Arrival in Nairobi - The Safari Capital',
+        detail: 'Welcome to Kenya. Upon arrival at Jomo Kenyatta International Airport, you will be met by your Kuzuri Escapades curator and transferred to your luxury city hotel. The vibrant energy of Nairobi provides an exciting introduction to your journey.\n\nSpend the evening at leisure, perhaps enjoying a gourmet dinner at the world-renowned Carnivore Restaurant or simply relaxing after your flight. The city\'s skyline at night is a testament to its status as the safari capital of East Africa.\n\nOvernight at a signature city retreat, where luxury meets urban sophistication. Prepare for the incredible wildlife encounters that await you in the coming days.',
+        accommodation: 'Luxury City Hotel',
+        meals: 'Dinner'
       },
-      { 
-        day: 2, 
-        title: 'Day 2: Nairobi to Lake Nakuru National Park', 
-        detail: 'After a refined breakfast, we depart for Lake Nakuru National Park, nestled in the Great Rift Valley. The park is famous for its vast flocks of flamingos and is a sanctuary for both black and white rhinos.\n\nEnjoy an afternoon game drive around the lake shore, spotting leopards, Rothschild giraffes, and waterbucks. Dinner and overnight at a luxury lodge overlooking the lake.' 
+      {
+        day: 2,
+        title: 'Day 2: Nairobi to Lake Nakuru National Park',
+        detail: 'After a refined breakfast, we depart for Lake Nakuru National Park, nestled in the Great Rift Valley. The drive offers spectacular views of the escarpment as we descend into the valley. The park is famous for its vast flocks of flamingos and is a sanctuary for both black and white rhinos.\n\nEnjoy an afternoon game drive around the lake shore, spotting leopards, Rothschild giraffes, and waterbucks. The contrast between the pink-hued lake and the lush green forests is a photographer\'s dream.\n\nAs the sun sets, transfer to your luxury lodge overlooking the lake. Enjoy a three-course dinner while watching the wildlife gather at the water\'s edge. Overnight at a signature Nakuru lodge.',
+        accommodation: 'Luxury Lakefront Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 3, 
-        title: 'Day 3: Lake Nakuru to the Legendary Maasai Mara', 
-        detail: 'We journey to the Maasai Mara National Reserve, the crown jewel of Kenyan wildlife. The drive takes us through the dramatic landscapes of the Rift Valley and into the golden savannahs.\n\nArrive at your luxury tented camp in time for lunch. In the afternoon, embark on your first game drive in the Mara, where the density of wildlife is unparalleled. Dinner and overnight at a signature camp.' 
+      {
+        day: 3,
+        title: 'Day 3: Lake Nakuru to the Legendary Maasai Mara',
+        detail: 'We journey to the Maasai Mara National Reserve, the crown jewel of Kenyan wildlife. The drive takes us through the dramatic landscapes of the Rift Valley and into the golden savannahs that stretch to the horizon.\n\nArrive at your luxury tented camp in time for lunch. The camp is strategically located to offer the best access to the reserve\'s wildlife-rich areas. In the afternoon, embark on your first game drive in the Mara, where the density of wildlife is unparalleled.\n\nReturn to the camp for a traditional sundowner. Enjoy a dinner that blends local flavors with international excellence under the vast African sky. Overnight at a signature Mara camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 4, 
-        title: 'Day 4: Maasai Mara Sovereignty', 
-        detail: 'A full day dedicated to the Maasai Mara. We track the Big Five and witness the raw beauty of the plains. During the migration season, we head towards the Mara River to witness the dramatic crossings.\n\nEnjoy a bush breakfast on the plains and continue your exploration of the reserve\'s diverse habitats. As evening falls, return to camp for a traditional sundowner. Dinner and overnight at the camp.' 
+      {
+        day: 4,
+        title: 'Day 4: Maasai Mara Sovereignty',
+        detail: 'A full day dedicated to the Maasai Mara. We track the Big Five and witness the raw beauty of the plains. During the migration season, we head towards the Mara River to witness the dramatic crossings where life and death play out on the banks.\n\nEnjoy a bush breakfast on the plains and continue your exploration of the reserve\'s diverse habitats. The Mara is home to one of the highest densities of predators in the world, and every turn reveals a new discovery.\n\nAs evening falls, return to camp for a final celebratory dinner on the plains. Reflect on the incredible wildlife encounters of the past few days under the stars. Overnight at the camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 5, 
-        title: 'Day 5: Maasai Mara to Lake Naivasha', 
-        detail: 'After a final morning game drive in the Mara, we depart for Lake Naivasha, a beautiful freshwater lake in the Rift Valley. \n\nIn the afternoon, enjoy a boat safari on the lake, spotting hippos and a variety of water birds. We also visit Crescent Island for a guided nature walk among giraffes and zebras. Dinner and overnight at a lakeside lodge.' 
+      {
+        day: 5,
+        title: 'Day 5: Maasai Mara to Lake Naivasha',
+        detail: 'After a final morning game drive in the Mara, we depart for Lake Naivasha, a beautiful freshwater lake in the Rift Valley. The drive offers a chance to see the changing landscapes of the valley.\n\nIn the afternoon, enjoy a boat safari on the lake, spotting hippos and a variety of water birds. We also visit Crescent Island for a guided nature walk among giraffes and zebras, offering a unique "walking safari" experience.\n\nAs evening falls, transfer to your lakeside lodge. Enjoy a dinner featuring fresh local produce while listening to the sounds of the lake. Overnight at a signature Naivasha lodge.',
+        accommodation: 'Luxury Lakeside Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 6, 
-        title: 'Day 6: Transition from Big Five to Primates - The Luxury Flight', 
-        detail: 'Today marks the profound transition from the golden savannahs of Kenya to the lush, tropical primate sanctuaries of Uganda. After a final morning in the Mara, we return to Nairobi for a regional flight to Entebbe.\n\nThis Entebbe-Masai Mara flight connection is a hallmark of luxury combined safaris, ensuring you move from the thundering wild of the Big Five to the quiet majesty of the Pearl of Africa without the stress of long road transfers. Upon arrival at Entebbe, your Ugandan steward will meet you and transfer you to your boutique hotel on the shores of Lake Victoria. Overnight in Entebbe.' 
+      {
+        day: 6,
+        title: 'Day 6: Transition from Big Five to Primates - The Luxury Flight',
+        detail: 'Today marks the profound transition from the golden savannahs of Kenya to the lush, tropical primate sanctuaries of Uganda. After a final morning in the Mara, we return to Nairobi for a regional flight to Entebbe.\n\nThis Entebbe-Masai Mara flight connection is a hallmark of luxury combined safaris, ensuring you move from the thundering wild of the Big Five to the quiet majesty of the Pearl of Africa without the stress of long road transfers.\n\nUpon arrival at Entebbe, your Ugandan steward will meet you and transfer you to your boutique hotel on the shores of Lake Victoria. Enjoy a welcome dinner as you prepare for the primate leg of your journey. Overnight in Entebbe.',
+        accommodation: 'Boutique Lakefront Hotel',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 7, 
-        title: 'Day 7: The Journey to Kibale Forest', 
-        detail: 'We depart for Kibale National Park, the primate capital of the world. The drive takes us through the scenic tea plantations of Fort Portal and into the heart of the tropical rainforest.\n\nArrive at your forest lodge for lunch. The afternoon is yours to relax and soak in the vibrant energy of the forest. Dinner and overnight at a signature forest retreat.' 
+      {
+        day: 7,
+        title: 'Day 7: The Journey to Kibale Forest',
+        detail: 'We depart for Kibale National Park, the primate capital of the world. The drive takes us through the scenic tea plantations of Fort Portal and into the heart of the tropical rainforest, offering spectacular views of the Rwenzori Mountains.\n\nArrive at your forest lodge for lunch. The lodge is nestled on the edge of the ancient rainforest, where the sounds of birds and primates create a vibrant atmosphere.\n\nIn the afternoon, enjoy a guided walk around the lodge or simply soak in the energy of the forest. Dinner and overnight at a signature forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 8, 
-        title: 'Day 8: Chimpanzee Tracking & Bigodi Walk', 
-        detail: 'Enter the Kibale forest for a life-altering encounter with our closest relatives—the chimpanzees. Observe their complex social social structures and vocalizations in the wild.\n\nIn the afternoon, we visit the Bigodi Wetland Sanctuary for a guided walk, spotting various primate species and rare birds like the Great Blue Turaco. Dinner and overnight at the lodge.' 
+      {
+        day: 8,
+        title: 'Day 8: Chimpanzee Tracking & Bigodi Walk',
+        detail: 'Enter the Kibale forest for a life-altering encounter with our closest relatives—the chimpanzees. Observe their complex social structures, playful antics, and vocalizations in their natural habitat.\n\nAfter a celebratory lunch, we visit the Bigodi Wetland Sanctuary for a guided walk. This community-led project is a haven for rare birds like the Great Blue Turaco and several other primate species.\n\nReturn to the lodge for an evening of relaxation. Share your chimpanzee tracking stories over a gourmet dinner. Overnight at the forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 9, 
-        title: 'Day 9: Queen Elizabeth Savannahs', 
-        detail: 'We journey to Queen Elizabeth National Park, a biodiverse mosaic of savannah, crater lakes, and forests. \n\nEnjoy an afternoon game drive in the Kasenyi plains, tracking lions and leopards. The park\'s open roads offer some of the best wildlife viewing in Uganda. Dinner and overnight at a lodge with panoramic views.' 
+      {
+        day: 9,
+        title: 'Day 9: Queen Elizabeth Savannahs',
+        detail: 'We journey to Queen Elizabeth National Park, a biodiverse mosaic of savannah, crater lakes, and forests. Arrive in time for a sunset game drive in the Kasenyi plains, tracking lions and leopards.\n\nThe park\'s open roads offer some of the best wildlife viewing in Uganda, with the backdrop of the Rwenzori Mountains providing a stunning setting for your safari.\n\nAs evening falls, transfer to your lodge perched on the edge of the Rift Valley. Enjoy panoramic views of the park during dinner. Overnight at a signature safari lodge.',
+        accommodation: 'Signature Safari Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 10, 
-        title: 'Day 10: Kazinga Channel & Ishasha Lions', 
-        detail: 'A morning boat safari on the Kazinga Channel offers intimate encounters with hippos, crocodiles, and elephants at the water\'s edge.\n\nIn the afternoon, we drive to the remote Ishasha sector, famous for its unique population of tree-climbing lions. We track these majestic predators as they lounge in the ancient fig trees. Dinner and overnight in Ishasha.' 
+      {
+        day: 10,
+        title: 'Day 10: Kazinga Channel & Ishasha Lions',
+        detail: 'A morning boat safari on the Kazinga Channel offers intimate encounters with hippos, crocodiles, and elephants at the water\'s edge. This natural waterway is a lifeline for the park\'s wildlife.\n\nIn the afternoon, we drive to the remote Ishasha sector, famous for its unique population of tree-climbing lions. We track these majestic predators as they lounge in the ancient fig trees, a sight unique to this region.\n\nAs evening falls, transfer to your luxury camp in Ishasha. Enjoy a dinner under the stars, surrounded by the sounds of the savannah. Overnight at a signature Ishasha camp.',
+        accommodation: 'Luxury Ishasha Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 11, 
-        title: 'Day 11: The Road to Bwindi Impenetrable', 
-        detail: 'We travel to the edge of the ancient Bwindi forest, a UNESCO World Heritage site. The drive through the "Switzerland of Africa" offers spectacular views of the terraced hillsides.\n\nArrive at your luxury forest lodge and prepare for the highlight of your journey. Dinner and overnight at a signature lodge perched on the forest edge.' 
+      {
+        day: 11,
+        title: 'Day 11: The Road to Bwindi Impenetrable',
+        detail: 'We travel to the edge of the ancient Bwindi forest, a UNESCO World Heritage site. The drive through the "Switzerland of Africa" offers spectacular views of the terraced hillsides and misty valleys.\n\nArrive at your luxury forest lodge and prepare for the highlight of your journey. The lodge is perched on the forest edge, offering an immersive introduction to the ancient jungle.\n\nIn the evening, enjoy a briefing on the next day\'s gorilla encounter followed by a gourmet dinner. Overnight at a signature lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 12, 
-        title: 'Day 12: Gorilla Trekking in Bwindi', 
-        detail: 'The soul of the forest. After a briefing, you will enter the misty valleys of Bwindi in search of a mountain gorilla family. This encounter completes your "360-degree primate experience," bridging your time with the chimpanzees of Kibale to the gentle giants of Bwindi.\n\nSpend an hour in their presence, observing the silverback\'s command and the infants\' play. Return to the lodge for a celebratory lunch and an afternoon of reflection. Dinner and overnight at the lodge.' 
+      {
+        day: 12,
+        title: 'Day 12: Gorilla Trekking in Bwindi',
+        detail: 'The soul of the forest. After a briefing, you will enter the misty valleys of Bwindi in search of a mountain gorilla family. This encounter completes your "360-degree primate experience," bridging your time with the chimpanzees to the gentle giants.\n\nSpend a profound hour in their presence, observing the silverback\'s command and the infants\' play. It is a life-altering moment that stays with you forever.\n\nReturn to the lodge for a celebratory lunch and an afternoon of reflection. Share your experiences with fellow travelers over a final Ugandan dinner. Overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 13, 
-        title: 'Day 13: Lake Bunyonyi Serenity', 
-        detail: 'We drive to Lake Bunyonyi, the "Place of Many Little Birds." This incredibly beautiful lake is dotted with 29 islands and surrounded by terraced hills.\n\nEnjoy a relaxing day with a dugout canoe trip or a swim in the bilharzia-free waters. It is the perfect place to unwind after your trekking adventures. Dinner and overnight at a lakeside resort.' 
+      {
+        day: 13,
+        title: 'Day 13: Lake Bunyonyi Serenity',
+        detail: 'We drive to Lake Bunyonyi, the "Place of Many Little Birds." This incredibly beautiful lake is dotted with 29 islands and surrounded by terraced hills, offering a peaceful conclusion to your trekking adventures.\n\nEnjoy a relaxing day with a dugout canoe trip or a swim in the bilharzia-free waters. The lake\'s serenity is the perfect antidote to the physical demands of the forest.\n\nIn the evening, enjoy a final lakeside dinner. Reflect on your East African odyssey as the sun sets over the water. Overnight at a lakeside resort.',
+        accommodation: 'Luxury Lakeside Resort',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 14, 
-        title: 'Day 14: Return to Entebbe & Departure', 
-        detail: 'After a final leisurely breakfast overlooking the lake, we begin our return journey to Entebbe. We stop at the Equator crossing for photographs and a farewell lunch.\n\nArrive at Entebbe International Airport in time for your evening departure, carrying the indelible spirit of both Kenya and Uganda with you.' 
+      {
+        day: 14,
+        title: 'Day 14: Return to Entebbe & Departure',
+        detail: 'After a final leisurely breakfast overlooking the lake, we begin our return journey to Entebbe. We stop at the Equator crossing for photographs and a farewell lunch, marking the conclusion of your journey.\n\nArrive at Entebbe International Airport in time for your evening departure. Your Kuzuri Escapades curator will assist with your check-in and ensure a smooth transition.\n\nYou carry with you the indelible spirit of both Kenya and Uganda, and the memories of the Big Five and the gentle giants. Departure.',
+        accommodation: 'Departure',
+        meals: 'Breakfast, Lunch'
       }
     ],
     exclusions: ['International Flights', 'Entry Visas', 'Personal Insurance', 'Tips & Gratuities', 'Premium Alcoholic Drinks']
@@ -535,30 +583,40 @@ export const TOURS: Tour[] = [
     primaryFocus: 'Gorilla Trekking & Maasai Mara Big Five',
     inclusions: ['Gorilla Permit', 'Internal Flights (Entebbe-Bwindi-Mara)', 'Luxury Lodging', 'Private 4x4 Vehicles', 'All Meals & Park Fees'],
     itinerary: [
-      { 
-        day: 1, 
-        title: 'Day 1: Entebbe to Bwindi - Flight to the Misty Forest', 
-        detail: 'Your journey begins with a smooth transition from Entebbe to the ancient Bwindi Impenetrable Forest. Upon arrival at Entebbe International Airport, you will be met by your Kuzuri Escapades curator and escorted to your private charter flight. \n\nSoar over the lush landscapes of the Pearl of Africa, landing in the heart of the misty Virunga mountains. A short drive takes you to your luxury forest lodge, where the sounds of the jungle welcome you. Spend the afternoon soaking in the atmosphere of this UNESCO World Heritage site. Dinner and overnight at a signature lodge.' 
+      {
+        day: 1,
+        title: 'Day 1: Entebbe to Bwindi - Flight to the Misty Forest',
+        detail: 'Your journey begins with a smooth transition from Entebbe to the ancient Bwindi Impenetrable Forest. Upon arrival at Entebbe International Airport, you will be met by your Kuzuri Escapades curator and escorted to your private charter flight.\n\nSoar over the lush landscapes of the Pearl of Africa, landing in the heart of the misty Virunga mountains. A short drive takes you to your luxury forest lodge, where the sounds of the jungle welcome you. Spend the afternoon soaking in the atmosphere of this UNESCO World Heritage site.\n\nIn the evening, enjoy a briefing on the next day\'s gorilla encounter followed by a gourmet dinner. Overnight at a signature forest lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Dinner'
       },
-      { 
-        day: 2, 
-        title: 'Day 2: Gorilla Trekking - Meeting the Gentle Giants', 
-        detail: 'The soul of the forest awaits. After an early morning briefing, you will enter the dense foliage of Bwindi in search of a mountain gorilla family. The trek is a profound experience, leading to a life-altering moment: meeting the gaze of a silverback.\n\nSpend an hour observing their social dynamics, the playful infants, and the quiet dignity of these gentle giants. Return to the lodge for a celebratory lunch and an afternoon of reflection. Dinner and overnight at the lodge.' 
+      {
+        day: 2,
+        title: 'Day 2: Gorilla Trekking - Meeting the Gentle Giants',
+        detail: 'The soul of the forest awaits. After an early morning briefing, you will enter the dense foliage of Bwindi in search of a mountain gorilla family. The trek is a profound experience, leading to a life-altering moment: meeting the gaze of a silverback.\n\nSpend an hour observing their social dynamics, the playful infants, and the quiet dignity of these gentle giants. It is a moment of pure connection that transcends words, bridging the gap between humans and our wild cousins.\n\nReturn to the lodge for a celebratory lunch and an afternoon of reflection. Share your experiences with fellow travelers over a final Ugandan dinner. Overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 3, 
-        title: 'Day 3: Flight to Masai Mara - The Hallmark Transition', 
-        detail: 'We bid farewell to the misty forests and board a private flight directly to the legendary Maasai Mara in Kenya. This Entebbe-Masai Mara flight transition is the ultimate luxury, saving you hours of travel and offering spectacular aerial views of the Great Rift Valley.\n\nUpon arrival at the Mara airstrip, your Kenyan steward will meet you for an introductory game drive en route to your luxury tented camp. The infinite golden plains begin to reveal their secrets. Dinner and overnight at a signature camp.' 
+      {
+        day: 3,
+        title: 'Day 3: Flight to Masai Mara - The Hallmark Transition',
+        detail: 'We bid farewell to the misty forests and board a private flight directly to the legendary Maasai Mara in Kenya. This Entebbe-Masai Mara flight transition is the ultimate luxury, saving you hours of travel and offering spectacular aerial views of the Great Rift Valley.\n\nUpon arrival at the Mara airstrip, your Kenyan steward will meet you for an introductory game drive en route to your luxury tented camp. The infinite golden plains begin to reveal their secrets as you spot your first herds of zebras and gazelles.\n\nArrive at your signature camp in time for a sunset sundowner. Enjoy a dinner that blends local flavors with international excellence under the vast African sky. Overnight at a signature Mara camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 4, 
-        title: 'Day 4: Full Day Game Drive - Maasai Mara Sovereignty', 
-        detail: 'A full day dedicated to the thundering wild of the Maasai Mara. We track the Big Five—lion, leopard, elephant, buffalo, and rhino—across the vast savannahs. The Mara is home to one of the highest densities of predators in the world.\n\nEnjoy a gourmet bush lunch under an acacia tree, surrounded by the sights and sounds of the wild. As evening falls, return to camp for a traditional sundowner and a dinner under the stars, sharing tales of the day\'s sightings.' 
+      {
+        day: 4,
+        title: 'Day 4: Full Day Game Drive - Maasai Mara Sovereignty',
+        detail: 'A full day dedicated to the thundering wild of the Maasai Mara. We track the Big Five—lion, leopard, elephant, buffalo, and rhino—across the vast savannahs. The Mara is home to one of the highest densities of predators in the world.\n\nEnjoy a gourmet bush lunch under an acacia tree, surrounded by the sights and sounds of the wild. During the migration season, the river crossings are a theater of raw nature, where life and death play out on the banks.\n\nAs evening falls, return to camp for a traditional sundowner and a dinner under the stars, sharing tales of the day\'s sightings. The calls of the wild provide a hauntingly beautiful soundtrack to your final night. Overnight at the camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 5, 
-        title: 'Day 5: Departure - Final Savannah Whispers', 
-        detail: 'Awaken to the final sunrise on the plains. A morning game drive offers a last chance to spot the predators on the hunt before the heat of the day. \n\nFollowing a leisurely brunch, we transfer to the airstrip for your flight to Nairobi, connecting to your international departure. You carry with you the indelible spirit of East Africa\'s most iconic landscapes and its most profound inhabitants.' 
+      {
+        day: 5,
+        title: 'Day 5: Departure - Final Savannah Whispers',
+        detail: 'Awaken to the final sunrise on the plains. A morning game drive offers a last chance to spot the predators on the hunt before the heat of the day sets in. The early light provides a beautiful perspective on the Mara ecosystem.\n\nFollowing a leisurely brunch at the camp, we transfer to the airstrip for your flight to Nairobi. This is a great time to reflect on the incredible journey from the misty forests to the golden savannahs.\n\nConnect to your international departure at Jomo Kenyatta International Airport. You carry with you the indelible spirit of East Africa\'s most iconic landscapes and its most profound inhabitants. Departure.',
+        accommodation: 'Departure',
+        meals: 'Breakfast, Brunch'
       }
     ],
     exclusions: ['International Flights', 'Entry Visas', 'Personal Insurance', 'Tips & Gratuities', 'Premium Alcoholic Drinks']
@@ -583,85 +641,119 @@ export const TOURS: Tour[] = [
     primaryFocus: 'The Grand East African Loop',
     inclusions: ['Gorilla & Chimp Permits', 'Regional Flights', 'Luxury Lodging', 'Private 4x4 Safari Vehicles', 'All Meals & Park Fees'],
     itinerary: [
-      { 
-        day: 1, 
-        title: 'Day 1: Arrival in Nairobi & Amboseli', 
-        detail: 'Welcome to the Safari Capital. Upon arrival in Nairobi, you will be met by your Kuzuri Escapades curator and depart for Amboseli National Park, famous for its massive elephant herds and the iconic backdrop of Mount Kilimanjaro.\n\nArrive at your luxury lodge for lunch and an afternoon game drive. The sight of elephants silhouetted against the snow-capped peak is one of Africa\'s most enduring images. Dinner and overnight at a signature lodge.' 
+      {
+        day: 1,
+        title: 'Day 1: Arrival in Nairobi & Amboseli',
+        detail: 'Welcome to the Safari Capital. Upon arrival in Nairobi, you will be met by your Kuzuri Escapades curator and depart for Amboseli National Park, famous for its massive elephant herds and the iconic backdrop of Mount Kilimanjaro.\n\nArrive at your luxury lodge for lunch and an afternoon game drive. The sight of elephants silhouetted against the snow-capped peak is one of Africa\'s most enduring images, providing a dramatic start to your expedition.\n\nIn the evening, enjoy a sundowner with views of the mountain followed by a gourmet dinner. Overnight at a signature Amboseli lodge, where the sounds of the wild lull you to sleep.',
+        accommodation: 'Luxury Amboseli Lodge',
+        meals: 'Lunch, Dinner'
       },
-      { 
-        day: 2, 
-        title: 'Day 2: Amboseli to Lake Nakuru', 
-        detail: 'We journey to Lake Nakuru National Park in the Great Rift Valley. This park is a sanctuary for both black and white rhinos and is famous for its vast flocks of flamingos that turn the lake shore pink.\n\nEnjoy an afternoon game drive around the lake, spotting leopards and the rare Rothschild giraffe. Dinner and overnight at a luxury lodge overlooking the lake.' 
+      {
+        day: 2,
+        title: 'Day 2: Amboseli to Lake Nakuru',
+        detail: 'We journey to Lake Nakuru National Park in the Great Rift Valley. This park is a sanctuary for both black and white rhinos and is famous for its vast flocks of flamingos that turn the lake shore pink.\n\nEnjoy an afternoon game drive around the lake, spotting leopards and the rare Rothschild giraffe. The contrast between the alkaline lake and the surrounding yellow-fever acacia forests is breathtaking.\n\nAs evening falls, transfer to your luxury lodge overlooking the lake. Enjoy a dinner featuring fresh local produce while watching the wildlife gather at the water\'s edge. Overnight at a signature Nakuru lodge.',
+        accommodation: 'Luxury Lakefront Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 3, 
-        title: 'Day 3: Lake Nakuru to Maasai Mara', 
-        detail: 'We depart for the legendary Maasai Mara National Reserve. The drive takes us through the dramatic landscapes of the Rift Valley and into the golden savannahs.\n\nArrive at your luxury tented camp in time for lunch. In the afternoon, embark on your first game drive in the Mara, where the density of wildlife is unparalleled. Dinner and overnight at a signature camp.' 
+      {
+        day: 3,
+        title: 'Day 3: Lake Nakuru to Maasai Mara',
+        detail: 'We depart for the legendary Maasai Mara National Reserve. The drive takes us through the dramatic landscapes of the Rift Valley and into the golden savannahs that stretch to the horizon.\n\nArrive at your luxury tented camp in time for lunch. In the afternoon, embark on your first game drive in the Mara, where the density of wildlife is unparalleled and the Big Five are frequently spotted.\n\nReturn to the camp for a traditional sundowner. Enjoy a dinner that blends local flavors with international excellence under the vast African sky. Overnight at a signature Mara camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 4, 
-        title: 'Day 4: Maasai Mara Sovereignty', 
-        detail: 'A full day dedicated to the Maasai Mara. We track the Big Five and witness the Great Migration (seasonal). The Mara offers some of the most spectacular wildlife viewing on the planet.\n\nEnjoy a bush lunch on the plains. Dinner and overnight at the camp.' 
+      {
+        day: 4,
+        title: 'Day 4: Maasai Mara Sovereignty',
+        detail: 'A full day dedicated to the Maasai Mara. We track the Big Five and witness the Great Migration (seasonal). The Mara offers some of the most spectacular wildlife viewing on the planet, with raw nature at every turn.\n\nEnjoy a bush lunch on the plains, surrounded by the sights and sounds of the wild. The scale of the migration is truly humbling, a thundering testament to the primal rhythms of life.\n\nAs evening falls, return to camp for a final celebratory dinner on the plains. Reflect on the incredible wildlife encounters under the stars. Overnight at the camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner',
+        imageBreak: 'https://i.postimg.cc/9f9FWt3z/9be3ba5d-30ad-463d-9fb9-8226e0f67943.jpg'
       },
-      { 
-        day: 5, 
-        title: 'Day 5: Serengeti Sovereignty', 
-        detail: 'We cross the border into Tanzania and enter the legendary Serengeti National Park. The infinite golden plains unfold before you.\n\nEnjoy a game drive en route to your luxury tented camp. Dinner and overnight at a signature camp.' 
+      {
+        day: 5,
+        title: 'Day 5: Serengeti Sovereignty',
+        detail: 'We cross the border into Tanzania and enter the legendary Serengeti National Park. The infinite golden plains unfold before you, offering a seamless transition into the heart of the migration flow.\n\nEnjoy a game drive en route to your luxury tented camp. The Serengeti is home to one of the highest densities of predators in the world, and every moment is a discovery.\n\nArrive at your signature camp in time for a warm Tanzanian welcome. Enjoy a dinner that celebrates the flavors of the region under the vast Serengeti sky. Overnight at a signature camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 6, 
-        title: 'Day 6: Serengeti Discovery', 
-        detail: 'A full day in the Serengeti, tracking the thundering herds and the predators that follow them.\n\nThe vastness of the horizon is truly humbling. Dinner and overnight at the camp.' 
+      {
+        day: 6,
+        title: 'Day 6: Serengeti Discovery',
+        detail: 'A full day in the Serengeti, tracking the thundering herds and the predators that follow them. The vastness of the horizon is truly humbling as you witness the primal rhythms of life on the plains.\n\nEnjoy a picnic lunch in the middle of the savannah, surrounded by the thundering wild. The Serengeti is a theater of raw nature, where life and death play out in the open.\n\nAs evening falls, return to the camp for a final evening on the plains. Enjoy a special farewell dinner prepared by the camp\'s chefs. Overnight at the camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 7, 
-        title: 'Day 7: Ngorongoro Crater Floor', 
-        detail: 'We drive to the Ngorongoro Conservation Area and descend into the caldera for a full day of game viewing.\n\nThis self-contained Eden is home to the rare black rhino. Dinner and overnight at a lodge on the crater rim.' 
+      {
+        day: 7,
+        title: 'Day 7: Ngorongoro Crater Floor',
+        detail: 'We drive to the Ngorongoro Conservation Area and descend into the world\'s largest inactive caldera. Often called the "Eighth Wonder of the World," the crater floor is a self-contained Eden and a unique Big Five habitat where predators and prey coexist in a natural amphitheater.\n\nSpend the day game viewing in this natural amphitheater, home to the rare black rhino and a dense population of predators. The scenery is spectacular and the wildlife viewing is unparalleled.\n\nIn the afternoon, ascend to the crater rim for dinner and overnight at a lodge with panoramic views of the caldera. Overnight at a luxury crater lodge.',
+        accommodation: 'Luxury Crater Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 8, 
-        title: 'Day 8: Flight to Entebbe', 
-        detail: 'We bid farewell to the plains and board a regional flight to Entebbe, Uganda. This marks the transition from the savannahs to the lush, tropical landscapes of the Pearl of Africa.\n\nUpon arrival at Entebbe, transfer to your boutique hotel on the shores of Lake Victoria. Overnight in Entebbe.' 
+      {
+        day: 8,
+        title: 'Day 8: Flight to Entebbe',
+        detail: 'We bid farewell to the plains and board a regional flight to Entebbe, Uganda. This marks the "Serengeti-Bwindi Connection," a hallmark transition of luxury combined safaris that saves you hours of travel between the savannahs and the lush primate forests.\n\nUpon arrival at Entebbe, your Ugandan steward will meet you and transfer you to your boutique hotel on the shores of Lake Victoria. The lake breeze provides a cooling introduction to the tropical climate of the Pearl of Africa.\n\nEnjoy a welcome dinner as you prepare for the primate leg of your journey. Reflect on the savannah highlights as you look forward to the misty forests. Overnight in Entebbe.',
+        accommodation: 'Boutique Lakefront Hotel',
+        meals: 'Breakfast, Lunch, Dinner',
+        imageBreak: 'https://i.postimg.cc/d03qBkbL/Kyambura_Game_Reserve_Chimpanzee_trekking_750x400.jpg'
       },
-      { 
-        day: 9, 
-        title: 'Day 9: The Primate Capital - Kibale', 
-        detail: 'We depart for Kibale National Park, the primate capital of the world. The drive takes us through the scenic tea plantations of Fort Portal.\n\nArrive at your forest lodge in the late afternoon. The forest edge provides excellent birding opportunities. Dinner and overnight at a signature forest retreat.' 
+      {
+        day: 9,
+        title: 'Day 9: The Primate Capital - Kibale',
+        detail: 'We depart for Kibale National Park, the primate capital of the world. The drive takes us through the scenic tea plantations of Fort Portal and into the heart of the tropical rainforest.\n\nArrive at your forest lodge in the late afternoon. The forest edge provides excellent birding opportunities and the sounds of primates create a vibrant atmosphere.\n\nIn the evening, enjoy a guided walk around the lodge or simply soak in the energy of the forest. Dinner and overnight at a signature forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 10, 
-        title: 'Day 10: Chimpanzee Tracking & Queen Elizabeth', 
-        detail: 'Enter the Kibale forest for a morning of tracking chimpanzees. Observe our closest relatives in their natural habitat.\n\nIn the afternoon, we drive to Queen Elizabeth National Park, arriving in time for a sunset game drive. Dinner and overnight at a lodge with panoramic views.' 
+      {
+        day: 10,
+        title: 'Day 10: Chimpanzee Tracking & Queen Elizabeth',
+        detail: 'Enter the Kibale forest for a morning of tracking chimpanzees. Observe our closest relatives in their natural habitat, witnessing their complex social structures and vocalizations.\n\nIn the afternoon, we drive to Queen Elizabeth National Park, arriving in time for a sunset game drive. The park is a biodiverse mosaic of savannah, crater lakes, and forests.\n\nAs evening falls, transfer to your lodge perched on the edge of the Rift Valley. Enjoy panoramic views of the park during dinner. Overnight at a signature safari lodge.',
+        accommodation: 'Signature Safari Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 11, 
-        title: 'Day 11: Kazinga Channel & Ishasha', 
-        detail: 'A morning boat safari on the Kazinga Channel offers intimate encounters with aquatic wildlife.\n\nWe then drive to the Ishasha sector to track the famous tree-climbing lions. Dinner and overnight in Ishasha.' 
+      {
+        day: 11,
+        title: 'Day 11: Kazinga Channel & Ishasha',
+        detail: 'A morning boat safari on the Kazinga Channel offers intimate encounters with aquatic wildlife. Spot hippos, crocodiles, and elephants at the water\'s edge in this natural waterway.\n\nWe then drive to the Ishasha sector to track the famous tree-climbing lions. These majestic predators are often found lounging in the ancient fig trees, a sight unique to this region.\n\nAs evening falls, transfer to your luxury camp in Ishasha. Enjoy a dinner under the stars, surrounded by the sounds of the savannah. Overnight at a signature Ishasha camp.',
+        accommodation: 'Luxury Ishasha Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 12, 
-        title: 'Day 12: Bwindi Impenetrable Forest', 
-        detail: 'We travel to the edge of the ancient Bwindi forest. The drive through the terraced hillsides is spectacular.\n\nArrive at your luxury forest lodge and prepare for your gorilla encounter. Dinner and overnight at a signature lodge.' 
+      {
+        day: 12,
+        title: 'Day 12: Bwindi Impenetrable Forest',
+        detail: 'We travel to the edge of the ancient Bwindi forest, a UNESCO World Heritage site. The drive through the "Switzerland of Africa" offers spectacular views of the terraced hillsides.\n\nArrive at your luxury forest lodge and prepare for your gorilla encounter. The lodge is perched on the forest edge, offering an immersive introduction to the ancient jungle.\n\nIn the evening, enjoy a briefing on the next day\'s gorilla encounter followed by a gourmet dinner. Overnight at a signature lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 13, 
-        title: 'Day 13: Gorilla Trekking in Bwindi', 
-        detail: 'The highlight of your journey. Track a mountain gorilla family through the misty forest. Meeting their gaze is a profound experience.\n\nReturn to the lodge for a celebratory lunch. Afternoon at leisure. Dinner and overnight at the lodge.' 
+      {
+        day: 13,
+        title: 'Day 13: Gorilla Trekking in Bwindi',
+        detail: 'The highlight of your journey. Track a mountain gorilla family through the misty forest. Meeting their gaze is a profound experience that completes your "360-degree primate experience." Bwindi and Kibale are the only places on earth where you can combine world-class Gorilla and Chimpanzee trekking before heading to the vast Tanzanian plains.\n\nSpend a profound hour in their presence, observing the silverback\'s command and the infants\' play. It is a life-altering moment that stays with you forever. The connection between the primate forests and the savannahs is the hallmark of this regional masterpiece.\n\nReturn to the lodge for a celebratory lunch and an afternoon of reflection. Share your experiences with fellow travelers over a final Ugandan dinner. Overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 14, 
-        title: 'Day 14: Lake Bunyonyi Serenity', 
-        detail: 'We drive to Lake Bunyonyi for a day of relaxation. Enjoy a boat trip on the lake and soak in the beautiful scenery.\n\nIt is the perfect conclusion to your East African odyssey. Dinner and overnight at a lakeside resort.' 
+      {
+        day: 14,
+        title: 'Day 14: Lake Bunyonyi Serenity',
+        detail: 'We drive to Lake Bunyonyi for a day of relaxation. Enjoy a boat trip on the lake and soak in the beautiful scenery of the "Place of Many Little Birds."\n\nIt is the perfect conclusion to your East African odyssey, offering a peaceful space to reflect on the incredible journey. The lake\'s serenity is truly restorative.\n\nIn the evening, enjoy a final lakeside dinner. Reflect on your East African odyssey as the sun sets over the water. Overnight at a lakeside resort.',
+        accommodation: 'Luxury Lakeside Resort',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 15, 
-        title: 'Day 15: Return to Entebbe', 
-        detail: 'We begin our return journey to Entebbe, stopping at the Equator for photographs and a farewell lunch.\n\nArrive in Entebbe for a final evening of reflection. Overnight in Entebbe.' 
+      {
+        day: 15,
+        title: 'Day 15: Return to Entebbe',
+        detail: 'We begin our return journey to Entebbe, stopping at the Equator for photographs and a farewell lunch. The drive offers a final look at the beautiful Ugandan countryside.\n\nArrive in Entebbe for a final evening of reflection. Enjoy a farewell dinner at your boutique hotel, sharing memories of the journey with your curator.\n\nOvernight in Entebbe, where the sounds of Lake Victoria provide a soothing conclusion to your safari. Overnight at a boutique hotel.',
+        accommodation: 'Boutique Lakefront Hotel',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 16, 
-        title: 'Day 16: Departure', 
-        detail: 'Transfer to Entebbe International Airport for your departure. You carry with you the indelible spirit of the "Grand Loop" across East Africa.' 
+      {
+        day: 16,
+        title: 'Day 16: Departure',
+        detail: 'Transfer to Entebbe International Airport for your departure. You carry with you the indelible spirit of the "Grand Loop" across East Africa.\n\nYour Kuzuri Escapades curator will ensure a smooth transfer and assist with your check-in. The memories of the primates and the savannah will stay with you forever.\n\nDeparture from Entebbe International Airport. End of your 16-day East African odyssey.',
+        accommodation: 'Departure',
+        meals: 'Breakfast'
       }
     ],
     exclusions: ['International Flights', 'Entry Visas', 'Personal Insurance', 'Tips & Gratuities', 'Premium Alcoholic Drinks']
@@ -686,107 +778,178 @@ export const TOURS: Tour[] = [
     primaryFocus: 'Serengeti Migration & Primate Forests',
     inclusions: ['Gorilla & Chimp Permits', 'Regional Flights', 'Luxury Lodging', 'Private 4x4 Vehicles', 'All Meals & Park Fees'],
     itinerary: [
-      { 
-        day: 1, 
-        title: 'Day 1: Arrival in Arusha', 
-        detail: 'Welcome to Tanzania. Your Kuzuri Escapades curator will meet you at Kilimanjaro International Airport and transfer you to your luxury lodge in Arusha.\n\nEnjoy a relaxing evening as you prepare for your East African circuit. Overnight in Arusha.' 
+      {
+        day: 1,
+        title: 'Day 1: Arrival in Arusha',
+        detail: 'Welcome to Tanzania. Your Kuzuri Escapades curator will meet you at Kilimanjaro International Airport and transfer you to your luxury lodge in Arusha. The gateway to the northern circuit, Arusha is a vibrant city nestled at the foot of Mount Meru.\n\nEnjoy a relaxing evening as you prepare for your East African circuit. The lodge gardens provide a peaceful sanctuary to unwind after your international flight. Enjoy a gourmet dinner featuring local Tanzanian flavors.\n\nOvernight in Arusha at a signature lodge. Prepare for the incredible wildlife encounters that await you in the coming days.',
+        accommodation: 'Luxury Arusha Lodge',
+        meals: 'Dinner'
       },
-      { 
-        day: 2, 
-        title: 'Day 2: Tarangire National Park', 
-        detail: 'We depart for Tarangire National Park, known for its high density of elephants and iconic baobab trees.\n\nEnjoy an afternoon game drive, spotting large herds and various bird species. Dinner and overnight at a luxury lodge.' 
+      {
+        day: 2,
+        title: 'Day 2: Tarangire National Park',
+        detail: 'We depart for Tarangire National Park, known for its high density of elephants and iconic baobab trees. The park\'s landscape is dominated by the Tarangire River, which attracts large numbers of wildlife during the dry season.\n\nEnjoy an afternoon game drive, spotting large herds and various bird species. The sight of elephants silhouetted against the ancient baobabs is a quintessential Tanzanian image.\n\nAs evening falls, transfer to your luxury lodge within the park. Enjoy a dinner under the stars, surrounded by the sounds of the African bush. Overnight at a signature Tarangire lodge.',
+        accommodation: 'Luxury Tarangire Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 3, 
-        title: 'Day 3: Ngorongoro Crater Floor', 
-        detail: 'Descend into the Ngorongoro Crater for a full day of game viewing in this natural amphitheater.\n\nSpot the black rhino and the dense population of predators. Dinner and overnight at a lodge on the crater rim.' 
+      {
+        day: 3,
+        title: 'Day 3: Ngorongoro Crater Floor',
+        detail: 'Descend into the Ngorongoro Crater for a full day of game viewing in this natural amphitheater. Often called the "Eighth Wonder of the World," the crater floor is a self-contained Eden and a unique Big Five habitat where predators and prey coexist in a natural amphitheater.\n\nSpot the rare black rhino and the dense population of predators, including lions and hyenas. The scenery is spectacular, with the crater walls providing a dramatic backdrop for your safari.\n\nIn the afternoon, ascend to the crater rim for dinner and overnight at a lodge with panoramic views of the caldera. Overnight at a luxury crater lodge.',
+        accommodation: 'Luxury Crater Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 4, 
-        title: 'Day 4: Serengeti National Park', 
-        detail: 'We journey to the legendary Serengeti National Park. The drive takes us through the Ngorongoro highlands and into the infinite plains.\n\nEnjoy a game drive en route to your luxury tented camp. Dinner and overnight at a signature camp.' 
+      {
+        day: 4,
+        title: 'Day 4: Serengeti National Park',
+        detail: 'We journey to the legendary Serengeti National Park. The drive takes us through the Ngorongoro highlands and into the infinite plains that stretch to the horizon. The Serengeti is the stage for the Great Migration.\n\nEnjoy a game drive en route to your luxury tented camp. The scale of the plains is truly humbling, and every turn reveals a new discovery in this wildlife-rich ecosystem.\n\nArrive at your signature camp in time for a warm Tanzanian welcome. Enjoy a dinner that celebrates the flavors of the region under the vast Serengeti sky. Overnight at a signature camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 5, 
-        title: 'Day 5: Serengeti Sovereignty', 
-        detail: 'A full day in the Serengeti, tracking the Great Migration (seasonal) and the Big Five.\n\nEnjoy a bush lunch on the plains. Dinner and overnight at the camp.' 
+      {
+        day: 5,
+        title: 'Day 5: Serengeti Sovereignty',
+        detail: 'A full day in the Serengeti, tracking the Great Migration (seasonal) and the Big Five. The vastness of the horizon is truly humbling as you witness the primal rhythms of life on the plains.\n\nEnjoy a bush lunch on the plains, surrounded by the thundering herds. The Serengeti is a theater of raw nature, where life and death play out in the open.\n\nAs evening falls, return to camp for a final celebratory dinner on the plains. Reflect on the incredible wildlife encounters under the stars. Overnight at the camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner',
+        imageBreak: 'https://i.postimg.cc/9f9FWt3z/9be3ba5d-30ad-463d-9fb9-8226e0f67943.jpg'
       },
-      { 
-        day: 6, 
-        title: 'Day 6: Crossing to the Maasai Mara', 
-        detail: 'We cross the border into Kenya and enter the Maasai Mara National Reserve. This seamless transition allows you to follow the wildlife across borders.\n\nArrive at your luxury tented camp in time for a sunset game drive. Dinner and overnight at a signature camp.' 
+      {
+        day: 6,
+        title: 'Day 6: Crossing to the Maasai Mara',
+        detail: 'We cross the border into Kenya and enter the Maasai Mara National Reserve. This seamless transition allows you to follow the wildlife across borders, witnessing the continuity of the East African ecosystem.\n\nArrive at your luxury tented camp in time for a sunset game drive. The Mara is home to one of the highest densities of predators in the world, and the golden light of the afternoon is perfect for photography.\n\nEnjoy a traditional sundowner as the sun sets over the Mara. Dinner and overnight at a signature Mara camp, where the sounds of the wild provide a hauntingly beautiful soundtrack.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 7, 
-        title: 'Day 7: Maasai Mara Discovery', 
-        detail: 'A full day dedicated to the Maasai Mara. Track the predators and witness the raw beauty of the savannah.\n\nEnjoy a traditional sundowner as the sun sets over the Mara. Dinner and overnight at the camp.' 
+      {
+        day: 7,
+        title: 'Day 7: Maasai Mara Discovery',
+        detail: 'A full day dedicated to the Maasai Mara. Track the predators and witness the raw beauty of the savannah. The Mara offers some of the most spectacular wildlife viewing on the planet.\n\nEnjoy a gourmet bush lunch under an acacia tree, surrounded by the sights and sounds of the wild. The scale of the migration is truly humbling, a thundering testament to the primal rhythms of life.\n\nAs evening falls, return to camp for a final celebratory dinner on the plains. Reflect on the incredible wildlife encounters under the stars. Overnight at the camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 8, 
-        title: 'Day 8: Lake Nakuru Rhinos', 
-        detail: 'We drive to Lake Nakuru National Park, a sanctuary for rhinos and flamingos.\n\nEnjoy an afternoon game drive around the lake shore. Dinner and overnight at a luxury lodge.' 
+      {
+        day: 8,
+        title: 'Day 8: Lake Nakuru Rhinos',
+        detail: 'We drive to Lake Nakuru National Park, a sanctuary for rhinos and flamingos. The park is nestled in the Great Rift Valley and offers a diverse range of habitats, from alkaline lake to lush forests.\n\nEnjoy an afternoon game drive around the lake shore, spotting leopards and the rare Rothschild giraffe. The contrast between the pink-hued lake and the surrounding greenery is breathtaking.\n\nAs evening falls, transfer to your luxury lodge overlooking the lake. Enjoy a dinner featuring fresh local produce while watching the wildlife gather at the water\'s edge. Overnight at a signature Nakuru lodge.',
+        accommodation: 'Luxury Lakefront Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 9, 
-        title: 'Day 9: Nairobi & Flight to Entebbe', 
-        detail: 'We return to Nairobi for a regional flight to Entebbe, Uganda. \n\nUpon arrival, transfer to your boutique hotel on the shores of Lake Victoria. Overnight in Entebbe.' 
+      {
+        day: 9,
+        title: 'Day 9: Nairobi & Flight to Entebbe',
+        detail: 'We return to Nairobi for a regional flight to Entebbe, Uganda. This marks the "Serengeti-Bwindi Connection," a hallmark transition of luxury combined safaris that saves you hours of travel between the savannahs and the lush primate forests.\n\nUpon arrival at Entebbe, your Ugandan steward will meet you and transfer you to your boutique hotel on the shores of Lake Victoria. The lake breeze provides a cooling introduction to the tropical climate of the Pearl of Africa.\n\nEnjoy a welcome dinner as you prepare for the primate leg of your journey. Reflect on the savannah highlights as you look forward to the misty forests. Overnight in Entebbe.',
+        accommodation: 'Boutique Lakefront Hotel',
+        meals: 'Breakfast, Lunch, Dinner',
+        imageBreak: 'https://i.postimg.cc/d03qBkbL/Kyambura_Game_Reserve_Chimpanzee_trekking_750x400.jpg'
       },
-      { 
-        day: 10, 
-        title: 'Day 10: The Primate Capital - Kibale', 
-        detail: 'We depart for Kibale National Park, the primate capital of the world.\n\nArrive at your forest lodge and soak in the vibrant energy of the rainforest. Dinner and overnight at a signature forest retreat.' 
+      {
+        day: 10,
+        title: 'Day 10: The Primate Capital - Kibale',
+        detail: 'We depart for Kibale National Park, the primate capital of the world. The drive takes us through the scenic tea plantations of Fort Portal and into the heart of the tropical rainforest.\n\nArrive at your forest lodge and soak in the vibrant energy of the rainforest. The lodge is nestled on the edge of the ancient rainforest, where the sounds of birds and primates create a vibrant atmosphere.\n\nIn the evening, enjoy a guided walk around the lodge or simply soak in the energy of the forest. Dinner and overnight at a signature forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 11, 
-        title: 'Day 11: Chimpanzee Tracking', 
-        detail: 'Enter the Kibale forest for a morning of tracking chimpanzees. Observe our closest relatives in their natural habitat.\n\nIn the afternoon, visit the Bigodi Wetland Sanctuary. Dinner and overnight at the lodge.' 
+      {
+        day: 11,
+        title: 'Day 11: Chimpanzee Tracking',
+        detail: 'Enter the Kibale forest for a morning of tracking chimpanzees. Observe our closest relatives in their natural habitat, witnessing their complex social structures and vocalizations.\n\nIn the afternoon, visit the Bigodi Wetland Sanctuary for a guided walk. This community-led project is a haven for rare birds like the Great Blue Turaco and several other primate species.\n\nReturn to the lodge for an evening of relaxation. Share your chimpanzee tracking stories over a gourmet dinner. Overnight at the forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 12, 
-        title: 'Day 12: Queen Elizabeth Savannahs', 
-        detail: 'We journey to Queen Elizabeth National Park. Enjoy an afternoon boat safari on the Kazinga Channel.\n\nSpot hippos, crocodiles, and elephants at the water\'s edge. Overnight at a lodge with panoramic views.' 
+      {
+        day: 12,
+        title: 'Day 12: Queen Elizabeth Savannahs',
+        detail: 'We journey to Queen Elizabeth National Park, a biodiverse mosaic of savannah, crater lakes, and forests. Enjoy an afternoon boat safari on the Kazinga Channel.\n\nSpot hippos, crocodiles, and elephants at the water\'s edge in this natural waterway. The park\'s open roads offer some of the best wildlife viewing in Uganda.\n\nAs evening falls, transfer to your lodge perched on the edge of the Rift Valley. Enjoy panoramic views of the park during dinner. Overnight at a signature safari lodge.',
+        accommodation: 'Signature Safari Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 13, 
-        title: 'Day 13: Ishasha to Bwindi', 
-        detail: 'Track the tree-climbing lions in Ishasha before continuing to the ancient Bwindi forest.\n\nArrive at your luxury forest lodge and prepare for your gorilla encounter. Dinner and overnight at a signature lodge.' 
+      {
+        day: 13,
+        title: 'Day 13: Ishasha to Bwindi',
+        detail: 'Track the tree-climbing lions in Ishasha before continuing to the ancient Bwindi forest. The Ishasha sector is famous for its unique population of lions that spend their days lounging in ancient fig trees.\n\nSpend the morning tracking these majestic predators and other wildlife like topis and buffaloes. The open savannah of Ishasha offers a raw and intimate safari experience.\n\nIn the afternoon, arrive at your luxury forest lodge and prepare for your gorilla encounter. The lodge is perched on the forest edge, offering an immersive introduction to the ancient jungle. Overnight at a signature lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 14, 
-        title: 'Day 14: Gorilla Trekking in Bwindi', 
-        detail: 'The highlight of your journey. Track a mountain gorilla family through the misty forest. Meeting their gaze is a profound experience.\n\nReturn to the lodge for a celebratory lunch. Dinner and overnight at the lodge.' 
+      {
+        day: 14,
+        title: 'Day 14: Gorilla Trekking in Bwindi',
+        detail: 'The highlight of your journey. Track a mountain gorilla family through the misty forest. Meeting their gaze is a profound experience that completes your "360-degree primate experience." Bwindi and Kibale are the only places on earth where you can combine world-class Gorilla and Chimpanzee trekking before heading to the vast Tanzanian plains.\n\nSpend a profound hour in their presence, observing the silverback\'s command and the infants\' play. It is a life-altering moment that stays with you forever. The connection between the primate forests and the savannahs is the hallmark of this regional masterpiece.\n\nReturn to the lodge for a celebratory lunch and an afternoon of reflection. Share your experiences with fellow travelers over a final Ugandan dinner. Overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 15, 
-        title: 'Day 15: Lake Bunyonyi Serenity', 
-        detail: 'We drive to Lake Bunyonyi for a day of relaxation. Enjoy a boat trip on the lake and soak in the beautiful scenery.\n\nIt is the perfect conclusion to your East African odyssey. Dinner and overnight at a lakeside resort.' 
+      {
+        day: 15,
+        title: 'Day 15: Lake Bunyonyi Serenity',
+        detail: 'We drive to Lake Bunyonyi for a day of relaxation. Enjoy a boat trip on the lake and soak in the beautiful scenery of the "Place of Many Little Birds."\n\nIt is the perfect conclusion to your East African odyssey, offering a peaceful space to reflect on the incredible journey. The lake\'s serenity is truly restorative.\n\nIn the evening, enjoy a final lakeside dinner. Reflect on your East African odyssey as the sun sets over the water. Overnight at a lakeside resort.',
+        accommodation: 'Luxury Lakeside Resort',
+        meals: 'Breakfast, Lunch, Dinner'
       },
-      { 
-        day: 16, 
-        title: 'Day 16: Return to Entebbe & Departure', 
-        detail: 'Transfer to Entebbe International Airport for your departure. Carry with you the indelible spirit of the three East African nations.' 
+      {
+        day: 16,
+        title: 'Day 16: Return to Entebbe & Departure',
+        detail: 'After a final leisurely breakfast, we begin our return journey to Entebbe. We stop at the Equator for photographs and a farewell lunch, marking the conclusion of your journey.\n\nArrive at Entebbe International Airport in time for your evening departure. Your Kuzuri Escapades curator will assist with your check-in and ensure a smooth transition.\n\nYou carry with you the indelible spirit of the three East African nations and the memories of the gentle giants. Departure.',
+        accommodation: 'Departure',
+        meals: 'Breakfast, Lunch'
       }
     ],
     exclusions: ['International Flights', 'Entry Visas', 'Personal Insurance', 'Tips & Gratuities', 'Premium Alcoholic Drinks']
   },
   {
-    id: 'masai-mara-serengeti-6d',
-    name: '6 Days Masai Mara and Serengeti safari',
-    slug: 'masai-mara-serengeti-6d',
-    duration_days: 6,
-    duration_nights: 5,
-    price_from: 3520,
+    id: 'kenya-tanzania-comfort-5d',
+    name: '5 Days Best of Kenya and Tanzania Comfort Safari',
+    slug: 'kenya-tanzania-comfort-5d',
+    duration_days: 5,
+    duration_nights: 4,
+    price_from: 3250,
     currency: '$',
     category: 'Savannah Sovereignty',
-    description: 'A focused, high-impact safari through the world’s most famous wildlife ecosystem across the Kenya-Tanzania border during migration peak.',
-    highlights: ['Masai Mara Reserve', 'Serengeti Plains', 'Migration Crossing'],
+    description: 'A focused, high-impact safari through the world’s most famous wildlife ecosystem across the Kenya-Tanzania border. This comfort-tier expedition follows the cross-border wildlife flow between the Maasai Mara and the Serengeti, offering a front-row seat to the thundering wild.',
+    highlights: ['Maasai Mara Big Five', 'Serengeti Migration Flow', 'Cross-Border Wildlife Connection'],
     imageUrls: ['https://i.postimg.cc/9f9FWt3z/9be3ba5d-30ad-463d-9fb9-8226e0f67943.jpg'],
     featured: true,
     countries: 'Kenya & Tanzania',
     startCity: 'Nairobi',
     endCity: 'Arusha',
     transportMode: '4x4 Land Cruiser',
-    primaryFocus: 'Migration Peak & Savannah Predators'
+    primaryFocus: 'Migration Peak & Savannah Predators',
+    itinerary: [
+      {
+        day: 1,
+        title: 'Day 1: Nairobi to Maasai Mara',
+        detail: 'Your journey begins with a scenic drive from Nairobi, descending into the Great Rift Valley towards the legendary Maasai Mara. The morning air is crisp as you pass through Maasai trading centers, arriving at your luxury tented camp in time for a gourmet lunch.\n\nIn the afternoon, embark on your first game drive across the golden plains. The Mara is home to one of the highest densities of predators in the world, and you will likely spot prides of lions or a solitary cheetah scanning the horizon for its next meal.\n\nAs the sun sets, return to the camp for a traditional sundowner. Enjoy a three-course dinner under the stars, followed by a briefing on the next day\'s adventures by the campfire. Overnight at a signature Mara camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Lunch, Dinner'
+      },
+      {
+        day: 2,
+        title: 'Day 2: Full Day in Maasai Mara',
+        detail: 'Awaken to the sounds of the wild for an early morning game drive. This is the best time to witness the predators on the hunt before the heat of the day sets in. The vastness of the Mara unfolds as you track the Big Five across the diverse habitats.\n\nAfter a bush breakfast, continue your exploration towards the Mara River. During the migration season, the riverbanks are a theater of raw nature, where thousands of wildebeest and zebras gather, contemplating the perilous crossing guarded by Nile crocodiles.\n\nReturn to the camp in the late afternoon for some relaxation by the pool. The evening is spent sharing stories of the day\'s sightings over a refined dinner, accompanied by the distant calls of hyenas. Overnight at the camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 3,
+        title: 'Day 3: Mara to Serengeti - The Cross-Border Flow',
+        detail: 'We bid farewell to the Mara and head towards the Isebania border, the gateway to Tanzania. This transition allows you to follow the natural wildlife flow between the two greatest ecosystems in Africa. After a smooth border crossing, your Tanzanian steward will meet you.\n\nEnter the northern Serengeti, where the landscape shifts to infinite plains dotted with iconic acacia trees. The afternoon game drive en route to your camp reveals the sheer scale of this UNESCO World Heritage site, where the horizon seems to stretch forever.\n\nArrive at your luxury camp in the heart of the Serengeti. The evening is marked by a warm Tanzanian welcome and a dinner that blends local flavors with international excellence. Overnight at a signature Serengeti camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 4,
+        title: 'Day 4: Serengeti Plains Discovery',
+        detail: 'A full day dedicated to the thundering wild of the Serengeti. In the morning, we head towards the central Seronera Valley, a permanent water source that attracts a high concentration of wildlife, including the elusive leopard often found lounging in sausage trees.\n\nEnjoy a picnic lunch in the middle of the plains, surrounded by the sights and sounds of the Great Migration. The afternoon is spent tracking the large herds and the predators that follow them, witnessing the primal rhythms of life and death on the savannah.\n\nAs evening falls, return to the camp for a final celebratory dinner on the plains. Reflect on the incredible wildlife encounters of the past few days under the vast African sky. Overnight at the camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 5,
+        title: 'Day 5: Serengeti to Arusha & Departure',
+        detail: 'Enjoy a final morning game drive as we head towards the airstrip or begin the drive towards Arusha. The early light provides a beautiful perspective on the plains, offering one last chance to spot the Big Five before concluding your savannah odyssey.\n\nArrive in Arusha for a farewell lunch at a local garden restaurant. This is a great opportunity to pick up some last-minute Tanzanian crafts or simply relax before your transfer to Kilimanjaro International Airport.\n\nYour Kuzuri Escapades curator will ensure a smooth transfer for your departure. You carry with you the indelible spirit of the cross-border wildlife flow and the memories of a lifetime. Departure.',
+        accommodation: 'Day Room (Optional)',
+        meals: 'Breakfast, Lunch'
+      }
+    ]
   },
   {
     id: 'uganda-tanzania-safari-13d',
@@ -797,8 +960,8 @@ export const TOURS: Tour[] = [
     price_from: 5850,
     currency: '$',
     category: 'Combined Safari',
-    description: 'A masterpiece of regional travel, combining the primate-rich forests of Uganda with the legendary plains of the Serengeti and Ngorongoro Crater. Experience the "360-degree primate odyssey" and the thundering wild of Tanzania.',
-    highlights: ['Bwindi Gorilla Trekking', 'Serengeti Migration', 'Ngorongoro Crater', 'Kibale Chimpanzees', 'Tree-Climbing Lions'],
+    description: 'A masterpiece of regional travel, combining the primate-rich forests of Uganda with the legendary plains of the Serengeti and Ngorongoro Crater. This 13-day expedition is designed for those seeking the "360-degree primate odyssey" alongside the thundering wild of Tanzania\'s Great Migration.',
+    highlights: ['Bwindi Gorilla Trekking', 'Serengeti Migration', 'Ngorongoro Crater Floor', 'Kibale Chimpanzees', 'Tree-Climbing Lions'],
     imageUrls: ['https://i.postimg.cc/Hkp3Pkcx/Tanzani_Wildlife_tour_1536x1152.jpg'],
     featured: true,
     countries: 'Uganda & Tanzania',
@@ -808,19 +971,97 @@ export const TOURS: Tour[] = [
     primaryFocus: 'Primates & Great Plains',
     inclusions: ['Gorilla & Chimp Permits', 'Regional Flight (Entebbe-Serengeti)', 'Luxury Lodging', 'Private 4x4 Vehicles', 'All Meals & Park Fees'],
     itinerary: [
-      { day: 1, title: 'Day 1: Arrival in Entebbe', detail: 'Welcome to the Pearl of Africa. Transfer to your boutique hotel on the shores of Lake Victoria.' },
-      { day: 2, title: 'Day 2: Kibale Primate Capital', detail: 'Journey to Kibale Forest, the primate capital of the world.' },
-      { day: 3, title: 'Day 3: Chimpanzee Tracking', detail: 'A morning of tracking chimpanzees followed by a Bigodi wetland walk.' },
-      { day: 4, title: 'Day 4: Queen Elizabeth Savannahs', detail: 'Drive to Queen Elizabeth National Park for game drives and a Kazinga Channel boat safari.' },
-      { day: 5, title: 'Day 5: Ishasha Tree-Climbing Lions', detail: 'Track the unique tree-climbing lions of Ishasha.' },
-      { day: 6, title: 'Day 6: Bwindi Impenetrable Forest', detail: 'Travel to the misty forests of Bwindi, home to the mountain gorillas.' },
-      { day: 7, title: 'Day 7: Gorilla Trekking - 360° Primate Experience', detail: 'The highlight of your journey. Meet the gentle giants in their natural habitat.' },
-      { day: 8, title: 'Day 8: Flight to Serengeti - The Luxury Transition', detail: 'Board a regional flight from Entebbe directly to the Serengeti plains. A hallmark transition of luxury combined safaris.' },
-      { day: 9, title: 'Day 9: Serengeti Sovereignty', detail: 'A full day in the Serengeti tracking the Great Migration and the Big Five.' },
-      { day: 10, title: 'Day 10: Serengeti Discovery', detail: 'Further exploration of the vast Serengeti ecosystem.' },
-      { day: 11, title: 'Day 11: Ngorongoro Crater Floor', detail: 'Descend into the world\'s largest inactive caldera for spectacular game viewing.' },
-      { day: 12, title: 'Day 12: Lake Manyara / Tarangire', detail: 'Explore the diverse landscapes of Manyara or Tarangire.' },
-      { day: 13, title: 'Day 13: Departure from Arusha', detail: 'Transfer to Kilimanjaro International Airport for your departure.' }
+      {
+        day: 1,
+        title: 'Day 1: Arrival in Entebbe',
+        detail: 'Welcome to the Pearl of Africa. Upon arrival at Entebbe International Airport, you will be met by your Kuzuri Escapades curator and transferred to your boutique hotel on the shores of Lake Victoria.\n\nSpend the afternoon at leisure, perhaps visiting the Entebbe Botanical Gardens or simply relaxing after your flight. The lake breeze provides a cooling introduction to the tropical climate of Uganda.\n\nIn the evening, enjoy a welcome dinner at the hotel, where you will be briefed on the incredible journey ahead. Overnight at a boutique Entebbe hotel.',
+        accommodation: 'Boutique Lakefront Hotel',
+        meals: 'Dinner'
+      },
+      {
+        day: 2,
+        title: 'Day 2: Journey to Kibale Primate Capital',
+        detail: 'After a refined breakfast, we depart for Kibale National Park, the primate capital of the world. The drive takes us through the scenic tea plantations of Fort Portal, offering spectacular views of the Rwenzori Mountains.\n\nArrive at your forest lodge in time for lunch. The lodge is nestled on the edge of the ancient rainforest, where the sounds of birds and primates create a vibrant atmosphere.\n\nIn the afternoon, enjoy a guided walk around the lodge or simply soak in the energy of the forest. Dinner and overnight at a signature forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 3,
+        title: 'Day 3: Chimpanzee Tracking & Bigodi Walk',
+        detail: 'Enter the Kibale forest for a life-altering encounter with our closest relatives—the chimpanzees. Observe their complex social structures, playful antics, and vocalizations in their natural habitat.\n\nAfter a celebratory lunch, we visit the Bigodi Wetland Sanctuary for a guided walk. This community-led project is a haven for rare birds like the Great Blue Turaco and several other primate species.\n\nReturn to the lodge for an evening of relaxation. Share your chimpanzee tracking stories over a gourmet dinner. Overnight at the forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 4,
+        title: 'Day 4: Queen Elizabeth Savannahs & Kazinga Channel',
+        detail: 'We journey to Queen Elizabeth National Park, a biodiverse mosaic of savannah, crater lakes, and forests. Arrive in time for a sunset game drive in the Kasenyi plains, tracking lions and leopards.\n\nIn the afternoon, board a private boat for a safari on the Kazinga Channel. This natural waterway connects Lake Edward and Lake George and is home to one of the highest concentrations of hippos in the world.\n\nAs evening falls, transfer to your lodge perched on the edge of the Rift Valley. Enjoy panoramic views of the park during dinner. Overnight at a signature safari lodge.',
+        accommodation: 'Signature Safari Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 5,
+        title: 'Day 5: Ishasha Tree-Climbing Lions',
+        detail: 'We drive to the remote Ishasha sector of Queen Elizabeth National Park. This area is world-famous for its unique population of tree-climbing lions, often found lounging in ancient fig trees.\n\nSpend the morning tracking these majestic predators and other wildlife like topis and buffaloes. The open savannah of Ishasha offers a raw and intimate safari experience.\n\nIn the afternoon, continue to the edge of the ancient Bwindi forest. Arrive at your luxury lodge and prepare for the highlight of your journey. Dinner and overnight at a signature lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 6,
+        title: 'Day 6: Bwindi Impenetrable Forest Immersion',
+        detail: 'A day dedicated to the ancient Bwindi Impenetrable Forest, a UNESCO World Heritage site. In the morning, enjoy a guided nature walk along the forest trails, discovering rare flora and fauna.\n\nAfter lunch, visit the local Batwa community for a cultural immersion. Learn about their ancestral connection to the forest and their traditional way of life.\n\nReturn to the lodge for a final briefing before your gorilla encounter. The evening is spent in quiet anticipation of the day ahead. Dinner and overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 7,
+        title: 'Day 7: Gorilla Trekking - 360° Primate Experience',
+        detail: 'The soul of the forest. After a briefing, you will enter the misty valleys of Bwindi in search of a mountain gorilla family. This encounter completes your "360-degree primate experience," bridging your time with the chimpanzees to the gentle giants. Bwindi and Kibale are the only places on earth where you can combine world-class Gorilla and Chimpanzee trekking before heading to the vast Tanzanian plains.\n\nSpend a profound hour in their presence, observing the silverback\'s command and the infants\' play. It is a life-altering moment that stays with you forever. The connection between the primate forests and the savannahs is the hallmark of this regional masterpiece.\n\nReturn to the lodge for a celebratory lunch and an afternoon of reflection. Share your experiences with fellow travelers over a final Ugandan dinner. Overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 8,
+        title: 'Day 8: Flight to Serengeti - The Luxury Transition',
+        detail: 'We bid farewell to the misty forests and board a regional flight from Entebbe directly to the Serengeti plains in Tanzania. This "Serengeti-Bwindi Connection" is a hallmark of luxury combined safaris, saving you hours of travel and providing a seamless transition between the Pearl of Africa and the Great Plains.\n\nUpon arrival at the Serengeti airstrip, your Tanzanian steward will meet you for an introductory game drive en route to your luxury tented camp. The infinite golden plains begin to reveal their secrets, offering a stark and beautiful contrast to the lush Ugandan jungles.\n\nArrive at your signature camp in time for a sunset sundowner. Enjoy a dinner that blends local flavors with international excellence under the vast African sky. Overnight at a signature Serengeti camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 9,
+        title: 'Day 9: Serengeti Sovereignty & Great Migration',
+        detail: 'A full day dedicated to the thundering wild of the Serengeti. We track the Great Migration (seasonal) and the Big Five across the vast savannahs, witnessing the primal rhythms of life.\n\nEnjoy a gourmet bush lunch under an acacia tree, surrounded by the sights and sounds of the wild. The Serengeti is home to one of the highest densities of predators in the world.\n\nAs evening falls, return to camp for a traditional sundowner and a dinner under the stars, sharing tales of the day\'s sightings. Overnight at the camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 10,
+        title: 'Day 10: Serengeti Discovery & Hidden Gems',
+        detail: 'Further exploration of the vast Serengeti ecosystem. In the morning, we head towards the hidden gems of the park, away from the main trails, in search of rare sightings.\n\nAfter a picnic lunch, continue your game drive, tracking the large herds and the predators that follow them. The scale of the Serengeti is truly humbling.\n\nReturn to the camp for a final evening on the plains. Enjoy a special farewell dinner prepared by the camp\'s chefs. Overnight at the camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 11,
+        title: 'Day 11: Ngorongoro Crater Floor - The Eighth Wonder',
+        detail: 'We drive to the Ngorongoro Conservation Area and descend into the world\'s largest inactive caldera. Often called the "Eighth Wonder of the World," the crater floor is a self-contained Eden and a unique Big Five habitat where predators and prey coexist in a natural amphitheater.\n\nSpend the day game viewing in this spectacular setting, home to the rare black rhino and a dense population of lions. The scenery is unparalleled, with the crater walls providing a dramatic backdrop for your safari.\n\nIn the afternoon, ascend to the crater rim for dinner and overnight at a lodge with panoramic views of the caldera. Overnight at a luxury crater lodge.',
+        accommodation: 'Luxury Crater Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 12,
+        title: 'Day 12: Lake Manyara / Tarangire Exploration',
+        detail: 'Explore the diverse landscapes of Lake Manyara or Tarangire National Park. Lake Manyara is famous for its tree-climbing lions and flamingos, while Tarangire is known for its massive elephant herds and baobab trees.\n\nEnjoy a final game drive in these unique ecosystems, spotting a variety of bird species and wildlife. The Rift Valley provides a stunning backdrop for your final safari day.\n\nIn the evening, arrive in Arusha for a final celebratory dinner. Reflect on your East African odyssey with your fellow travelers. Overnight at a luxury Arusha lodge.',
+        accommodation: 'Luxury Arusha Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 13,
+        title: 'Day 13: Departure from Arusha',
+        detail: 'After a final leisurely breakfast, we transfer to Kilimanjaro International Airport for your departure. You carry with you the indelible spirit of the "Grand Loop" across East Africa.\n\nYour Kuzuri Escapades curator will ensure a smooth transfer and assist with your check-in. The memories of the gorillas, chimpanzees, and the Serengeti migration will stay with you forever.\n\nDeparture from Kilimanjaro International Airport. End of your 13-day East African odyssey.',
+        accommodation: 'Departure',
+        meals: 'Breakfast'
+      }
     ],
     exclusions: ['International Flights', 'Entry Visas', 'Personal Insurance', 'Tips & Gratuities']
   },
@@ -833,8 +1074,8 @@ export const TOURS: Tour[] = [
     price_from: 4950,
     currency: '$',
     category: 'Combined Safari',
-    description: 'A high-impact regional circuit covering the most iconic wildlife destinations in Uganda, Kenya, and Tanzania. From the misty primate forests to the legendary savannahs.',
-    highlights: ['Bwindi Gorilla Trekking', 'Maasai Mara Big Five', 'Serengeti Migration', 'Ngorongoro Crater'],
+    description: 'A high-impact regional circuit covering the "East African Golden Triangle"—the most iconic wildlife destinations in Uganda, Kenya, and Tanzania. From the misty primate forests to the legendary savannahs of the Mara and Serengeti.',
+    highlights: ['Bwindi Gorilla Trekking', 'Maasai Mara Big Five', 'Serengeti Migration', 'Ngorongoro Crater Floor'],
     imageUrls: ['https://i.postimg.cc/J0r1cfsX/90e57c35-c104-4c92-b085-d10243cac4cd.jpg'],
     featured: true,
     countries: 'Uganda, Kenya & Tanzania',
@@ -844,17 +1085,83 @@ export const TOURS: Tour[] = [
     primaryFocus: 'Primates & Savannah Wildlife',
     inclusions: ['Gorilla Permit', 'Regional Flights', 'Luxury Lodging', 'Private 4x4 Vehicles', 'All Meals & Park Fees'],
     itinerary: [
-      { day: 1, title: 'Day 1: Arrival in Entebbe', detail: 'Arrival and transfer to your boutique hotel.' },
-      { day: 2, title: 'Day 2: Bwindi Impenetrable Forest', detail: 'Flight to Bwindi and preparation for trekking.' },
-      { day: 3, title: 'Day 3: Gorilla Trekking', detail: 'A profound encounter with the mountain gorillas.' },
-      { day: 4, title: 'Day 4: Flight to Masai Mara', detail: 'The hallmark Entebbe-Mara flight transition.' },
-      { day: 5, title: 'Day 5: Masai Mara Sovereignty', detail: 'Full day game drives tracking the Big Five.' },
-      { day: 6, title: 'Day 6: Crossing to Serengeti', detail: 'Border crossing into the legendary Serengeti.' },
-      { day: 7, title: 'Day 7: Serengeti Discovery', detail: 'Tracking the Great Migration across the plains.' },
-      { day: 8, title: 'Day 8: Ngorongoro Crater Floor', detail: 'Full day in the self-contained Eden of the crater.' },
-      { day: 9, title: 'Day 9: Lake Manyara / Tarangire', detail: 'Exploring the diverse Rift Valley landscapes.' },
-      { day: 10, title: 'Day 10: Arusha Cultural Legacy', detail: 'Cultural tour and relaxation in Arusha.' },
-      { day: 11, title: 'Day 11: Departure', detail: 'Transfer to Kilimanjaro Airport for departure.' }
+      {
+        day: 1,
+        title: 'Day 1: Arrival in Entebbe',
+        detail: 'Welcome to Uganda. Upon arrival at Entebbe International Airport, you will be met by your Kuzuri Escapades curator and transferred to your boutique hotel on the shores of Lake Victoria.\n\nSpend the afternoon at leisure, perhaps visiting the Entebbe Botanical Gardens or simply relaxing after your flight. The lake breeze provides a cooling introduction to the tropical climate.\n\nIn the evening, enjoy a welcome dinner at the hotel, where you will be briefed on the incredible journey ahead. Overnight at a boutique Entebbe hotel.',
+        accommodation: 'Boutique Lakefront Hotel',
+        meals: 'Dinner'
+      },
+      {
+        day: 2,
+        title: 'Day 2: Bwindi Impenetrable Forest',
+        detail: 'After a refined breakfast, we board a private charter flight to the ancient Bwindi Impenetrable Forest. Soar over the lush landscapes of the Pearl of Africa, landing in the heart of the misty Virunga mountains.\n\nA short drive takes you to your luxury forest lodge, where the sounds of the jungle welcome you. Spend the afternoon soaking in the atmosphere of this UNESCO World Heritage site.\n\nIn the evening, enjoy a briefing on the next day\'s gorilla encounter followed by a gourmet dinner. Overnight at a signature forest lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 3,
+        title: 'Day 3: Gorilla Trekking - The Soul of the Forest',
+        detail: 'The highlight of your journey. After a briefing, you will enter the misty valleys of Bwindi in search of a mountain gorilla family. This encounter is a profound experience, meeting the gaze of a silverback.\n\nSpend an hour in their presence, observing their social dynamics and the playful infants. It is a life-altering moment that completes the first leg of your Golden Triangle odyssey.\n\nReturn to the lodge for a celebratory lunch and an afternoon of reflection. Share your experiences over a final Ugandan dinner. Overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 4,
+        title: 'Day 4: Flight to Masai Mara - The Hallmark Transition',
+        detail: 'We bid farewell to the misty forests and board a private flight directly to the legendary Maasai Mara in Kenya. This Entebbe-Masai Mara flight transition is the ultimate luxury, providing a "Serengeti-Bwindi Connection" that saves you hours of travel and offers a seamless link between primates and savannahs.\n\nUpon arrival at the Mara airstrip, your Kenyan steward will meet you for an introductory game drive en route to your luxury tented camp. The infinite golden plains begin to reveal their secrets, a world away from the misty jungles of Bwindi.\n\nArrive at your signature camp in time for a sunset sundowner. Enjoy a dinner that blends local flavors with international excellence under the stars. Overnight at a signature Mara camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 5,
+        title: 'Day 5: Masai Mara Sovereignty',
+        detail: 'A full day dedicated to the thundering wild of the Maasai Mara. We track the Big Five across the vast savannahs, witnessing the Great Migration (seasonal) and the predators that follow them.\n\nEnjoy a gourmet bush lunch under an acacia tree, surrounded by the sights and sounds of the wild. The Mara is home to one of the highest densities of predators in the world.\n\nAs evening falls, return to camp for a traditional sundowner and a dinner under the stars, sharing tales of the day\'s sightings. Overnight at the camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 6,
+        title: 'Day 6: Crossing to Serengeti - The Migration Flow',
+        detail: 'We cross the border into Tanzania and enter the legendary Serengeti National Park. This seamless transition allows you to follow the wildlife across borders in the heart of the Golden Triangle.\n\nEnjoy a game drive en route to your luxury tented camp. The infinite golden plains of the Serengeti unfold before you, offering a different perspective on the savannah ecosystem.\n\nArrive at your signature camp in time for a warm Tanzanian welcome. Enjoy a dinner that celebrates the flavors of the region. Overnight at a signature Serengeti camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 7,
+        title: 'Day 7: Serengeti Discovery',
+        detail: 'A full day in the Serengeti, tracking the Great Migration and the Big Five. The vastness of the horizon is truly humbling as you witness the primal rhythms of life on the plains.\n\nEnjoy a picnic lunch in the middle of the savannah, surrounded by the thundering herds. The Serengeti is a theater of raw nature, where every moment is a discovery.\n\nAs evening falls, return to the camp for a final celebratory dinner on the plains. Reflect on the incredible wildlife encounters of the past few days. Overnight at the camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 8,
+        title: 'Day 8: Ngorongoro Crater Floor - The Eighth Wonder',
+        detail: 'We drive to the Ngorongoro Conservation Area and descend into the world\'s largest inactive caldera. Often called the "Eighth Wonder of the World," the crater floor is a self-contained Eden and a unique Big Five habitat where predators and prey coexist in a natural amphitheater.\n\nSpend the day game viewing in this spectacular setting, home to the rare black rhino and a dense population of lions. The scenery is unparalleled, with the crater walls providing a dramatic backdrop for your safari.\n\nIn the afternoon, ascend to the crater rim for dinner and overnight at a lodge with panoramic views of the caldera. Overnight at a luxury crater lodge.',
+        accommodation: 'Luxury Crater Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 9,
+        title: 'Day 9: Lake Manyara / Tarangire Exploration',
+        detail: 'Explore the diverse landscapes of Lake Manyara or Tarangire National Park. Lake Manyara is famous for its tree-climbing lions, while Tarangire is known for its massive elephant herds.\n\nEnjoy a final game drive in these unique ecosystems, spotting a variety of bird species and wildlife. The Rift Valley provides a stunning backdrop for your final safari day.\n\nIn the evening, arrive in Arusha for a final celebratory dinner. Reflect on your East African Golden Triangle odyssey. Overnight at a luxury Arusha lodge.',
+        accommodation: 'Luxury Arusha Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 10,
+        title: 'Day 10: Arusha Cultural Legacy',
+        detail: 'A morning dedicated to the cultural legacy of Arusha. Visit a local coffee plantation or a Maasai market to discover the traditions and rhythms of the region.\n\nAfter lunch, enjoy some relaxation at the lodge or explore the vibrant streets of Arusha. It is the perfect conclusion to your regional circuit.\n\nIn the evening, enjoy a final farewell dinner with your fellow travelers. Overnight at the Arusha lodge.',
+        accommodation: 'Luxury Arusha Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 11,
+        title: 'Day 11: Departure from Kilimanjaro',
+        detail: 'After a final leisurely breakfast, we transfer to Kilimanjaro International Airport for your departure. You carry with you the indelible spirit of the East African Golden Triangle.\n\nYour Kuzuri Escapades curator will ensure a smooth transfer and assist with your check-in. The memories of the gorillas, the Mara, and the Serengeti will stay with you forever.\n\nDeparture from Kilimanjaro International Airport. End of your 11-day Golden Triangle odyssey.',
+        accommodation: 'Departure',
+        meals: 'Breakfast'
+      }
     ],
     exclusions: ['International Flights', 'Entry Visas', 'Personal Insurance', 'Tips & Gratuities']
   },
@@ -867,8 +1174,8 @@ export const TOURS: Tour[] = [
     price_from: 8950,
     currency: '$',
     category: 'Combined Safari',
-    description: 'The ultimate East African odyssey. A 17-day master-class in regional travel, covering every iconic park and primate sanctuary in the Pearl of Africa and the legendary savannahs.',
-    highlights: ['360° Primate Experience', 'Maasai Mara Migration', 'Serengeti Plains', 'Ngorongoro Crater', 'Amboseli Elephants'],
+    description: 'The ultimate East African odyssey. A 17-day "Grand East Africa Expedition" master-class in regional travel, covering every iconic park and primate sanctuary in the Pearl of Africa and the legendary savannahs.',
+    highlights: ['360° Primate Experience', 'Maasai Mara Migration', 'Serengeti Plains', 'Ngorongoro Crater Floor', 'Amboseli Elephants'],
     imageUrls: ['https://i.postimg.cc/Hkp3Pkcx/Tanzani_Wildlife_tour_1536x1152.jpg'],
     featured: true,
     countries: 'Uganda, Kenya & Tanzania',
@@ -878,23 +1185,125 @@ export const TOURS: Tour[] = [
     primaryFocus: 'Complete East African Immersion',
     inclusions: ['Gorilla & Chimp Permits', 'Regional Flights', 'Luxury Lodging', 'Private 4x4 Vehicles', 'All Meals & Park Fees'],
     itinerary: [
-      { day: 1, title: 'Day 1: Arrival in Entebbe', detail: 'Welcome to Uganda. Transfer to your luxury hotel.' },
-      { day: 2, title: 'Day 2: Kibale Primate Capital', detail: 'Journey to the heart of the primate forest.' },
-      { day: 3, title: 'Day 3: Chimpanzee Tracking', detail: 'A morning with our closest relatives.' },
-      { day: 4, title: 'Day 4: Queen Elizabeth Savannahs', detail: 'Game drives and Kazinga Channel boat safari.' },
-      { day: 5, title: 'Day 5: Ishasha Tree-Climbing Lions', detail: 'Tracking the unique predators of Ishasha.' },
-      { day: 6, title: 'Day 6: Bwindi Impenetrable Forest', detail: 'Arrival at the misty forest edge.' },
-      { day: 7, title: 'Day 7: Gorilla Trekking', detail: 'The soul of the forest encounter.' },
-      { day: 8, title: 'Day 8: Flight to Masai Mara', detail: 'The hallmark luxury flight transition.' },
-      { day: 9, title: 'Day 9: Masai Mara Sovereignty', detail: 'Full day tracking the Big Five.' },
-      { day: 10, title: 'Day 10: Crossing to Serengeti', detail: 'Border crossing into Tanzania.' },
-      { day: 11, title: 'Day 11: Serengeti Discovery', detail: 'Tracking the Great Migration.' },
-      { day: 12, title: 'Day 12: Ngorongoro Crater Floor', detail: 'Full day in the caldera.' },
-      { day: 13, title: 'Day 13: Lake Manyara / Tarangire', detail: 'Rift Valley exploration.' },
-      { day: 14, title: 'Day 14: Amboseli National Park', detail: 'Elephants under the shadow of Kilimanjaro.' },
-      { day: 15, title: 'Day 15: Amboseli Discovery', detail: 'Full day in Amboseli.' },
-      { day: 16, title: 'Day 16: Return to Nairobi', detail: 'Journey back to the capital.' },
-      { day: 17, title: 'Day 17: Departure', detail: 'Transfer to Jomo Kenyatta Airport.' }
+      {
+        day: 1,
+        title: 'Day 1: Arrival in Entebbe',
+        detail: 'Welcome to Uganda. Upon arrival at Entebbe International Airport, you will be met by your Kuzuri Escapades curator and transferred to your boutique hotel on the shores of Lake Victoria.\n\nSpend the afternoon at leisure, perhaps visiting the Entebbe Botanical Gardens or simply relaxing after your flight. The lake breeze provides a cooling introduction to the tropical climate.\n\nIn the evening, enjoy a welcome dinner at the hotel, where you will be briefed on the incredible journey ahead. Overnight at a boutique Entebbe hotel.',
+        accommodation: 'Boutique Lakefront Hotel',
+        meals: 'Dinner'
+      },
+      {
+        day: 2,
+        title: 'Day 2: Kibale Primate Capital',
+        detail: 'After a refined breakfast, we depart for Kibale National Park, the primate capital of the world. The drive takes us through the scenic tea plantations of Fort Portal, offering spectacular views of the Rwenzori Mountains.\n\nArrive at your forest lodge in time for lunch. The lodge is nestled on the edge of the ancient rainforest, where the sounds of birds and primates create a vibrant atmosphere.\n\nIn the afternoon, enjoy a guided walk around the lodge or simply soak in the energy of the forest. Dinner and overnight at a signature forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 3,
+        title: 'Day 3: Chimpanzee Tracking & Bigodi Walk',
+        detail: 'Enter the Kibale forest for a life-altering encounter with our closest relatives—the chimpanzees. Observe their complex social structures, playful antics, and vocalizations in their natural habitat.\n\nAfter a celebratory lunch, we visit the Bigodi Wetland Sanctuary for a guided walk. This community-led project is a haven for rare birds like the Great Blue Turaco and several other primate species.\n\nReturn to the lodge for an evening of relaxation. Share your chimpanzee tracking stories over a gourmet dinner. Overnight at the forest retreat.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 4,
+        title: 'Day 4: Queen Elizabeth Savannahs & Kazinga Channel',
+        detail: 'We journey to Queen Elizabeth National Park, a biodiverse mosaic of savannah, crater lakes, and forests. Arrive in time for a sunset game drive in the Kasenyi plains, tracking lions and leopards.\n\nIn the afternoon, board a private boat for a safari on the Kazinga Channel. This natural waterway connects Lake Edward and Lake George and is home to one of the highest concentrations of hippos in the world.\n\nAs evening falls, transfer to your lodge perched on the edge of the Rift Valley. Enjoy panoramic views of the park during dinner. Overnight at a signature safari lodge.',
+        accommodation: 'Signature Safari Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 5,
+        title: 'Day 5: Ishasha Tree-Climbing Lions',
+        detail: 'We drive to the remote Ishasha sector of Queen Elizabeth National Park. This area is world-famous for its unique population of tree-climbing lions, often found lounging in ancient fig trees.\n\nSpend the morning tracking these majestic predators and other wildlife like topis and buffaloes. The open savannah of Ishasha offers a raw and intimate safari experience.\n\nIn the afternoon, continue to the edge of the ancient Bwindi forest. Arrive at your luxury lodge and prepare for the highlight of your journey. Dinner and overnight at a signature lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 6,
+        title: 'Day 6: Bwindi Impenetrable Forest Immersion',
+        detail: 'A day dedicated to the ancient Bwindi Impenetrable Forest, a UNESCO World Heritage site. In the morning, enjoy a guided nature walk along the forest trails, discovering rare flora and fauna.\n\nAfter lunch, visit the local Batwa community for a cultural immersion. Learn about their ancestral connection to the forest and their traditional way of life.\n\nReturn to the lodge for a final briefing before your gorilla encounter. The evening is spent in quiet anticipation of the day ahead. Dinner and overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 7,
+        title: 'Day 7: Gorilla Trekking - 360° Primate Experience',
+        detail: 'The soul of the forest. After a briefing, you will enter the misty valleys of Bwindi in search of a mountain gorilla family. This encounter completes your "360-degree primate experience," bridging your time with the chimpanzees to the gentle giants. Bwindi and Kibale are the only places on earth where you can combine world-class Gorilla and Chimpanzee trekking before heading to the vast Tanzanian plains.\n\nSpend a profound hour in their presence, observing the silverback\'s command and the infants\' play. It is a life-altering moment that stays with you forever. The connection between the primate forests and the savannahs is the hallmark of this regional masterpiece.\n\nReturn to the lodge for a celebratory lunch and an afternoon of reflection. Share your experiences with fellow travelers over a final Ugandan dinner. Overnight at the lodge.',
+        accommodation: 'Luxury Forest Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 8,
+        title: 'Day 8: Flight to Masai Mara - The Hallmark Transition',
+        detail: 'We bid farewell to the misty forests and board a private flight directly to the legendary Maasai Mara in Kenya. This Entebbe-Masai Mara flight transition is the ultimate luxury, providing a "Serengeti-Bwindi Connection" that saves you hours of travel and offers a seamless link between primates and savannahs.\n\nUpon arrival at the Mara airstrip, your Kenyan steward will meet you for an introductory game drive en route to your luxury tented camp. The infinite golden plains begin to reveal their secrets, a world away from the misty jungles of Bwindi.\n\nArrive at your signature camp in time for a sunset sundowner. Enjoy a dinner that blends local flavors with international excellence under the stars. Overnight at a signature Mara camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 9,
+        title: 'Day 9: Masai Mara Sovereignty & Great Migration',
+        detail: 'A full day dedicated to the thundering wild of the Maasai Mara. We track the Big Five—lion, leopard, elephant, buffalo, and rhino—across the vast savannahs. The Mara is home to one of the highest densities of predators in the world.\n\nEnjoy a gourmet bush lunch under an acacia tree, surrounded by the sights and sounds of the wild. During the migration season, the river crossings are a theater of raw nature.\n\nAs evening falls, return to camp for a traditional sundowner and a dinner under the stars, sharing tales of the day\'s sightings. Overnight at the camp.',
+        accommodation: 'Luxury Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 10,
+        title: 'Day 10: Crossing to Serengeti - The Migration Flow',
+        detail: 'We cross the border into Tanzania and enter the legendary Serengeti National Park. This seamless transition allows you to follow the wildlife across borders in the heart of the East African ecosystem.\n\nEnjoy a game drive en route to your luxury tented camp. The infinite golden plains of the Serengeti unfold before you, offering a different perspective on the savannah.\n\nArrive at your signature camp in time for a warm Tanzanian welcome. Enjoy a dinner that celebrates the flavors of the region. Overnight at a signature Serengeti camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 11,
+        title: 'Day 11: Serengeti Discovery & Great Migration',
+        detail: 'A full day in the Serengeti, tracking the Great Migration and the Big Five. The vastness of the horizon is truly humbling as you witness the primal rhythms of life on the plains.\n\nEnjoy a picnic lunch in the middle of the savannah, surrounded by the thundering herds. The Serengeti is a theater of raw nature, where every moment is a discovery.\n\nAs evening falls, return to the camp for a final celebratory dinner on the plains. Reflect on the incredible wildlife encounters of the past few days. Overnight at the camp.',
+        accommodation: 'Signature Tented Camp',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 12,
+        title: 'Day 12: Ngorongoro Crater Floor - The Eighth Wonder',
+        detail: 'We drive to the Ngorongoro Conservation Area and descend into the world\'s largest inactive caldera. Often called the "Eighth Wonder of the World," the crater floor is a self-contained Eden and a unique Big Five habitat where predators and prey coexist in a natural amphitheater.\n\nSpend the day game viewing in this spectacular setting, home to the rare black rhino and a dense population of lions. The scenery is unparalleled, with the crater walls providing a dramatic backdrop for your safari.\n\nIn the afternoon, ascend to the crater rim for dinner and overnight at a lodge with panoramic views of the caldera. Overnight at a luxury crater lodge.',
+        accommodation: 'Luxury Crater Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 13,
+        title: 'Day 13: Lake Manyara / Tarangire Exploration',
+        detail: 'Explore the diverse landscapes of Lake Manyara or Tarangire National Park. Lake Manyara is famous for its tree-climbing lions, while Tarangire is known for its massive elephant herds.\n\nEnjoy a final game drive in these unique ecosystems, spotting a variety of bird species and wildlife. The Rift Valley provides a stunning backdrop for your final safari day.\n\nIn the evening, arrive in Arusha for a final celebratory dinner. Reflect on your East African odyssey with your fellow travelers. Overnight at a luxury Arusha lodge.',
+        accommodation: 'Luxury Arusha Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 14,
+        title: 'Day 14: Amboseli National Park - Kilimanjaro Backdrop',
+        detail: 'We cross back into Kenya and depart for Amboseli National Park, famous for its massive elephant herds and the iconic backdrop of Mount Kilimanjaro.\n\nArrive at your luxury lodge for lunch and an afternoon game drive. The sight of elephants silhouetted against the snow-capped peak is one of Africa\'s most enduring images.\n\nIn the evening, enjoy a sundowner with views of the mountain. Dinner and overnight at a signature Amboseli lodge.',
+        accommodation: 'Luxury Amboseli Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 15,
+        title: 'Day 15: Amboseli Discovery & Maasai Culture',
+        detail: 'A full day dedicated to Amboseli. In the morning, we head towards the swamps, where elephants and hippos gather to cool off and feed. The birdlife is also incredibly diverse.\n\nAfter lunch, visit a local Maasai village for a cultural immersion. Learn about their traditional way of life and their deep connection to the land and wildlife.\n\nReturn to the lodge for a final evening under the shadow of Kilimanjaro. Enjoy a special farewell dinner prepared by the lodge\'s chefs. Overnight at the lodge.',
+        accommodation: 'Luxury Amboseli Lodge',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 16,
+        title: 'Day 16: Return to Nairobi & Farewell',
+        detail: 'After a final morning game drive in Amboseli, we begin our return journey to Nairobi. The drive takes us through the scenic landscapes of the Rift Valley.\n\nArrive in Nairobi in the late afternoon. Enjoy a final celebratory dinner at a world-renowned restaurant, reflecting on your 17-day Grand East Africa Expedition.\n\nOvernight at a signature Nairobi city hotel. Spend your final evening in the safari capital of East Africa.',
+        accommodation: 'Signature City Hotel',
+        meals: 'Breakfast, Lunch, Dinner'
+      },
+      {
+        day: 17,
+        title: 'Day 17: Departure from Nairobi',
+        detail: 'After a final leisurely breakfast, we transfer to Jomo Kenyatta International Airport for your departure. You carry with you the indelible spirit of the Grand East Africa Expedition.\n\nYour Kuzuri Escapades curator will ensure a smooth transfer and assist with your check-in. The memories of the primates, the migration, and the mountains will stay with you forever.\n\nDeparture from Jomo Kenyatta International Airport. End of your 17-day East African odyssey.',
+        accommodation: 'Departure',
+        meals: 'Breakfast'
+      }
     ],
     exclusions: ['International Flights', 'Entry Visas', 'Personal Insurance', 'Tips & Gratuities']
   },

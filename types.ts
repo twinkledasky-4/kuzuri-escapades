@@ -17,6 +17,7 @@ export interface TourItineraryDay {
   accommodation?: string;
   meals?: string;
   activities?: string;
+  imageBreak?: string;
 }
 
 export interface Tour {
@@ -130,5 +131,6 @@ export enum AppSection {
   CONTACT = 'contact',
   TESTIMONIALS = 'testimonials',
   COMBINED_SAFARI_DETAIL = 'combined-safari-detail',
+  SEARCH_RESULTS = 'search-results',
   ADMIN = 'admin'
 }

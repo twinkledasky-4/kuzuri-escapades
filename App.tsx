@@ -20,8 +20,10 @@ import { AccommodationsPage } from './components/AccommodationsPage.tsx';
 import { Testimonials } from './components/Testimonials.tsx';
 import { TestimonialsPage } from './components/TestimonialsPage.tsx';
 import { Services } from './components/Services.tsx';
+import { WildlifeConservationSection } from './components/WildlifeConservationSection.tsx';
 import { AboutSection } from './components/AboutSection.tsx';
 import { AboutPage } from './components/AboutPage.tsx';
+import { SearchResultsPage } from './components/SearchResultsPage.tsx';
 import { CombinedSafariPage } from './components/CombinedSafariPage.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
 import { PromoPopup } from './components/PromoPopup.tsx';
@@ -50,6 +52,8 @@ const App: React.FC = () => {
   const [packageContext, setPackageContext] = useState('');
   const [pendingScrollId, setPendingScrollId] = useState<string | null>(null);
   const [formDestination, setFormDestination] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Tour[]>([]);
   
   const [currentLang, setCurrentLang] = useState(() => {
     const saved = localStorage.getItem('kuzuri_lang');
@@ -105,7 +109,6 @@ const App: React.FC = () => {
   const handleNavigate = (section: AppSection) => {
     const anchorMap: Record<string, string> = {
       [AppSection.HOME]: 'home',
-      [AppSection.ABOUT]: 'about-kuzuri',
       [AppSection.DESTINATIONS]: 'discover-uganda',
       [AppSection.GORILLA_SAFARIS]: 'discover-uganda',
       [AppSection.COMBINED_SAFARIS]: 'combined-safaris',
@@ -133,6 +136,12 @@ const App: React.FC = () => {
         setShowChimpanzeePage(false);
         setShowAdmin(false);
       }
+      return;
+    }
+    if (section === AppSection.ABOUT) {
+      window.location.hash = '#about';
+      setActiveSection(AppSection.ABOUT);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     setActiveSection(section);
@@ -165,6 +174,7 @@ const App: React.FC = () => {
       setShowBoatSafariPage(false);
       setShowChimpanzeePage(false);
     }
+    setActiveSection(AppSection.HOME); // Reset section if we were in search results
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -249,6 +259,38 @@ const App: React.FC = () => {
     setShowAdmin(false);
     localStorage.removeItem('kuzuri_admin_auth');
   };
+
+  const handleSearchTriggered = (query: string) => {
+    setSearchQuery(query);
+    const keywords = query.toLowerCase().split(' ').filter(k => k.length > 0);
+    const filtered = TOURS.filter(t => {
+      const name = t.name.toLowerCase();
+      return keywords.every(k => name.includes(k));
+    });
+    setSearchResults(filtered);
+    setActiveSection(AppSection.SEARCH_RESULTS);
+    setSelectedTour(null);
+    setSelectedDestination(null);
+    setShowGorillaPage(false);
+    setShowBoatSafariPage(false);
+    setShowChimpanzeePage(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#about') {
+        setActiveSection(AppSection.ABOUT);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Check on initial load
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -365,6 +407,15 @@ const App: React.FC = () => {
         }} />;
       case AppSection.TESTIMONIALS:
         return <TestimonialsPage reviews={REVIEWS} />;
+      case AppSection.SEARCH_RESULTS:
+        return (
+          <SearchResultsPage 
+            query={searchQuery} 
+            results={searchResults} 
+            onBack={() => handleNavigate(AppSection.HOME)} 
+            onViewTour={handleExploreTour} 
+          />
+        );
       case AppSection.ABOUT:
         return (
           <AboutPage 
@@ -374,10 +425,16 @@ const App: React.FC = () => {
               setPendingScrollId('contact-us');
             }} 
             onExploreTour={(tourName) => {
-              setInquiryPreFill(`I am interested in the ${tourName} experience. Please share more details.`);
-              setPackageContext(tourName);
-              setIsInquiryOpen(true);
+              const tour = TOURS.find(t => t.name.toLowerCase() === tourName.toLowerCase());
+              if (tour) {
+                handleExploreTour(tour);
+              } else {
+                setInquiryPreFill(`I am interested in the ${tourName} experience. Please share more details.`);
+                setPackageContext(tourName);
+                setIsInquiryOpen(true);
+              }
             }}
+            onSearchTriggered={handleSearchTriggered}
           />
         );
       default:
@@ -415,6 +472,11 @@ const App: React.FC = () => {
             <LodgeGallery onViewAll={() => handleNavigate(AppSection.ACCOMMODATIONS)} lodges={LODGES} />
             <BeautyOfUganda />
             <DiscoverUganda features={DISCOVER_FEATURES} onExploreGorilla={handleExploreGorillaTrek} onExploreBoat={handleExploreBoatSafari} onExploreChimpanzee={handleExploreChimpanzee} />
+            <WildlifeConservationSection onEnquire={(subject) => {
+              setInquiryPreFill(`I am inquiring about ${subject}.`);
+              setPackageContext(subject);
+              setIsInquiryOpen(true);
+            }} />
             <BentoGallery />
             <Services onEnquireService={(svc) => {
               setInquiryPreFill(`I am inquiring about your ${svc} service.`);

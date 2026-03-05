@@ -16,11 +16,18 @@ export interface Lead {
     fullName?: string;
     email?: string;
     phone?: string;
-    dates?: string;
-    guests?: string;
-    tourType?: string;
+    phoneCode?: string;
+    phoneNumber?: string;
+    nationality?: string;
+    travelDate?: string;
+    numDays?: string;
+    numPeople?: string;
+    budget?: string;
+    accommodation?: string;
+    interests?: string[];
     message?: string;
     context?: string;
+    destination?: string;
   };
 }
 
@@ -72,17 +79,32 @@ class CRMService {
       const payload = {
         _to: this.CURATOR_EMAIL,
         _replyto: newLead.data.email,
-        _subject: `[INSTANT ALERT] New Inquiry: ${newLead.packageViewing || 'Bespoke Journey'}`,
+        _subject: `Inquiry for ${newLead.packageViewing || 'Bespoke Journey'} - ${newLead.data.fullName}`,
         lead_id: newLead.id,
         timestamp: newLead.timestamp,
         source_context: newLead.source,
         package_of_interest: newLead.packageViewing || 'General Collection',
+        
+        // Personal Details
         client_name: newLead.data.fullName,
         client_email: newLead.data.email,
-        client_phone: newLead.data.phone,
-        travel_window: newLead.data.dates,
-        party_size: newLead.data.guests,
+        client_nationality: newLead.data.nationality,
+        client_phone: newLead.data.phone || `${newLead.data.phoneCode || ''} ${newLead.data.phoneNumber || ''}`.trim(),
+        
+        // Trip Details
+        travel_date: newLead.data.travelDate,
+        duration_days: newLead.data.numDays,
+        party_size: newLead.data.numPeople,
+        budget_usd: newLead.data.budget,
+        accommodation_preference: newLead.data.accommodation,
+        
+        // Interests
+        interests: newLead.data.interests?.join(', '),
+        
+        // Message & Context
         vision_narrative: newLead.data.message,
+        desired_destination: newLead.data.destination,
+        
         metadata: {
           browser_time: new Date().toLocaleString(),
           origin: window.location.origin
@@ -108,6 +130,54 @@ class CRMService {
       console.error("[CRM] SMTP Relay Critical Failure - Incident logged to local registry:", error);
       // We return true because the lead is safely stored in the local registry even if the relay fails
       return true; 
+    }
+  }
+
+  /**
+   * CHATBOT LEAD CAPTURE:
+   * Specifically for capturing interactions from the AI Concierge.
+   */
+  public async captureChatLead(message: string): Promise<boolean> {
+    const chatLead: Lead = {
+      id: `CHAT-${Math.random().toString(36).substring(2, 7).toUpperCase()}`,
+      timestamp: new Date().toISOString(),
+      status: 'new',
+      source: 'consultation_btn', // Reusing existing source type or we could add 'chatbot'
+      data: {
+        message: message,
+        context: 'AI Concierge Interaction'
+      }
+    };
+
+    this.leads.unshift(chatLead);
+    this.persist();
+
+    try {
+      const payload = {
+        _to: this.CURATOR_EMAIL,
+        _subject: `[CHAT LEAD] New Interaction from AI Concierge`,
+        lead_id: chatLead.id,
+        timestamp: chatLead.timestamp,
+        initial_message: message,
+        metadata: {
+          browser_time: new Date().toLocaleString(),
+          origin: window.location.origin
+        }
+      };
+
+      const response = await fetch(this.RELAY_ENDPOINT, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      return response.ok;
+    } catch (error) {
+      console.error("[CRM] Chat Relay Failure:", error);
+      return true;
     }
   }
 
