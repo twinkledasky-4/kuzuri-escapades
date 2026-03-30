@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Review, Lodge, LodgeGalleryItem } from '../types.ts';
+import { toast } from 'sonner';
 import { cmsDatabase } from '../services/cmsService.ts';
 import { crmService, Lead } from '../services/crmService.ts';
 import { intelligenceService, PackageIntelligence } from '../services/analyticsService.ts';
@@ -52,10 +53,17 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
   };
 
   const handleDeleteLead = (id: string) => {
-    if (confirm("Permanently expunge this lead from the registry?")) {
-      crmService.deleteLead(id);
-      setLeads([...crmService.getAllLeads()]);
-    }
+    toast.error("Confirm Deletion", {
+      description: "Permanently expunge this lead from the registry?",
+      action: {
+        label: "Delete",
+        onClick: () => {
+          crmService.deleteLead(id);
+          setLeads([...crmService.getAllLeads()]);
+          toast.success("Lead expunged successfully");
+        }
+      }
+    });
   };
 
   const handleSaveLodge = () => {
@@ -207,7 +215,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
                     </td>
                     <td className="p-8 text-right">
                       <div className="flex items-center justify-end gap-6">
-                        <button onClick={() => alert(lead.data.message)} className="text-white/20 hover:text-white transition-colors" title="View Vision Narrative"><Eye size={18} /></button>
+                        <button onClick={() => {
+                          toast.info("Vision Narrative", {
+                            description: lead.data.message || "No message provided.",
+                            duration: 10000
+                          });
+                        }} className="text-white/20 hover:text-white transition-colors" title="View Vision Narrative"><Eye size={18} /></button>
                         <button onClick={() => handleDeleteLead(lead.id)} className="text-white/10 hover:text-red-500 transition-colors" title="Delete Lead"><Trash2 size={18} /></button>
                       </div>
                     </td>

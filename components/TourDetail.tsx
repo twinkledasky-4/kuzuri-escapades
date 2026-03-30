@@ -64,7 +64,7 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
               <Tag className="text-[#D4AF37]" size={20} />
               <div>
                 <p className="text-[#D4AF37] text-[9px] uppercase tracking-widest font-black">STARTING FROM</p>
-                <p className="text-white text-sm font-bold">{ui.currency}{tour.price_from.toLocaleString()}</p>
+                <p className="text-white text-sm font-bold">{ui.currency}{tour.price_from.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
               </div>
             </div>
           </div>
@@ -135,17 +135,17 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
                 <div className="flex justify-between items-end mb-10">
                   <div>
                     <p className="text-[10px] text-black/40 uppercase tracking-widest font-black mb-1">TOTAL VALUATION</p>
-                    <p className="text-3xl font-sans font-black text-[#1A1A1A]">{ui.currency}{tour.price_from.toLocaleString()}</p>
+                    <p className="text-3xl font-sans font-black text-[#1A1A1A]">{ui.currency}{tour.price_from.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</p>
                   </div>
                   <p className="text-[10px] text-black/40 font-bold uppercase tracking-widest">PER PERSON</p>
                 </div>
                 
-                <button 
-                  onClick={() => onBook(tour)}
-                  className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
+                <a 
+                  href="tel:+256708012030"
+                  className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl flex items-center justify-center"
                 >
                   REQUEST BOOKING
-                </button>
+                </a>
               </div>
             </div>
 
@@ -193,12 +193,12 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
           <h2 className="text-3xl md:text-6xl font-sans font-black text-[#1A1A1A] uppercase tracking-tight mb-16 leading-[1.1]">
             Experience the <span className="text-[#D4AF37] italic font-light">Unseen</span> Pearl.
           </h2>
-          <button 
-            onClick={() => onBook(tour)}
-            className="px-16 py-7 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[1em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl"
+          <a 
+            href="tel:+256708012030"
+            className="px-16 py-7 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[1em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl inline-block"
           >
             CONSULT OUR CURATORS
-          </button>
+          </a>
         </div>
       </section>
     </div>

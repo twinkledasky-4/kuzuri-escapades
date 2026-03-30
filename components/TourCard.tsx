@@ -31,11 +31,11 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
           </p>
           {tour.price_was && (
             <p className="text-[10px] font-sans text-white/40 line-through mb-1 tracking-tight">
-              ${tour.price_was.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ${tour.price_was.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </p>
           )}
           <p className="text-2xl font-sans font-black text-white tracking-tighter leading-none">
-            ${tour.price_from.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            ${tour.price_from.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
           </p>
         </div>
       </div>
@@ -69,12 +69,12 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
             >
               EXPLORE
             </button>
-            <button 
-              onClick={() => onRequestBooking(tour)}
+            <a 
+              href="tel:+256708012030"
               className="text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all"
             >
               BOOK NOW
-            </button>
+            </a>
           </div>
         </div>
       </div>

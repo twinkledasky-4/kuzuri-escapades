@@ -117,7 +117,7 @@ export const DESTINATIONS: Destination[] = [
     name: 'Lake Mburo',
     slug: 'lake-mburo',
     tagline: 'The Mosaic of Stripes',
-    description: 'An intimate sanctuary of stripped elegance, offering a closer connection to the native wildlife of the plains.',
+    description: 'An intimate sanctuary of striped elegance, offering a closer connection to the native wildlife of the plains.',
     images: ['https://images.unsplash.com/photo-1501705388883-4ed8a543392c?auto=format&fit=crop&q=85&w=1600'],
     highlights: ['Zebra Portraits', 'Night Forest Trails', 'Native Steward Guidance'],
     featured: true,
@@ -148,7 +148,7 @@ export const TOURS: Tour[] = [
   },
   {
     id: 'ug-rw-mburo-3d',
-    name: '3 day world life safari in lake mburo national park',
+    name: '3 day wildlife safari in lake mburo national park',
     slug: 'ug-rw-mburo-3d',
     duration_days: 3,
     duration_nights: 2,
@@ -565,7 +565,7 @@ export const TOURS: Tour[] = [
   },
   {
     id: 'ug-ke-gorilla-mara-5d',
-    name: '5 DAY GORILLA TREKKING AND MASAI MARA wild life safari',
+    name: '5 DAY GORILLA TREKKING AND MASAI MARA wildlife safari',
     slug: 'ug-ke-gorilla-mara-5d',
     duration_days: 5,
     duration_nights: 4,
@@ -623,7 +623,7 @@ export const TOURS: Tour[] = [
   },
   {
     id: 'ug-ke-tz-combined-16d',
-    name: '16 days combined east african wild life',
+    name: '16 days combined east african wildlife',
     slug: 'ug-ke-tz-combined-16d',
     duration_days: 16,
     duration_nights: 15,

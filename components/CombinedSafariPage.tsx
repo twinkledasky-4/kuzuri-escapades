@@ -282,7 +282,7 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
                   <span className="text-white text-[11px] font-bold uppercase tracking-[0.3em] mb-4 block font-sans">{tour.category}</span>
                   <div className="flex items-baseline gap-2 mb-8">
                     <span className="text-[8px] font-black text-[#D4AF37] uppercase tracking-[0.4em] font-sans">STARTING FROM</span>
-                    <span className="text-5xl font-serif font-bold">{tour.currency}{tour.price_from.toLocaleString()}</span>
+                    <span className="text-5xl font-serif font-bold">{tour.currency}{tour.price_from.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
                     <span className="text-xs text-white/40 uppercase tracking-widest ml-2 font-sans">Per Person</span>
                   </div>
                   

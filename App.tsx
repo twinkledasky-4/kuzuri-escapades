@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppSection, Tour, Destination } from './types.ts';
+import { Toaster } from 'sonner';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { Ticker } from './components/Ticker.tsx';
@@ -25,6 +26,7 @@ import { AboutSection } from './components/AboutSection.tsx';
 import { AboutPage } from './components/AboutPage.tsx';
 import { SearchResultsPage } from './components/SearchResultsPage.tsx';
 import { CombinedSafariPage } from './components/CombinedSafariPage.tsx';
+import { PaymentPortal } from './components/PaymentPortal.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
 import { PromoPopup } from './components/PromoPopup.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
@@ -416,6 +418,8 @@ const App: React.FC = () => {
             onViewTour={handleExploreTour} 
           />
         );
+      case AppSection.PAYMENT_PORTAL:
+        return <PaymentPortal onBack={() => handleNavigate(AppSection.HOME)} />;
       case AppSection.ABOUT:
         return (
           <AboutPage 
@@ -499,6 +503,7 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen bg-white selection:bg-[#8B5A2B] selection:text-white">
+      <Toaster position="top-center" richColors />
       <Navbar activeSection={activeSection} onNavigate={handleNavigate} onEnquire={(ctx) => {
         if (ctx) {
           // Check if ctx is one of our combined safaris

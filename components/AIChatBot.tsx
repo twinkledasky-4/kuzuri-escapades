@@ -34,9 +34,9 @@ export const AIChatBot: React.FC = () => {
 
   const initChat = () => {
     if (!chatRef.current) {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       chatRef.current = ai.chats.create({
-        model: 'gemini-3-pro-preview',
+        model: 'gemini-3.1-pro-preview',
         config: {
           systemInstruction: `You are the Kuzuri Concierge, a lead curator for high-end luxury travel in Uganda. 
           KNOWLEDGE BASE: ${KUZURI_KNOWLEDGE_BASE}

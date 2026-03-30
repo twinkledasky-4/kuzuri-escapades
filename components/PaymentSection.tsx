@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 declare global {
   interface Window {
@@ -20,7 +21,7 @@ export const PaymentSection: React.FC<PaymentSectionProps> = ({
 
   const makePayment = () => {
     if (typeof window.FlutterwaveCheckout !== 'function') {
-      alert("Payment system is still loading. Please try again in a moment.");
+      toast.error("Payment system is still loading. Please try again in a moment.");
       return;
     }
 
@@ -50,7 +51,9 @@ export const PaymentSection: React.FC<PaymentSectionProps> = ({
       },
       callback: function (data: any) {
         setIsProcessing(false);
-        alert("Payment Successful! Transaction ID: " + data.transaction_id);
+        toast.success("Payment Successful!", {
+          description: "Transaction ID: " + data.transaction_id
+        });
         console.log(data);
       },
       onclose: function() {

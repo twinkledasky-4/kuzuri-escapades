@@ -110,10 +110,16 @@ export const ContactPage: React.FC = () => {
                       Primary Mobile / WhatsApp
                     </p>
                   </div>
+                  <a 
+                    href="tel:+256708012030" 
+                    className="text-2xl font-bold tracking-widest text-[#D4AF37] hover:text-[#1A1A1A] transition-colors block mb-2"
+                  >
+                    +256 708 012030
+                  </a>
                   <PhoneLink 
                     number="+256 708 012030" 
                     label="Primary Line"
-                    className="text-2xl font-bold tracking-widest text-[#D4AF37]"
+                    className="text-lg font-bold tracking-widest text-[#D4AF37]/60"
                     showIcon={false}
                     isButton={true}
                   />
@@ -147,7 +153,6 @@ export const ContactPage: React.FC = () => {
               </h3>
               <a 
                 href={mailtoLink}
-                target="_self"
                 className="text-xl font-bold tracking-widest text-[#D4AF37] hover:underline underline-offset-8 transition-all no-underline cursor-pointer"
               >
                 info@kuzuri-escapedes.com
@@ -161,14 +166,12 @@ export const ContactPage: React.FC = () => {
                 <MessageSquare size={18} /> Instant Message
               </h3>
               <a 
-                href={`https://wa.me/256708012030?text=${encodedMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="tel:+256708012030"
                 className="inline-flex items-center gap-4 px-10 py-5 rounded-sm border-2 border-black transition-all hover:scale-105 active:scale-95 shadow-2xl group"
-                style={{ backgroundColor: '#25D366', color: 'white' }}
+                style={{ backgroundColor: '#D4AF37', color: 'black' }}
               >
-                <span className="text-2xl group-hover:animate-bounce">💬</span>
-                <span className="font-black uppercase tracking-[0.4em] text-[11px]">Chat on WhatsApp</span>
+                <span className="text-2xl group-hover:animate-bounce">📞</span>
+                <span className="font-black uppercase tracking-[0.4em] text-[11px]">Call Our Curators</span>
               </a>
             </div>
           </div>

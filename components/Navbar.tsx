@@ -36,6 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
     { id: AppSection.FILMING, label: "FILMING", href: '#filming' },
     { id: AppSection.BIRDING, label: "BIRDING", href: '#birding' },
     { id: AppSection.ACCOMMODATIONS, label: "ACCOMMODATION", href: '#accommodations' },
+    { id: AppSection.PAYMENT_PORTAL, label: "PAYMENT PORTAL", href: '#payment-portal' },
     { id: AppSection.CONTACT, label: "CONTACT US", href: '#contact-us' }
   ];
 

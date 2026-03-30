@@ -119,11 +119,17 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
                 </a>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Phone</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">WhatsApp / Phone</p>
+                <a 
+                  href="tel:+256708012030" 
+                  className="text-white/80 hover:text-[#D4AF37] text-[14px] transition-colors block mb-1"
+                >
+                  +256 708 012030
+                </a>
                 <PhoneLink 
                   number="+256 708 012030" 
                   label="Nasif - Lead Curator"
-                  className="text-white/80 hover:text-[#D4AF37] text-[14px] transition-colors block"
+                  className="text-white/40 hover:text-[#D4AF37] text-[11px] transition-colors block"
                   showIcon={false}
                 />
               </div>

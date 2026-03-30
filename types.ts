@@ -132,5 +132,6 @@ export enum AppSection {
   TESTIMONIALS = 'testimonials',
   COMBINED_SAFARI_DETAIL = 'combined-safari-detail',
   SEARCH_RESULTS = 'search-results',
+  PAYMENT_PORTAL = 'payment-portal',
   ADMIN = 'admin'
 }

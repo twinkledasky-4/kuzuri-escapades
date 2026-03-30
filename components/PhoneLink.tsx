@@ -24,16 +24,18 @@ export const PhoneLink: React.FC<PhoneLinkProps> = ({
 
   // Remove spaces and non-numeric characters for tel: protocol while keeping '+'
   const cleanNumber = number.replace(/[^\d+]/g, '');
+  
+  // Use tel: protocol for all numbers as requested
+  const href = `tel:${cleanNumber}`;
 
   return (
     <a 
-      href={`tel:${cleanNumber}`}
+      href={href}
       className={`inline-flex items-center gap-2 transition-all duration-300 hover:scale-105 active:scale-95 group/phone ${isButton ? 'phone-button' : ''} ${className}`}
       style={style}
       title={`Call ${label}: ${number}`}
       onClick={handleClick}
       aria-label={`Call ${label} at ${number}`}
-      rel="nofollow"
     >
       {showIcon && <span className="group-hover/phone:animate-bounce" role="img" aria-hidden="true">📞</span>}
       <span className="whitespace-nowrap">{number}</span>
