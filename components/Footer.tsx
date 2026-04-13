@@ -24,7 +24,7 @@ const TikTokIcon = ({ size = 28, strokeWidth = 1.5 }: { size?: number, strokeWid
 
 export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
   const currentYear = new Date().getFullYear();
-  const mailtoLink = "mailto:info@kuzuri-escapedes.com";
+  const mailtoLink = "mailto:info@kuzuri-escapades.com";
 
   const SignatureCard = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
     <div className={`relative bg-white rounded-xl shadow-sm overflow-hidden group ${className}`}>
@@ -72,14 +72,19 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
           </div>
 
           {/* Box 4: SAFARIBOOKINGS */}
-          <div className="bg-white rounded-[12px] flex items-center justify-center h-[140px] shadow-xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl overflow-hidden group">
+          <a 
+            href="https://www.safaribookings.com/p5995" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-white rounded-[12px] flex items-center justify-center h-[140px] shadow-xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl overflow-hidden group"
+          >
             <img 
               src="https://i.postimg.cc/vmCmtvRD/safari_(1).png" 
               alt="SafariBookings" 
               className="w-[90%] h-[90%] object-contain transition-transform duration-500 group-hover:scale-110"
               referrerPolicy="no-referrer"
             />
-          </div>
+          </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8 items-start mb-20 border-b border-white/10 pb-20">
@@ -94,13 +99,13 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
               Native curators of silence, cultural heritage, and deep wilderness immersion. We craft journeys that are as profound as the roar of a lion and as silent as the mist over Bwindi.
             </p>
             <div className="flex items-center gap-6 pt-4">
-              <a href="#" className="text-white/40 hover:text-[#D4AF37] transition-colors" aria-label="Instagram">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all duration-300" aria-label="Instagram">
                 <Instagram size={20} strokeWidth={1.5} />
               </a>
-              <a href="#" className="text-white/40 hover:text-[#D4AF37] transition-colors" aria-label="Facebook">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all duration-300" aria-label="Facebook">
                 <Facebook size={20} strokeWidth={1.5} />
               </a>
-              <a href="#" className="text-white/40 hover:text-[#D4AF37] transition-colors" aria-label="TikTok">
+              <a href="https://www.tiktok.com/@kuzuriescapades?_r=1&_t=ZS-94SeJIdyLdh" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all duration-300" aria-label="TikTok">
                 <TikTokIcon size={20} strokeWidth={1.5} />
               </a>
             </div>
@@ -115,7 +120,7 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
               <div className="space-y-1">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-bold">Email</p>
                 <a href={mailtoLink} className="text-white/80 hover:text-[#D4AF37] text-[14px] transition-colors block">
-                  info@kuzuri-escapedes.com
+                  info@kuzuri-escapades.com
                 </a>
               </div>
               <div className="space-y-1">

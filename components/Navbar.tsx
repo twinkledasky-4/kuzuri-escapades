@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { AppSection } from '../types.ts';
-import { Menu, X, ArrowRight, Clock, Phone, Mail, MapPin } from 'lucide-react';
+import { Menu, X, ArrowRight, Clock, Phone, Mail, MapPin, Instagram, Facebook } from 'lucide-react';
+
+const TikTokIcon = ({ size = 20, strokeWidth = 1.5 }: { size?: number, strokeWidth?: number }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth={strokeWidth} 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
 
 interface NavbarProps {
   activeSection: AppSection;
@@ -53,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
   };
 
   const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
-  const mailtoLink = "mailto:info@kuzuri-escapedes.com";
+  const mailtoLink = "mailto:info@kuzuri-escapades.com";
 
   return (
     <>
@@ -82,9 +97,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 <Phone size={13} className="text-[#D4AF37]" />
                 <span>+256 708012030</span>
               </a>
-              <a href="mailto:info@kuzuri-escapedes.com" className="flex items-center gap-2.5 hover:text-[#D4AF37] transition-colors lowercase">
+              <a href="mailto:info@kuzuri-escapades.com" className="flex items-center gap-2.5 hover:text-[#D4AF37] transition-colors lowercase">
                 <Mail size={13} className="text-[#D4AF37]" />
-                <span>info@kuzuri-escapedes.com</span>
+                <span>info@kuzuri-escapades.com</span>
               </a>
             </div>
           </div>
@@ -356,10 +371,22 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
             
             <div className="flex flex-col space-y-5 mb-12">
               <a href={mailtoLink} className="text-white hover:text-[#D4AF37] text-sm font-medium transition-colors tracking-tight">
-                info@kuzuri-escapedes.com
+                info@kuzuri-escapades.com
               </a>
               <a href="tel:+256708012030" className="text-white hover:text-[#D4AF37] text-sm font-medium transition-colors tracking-widest">
                 +256 708 012030
+              </a>
+            </div>
+
+            <div className="flex items-center gap-6 pt-4 border-t border-white/10 mt-8">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all duration-300" aria-label="Instagram">
+                <Instagram size={20} strokeWidth={1.5} />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all duration-300" aria-label="Facebook">
+                <Facebook size={20} strokeWidth={1.5} />
+              </a>
+              <a href="https://www.tiktok.com/@kuzuriescapades?_r=1&_t=ZS-94SeJIdyLdh" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all duration-300" aria-label="TikTok">
+                <TikTokIcon size={20} strokeWidth={1.5} />
               </a>
             </div>
           </div>

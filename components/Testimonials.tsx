@@ -48,15 +48,20 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ onNavigateToAll, rev
               <span className="text-[8px] font-black text-[#D4AF37] tracking-[0.3em] uppercase">Verified Reviews</span>
             </div>
             <div className="w-[1px] h-10 bg-white/10" />
-            <div className="flex flex-col items-center gap-2">
+            <a 
+              href="https://www.safaribookings.com/p5995" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="flex flex-col items-center gap-2 group transition-all duration-300"
+            >
               <img 
                 src="https://www.safaribookings.com/img/logo-safaribookings.png" 
                 alt="SafariBookings" 
-                className="h-6 md:h-8 brightness-0 invert"
+                className="h-6 md:h-8 brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
                 referrerPolicy="no-referrer"
               />
-              <span className="text-[8px] font-black text-[#D4AF37] tracking-[0.3em] uppercase">Top Rated</span>
-            </div>
+              <span className="text-[8px] font-black text-[#D4AF37] tracking-[0.3em] uppercase group-hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.8)] transition-all">Top Rated</span>
+            </a>
           </div>
         </div>
 

@@ -69,24 +69,20 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
       return;
     }
 
-    setErrors({});
     setIsLoading(true);
-    
-    // CRM INTEGRATION: Capture lead with explicit Package context
-    const success = await crmService.captureLead({
-      source: 'inquiry_modal',
-      packageViewing: packageContext || 'Custom Inquiry',
-      data: { ...formData, context: packageContext }
-    });
+    try {
+      await crmService.captureLead({
+        source: 'inquiry_modal',
+        packageViewing: packageContext || 'Custom Inquiry',
+        data: { ...formData, context: packageContext }
+      });
 
-    if (success) {
       setIsSubmitted(true);
-    } else {
-      // Robust Fallback
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Inquiry error:", error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const interestOptions = [
@@ -136,7 +132,10 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
               <div className="w-16 h-[2px] bg-[#D4AF37] mx-auto mt-6" />
             </div>
 
-            <form className="space-y-6" onSubmit={handleSubmit} method="POST">
+            <form 
+              className="space-y-6" 
+              onSubmit={handleSubmit}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="group">
                   <label htmlFor="fullName" className="block text-[10px] uppercase tracking-[0.4em] text-[#1A1A1A] mb-2 font-bold">Full Name</label>

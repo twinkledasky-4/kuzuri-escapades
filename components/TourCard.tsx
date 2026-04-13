@@ -70,7 +70,9 @@ export const TourCard: React.FC<TourCardProps> = ({ tour, onRequestBooking, onEx
               EXPLORE
             </button>
             <a 
-              href="tel:+256708012030"
+              href={`https://wa.me/256708012030?text=I am interested in booking the ${tour.name} tour.`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black border-b-2 border-[#1A1A1A] pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all"
             >
               BOOK NOW

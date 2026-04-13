@@ -31,7 +31,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning, minimal = false }) 
     { icon: <Twitter size={16} />, color: '#1DA1F2', label: 'Twitter', href: '#' },
     { icon: <Instagram size={16} />, color: '#E4405F', label: 'Instagram', href: '#' },
     { icon: <Youtube size={16} />, color: '#FF0000', label: 'YouTube', href: '#' },
-    { icon: <TikTokIcon size={16} />, color: '#000000', label: 'TikTok', href: '#' },
+    { icon: <TikTokIcon size={16} />, color: '#000000', label: 'TikTok', href: 'https://www.tiktok.com/@kuzuriescapades?_r=1&_t=ZS-94SeJIdyLdh' },
     { icon: <Linkedin size={16} />, color: '#0077B5', label: 'LinkedIn', href: '#' },
   ];
 
@@ -43,11 +43,13 @@ export const Hero: React.FC<HeroProps> = ({ onStartPlanning, minimal = false }) 
           <a
             key={social.label}
             href={social.href}
-            className="w-[30px] h-[30px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white transition-all duration-300 group shadow-md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-[30px] h-[30px] flex items-center justify-center rounded-full bg-white/10 hover:bg-white transition-all duration-300 group shadow-md hover:shadow-[0_0_15px_rgba(212,175,55,0.6)]"
             aria-label={social.label}
             style={{ color: social.color }}
           >
-            <span className="group-hover:scale-110 transition-transform">
+            <span className="group-hover:scale-110 group-hover:text-[#D4AF37] transition-all duration-300">
               {social.icon}
             </span>
           </a>

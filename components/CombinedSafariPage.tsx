@@ -28,20 +28,26 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
     e.preventDefault();
     setIsSubmitting(true);
     
-    await crmService.captureLead({
-      source: 'tour_booking',
-      packageViewing: tour.name,
-      data: {
-        fullName: quoteData.fullName,
-        email: quoteData.email,
-        travelDate: quoteData.travelDates,
-        message: `Quick Quote Request for ${tour.name}`
-      }
-    });
+    try {
+      await crmService.captureLead({
+        source: 'tour_booking',
+        packageViewing: tour.name,
+        data: {
+          fullName: quoteData.fullName,
+          email: quoteData.email,
+          travelDate: quoteData.travelDates,
+          message: `Quick Quote Request for ${tour.name}`
+        }
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+      setIsSubmitted(true);
+      setQuoteData({ fullName: '', email: '', travelDates: '' });
+      setTimeout(() => setIsSubmitted(false), 5000);
+    } catch (error) {
+      console.error("Booking error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -241,7 +247,14 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
                   <div className="flex flex-wrap justify-center items-center gap-16 md:gap-24 opacity-80 grayscale hover:grayscale-0 transition-all duration-700">
                     <img src="https://i.postimg.cc/85mR6vY7/utb-logo.png" alt="UTB" className="h-20 md:h-28 object-contain" referrerPolicy="no-referrer" />
                     <img src="https://i.postimg.cc/m2fX9X7P/tripadvisor.png" alt="TripAdvisor" className="h-16 md:h-24 object-contain" referrerPolicy="no-referrer" />
-                    <img src="https://i.postimg.cc/vH6X6X6X/safaribookings.png" alt="SafariBookings" className="h-14 md:h-20 object-contain" referrerPolicy="no-referrer" />
+                    <a 
+                      href="https://www.safaribookings.com/p5995" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="transition-all duration-300 hover:drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+                    >
+                      <img src="https://i.postimg.cc/vH6X6X6X/safaribookings.png" alt="SafariBookings" className="h-14 md:h-20 object-contain" referrerPolicy="no-referrer" />
+                    </a>
                   </div>
                   
                   <p className="text-stone-400 text-[11px] uppercase tracking-[0.3em] font-bold max-w-xl leading-loose">
@@ -320,7 +333,10 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
                       <p className="text-xs text-stone-500 mt-2">Our architects will contact you shortly.</p>
                     </div>
                   ) : (
-                    <form className="space-y-4 font-sans" onSubmit={handleQuickQuote}>
+                    <form 
+                      className="space-y-4 font-sans" 
+                      onSubmit={handleQuickQuote}
+                    >
                       <div className="space-y-1.5">
                         <label className="text-[9px] font-black uppercase tracking-widest text-stone-400">Full Name</label>
                         <input 

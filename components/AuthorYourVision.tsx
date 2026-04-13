@@ -39,33 +39,38 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
       return;
     }
 
-    setErrors({});
     setIsLoading(true);
-    
-    // CRM INTEGRATION: Capture lead from the footer form
-    await crmService.captureLead({
-      source: 'consultation_btn',
-      packageViewing: formData.destination || 'Bespoke Consultation',
-      data: {
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        nationality: formData.nationality,
-        destination: formData.destination,
-        message: `Inquiry from footer form for destination: ${formData.destination}`
-      }
-    });
+    try {
+      await crmService.captureLead({
+        source: 'consultation_btn',
+        packageViewing: formData.destination || 'Bespoke Consultation',
+        data: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          nationality: formData.nationality,
+          destination: formData.destination,
+          message: `Inquiry from footer form for destination: ${formData.destination}`
+        }
+      });
 
-    setIsLoading(false);
-    setIsSubmitted(true);
-    
-    // Delay the onShareVision (which opens the modal) to let user see success message if desired,
-    // but the request says "user should see a neat white box stating...".
-    // Usually this replaces the form.
+      setIsSubmitted(true);
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        nationality: '',
+        destination: ''
+      });
+    } catch (error) {
+      console.error("Consultation error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Protocol: Strict raw mailto link as per manual override instructions.
-  const mailtoLink = "mailto:info@kuzuri-escapedes.com?subject=Consultation%20Inquiry";
+  const mailtoLink = "mailto:info@kuzuri-escapades.com?subject=Consultation%20Inquiry";
 
   return (
     <section id="contact-us" className="bg-[#F5F5DC] py-12 md:py-16 px-6 overflow-hidden scroll-mt-[120px]" aria-labelledby="author-title">
@@ -100,7 +105,10 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6" method="POST">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-6"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="group relative">
                     <label htmlFor="form-name" className="block text-[9px] uppercase tracking-[0.4em] text-[#D4AF37] mb-2 font-black">Full Name</label>
@@ -199,7 +207,7 @@ export const AuthorYourVision: React.FC<AuthorYourVisionProps> = ({ onShareVisio
                 <div>
                   <p className="text-[9px] uppercase tracking-[0.4em] text-[#D4AF37]/60 font-black mb-1">OFFICIAL CORRESPONDENCE</p>
                   <a href={mailtoLink} className="text-white hover:text-[#D4AF37] text-lg font-sans font-medium tracking-tight block transition-colors no-underline cursor-pointer">
-                    info@kuzuri-escapedes.com
+                    info@kuzuri-escapades.com
                   </a>
                 </div>
               </div>

@@ -28,7 +28,6 @@ import { SearchResultsPage } from './components/SearchResultsPage.tsx';
 import { CombinedSafariPage } from './components/CombinedSafariPage.tsx';
 import { PaymentPortal } from './components/PaymentPortal.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
-import { PromoPopup } from './components/PromoPopup.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
 import { BoatSafariPage } from './components/BoatSafariPage.tsx';
 import { ChimpanzeeObservationPage } from './components/ChimpanzeeObservationPage.tsx';
@@ -46,7 +45,6 @@ const App: React.FC = () => {
   const [showBoatSafariPage, setShowBoatSafariPage] = useState(false);
   const [showChimpanzeePage, setShowChimpanzeePage] = useState(false);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
-  const [isPromoOpen, setIsPromoOpen] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(() => localStorage.getItem('kuzuri_admin_auth') === 'true');
   const [loginError, setLoginError] = useState('');
@@ -71,15 +69,6 @@ const App: React.FC = () => {
     const expires = "expires=" + expiry.toUTCString();
     document.cookie = `googtrans=/en/${code}; path=/; ${expires}`;
   };
-
-  useEffect(() => {
-    const promoTimer = setTimeout(() => {
-      if (!isInquiryOpen && !showAdmin) {
-        setIsPromoOpen(true);
-      }
-    }, 5000);
-    return () => clearTimeout(promoTimer);
-  }, [showAdmin]);
 
   useEffect(() => {
     if (currentLang !== 'EN') {
@@ -238,12 +227,6 @@ const App: React.FC = () => {
     } else {
       setPendingScrollId(id);
     }
-  };
-
-  const handlePromoEnquiry = () => {
-    setInquiryPreFill("I am inquiring about the Jinja Buyala Bliss Staycation experience.");
-    setPackageContext("Jinja Staycation Offer");
-    setIsInquiryOpen(true);
   };
 
   const handleAdminLogin = (password: string) => {
@@ -532,7 +515,6 @@ const App: React.FC = () => {
         initialMessage={inquiryPreFill} 
         packageContext={packageContext}
       />
-      {isPromoOpen && <PromoPopup onClose={() => setIsPromoOpen(false)} onEnquire={handlePromoEnquiry} />}
       <WhatsAppFAB />
       <AIChatBot />
       <LanguageFAB currentLang={currentLang} onLangChange={handleLangChange} />

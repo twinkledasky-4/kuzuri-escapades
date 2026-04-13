@@ -141,7 +141,9 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
                 </div>
                 
                 <a 
-                  href="tel:+256708012030"
+                  href={`https://wa.me/256708012030?text=I am interested in booking the ${tour.name} tour.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.8em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl flex items-center justify-center"
                 >
                   REQUEST BOOKING
@@ -194,7 +196,9 @@ export const TourDetail: React.FC<TourDetailProps> = ({ tour, onBack, onBook, cu
             Experience the <span className="text-[#D4AF37] italic font-light">Unseen</span> Pearl.
           </h2>
           <a 
-            href="tel:+256708012030"
+            href={`https://wa.me/256708012030?text=I am interested in consulting about the ${tour.name} tour.`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-16 py-7 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[1em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl inline-block"
           >
             CONSULT OUR CURATORS

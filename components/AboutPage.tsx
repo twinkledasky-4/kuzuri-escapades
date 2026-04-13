@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ChevronRight, Award, Users, Globe, ShieldCheck, ArrowRight, Compass, Calendar, Heart, HandHeart, Car, Tag, Search } from 'lucide-react';
 import { ABOUT_CONTENT, TOURS } from '../constants.tsx';
+import { crmService } from '../services/crmService.ts';
 
 interface AboutPageProps {
   onBack: () => void;
@@ -467,41 +468,87 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
             
             <div className="bg-white p-8 md:p-10 rounded-2xl shadow-2xl border border-stone-100">
               <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-8 text-center">Plan Your Safari</h3>
-              <form className="space-y-5">
+              <form 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget;
+                  const formData = new FormData(form);
+                  const data = Object.fromEntries(formData.entries());
+                  
+                  // Simple validation
+                  if (!data.fullName || !data.email) {
+                    alert("Please provide at least your name and email.");
+                    return;
+                  }
+
+                  const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+                  const originalText = submitBtn.innerText;
+                  submitBtn.disabled = true;
+                  submitBtn.innerText = "TRANSMITTING...";
+
+                  try {
+                    await crmService.captureLead({
+                      source: 'about_page_planner',
+                      packageViewing: 'Custom Safari Plan',
+                      data: {
+                        fullName: data.fullName as string,
+                        email: data.email as string,
+                        nationality: data.nationality as string,
+                        travelDate: data.travelDate as string,
+                        numDays: data.days as string,
+                        numPeople: data.people as string,
+                        budget: data.budget as string,
+                        phone: `${data.code} ${data.phone}`,
+                        accommodation: data.accommodation as string,
+                        interests: Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(cb => (cb as HTMLInputElement).nextElementSibling?.textContent).join(', ')
+                      }
+                    });
+                    alert("Thank you! Your itinerary request has been sent to our curators.");
+                    form.reset();
+                  } catch (error) {
+                    console.error("Inquiry error:", error);
+                    alert("There was an error sending your request. Please try again or contact us directly.");
+                  } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalText;
+                  }
+                }}
+                className="space-y-5"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Your Name</label>
-                    <input type="text" placeholder="Full Name" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                    <input name="fullName" type="text" placeholder="Full Name" required className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Your Email</label>
-                    <input type="email" placeholder="email@example.com" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                    <input name="email" type="email" placeholder="email@example.com" required className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Your Nationality</label>
-                    <input type="text" placeholder="e.g. British" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                    <input name="nationality" type="text" placeholder="e.g. British" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Travel Date</label>
-                    <input type="date" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                    <input name="travelDate" type="date" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Days</label>
-                    <input type="number" placeholder="7" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                    <input name="days" type="number" placeholder="7" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">People</label>
-                    <input type="number" placeholder="2" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                    <input name="people" type="number" placeholder="2" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Budget (USD)</label>
-                    <input type="text" placeholder="$5000" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                    <input name="budget" type="text" placeholder="$5000" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                   </div>
                 </div>
 
@@ -509,16 +556,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
                   <div className="flex gap-2">
                     <div className="w-20 space-y-2">
                       <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Code</label>
-                      <input type="text" defaultValue="+256" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-2 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                      <input name="code" type="text" defaultValue="+256" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-2 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                     </div>
                     <div className="flex-grow space-y-2">
                       <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Phone Number</label>
-                      <input type="tel" placeholder="708012030" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
+                      <input name="phone" type="tel" placeholder="708012030" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all" />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase tracking-widest font-bold text-stone-400">Accommodation</label>
-                    <select className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all appearance-none cursor-pointer">
+                    <select name="accommodation" className="w-full bg-stone-50 border border-stone-100 rounded-lg py-3 px-4 text-sm focus:outline-none focus:border-[#D4AF37] text-stone-900 transition-all appearance-none cursor-pointer">
                       <option>Luxury</option>
                       <option>Mid-range</option>
                       <option>Budget</option>
@@ -575,7 +622,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
       <section className="pb-16 px-6 text-center">
         <div className="container mx-auto max-w-3xl">
           <p className="text-stone-500 text-sm font-light leading-relaxed">
-            We are proud to be represented on <a href="https://www.safaribookings.com" target="_blank" rel="noopener noreferrer" className="underline text-[#1A1A1A] hover:text-[#D4AF37] transition-colors font-medium">SafariBookings.com</a>, the world's leading online marketplace for African safari tours.
+            We are proud to be represented on <a href="https://www.safaribookings.com/p5995" target="_blank" rel="noopener noreferrer" className="underline text-[#1A1A1A] hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.4)] transition-all duration-300 font-medium">SafariBookings.com</a>, the world's leading online marketplace for African safari tours.
           </p>
         </div>
       </section>

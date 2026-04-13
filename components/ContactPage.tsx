@@ -26,29 +26,32 @@ export const ContactPage: React.FC = () => {
       return;
     }
 
-    setErrors({});
     setIsLoading(true);
-    
-    // CRM INTEGRATION: Capture lead from the contact page
-    await crmService.captureLead({
-      source: 'tour_booking',
-      packageViewing: 'General Contact Inquiry',
-      data: {
-        fullName: formData.fullName,
-        email: formData.email,
-        message: formData.message
-      }
-    });
+    try {
+      await crmService.captureLead({
+        source: 'tour_booking',
+        packageViewing: 'General Contact Inquiry',
+        data: {
+          fullName: formData.fullName,
+          email: formData.email,
+          message: formData.message
+        }
+      });
 
-    setIsSubmitted(true);
-    setIsLoading(false);
+      setIsSubmitted(true);
+      setFormData({ fullName: '', email: '', message: '' });
+    } catch (error) {
+      console.error("Contact error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const message = "Hi Kuzuri Escapades! I'm interested in booking a tour.";
   const encodedMessage = encodeURIComponent(message);
   
   // Strict raw mailto string as per Manual Override.
-  const mailtoLink = "mailto:info@kuzuri-escapedes.com";
+  const mailtoLink = "mailto:info@kuzuri-escapades.com";
 
   return (
     <div className="bg-[#F5F5DC] min-h-screen selection:bg-[#1A1A1A] selection:text-[#D4AF37]">
@@ -155,7 +158,7 @@ export const ContactPage: React.FC = () => {
                 href={mailtoLink}
                 className="text-xl font-bold tracking-widest text-[#D4AF37] hover:underline underline-offset-8 transition-all no-underline cursor-pointer"
               >
-                info@kuzuri-escapedes.com
+                info@kuzuri-escapades.com
               </a>
               <p className="text-xs text-[#1A1A1A] opacity-60 italic">We aim to respond to all visions within 24 hours.</p>
             </div>
@@ -166,12 +169,14 @@ export const ContactPage: React.FC = () => {
                 <MessageSquare size={18} /> Instant Message
               </h3>
               <a 
-                href="tel:+256708012030"
+                href={`https://wa.me/256708012030?text=${encodedMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-4 px-10 py-5 rounded-sm border-2 border-black transition-all hover:scale-105 active:scale-95 shadow-2xl group"
                 style={{ backgroundColor: '#D4AF37', color: 'black' }}
               >
-                <span className="text-2xl group-hover:animate-bounce">📞</span>
-                <span className="font-black uppercase tracking-[0.4em] text-[11px]">Call Our Curators</span>
+                <span className="text-2xl group-hover:animate-bounce">💬</span>
+                <span className="font-black uppercase tracking-[0.4em] text-[11px]">WhatsApp Our Curators</span>
               </a>
             </div>
           </div>
@@ -181,7 +186,10 @@ export const ContactPage: React.FC = () => {
             <h2 className="text-3xl font-serif font-bold text-[#1A1A1A] mb-12">Send us a <span className="italic font-light">Message</span></h2>
 
             {!isSubmitted ? (
-              <form onSubmit={handleContactSubmit} className="space-y-10" method="POST">
+              <form 
+                onSubmit={handleContactSubmit} 
+                className="space-y-10"
+              >
                 <div className="group">
                   <label className="block text-[10px] uppercase tracking-[0.4em] text-[#1A1A1A] mb-4 font-bold">Your Name</label>
                   <input 

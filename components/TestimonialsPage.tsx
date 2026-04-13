@@ -3,6 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { Review } from '../types.ts';
 import { ReviewCard } from './ReviewCard.tsx';
 import { StarRating } from './StarRating.tsx';
+import { crmService } from '../services/crmService.ts';
 
 type ReviewFilter = 'all' | '5-star' | 'safari' | 'primate';
 
@@ -51,40 +52,43 @@ const LeaveReviewForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.agreedToTerms) return;
+    
+    if (!formData.agreedToTerms) {
+      return;
+    }
     
     setSubmitStatus('loading');
-
     try {
-      const response = await fetch('https://formspree.io/f/xpwqgrze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          _replyto: formData.email,
-          _to: 'info@kuzuri-escapedes.com',
-          _subject: `New Review Experience from ${formData.name}`
-        })
+      await crmService.captureLead({
+        source: 'testimonial_form',
+        packageViewing: formData.trip || 'Testimonial',
+        data: {
+          fullName: formData.name,
+          email: formData.email,
+          country: formData.country,
+          trip: formData.trip,
+          rating: formData.rating,
+          message: formData.comment
+        }
       });
 
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          name: '', email: '', trip: '', rating: 5,
-          comment: '', country: '', agreedToTerms: false
-        });
-        setTimeout(() => setSubmitStatus(null), 8000);
-      } else {
-        setSubmitStatus('error');
-      }
+      setSubmitStatus('success');
+      setFormData({
+        name: '', email: '', trip: '', rating: 5,
+        comment: '', country: '', agreedToTerms: false
+      });
+      setTimeout(() => setSubmitStatus(null), 8000);
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error("Testimonial error:", error);
       setSubmitStatus('error');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-12 max-w-4xl">
+    <form 
+      onSubmit={handleSubmit} 
+      className="space-y-12 max-w-4xl"
+    >
       <div className="grid md:grid-cols-2 gap-10">
         <div>
           <label htmlFor="client-name" className="block text-[10px] uppercase tracking-[0.4em] font-black mb-4 text-[#1A1A1A]">
@@ -230,7 +234,7 @@ const LeaveReviewForm: React.FC = () => {
 
       {submitStatus === 'error' && (
         <div role="alert" className="p-8 bg-red-50 border-2 border-red-600 text-red-700 text-center font-bold text-sm">
-          ✗ An error occurred. Please try again or reach out to <a href="mailto:info@kuzuri-escapedes.com" className="underline hover:text-red-900 transition-colors">info@kuzuri-escapedes.com</a>.
+          ✗ An error occurred. Please try again or reach out to <a href="mailto:info@kuzuri-escapades.com" className="underline hover:text-red-900 transition-colors">info@kuzuri-escapades.com</a>.
         </div>
       )}
 

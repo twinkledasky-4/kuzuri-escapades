@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CreditCard, ShieldCheck, CheckCircle2, ArrowRight, ArrowLeft, Info, HelpCircle, Lock, Smartphone, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 
+import { crmService } from '../services/crmService.ts';
+
 interface PaymentPortalProps {
   onBack: () => void;
 }
@@ -46,7 +48,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
     toast.info(
       <div className="space-y-2">
         <p className="font-bold text-[#1A1A1A]">Having trouble?</p>
-        <p className="text-xs text-[#1A1A1A]/60">Contact our support team at <a href="tel:+256708012030" className="text-[#D4AF37] font-bold">0708012030</a> or <a href="mailto:info@kuzuri-escapedes.com" className="text-[#D4AF37] font-bold">info@kuzuri-escapedes.com</a>.</p>
+        <p className="text-xs text-[#1A1A1A]/60">Contact our support team at <a href="tel:+256708012030" className="text-[#D4AF37] font-bold">0708012030</a> or <a href="mailto:info@kuzuri-escapades.com" className="text-[#D4AF37] font-bold">info@kuzuri-escapades.com</a>.</p>
       </div>,
       { duration: 6000 }
     );
@@ -81,8 +83,26 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
       } else {
         setStage('processing');
         // Simulate processing
-        setTimeout(() => {
-          setStage('success');
+        setTimeout(async () => {
+          try {
+            await crmService.captureLead({
+              source: 'payment_portal',
+              packageViewing: formData.category,
+              data: {
+                fullName: formData.fullName,
+                email: formData.email,
+                phone: formData.phone,
+                bookingRef: formData.bookingRef,
+                amount: `${formData.currency} ${formData.amount}`,
+                paymentMethod: formData.paymentMethod,
+                message: `Successful Mobile Money Payment for ${formData.category}`
+              }
+            });
+            setStage('success');
+          } catch (error) {
+            console.error("Payment notification error:", error);
+            setStage('success'); // Still show success to user as payment "processed"
+          }
         }, 3000);
       }
     } else if (stage === 'cardDetails') {
@@ -92,14 +112,32 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
       }
       setStage('processing');
       // Simulate processing with potential error
-      setTimeout(() => {
+      setTimeout(async () => {
         // 10% chance of simulation error for demonstration
         if (Math.random() < 0.1) {
           setStage('cardDetails');
           toast.error('Payment failed. Please try again or contact support.');
           showSupportMessage();
         } else {
-          setStage('success');
+          try {
+            await crmService.captureLead({
+              source: 'payment_portal',
+              packageViewing: formData.category,
+              data: {
+                fullName: formData.fullName,
+                email: formData.email,
+                phone: formData.phone,
+                bookingRef: formData.bookingRef,
+                amount: `${formData.currency} ${formData.amount}`,
+                paymentMethod: 'Credit/Debit Card',
+                message: `Successful Card Payment for ${formData.category}`
+              }
+            });
+            setStage('success');
+          } catch (error) {
+            console.error("Payment notification error:", error);
+            setStage('success');
+          }
         }
       }, 3000);
     }
@@ -259,7 +297,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
             <div className="flex items-center gap-4 p-4 bg-[#D4AF37]/5 border border-[#D4AF37]/20 rounded-sm">
               <Info size={18} className="text-[#D4AF37] shrink-0" />
               <p className="text-[11px] text-[#1A1A1A]/70 leading-relaxed">
-                Please ensure your booking reference matches the one provided by our curators. For any assistance, please contact <span className="font-bold">info@kuzuri-escapedes.com</span>.
+                Please ensure your booking reference matches the one provided by our curators. For any assistance, please contact <span className="font-bold">info@kuzuri-escapades.com</span>.
               </p>
             </div>
 
@@ -862,16 +900,18 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
           <p className="text-[10px] uppercase tracking-[0.4em] text-[#1A1A1A]/40 font-black">Need Assistance?</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             <a 
-              href="tel:+256708012030"
+              href="https://wa.me/256708012030"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-3 text-[#1A1A1A] hover:text-[#D4AF37] transition-colors group"
             >
               <div className="w-8 h-8 bg-[#1A1A1A]/5 rounded-full flex items-center justify-center group-hover:bg-[#D4AF37]/10 transition-colors">
                 <HelpCircle size={14} />
               </div>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em]">Call Support / WhatsApp Us</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">WhatsApp Support</span>
             </a>
             <a 
-              href="mailto:info@kuzuri-escapedes.com"
+              href="mailto:info@kuzuri-escapades.com"
               className="flex items-center gap-3 text-[#1A1A1A] hover:text-[#D4AF37] transition-colors group"
             >
               <div className="w-8 h-8 bg-[#1A1A1A]/5 rounded-full flex items-center justify-center group-hover:bg-[#D4AF37]/10 transition-colors">

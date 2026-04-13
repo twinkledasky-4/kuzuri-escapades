@@ -8,7 +8,7 @@ import { Review } from '../types.ts';
 
 export interface Lead {
   id: string;
-  source: 'inquiry_modal' | 'consultation_btn' | 'service_inquiry' | 'tour_booking' | 'spotlight_inquiry';
+  source: 'inquiry_modal' | 'consultation_btn' | 'service_inquiry' | 'tour_booking' | 'spotlight_inquiry' | 'payment_portal' | 'testimonial_form' | 'about_page_planner';
   timestamp: string;
   status: 'new' | 'contacted' | 'booked' | 'lost';
   packageViewing?: string;
@@ -24,19 +24,27 @@ export interface Lead {
     numPeople?: string;
     budget?: string;
     accommodation?: string;
-    interests?: string[];
+    interests?: string | string[];
     message?: string;
     context?: string;
     destination?: string;
+    bookingRef?: string;
+    amount?: string;
+    paymentMethod?: string;
+    trip?: string;
+    rating?: number;
+    country?: string;
+    travelDates?: string;
   };
 }
 
 class CRMService {
   private leads: Lead[] = [];
   private readonly STORAGE_KEY = 'kuzuri_crm_leads';
-  private readonly CURATOR_EMAIL = 'info@kuzuri-escapedes.com';
+  private readonly CURATOR_EMAIL = 'info@kuzuri-escapades.com';
   // Formspree acts as our SMTP Relay Gateway for this implementation
   private readonly RELAY_ENDPOINT = 'https://formspree.io/f/xpwqgrze';
+  private readonly INTERNAL_API = '/api/send-email';
 
   constructor() {
     this.loadLeads();
@@ -60,7 +68,7 @@ class CRMService {
   /**
    * CAPTURE PROTOCOL:
    * 1. Logs lead in local Pearl Registry
-   * 2. Triggers High-Priority SMTP Relay to info@kuzuri-escapedes.com
+   * 2. Triggers High-Priority SMTP Relay to info@kuzuri-escapades.com
    */
   public async captureLead(leadData: Omit<Lead, 'id' | 'timestamp' | 'status'>): Promise<boolean> {
     const newLead: Lead = {
@@ -76,10 +84,50 @@ class CRMService {
 
     // 2. Instant SMTP Relay Transmission
     try {
+      const subject = `Inquiry for ${newLead.packageViewing || 'Bespoke Journey'} - ${newLead.data.fullName}`;
+      const text = `
+Lead ID: ${newLead.id}
+Source: ${newLead.source}
+Name: ${newLead.data.fullName}
+Email: ${newLead.data.email}
+Phone: ${newLead.data.phone || `${newLead.data.phoneCode || ''} ${newLead.data.phoneNumber || ''}`.trim()}
+Nationality: ${newLead.data.nationality}
+Travel Date: ${newLead.data.travelDate}
+Duration: ${newLead.data.numDays} days
+Party Size: ${newLead.data.numPeople}
+Budget: ${newLead.data.budget}
+Accommodation: ${newLead.data.accommodation}
+Interests: ${Array.isArray(newLead.data.interests) ? newLead.data.interests.join(', ') : newLead.data.interests}
+Destination: ${newLead.data.destination}
+Message: ${newLead.data.message}
+      `.trim();
+
+      // Try Internal SMTP first
+      const internalResponse = await fetch(this.INTERNAL_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject,
+          text,
+          replyTo: newLead.data.email
+        })
+      });
+
+      if (internalResponse.ok) {
+        console.debug(`[CRM] Internal SMTP Relay Successful: Lead ${newLead.id} transmitted.`);
+        return true;
+      }
+
+      // Fallback to Formspree if internal SMTP is not configured or fails
+      console.warn("[CRM] Internal SMTP failed or unconfigured, falling back to Formspree.");
+      
       const payload = {
-        _to: this.CURATOR_EMAIL,
-        _replyto: newLead.data.email,
-        _subject: `Inquiry for ${newLead.packageViewing || 'Bespoke Journey'} - ${newLead.data.fullName}`,
+        // Standard Formspree fields
+        email: newLead.data.email,
+        message: newLead.data.message || `New inquiry for ${newLead.packageViewing || 'Bespoke Journey'}`,
+        _subject: subject,
+        
+        // Custom fields
         lead_id: newLead.id,
         timestamp: newLead.timestamp,
         source_context: newLead.source,
@@ -99,7 +147,7 @@ class CRMService {
         accommodation_preference: newLead.data.accommodation,
         
         // Interests
-        interests: newLead.data.interests?.join(', '),
+        interests: Array.isArray(newLead.data.interests) ? newLead.data.interests.join(', ') : newLead.data.interests,
         
         // Message & Context
         vision_narrative: newLead.data.message,
@@ -121,14 +169,15 @@ class CRMService {
       });
 
       if (!response.ok) {
-        throw new Error('Relay Gateway Rejected Transmission');
+        const errorText = await response.text();
+        console.warn(`[CRM] Formspree Relay Response (${response.status}):`, errorText);
+        throw new Error(`Relay Gateway Rejected Transmission: ${response.status}`);
       }
 
-      console.debug(`[CRM] SMTP Relay Successful: Lead ${newLead.id} transmitted to ${this.CURATOR_EMAIL}`);
+      console.debug(`[CRM] Formspree Relay Successful: Lead ${newLead.id} transmitted.`);
       return true;
     } catch (error) {
-      console.error("[CRM] SMTP Relay Critical Failure - Incident logged to local registry:", error);
-      // We return true because the lead is safely stored in the local registry even if the relay fails
+      console.error("[CRM] All SMTP Relay attempts failed - Lead saved to local registry only:", error);
       return true; 
     }
   }
@@ -153,9 +202,30 @@ class CRMService {
     this.persist();
 
     try {
+      const subject = `[CHAT LEAD] New Interaction from AI Concierge`;
+      const text = `
+Chat Lead ID: ${chatLead.id}
+Timestamp: ${chatLead.timestamp}
+Initial Message: ${message}
+      `.trim();
+
+      // Try Internal SMTP first
+      const internalResponse = await fetch(this.INTERNAL_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject,
+          text
+        })
+      });
+
+      if (internalResponse.ok) {
+        return true;
+      }
+
       const payload = {
-        _to: this.CURATOR_EMAIL,
-        _subject: `[CHAT LEAD] New Interaction from AI Concierge`,
+        message: message,
+        _subject: subject,
         lead_id: chatLead.id,
         timestamp: chatLead.timestamp,
         initial_message: message,
@@ -173,6 +243,11 @@ class CRMService {
         },
         body: JSON.stringify(payload)
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.warn(`[CRM] Chat Relay Response (${response.status}):`, errorText);
+      }
 
       return response.ok;
     } catch (error) {
