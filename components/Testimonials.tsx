@@ -49,7 +49,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ onNavigateToAll, rev
             </div>
             <div className="w-[1px] h-10 bg-white/10" />
             <a 
-              href="https://www.safaribookings.com/p5995" 
+              href="https://www.safaribookings.com/p7981" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="flex flex-col items-center gap-2 group transition-all duration-300"

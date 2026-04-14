@@ -622,7 +622,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
       <section className="pb-16 px-6 text-center">
         <div className="container mx-auto max-w-3xl">
           <p className="text-stone-500 text-sm font-light leading-relaxed">
-            We are proud to be represented on <a href="https://www.safaribookings.com/p5995" target="_blank" rel="noopener noreferrer" className="underline text-[#1A1A1A] hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.4)] transition-all duration-300 font-medium">SafariBookings.com</a>, the world's leading online marketplace for African safari tours.
+            We are proud to be represented on <a href="https://www.safaribookings.com/p7981" target="_blank" rel="noopener noreferrer" className="underline text-[#1A1A1A] hover:text-[#D4AF37] hover:drop-shadow-[0_0_8px_rgba(212,175,55,0.4)] transition-all duration-300 font-medium">SafariBookings.com</a>, the world's leading online marketplace for African safari tours.
           </p>
         </div>
       </section>

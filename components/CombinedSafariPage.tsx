@@ -248,7 +248,7 @@ export const CombinedSafariPage: React.FC<CombinedSafariPageProps> = ({ tour, on
                     <img src="https://i.postimg.cc/85mR6vY7/utb-logo.png" alt="UTB" className="h-20 md:h-28 object-contain" referrerPolicy="no-referrer" />
                     <img src="https://i.postimg.cc/m2fX9X7P/tripadvisor.png" alt="TripAdvisor" className="h-16 md:h-24 object-contain" referrerPolicy="no-referrer" />
                     <a 
-                      href="https://www.safaribookings.com/p5995" 
+                      href="https://www.safaribookings.com/p7981" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="transition-all duration-300 hover:drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]"

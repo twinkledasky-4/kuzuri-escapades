@@ -73,10 +73,10 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
 
           {/* Box 4: SAFARIBOOKINGS */}
           <a 
-            href="https://www.safaribookings.com/p5995" 
+            href="https://www.safaribookings.com/p7981" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-white rounded-[12px] flex items-center justify-center h-[140px] shadow-xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl overflow-hidden group"
+            className="bg-white rounded-[12px] flex items-center justify-center h-[140px] shadow-xl transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:ring-2 hover:ring-[#D4AF37]/50 overflow-hidden group"
           >
             <img 
               src="https://i.postimg.cc/vmCmtvRD/safari_(1).png" 
