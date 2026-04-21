@@ -5,6 +5,7 @@ import { Instagram, Facebook, Globe, ShieldCheck, Landmark, Smartphone, Phone } 
 interface FooterProps {
   onEnquire?: () => void;
   onAdminAccess?: () => void;
+  onPaymentPortal?: () => void;
 }
 
 const TikTokIcon = ({ size = 28, strokeWidth = 1.5 }: { size?: number, strokeWidth?: number }) => (
@@ -22,7 +23,7 @@ const TikTokIcon = ({ size = 28, strokeWidth = 1.5 }: { size?: number, strokeWid
   </svg>
 );
 
-export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
+export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess, onPaymentPortal }) => {
   const currentYear = new Date().getFullYear();
   const mailtoLink = "mailto:info@kuzuri-escapades.com";
 
@@ -179,14 +180,13 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess }) => {
           </div>
 
           <div className="flex items-center gap-8">
-            {onAdminAccess && (
-              <button 
-                onClick={onAdminAccess} 
-                className="text-[9px] uppercase tracking-[0.3em] font-black text-white/10 hover:text-[#D4AF37] transition-colors"
-              >
-                PORTAL
-              </button>
-            )}
+            <a 
+              href="/pay"
+              onClick={(e) => { e.preventDefault(); onPaymentPortal?.(); }} 
+              className="text-[9px] uppercase tracking-[0.3em] font-black text-white/10 hover:text-[#D4AF37] transition-colors no-underline cursor-pointer"
+            >
+              PAYMENT PORTAL
+            </a>
             <div className="flex items-center gap-3">
                <div className="w-1 h-1 rounded-full bg-[#D4AF37]/40" />
                <span className="text-[9px] uppercase tracking-[0.3em] font-black text-white/20">UTB/KE/2024</span>

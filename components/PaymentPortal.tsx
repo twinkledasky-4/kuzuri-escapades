@@ -1,19 +1,24 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CreditCard, ShieldCheck, CheckCircle2, ArrowRight, ArrowLeft, Info, HelpCircle, Lock, Smartphone, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { crmService } from '../services/crmService.ts';
 
+import { paymentService } from '../services/paymentService.ts';
+
 interface PaymentPortalProps {
   onBack: () => void;
 }
 
-type PaymentStage = 'landing' | 'details' | 'billing' | 'method' | 'cardDetails' | 'processing' | 'success';
+type PaymentStage = 'landing' | 'details' | 'billing' | 'method' | 'iframe' | 'processing' | 'success';
 
 export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
   const [stage, setStage] = useState<PaymentStage>('landing');
+  const [iframeUrl, setIframeUrl] = useState<string>('');
+  const [orderTrackingId, setOrderTrackingId] = useState<string>('');
+  const [isVerifying, setIsVerifying] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     firstName: '',
@@ -32,15 +37,38 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
     currency: 'USD',
     category: 'Safari Deposit',
     paymentMethod: '',
-    agreedToTerms: false,
-    cardInfo: {
-      type: '',
-      number: '',
-      expiryMonth: '',
-      expiryYear: '',
-      cvn: ''
-    }
+    agreedToTerms: false
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const trackingId = params.get('OrderTrackingId');
+    
+    if (trackingId) {
+      setOrderTrackingId(trackingId);
+      
+      // Attempt to restore session
+      const savedData = localStorage.getItem('kuzuri_pending_payment');
+      if (savedData) {
+        try {
+          const parsed = JSON.parse(savedData);
+          setFormData(parsed);
+          // Auto-verify if we have data
+          setStage('processing');
+          setTimeout(() => verifyPaymentStatus(trackingId, parsed), 1000);
+        } catch (e) {
+          console.error("Failed to restore session data", e);
+        }
+      } else {
+        // Just verify tracking if no local data
+        setStage('processing');
+        setTimeout(() => verifyPaymentStatus(trackingId), 1000);
+      }
+      
+      // Clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
 
   const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
 
@@ -78,68 +106,88 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
         toast.error('Please select a payment method.');
         return;
       }
-      if (formData.paymentMethod === 'card') {
-        setStage('cardDetails');
-      } else {
-        setStage('processing');
-        // Simulate processing
-        setTimeout(async () => {
-          try {
-            await crmService.captureLead({
-              source: 'payment_portal',
-              packageViewing: formData.category,
-              data: {
-                fullName: formData.fullName,
-                email: formData.email,
-                phone: formData.phone,
-                bookingRef: formData.bookingRef,
-                amount: `${formData.currency} ${formData.amount}`,
-                paymentMethod: formData.paymentMethod,
-                message: `Successful Mobile Money Payment for ${formData.category}`
-              }
-            });
-            setStage('success');
-          } catch (error) {
-            console.error("Payment notification error:", error);
-            setStage('success'); // Still show success to user as payment "processed"
-          }
-        }, 3000);
-      }
-    } else if (stage === 'cardDetails') {
-      if (!formData.cardInfo.type || !formData.cardInfo.number || !formData.cardInfo.expiryMonth || !formData.cardInfo.expiryYear || !formData.cardInfo.cvn) {
-        toast.error('Please complete all card details.');
-        return;
-      }
+      
       setStage('processing');
-      // Simulate processing with potential error
-      setTimeout(async () => {
-        // 10% chance of simulation error for demonstration
-        if (Math.random() < 0.1) {
-          setStage('cardDetails');
-          toast.error('Payment failed. Please try again or contact support.');
-          showSupportMessage();
-        } else {
-          try {
-            await crmService.captureLead({
-              source: 'payment_portal',
-              packageViewing: formData.category,
-              data: {
-                fullName: formData.fullName,
-                email: formData.email,
-                phone: formData.phone,
-                bookingRef: formData.bookingRef,
-                amount: `${formData.currency} ${formData.amount}`,
-                paymentMethod: 'Credit/Debit Card',
-                message: `Successful Card Payment for ${formData.category}`
-              }
-            });
-            setStage('success');
-          } catch (error) {
-            console.error("Payment notification error:", error);
-            setStage('success');
+      
+      // Initialize Pesapal Order
+      const initializePayment = async () => {
+        try {
+          // Save session to survive redirect
+          localStorage.setItem('kuzuri_pending_payment', JSON.stringify(formData));
+
+          const response = await paymentService.submitOrder({
+            currency: formData.currency,
+            amount: formData.amount,
+            description: `${formData.category} - Ref: ${formData.bookingRef}`,
+            email: formData.email,
+            phone: formData.phone,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            address: formData.address1,
+            city: formData.city,
+            state: formData.state,
+            zip: formData.zip
+          });
+
+          if (response.redirect_url) {
+            setIframeUrl(response.redirect_url);
+            setOrderTrackingId(response.order_tracking_id);
+            setStage('iframe');
+          } else {
+            throw new Error("No redirect URL received from Pesapal");
           }
+        } catch (error: any) {
+          console.error("Pesapal Initialization Error:", error);
+          toast.error(error.message || 'Failed to initialize secure payment session.');
+          setStage('method');
+          showSupportMessage();
         }
-      }, 3000);
+      };
+
+      initializePayment();
+    }
+  };
+
+  const verifyPaymentStatus = async (trackingId?: string, restoredData?: any) => {
+    const idToVerify = trackingId || orderTrackingId;
+    const activeData = restoredData || formData;
+    
+    if (!idToVerify) return;
+    
+    setIsVerifying(true);
+    try {
+      const status = await paymentService.getTransactionStatus(idToVerify);
+      
+      if (status.status_code === 1) { // COMPLETED
+        // Capture lead in CRM
+        await crmService.captureLead({
+          source: 'payment_portal',
+          packageViewing: activeData.category,
+          data: {
+            fullName: activeData.fullName,
+            email: activeData.email,
+            phone: activeData.phone,
+            bookingRef: activeData.bookingRef,
+            amount: `${activeData.currency} ${activeData.amount}`,
+            paymentMethod: 'Pesapal Secure Gateway',
+            message: `Successful Transaction. Tracking ID: ${idToVerify}`
+          }
+        });
+        
+        // Clear session on success
+        localStorage.removeItem('kuzuri_pending_payment');
+        setStage('success');
+      } else if (status.status_code === 3) { // FAILED
+        toast.error('Payment was unsuccessful. Please try again.');
+        setStage('method');
+      } else {
+        toast.info('Payment is still being processed or is pending.');
+      }
+    } catch (error) {
+      console.error("Verification error:", error);
+      toast.error('Could not verify payment status. Please contact support.');
+    } finally {
+      setIsVerifying(false);
     }
   };
 
@@ -147,7 +195,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
     if (stage === 'details') setStage('landing');
     else if (stage === 'billing') setStage('details');
     else if (stage === 'method') setStage('billing');
-    else if (stage === 'cardDetails') {
+    else if (stage === 'iframe') {
       showSupportMessage();
       setStage('method');
     }
@@ -592,179 +640,78 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
           </motion.div>
         );
 
-      case 'cardDetails':
+      case 'iframe':
         return (
           <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-8"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex flex-col space-y-6"
           >
-            <div className="flex items-center gap-4 pb-6 border-b border-[#1A1A1A]/5">
-              <div className="w-10 h-10 bg-[#D4AF37]/10 flex items-center justify-center rounded-full">
-                <Lock size={18} className="text-[#D4AF37]" />
+            <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-[#1A1A1A]/5 gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#D4AF37]/10 flex items-center justify-center rounded-full">
+                  <CreditCard size={20} className="text-[#D4AF37]" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black text-[#1A1A1A] uppercase tracking-wider">Payment Details</h3>
+                  <p className="text-[10px] text-[#1A1A1A]/40 uppercase tracking-widest font-bold">Secure Pesapal S3 Gateway</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-sm font-black text-[#1A1A1A] uppercase tracking-wider">Payment Details</h3>
-                <p className="text-[10px] text-[#1A1A1A]/40 uppercase tracking-widest font-bold">Secure Encrypted Transaction</p>
+              <div className="flex items-center gap-4 bg-white px-4 py-2 rounded-full border border-[#1A1A1A]/5 shadow-sm">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-3 opacity-80" />
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-4 opacity-80" />
+                <div className="h-4 w-[1px] bg-[#1A1A1A]/10 ml-2" />
+                <span className="text-[9px] font-black text-[#1A1A1A]/40 uppercase tracking-widest">MTN & AIRTEL</span>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Card Selection</label>
-                <div className="flex flex-wrap gap-6">
-                  {[
-                    { id: 'Visa', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg', h: 'h-3' },
-                    { id: 'Mastercard', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg', h: 'h-5' },
-                    { id: 'Amex', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg', h: 'h-5' }
-                  ].map((card) => (
-                    <label key={card.id} className="flex items-center gap-3 cursor-pointer group">
-                      <div className="relative flex items-center justify-center">
-                        <input 
-                          type="radio" 
-                          name="cardType"
-                          value={card.id}
-                          checked={formData.cardInfo.type === card.id}
-                          onChange={(e) => setFormData({
-                            ...formData, 
-                            cardInfo: { ...formData.cardInfo, type: e.target.value }
-                          })}
-                          className="sr-only"
-                        />
-                        <div className={`w-5 h-5 rounded-full border-2 transition-all ${formData.cardInfo.type === card.id ? 'border-[#D4AF37]' : 'border-[#1A1A1A]/10 group-hover:border-[#D4AF37]/50'}`}>
-                          {formData.cardInfo.type === card.id && <div className="w-2.5 h-2.5 bg-[#D4AF37] rounded-full" />}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <img src={card.logo} alt={card.id} className={`${card.h} w-auto opacity-80 group-hover:opacity-100 transition-opacity`} referrerPolicy="no-referrer" />
-                        <span className={`text-[11px] font-bold uppercase tracking-widest transition-colors ${formData.cardInfo.type === card.id ? 'text-[#1A1A1A]' : 'text-[#1A1A1A]/40'}`}>{card.id}</span>
-                      </div>
-                    </label>
-                  ))}
-                </div>
+            <div className="relative w-full aspect-[4/6] md:aspect-video bg-[#FAF8F3] border border-[#1A1A1A]/10 overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] rounded-sm group">
+              <div className="absolute inset-x-0 top-0 h-1 bg-[#D4AF37]/20">
+                <div className="h-full bg-[#D4AF37] animate-[shimmer_2s_infinite]" style={{ width: '40%' }} />
               </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Card Number</label>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    value={formData.cardInfo.number}
-                    onChange={(e) => setFormData({
-                      ...formData, 
-                      cardInfo: { ...formData.cardInfo, number: e.target.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim() }
-                    })}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all font-mono tracking-widest"
-                    placeholder="0000 0000 0000 0000"
-                    maxLength={19}
-                  />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                    <CreditCard size={18} className="text-[#1A1A1A]/20" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Expiration Date</label>
-                  <div className="flex gap-2">
-                    <select 
-                      value={formData.cardInfo.expiryMonth}
-                      onChange={(e) => setFormData({
-                        ...formData, 
-                        cardInfo: { ...formData.cardInfo, expiryMonth: e.target.value }
-                      })}
-                      className="flex-1 bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all appearance-none"
-                    >
-                      <option value="">Month</option>
-                      {Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, '0')).map(m => (
-                        <option key={m} value={m}>{m}</option>
-                      ))}
-                    </select>
-                    <select 
-                      value={formData.cardInfo.expiryYear}
-                      onChange={(e) => setFormData({
-                        ...formData, 
-                        cardInfo: { ...formData.cardInfo, expiryYear: e.target.value }
-                      })}
-                      className="flex-1 bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all appearance-none"
-                    >
-                      <option value="">Year</option>
-                      {Array.from({ length: 10 }, (_, i) => (new Date().getFullYear() + i).toString()).map(y => (
-                        <option key={y} value={y}>{y}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">CVN / Security Code</label>
-                    <button 
-                      type="button"
-                      onClick={() => toast.info('The 3 or 4 digit security code on the back of your card.')}
-                      className="text-[#D4AF37] hover:text-[#1A1A1A] transition-colors"
-                    >
-                      <HelpCircle size={14} />
-                    </button>
-                  </div>
-                  <div className="flex gap-4">
-                    <input 
-                      type="password" 
-                      value={formData.cardInfo.cvn}
-                      onChange={(e) => setFormData({
-                        ...formData, 
-                        cardInfo: { ...formData.cardInfo, cvn: e.target.value }
-                      })}
-                      className="flex-1 bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all font-mono"
-                      placeholder="***"
-                      maxLength={4}
-                    />
-                    {/* CVN Visual Aid */}
-                    <div className="hidden sm:flex items-center gap-2 px-3 bg-[#1A1A1A]/5 border border-[#1A1A1A]/5 rounded-sm">
-                      <div className="w-10 h-6 bg-white border border-[#1A1A1A]/10 rounded-sm relative overflow-hidden">
-                        <div className="absolute top-1 left-0 right-0 h-1.5 bg-[#1A1A1A]/20" />
-                        <div className="absolute top-3.5 right-1 w-3 h-1.5 border border-[#D4AF37] rounded-[1px] flex items-center justify-center">
-                          <div className="w-[1px] h-[1px] bg-[#D4AF37] rounded-full" />
-                          <div className="w-[1px] h-[1px] bg-[#D4AF37] rounded-full mx-[1px]" />
-                          <div className="w-[1px] h-[1px] bg-[#D4AF37] rounded-full" />
-                        </div>
-                      </div>
-                      <span className="text-[8px] uppercase tracking-tighter font-bold text-[#1A1A1A]/40 leading-none">3-Digit<br/>Code</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <iframe 
+                src={iframeUrl}
+                className="w-full h-full border-none"
+                title="Pesapal Secure Payment"
+              />
             </div>
 
-            <div className="bg-[#FAF8F3] p-6 border border-[#1A1A1A]/5 flex items-center gap-4">
-              <ShieldCheck size={20} className="text-[#D4AF37]" />
-              <p className="text-[10px] text-[#1A1A1A]/60 leading-relaxed uppercase tracking-widest font-bold">
-                Your payment is processed through a secure, encrypted connection. We do not store your full card details.
-              </p>
-            </div>
-
-            {/* Dynamic Order Summary */}
-            <div className="bg-[#1A1A1A] p-6 border border-[#D4AF37]/20 space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-[9px] uppercase tracking-widest font-bold text-white/40">Amount to Authorize</span>
-                <span className="text-lg font-black text-[#D4AF37]">{formData.currency} {Number(formData.amount).toLocaleString()}</span>
+            <div className="bg-[#FAF8F3] p-8 border border-[#1A1A1A]/5 space-y-6">
+              <div className="flex items-start gap-4">
+                <ShieldCheck size={20} className="text-[#00C853] shrink-0 mt-1" />
+                <div className="space-y-1">
+                  <p className="text-[11px] text-[#1A1A1A] font-black uppercase tracking-wider">Transaction Authorized</p>
+                  <p className="text-[10px] text-[#1A1A1A]/60 leading-relaxed uppercase tracking-widest">
+                    Please complete your payment in the secure portal above. Once you receive your confirmation from Pesapal, click verify below to finalize your booking with Kuzuri Escapades.
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="flex gap-4">
-              <button 
-                onClick={handleBack}
-                className="flex-1 py-5 border border-[#1A1A1A]/10 text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-white transition-all duration-500"
-              >
-                CANCEL
-              </button>
-              <button 
-                onClick={handleNext}
-                className="flex-[2] py-5 bg-[#00C853] text-white text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-[#00C853] transition-all duration-500 shadow-[0_20px_50px_rgba(0,200,83,0.2)]"
-              >
-                PAY
-              </button>
+              
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <button 
+                  onClick={handleBack}
+                  className="flex-1 py-5 border border-[#1A1A1A]/10 text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-white transition-all duration-500"
+                >
+                  ABANDON
+                </button>
+                <button 
+                  onClick={verifyPaymentStatus}
+                  disabled={isVerifying}
+                  className="flex-[2] py-5 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl disabled:opacity-50 flex items-center justify-center gap-3"
+                >
+                  {isVerifying ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-[#1A1A1A]/20 border-t-[#1A1A1A] rounded-full animate-spin" />
+                      VERIFYING TRANSACTION...
+                    </>
+                  ) : (
+                    <>
+                      VERIFY PAYMENT STATUS
+                      <ArrowRight size={16} />
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </motion.div>
         );
@@ -796,41 +743,99 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
       case 'success':
         return (
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="py-12 flex flex-col items-center justify-center text-center space-y-10"
+            className="py-12 flex flex-col items-center justify-center text-center space-y-12"
           >
-            <div className="w-24 h-24 bg-green-50 flex items-center justify-center rounded-full">
-              <CheckCircle2 size={48} className="text-green-600" />
+            <div className="relative">
+              <div className="w-28 h-28 bg-[#00C853]/10 flex items-center justify-center rounded-full animate-pulse">
+                <CheckCircle2 size={64} className="text-[#00C853]" />
+              </div>
+              <motion.div 
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.5, type: 'spring' }}
+                className="absolute -top-2 -right-2 bg-[#D4AF37] p-2 rounded-full shadow-lg"
+              >
+                <ShieldCheck size={20} className="text-[#1A1A1A]" />
+              </motion.div>
             </div>
+
             <div className="space-y-4">
-              <h3 className="text-3xl font-black text-[#1A1A1A] uppercase tracking-tight">Payment Confirmed</h3>
-              <p className="text-sm text-[#1A1A1A]/60 max-w-md mx-auto">
-                Your transaction was successful. A digital receipt has been dispatched to <span className="font-bold text-[#1A1A1A]">{formData.email}</span>.
+              <h3 className="text-3xl md:text-5xl font-black text-[#1A1A1A] uppercase tracking-tight">Payment Successful</h3>
+              <p className="text-sm text-[#1A1A1A]/60 max-w-md mx-auto leading-relaxed uppercase tracking-[0.1em] font-bold">
+                Your safari investment has been secured. A formal digital receipt and itinerary confirmation have been dispatched to:
+                <br />
+                <span className="text-[#D4AF37] font-black">{formData.email}</span>
               </p>
             </div>
 
-            <div className="w-full bg-[#FAF8F3] p-8 border border-[#1A1A1A]/5 space-y-4 text-left">
-              <div className="flex justify-between items-center">
-                <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A]/40">Transaction ID</span>
-                <span className="text-xs font-mono font-bold text-[#1A1A1A]">KUZ-PAY-{Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A]/40">Amount Paid</span>
-                <span className="text-xs font-bold text-[#1A1A1A]">{formData.currency} {Number(formData.amount).toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A]/40">Date</span>
-                <span className="text-xs font-bold text-[#1A1A1A]">{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-              </div>
+            <div className="w-full max-w-2xl bg-white border border-[#1A1A1A]/5 shadow-[0_40px_100px_rgba(0,0,0,0.05)] overflow-hidden">
+               <div className="bg-[#1A1A1A] p-6 text-left border-b border-[#D4AF37]/20 flex justify-between items-center">
+                 <h4 className="text-[10px] font-black text-[#D4AF37] uppercase tracking-[0.4em]">Official Order Summary</h4>
+                 <span className="text-[9px] text-[#D4AF37]/40 uppercase tracking-widest font-bold">Verified by Pesapal S3</span>
+               </div>
+               
+               <div className="p-10 space-y-8 text-left">
+                 <div className="grid grid-cols-2 gap-10">
+                   <div className="space-y-2">
+                     <p className="text-[9px] uppercase tracking-widest font-black text-[#1A1A1A]/30">Reference Number</p>
+                     <p className="text-sm font-mono font-bold text-[#1A1A1A]">{formData.bookingRef}</p>
+                   </div>
+                   <div className="space-y-2">
+                     <p className="text-[9px] uppercase tracking-widest font-black text-[#1A1A1A]/30">Transaction ID</p>
+                     <p className="text-sm font-mono font-bold text-[#1A1A1A]">{orderTrackingId.substring(0, 12).toUpperCase()}</p>
+                   </div>
+                   <div className="space-y-2">
+                     <p className="text-[9px] uppercase tracking-widest font-black text-[#1A1A1A]/30">Payment Category</p>
+                     <p className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">{formData.category}</p>
+                   </div>
+                   <div className="space-y-2">
+                     <p className="text-[9px] uppercase tracking-widest font-black text-[#1A1A1A]/30">Payment Date</p>
+                     <p className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">{new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                   </div>
+                 </div>
+
+                 <div className="pt-8 border-t border-[#1A1A1A]/5 flex justify-between items-center">
+                    <div>
+                      <p className="text-[9px] uppercase tracking-widest font-black text-[#1A1A1A]/30 mb-1">Total Amount Settled</p>
+                      <p className="text-3xl font-black text-[#1A1A1A]">{formData.currency} {Number(formData.amount).toLocaleString()}</p>
+                    </div>
+                    <div className="px-6 py-3 bg-[#00C853]/5 border border-[#00C853]/20 rounded-full">
+                       <span className="text-[10px] font-black text-[#00C853] uppercase tracking-[0.2em]">PAID & SECURED</span>
+                    </div>
+                 </div>
+               </div>
+
+               <div className="bg-[#FAF8F3] p-6 border-t border-[#1A1A1A]/5 flex justify-center gap-8">
+                  <div className="flex items-center gap-2">
+                    <Smartphone size={14} className="text-[#D4AF37]" />
+                    <span className="text-[8px] font-black text-[#1A1A1A]/40 uppercase tracking-widest">MTN / AIRTEL</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CreditCard size={14} className="text-[#D4AF37]" />
+                    <span className="text-[8px] font-black text-[#1A1A1A]/40 uppercase tracking-widest">VISA / MASTERCARD</span>
+                  </div>
+               </div>
             </div>
 
-            <button 
-              onClick={onBack}
-              className="px-12 py-5 bg-[#1A1A1A] text-[#D4AF37] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl"
-            >
-              RETURN TO EXPLORATION
-            </button>
+            <div className="flex flex-col sm:flex-row gap-6 w-full max-w-sm pt-8">
+              <button 
+                onClick={() => {
+                  window.print();
+                }}
+                className="flex-1 py-5 border border-[#1A1A1A]/10 text-[#1A1A1A] text-[10px] uppercase tracking-[0.4em] font-black hover:bg-[#1A1A1A] hover:text-white transition-all duration-500 flex items-center justify-center gap-3"
+              >
+                PRINT RECEIPT
+              </button>
+              <button 
+                onClick={onBack}
+                className="flex-[1.5] py-5 bg-[#1A1A1A] text-[#D4AF37] text-[10px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-2xl flex items-center justify-center gap-3"
+              >
+                START EXPLORING
+                <ArrowRight size={14} />
+              </button>
+            </div>
           </motion.div>
         );
     }
@@ -859,7 +864,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
             <div 
               className="h-full bg-[#D4AF37] transition-all duration-1000 ease-out"
               style={{ 
-                width: stage === 'details' ? '15%' : stage === 'billing' ? '30%' : stage === 'method' ? '45%' : stage === 'cardDetails' ? '60%' : stage === 'processing' ? '80%' : '100%' 
+                width: stage === 'details' ? '15%' : stage === 'billing' ? '30%' : stage === 'method' ? '45%' : stage === 'iframe' ? '70%' : stage === 'processing' ? '85%' : '100%' 
               }}
             />
           </div>

@@ -27,6 +27,7 @@ import { AboutPage } from './components/AboutPage.tsx';
 import { SearchResultsPage } from './components/SearchResultsPage.tsx';
 import { CombinedSafariPage } from './components/CombinedSafariPage.tsx';
 import { PaymentPortal } from './components/PaymentPortal.tsx';
+import { PaymentGatewayCTA } from './components/PaymentGatewayCTA.tsx';
 import { BentoGallery } from './components/BentoGallery.tsx';
 import { GorillaTrekkingPage } from './components/GorillaTrekkingPage.tsx';
 import { BoatSafariPage } from './components/BoatSafariPage.tsx';
@@ -61,6 +62,14 @@ const App: React.FC = () => {
     const match = document.cookie.match(/googtrans=\/en\/([^;]+)/);
     return match ? match[1].toUpperCase() : 'EN';
   });
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('OrderTrackingId') || params.get('OrderMerchantReference') || window.location.pathname === '/pay') {
+      setActiveSection(AppSection.PAYMENT_PORTAL);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, []);
 
   const setTranslationCookie = (langCode: string) => {
     const code = langCode.toLowerCase();
@@ -135,6 +144,19 @@ const App: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+
+    if (section === AppSection.PAYMENT_PORTAL) {
+      window.history.pushState({}, '', '/pay');
+      setActiveSection(AppSection.PAYMENT_PORTAL);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // Reset path if we were on /pay
+    if (window.location.pathname === '/pay') {
+      window.history.pushState({}, '', '/');
+    }
+
     setActiveSection(section);
     setSelectedDestination(null);
     setSelectedTour(null);
@@ -465,6 +487,7 @@ const App: React.FC = () => {
               setIsInquiryOpen(true);
             }} />
             <BentoGallery />
+            <PaymentGatewayCTA onNavigateToPortal={() => handleNavigate(AppSection.PAYMENT_PORTAL)} />
             <Services onEnquireService={(svc) => {
               setInquiryPreFill(`I am inquiring about your ${svc} service.`);
               setPackageContext(`Service: ${svc}`);
@@ -504,11 +527,15 @@ const App: React.FC = () => {
         setIsInquiryOpen(true);
       }} />
       <main>{renderContent()}</main>
-      <Footer onEnquire={() => {
-        setInquiryPreFill("Hello, I am reaching out from the footer to inquire about your services.");
-        setPackageContext("Footer Lead");
-        setIsInquiryOpen(true);
-      }} onAdminAccess={() => setShowAdmin(true)} />
+      <Footer 
+        onEnquire={() => {
+          setInquiryPreFill("Hello, I am reaching out from the footer to inquire about your services.");
+          setPackageContext("Footer Lead");
+          setIsInquiryOpen(true);
+        }} 
+        onAdminAccess={() => setShowAdmin(true)}
+        onPaymentPortal={() => handleNavigate(AppSection.PAYMENT_PORTAL)}
+      />
       <InquiryModal 
         isOpen={isInquiryOpen} 
         onClose={() => setIsInquiryOpen(false)} 

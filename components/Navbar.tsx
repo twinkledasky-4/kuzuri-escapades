@@ -230,15 +230,26 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-4 md:gap-6 shrink-0 z-10">
-              {/* Desktop Inquire Button */}
-              <button 
-                onClick={() => onEnquire()}
-                className={`hidden md:block px-6 py-2 text-[9px] text-center uppercase tracking-[3px] font-black transition-all duration-700 shadow-md active:scale-95 border-none whitespace-nowrap no-underline cursor-pointer ${
-                  isScrolled ? 'bg-[#1A1A1A] text-white hover:bg-[#8B5A2B]' : 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-white'
-                }`}
-              >
-                Inquire
-              </button>
+              {/* Desktop Buttons */}
+              <div className="hidden md:flex items-center gap-3">
+                <a 
+                  href="/pay"
+                  onClick={(e) => { e.preventDefault(); onNavigate(AppSection.PAYMENT_PORTAL); }}
+                  className={`px-4 py-2 text-[9px] text-center uppercase tracking-[2px] font-black transition-all duration-700 shadow-sm active:scale-95 border-none whitespace-nowrap no-underline cursor-pointer flex items-center justify-center ${
+                    isScrolled ? 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-[#8B5A2B] hover:text-white' : 'bg-white/10 text-white hover:bg-[#D4AF37] hover:text-[#1A1A1A] backdrop-blur-md'
+                  }`}
+                >
+                  Payment Portal
+                </a>
+                <button 
+                  onClick={() => onEnquire()}
+                  className={`px-6 py-2 text-[9px] text-center uppercase tracking-[3px] font-black transition-all duration-700 shadow-md active:scale-95 border-none whitespace-nowrap no-underline cursor-pointer ${
+                    isScrolled ? 'bg-[#1A1A1A] text-white hover:bg-[#8B5A2B]' : 'bg-[#D4AF37] text-[#1A1A1A] hover:bg-white'
+                  }`}
+                >
+                  Inquire
+                </button>
+              </div>
 
               {/* Mobile Menu Toggle Button */}
               <button
@@ -296,6 +307,21 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
           {/* Navigation Links: Staggered Entry */}
           <div className="flex-grow overflow-y-auto py-12 px-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] bg-fixed opacity-[0.98]">
             <div className="flex flex-col space-y-10">
+              {/* Payment Portal Mobile Button */}
+              <div 
+                 style={{ transitionDelay: '50ms' }}
+                 className={`transition-all duration-700 transform ${
+                  isMobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'
+                }`}
+              >
+                <a
+                  href="/pay"
+                  onClick={(e) => { e.preventDefault(); onNavigate(AppSection.PAYMENT_PORTAL); setIsMobileMenuOpen(false); }}
+                  className="w-full py-4 border border-[#D4AF37] text-[#D4AF37] text-[10px] uppercase tracking-[0.4em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 flex items-center justify-center no-underline"
+                >
+                  Payment Portal
+                </a>
+              </div>
               {/* Individual menu items with delay */}
               {navItems.map((item, idx) => (
                 <a
