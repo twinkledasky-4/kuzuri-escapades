@@ -80,9 +80,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
         }`}
       >
         {/* Top Bar */}
-        <div className={`bg-[#004d00] text-white transition-all duration-500 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-auto py-2 opacity-100'} hidden md:block`}>
+        <div className={`bg-[#004d00] text-white transition-all duration-500 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-auto py-2 opacity-100'}`}>
           <div className="w-full px-6 md:px-12 flex justify-between items-center max-w-[1750px] mx-auto text-[10px] font-bold tracking-[0.15em]">
-            <div className="flex items-center gap-8 uppercase">
+            <div className="hidden md:flex items-center gap-8 uppercase">
               <div className="flex items-center gap-2.5">
                 <Clock size={13} className="text-[#D4AF37]" />
                 <span>Mon - Sat 8.00 - 18.00</span>
@@ -92,15 +92,23 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onEnq
                 <span>Ham Towers Wandegeya</span>
               </div>
             </div>
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-4 md:gap-8 ml-auto">
               <a href="tel:+256708012030" className="flex items-center gap-2.5 hover:text-[#D4AF37] transition-colors uppercase">
                 <Phone size={13} className="text-[#D4AF37]" />
-                <span>+256 708012030</span>
+                <span className="hidden sm:inline">+256 708012030</span>
               </a>
-              <a href="mailto:info@kuzuri-escapades.com" className="flex items-center gap-2.5 hover:text-[#D4AF37] transition-colors lowercase">
+              <a href="mailto:info@kuzuri-escapades.com" className="hidden sm:flex items-center gap-2.5 hover:text-[#D4AF37] transition-colors lowercase">
                 <Mail size={13} className="text-[#D4AF37]" />
                 <span>info@kuzuri-escapades.com</span>
               </a>
+              <div className="shrink-0 flex items-center">
+                <img 
+                  src="/icons/ug-flag.gif" 
+                  alt="Uganda Flag" 
+                  className="w-7 md:w-8 h-auto object-contain"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             </div>
           </div>
         </div>

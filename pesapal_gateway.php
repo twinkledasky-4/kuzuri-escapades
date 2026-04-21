@@ -1,16 +1,9 @@
 <?php
 /**
  * PESAPAL S3 API HANDLER for KUZURI ESCAPADES LIMITED
- * 
- * This script handles OAuth authentication and Submit Order requests
- * for the Pesapal V3 API.
- * 
- * Usage:
- * 1. Configure the API Keys
- * 2. Ensure your server has cURL enabled
- * 3. Set the Callback and IPN URLs
  */
 
+session_start();
 header('Content-Type: application/json');
 
 require_once 'pesapal_config.php';
