@@ -47,7 +47,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ content, onReadMore 
               <div className="relative w-full aspect-[3/2] min-h-[450px] overflow-hidden rounded-[15px] border-2 border-[#D4AF37]/30 shadow-3xl bg-[#1A1412]">
                 <div className="signature-overlay">NATIVE STEWARDSHIP</div>
                 <img 
-                  src="https://i.postimg.cc/y8yW9yQ5/a66809a6-28e3-4e2f-9391-0f6cc547e9cb.jpg" 
+                  src="https://i.postimg.cc/yYFTSFWx/KEN-9667copy.jpg" 
                   alt="Authentic Ugandan discovery - Native perspective" 
                   className="w-full h-full min-h-[450px] object-cover object-top transition-transform duration-[10s] group-hover:scale-105 opacity-90 rounded-[15px]"
                 />

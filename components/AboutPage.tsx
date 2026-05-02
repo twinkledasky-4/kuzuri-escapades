@@ -100,7 +100,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
               
               <div className="space-y-6 text-stone-600 leading-relaxed text-lg font-light">
                 <p>
-                  To begin with, Kuzuri Escapedes is a safari-based company with a knowledgeable employee base that turns every safari into a lifetime memory. A diverse selection of our sample safaris positions us to champion in discovering the beauty of Africa’s Wilderness.
+                  To begin with, Kuzuri Escapades is a safari-based company with a knowledgeable employee base that turns every safari into a lifetime memory. A diverse selection of our sample safaris positions us to champion in discovering the beauty of Africa’s Wilderness.
                 </p>
                 <p>
                   Our Tailor-Made-safari nature enables us to clearly understand our client’s interest. This also aids the amazing test of Africa’s adventure.
@@ -251,7 +251,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onBack, onContact, onExplo
               {/* Legacy Image (Moved to Sidebar) */}
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-lg">
                 <img 
-                  src="https://i.postimg.cc/y8yW9yQ5/a66809a6-28e3-4e2f-9391-0f6cc547e9cb.jpg" 
+                  src="https://i.postimg.cc/yYFTSFWx/KEN-9667copy.jpg" 
                   alt="Kuzuri Legacy" 
                   className="w-full h-full object-cover"
                 />

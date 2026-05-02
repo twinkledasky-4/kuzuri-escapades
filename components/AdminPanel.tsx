@@ -411,7 +411,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ onExit, reviews, onUpdat
               <div className="text-center">
                 <div className="w-20 h-20 rounded-full border-2 border-[#D4AF37] mx-auto mb-6 p-1">
                    <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                     <img src="https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg" alt="Logo" className="w-12 h-12" />
+                     <img src="https://i.postimg.cc/NFtScdZf/Capturezzzzzzzzz.png" alt="Logo" className="w-12 h-12" />
                    </div>
                 </div>
                 <p className="text-[10px] uppercase tracking-[0.6em] text-[#D4AF37] font-black mb-2">NASIF</p>

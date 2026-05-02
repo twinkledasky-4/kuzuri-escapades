@@ -92,10 +92,13 @@ export const Footer: React.FC<FooterProps> = ({ onEnquire, onAdminAccess, onPaym
           
           {/* Column 1: Brand */}
           <div className="flex flex-col space-y-8">
-            <h3 className="font-serif font-bold text-3xl tracking-tighter text-white uppercase">
-              KUZURI <br />
-              <span className="italic font-light lowercase">Escapades</span>
-            </h3>
+            <div className="w-[100px] md:w-[120px]">
+              <img 
+                src="https://i.postimg.cc/NFtScdZf/Capturezzzzzzzzz.png" 
+                alt="Kuzuri Escapades Primary Logo" 
+                className="w-full h-auto object-contain opacity-90 transition-opacity hover:opacity-100" 
+              />
+            </div>
             <p className="text-white/60 text-[13px] font-light tracking-wide leading-relaxed max-w-[280px]">
               Native curators of silence, cultural heritage, and deep wilderness immersion. We craft journeys that are as profound as the roar of a lion and as silent as the mist over Bwindi.
             </p>

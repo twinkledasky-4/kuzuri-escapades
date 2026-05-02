@@ -12,11 +12,10 @@ interface PaymentPortalProps {
   onBack: () => void;
 }
 
-type PaymentStage = 'landing' | 'details' | 'billing' | 'method' | 'iframe' | 'processing' | 'success';
+type PaymentStage = 'landing' | 'details' | 'processing' | 'success';
 
 export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
   const [stage, setStage] = useState<PaymentStage>('landing');
-  const [iframeUrl, setIframeUrl] = useState<string>('');
   const [orderTrackingId, setOrderTrackingId] = useState<string>('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [formData, setFormData] = useState({
@@ -33,7 +32,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
     email: '',
     phone: '',
     bookingRef: '',
-    amount: '',
+    amount: '50',
     currency: 'USD',
     category: 'Safari Deposit',
     paymentMethod: '',
@@ -70,7 +69,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
     }
   }, []);
 
-  const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
+  const logoUrl = 'https://i.postimg.cc/NFtScdZf/Capturezzzzzzzzz.png';
 
   const showSupportMessage = () => {
     toast.info(
@@ -82,7 +81,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
     );
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (stage === 'landing') {
       setStage('details');
     } else if (stage === 'details') {
@@ -94,57 +93,44 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
         toast.error('Please agree to the Terms & Conditions.');
         return;
       }
-      setStage('billing');
-    } else if (stage === 'billing') {
-      if (!formData.firstName || !formData.lastName || !formData.address1 || !formData.city || !formData.country || !formData.zip) {
-        toast.error('Please complete all required billing fields.');
-        return;
-      }
-      setStage('method');
-    } else if (stage === 'method') {
-      if (!formData.paymentMethod) {
-        toast.error('Please select a payment method.');
-        return;
-      }
       
       setStage('processing');
       
-      // Initialize Pesapal Order
-      const initializePayment = async () => {
-        try {
-          // Save session to survive redirect
-          localStorage.setItem('kuzuri_pending_payment', JSON.stringify(formData));
+      try {
+        // Save session to survive redirect
+        localStorage.setItem('kuzuri_pending_payment', JSON.stringify(formData));
 
-          const response = await paymentService.submitOrder({
-            currency: formData.currency,
-            amount: formData.amount,
-            description: `${formData.category} - Ref: ${formData.bookingRef}`,
-            email: formData.email,
-            phone: formData.phone,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            address: formData.address1,
-            city: formData.city,
-            state: formData.state,
-            zip: formData.zip
-          });
+        // Split fullName if needed
+        const nameParts = formData.fullName.trim().split(' ');
+        const fName = nameParts[0] || 'Client';
+        const lName = nameParts.slice(1).join(' ') || 'User';
 
-          if (response.redirect_url) {
-            setIframeUrl(response.redirect_url);
-            setOrderTrackingId(response.order_tracking_id);
-            setStage('iframe');
-          } else {
-            throw new Error("No redirect URL received from Pesapal");
-          }
-        } catch (error: any) {
-          console.error("Pesapal Initialization Error:", error);
-          toast.error(error.message || 'Failed to initialize secure payment session.');
-          setStage('method');
-          showSupportMessage();
+        const response = await paymentService.submitOrder({
+          currency: formData.currency,
+          amount: formData.amount,
+          description: `${formData.category} - Ref: ${formData.bookingRef}`,
+          email: formData.email,
+          phone: formData.phone,
+          firstName: fName,
+          lastName: lName,
+          address: formData.address1 || 'Not Provided',
+          city: formData.city || 'Kampala',
+          state: formData.state || 'Central',
+          zip: formData.zip || '0000'
+        });
+
+        if (response.redirect_url) {
+          // IMMEDIATE REDIRECT TO PESAPAL HOSTED PAGE
+          window.location.href = response.redirect_url;
+        } else {
+          throw new Error("No redirect URL received from Pesapal");
         }
-      };
-
-      initializePayment();
+      } catch (error: any) {
+        console.error("Pesapal Initialization Error:", error);
+        toast.error(error.message || 'Failed to initialize secure payment session.');
+        setStage('details');
+        showSupportMessage();
+      }
     }
   };
 
@@ -178,10 +164,12 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
         localStorage.removeItem('kuzuri_pending_payment');
         setStage('success');
       } else if (status.status_code === 3) { // FAILED
-        toast.error('Payment was unsuccessful. Please try again.');
-        setStage('method');
+        toast.error('Payment was unsuccessful. Please check your card or mobile money balance.');
+        setStage('details');
       } else {
         toast.info('Payment is still being processed or is pending.');
+        // If they come back here and it's still pending, we might want to stay in success or just show status
+        setStage('success'); // Usually if they are redirected back it's a good sign or just show order status
       }
     } catch (error) {
       console.error("Verification error:", error);
@@ -193,11 +181,8 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
 
   const handleBack = () => {
     if (stage === 'details') setStage('landing');
-    else if (stage === 'billing') setStage('details');
-    else if (stage === 'method') setStage('billing');
-    else if (stage === 'iframe') {
-      showSupportMessage();
-      setStage('method');
+    else if (stage === 'success') {
+       onBack();
     }
     else onBack();
   };
@@ -227,6 +212,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
 
             <div className="w-full max-w-sm space-y-4">
               <button 
+                type="button"
                 onClick={() => setStage('details')}
                 className="w-full py-6 bg-[#1A1A1A] text-[#D4AF37] text-[12px] uppercase tracking-[0.6em] font-black hover:bg-[#D4AF37] hover:text-[#1A1A1A] transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.15)] flex items-center justify-center gap-4"
               >
@@ -234,6 +220,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                 <ArrowRight size={18} />
               </button>
               <button 
+                type="button"
                 onClick={onBack}
                 className="w-full py-4 text-[10px] uppercase tracking-[0.4em] font-bold text-[#1A1A1A]/40 hover:text-[#1A1A1A] transition-colors"
               >
@@ -254,8 +241,11 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
             {/* Company Address Header */}
             <div className="text-center pb-6 border-b border-[#1A1A1A]/5">
               <p className="text-[10px] uppercase tracking-[0.4em] text-[#D4AF37] font-black mb-2">Billing Entity</p>
-              <p className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">Kuzuri Escapades</p>
-              <p className="text-[11px] text-[#1A1A1A]/50 uppercase tracking-widest">Kampala, Uganda</p>
+              <p className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">Kuzuri Escapades Limited</p>
+              <p className="text-[11px] text-[#1A1A1A]/50 uppercase tracking-widest font-black leading-relaxed">
+                Plot 87, Bukoto Street, Kampala, Uganda<br/>
+                info@kuzuri-escapades.com | +256 708 012030
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -265,7 +255,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                   type="text" 
                   value={formData.fullName}
                   onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                  className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
+                  className="w-full bg-white border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
                   placeholder="As it appears on your passport"
                 />
               </div>
@@ -275,7 +265,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                   type="email" 
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
+                  className="w-full bg-white border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
                   placeholder="For your digital receipt"
                 />
               </div>
@@ -285,7 +275,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                   type="tel" 
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
+                  className="w-full bg-white border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
                   placeholder="+1 234 567 890"
                 />
               </div>
@@ -295,7 +285,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                   type="text" 
                   value={formData.bookingRef}
                   onChange={(e) => setFormData({...formData, bookingRef: e.target.value})}
-                  className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
+                  className="w-full bg-white border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
                   placeholder="KUZ-XXXXXX"
                 />
               </div>
@@ -304,7 +294,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                 <select 
                   value={formData.category}
                   onChange={(e) => setFormData({...formData, category: e.target.value})}
-                  className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all appearance-none"
+                  className="w-full bg-white border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all appearance-none"
                 >
                   <option value="Safari Deposit">Safari Deposit</option>
                   <option value="Full Safari Payment">Full Safari Payment</option>
@@ -322,7 +312,7 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                     type="number" 
                     value={formData.amount}
                     onChange={(e) => setFormData({...formData, amount: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 pl-16 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
+                    className="w-full bg-white border border-[#1A1A1A]/10 p-4 pl-16 text-sm font-bold text-[#D4AF37] focus:outline-none focus:border-[#D4AF37] transition-all"
                     placeholder="0.00"
                   />
                 </div>
@@ -338,380 +328,36 @@ export const PaymentPortal: React.FC<PaymentPortalProps> = ({ onBack }) => {
                 className="mt-1 w-4 h-4 accent-[#D4AF37]"
               />
               <label htmlFor="terms" className="text-[11px] text-[#1A1A1A]/60 leading-relaxed cursor-pointer">
-                I agree to the <span className="text-[#D4AF37] font-bold underline">Terms & Conditions</span> and understand that all payments are processed securely. I confirm that the booking reference provided is accurate.
+                I agree to the <span className="text-[#D4AF37] font-bold underline">Terms & Conditions</span> and understand that I am being redirected to Pesapal's secure payment gateway. I confirm that all details provided above are accurate.
               </label>
             </div>
 
-            <div className="flex items-center gap-4 p-4 bg-[#D4AF37]/5 border border-[#D4AF37]/20 rounded-sm">
-              <Info size={18} className="text-[#D4AF37] shrink-0" />
-              <p className="text-[11px] text-[#1A1A1A]/70 leading-relaxed">
-                Please ensure your booking reference matches the one provided by our curators. For any assistance, please contact <span className="font-bold">info@kuzuri-escapades.com</span>.
-              </p>
-            </div>
-
-            <button 
-              onClick={handleNext}
-              className="w-full py-5 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4"
-            >
-              PROCEED TO PAYMENT
-              <ArrowRight size={16} />
-            </button>
-          </motion.div>
-        );
-
-      case 'billing':
-        return (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-12"
-          >
-            <div className="lg:col-span-2 space-y-8">
-              <div className="flex items-center gap-4 pb-6 border-b border-[#1A1A1A]/5">
-                <div className="w-10 h-10 bg-[#D4AF37]/10 flex items-center justify-center rounded-full">
-                  <Mail size={18} className="text-[#D4AF37]" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-black text-[#1A1A1A] uppercase tracking-wider">Billing Information</h3>
-                  <p className="text-[10px] text-[#1A1A1A]/40 uppercase tracking-widest font-bold">Please provide your official billing address</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">First Name</label>
-                  <input 
-                    type="text" 
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="First Name"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Last Name</label>
-                  <input 
-                    type="text" 
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="Last Name"
-                  />
-                </div>
-                <div className="md:col-span-2 space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Company Name (Optional)</label>
-                  <input 
-                    type="text" 
-                    value={formData.companyName}
-                    onChange={(e) => setFormData({...formData, companyName: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="Company Name"
-                  />
-                </div>
-                <div className="md:col-span-2 space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Address Line 1</label>
-                  <input 
-                    type="text" 
-                    value={formData.address1}
-                    onChange={(e) => setFormData({...formData, address1: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="Street address, P.O. box, etc."
-                  />
-                </div>
-                <div className="md:col-span-2 space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Address Line 2 (Optional)</label>
-                  <input 
-                    type="text" 
-                    value={formData.address2}
-                    onChange={(e) => setFormData({...formData, address2: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="Apartment, suite, unit, building, floor, etc."
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">City</label>
-                  <input 
-                    type="text" 
-                    value={formData.city}
-                    onChange={(e) => setFormData({...formData, city: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="City"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Country / Region</label>
-                  <select 
-                    value={formData.country}
-                    onChange={(e) => setFormData({...formData, country: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all appearance-none"
-                  >
-                    <option value="Uganda">Uganda</option>
-                    <option value="United States">United States</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="Germany">Germany</option>
-                    <option value="France">France</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="Tanzania">Tanzania</option>
-                    <option value="Rwanda">Rwanda</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Australia">Australia</option>
-                  </select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">State / Province</label>
-                  <input 
-                    type="text" 
-                    value={formData.state}
-                    onChange={(e) => setFormData({...formData, state: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="State / Province"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Zip / Postal Code</label>
-                  <input 
-                    type="text" 
-                    value={formData.zip}
-                    onChange={(e) => setFormData({...formData, zip: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="Zip / Postal Code"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Phone Number</label>
-                  <input 
-                    type="tel" 
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="+1 234 567 890"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]/60">Email Address</label>
-                  <input 
-                    type="email" 
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full bg-[#FAF8F3] border border-[#1A1A1A]/10 p-4 text-sm focus:outline-none focus:border-[#D4AF37] transition-all"
-                    placeholder="Email Address"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-4 pt-8">
-                <button 
-                  onClick={handleBack}
-                  className="flex-1 py-5 border border-[#1A1A1A]/10 text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-white transition-all duration-500"
-                >
-                  BACK
-                </button>
-                <button 
-                  onClick={handleNext}
-                  className="flex-[2] py-5 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl"
-                >
-                  PROCEED TO PAYMENT
-                </button>
-              </div>
-            </div>
-
-            {/* Side Order Summary */}
-            <div className="lg:col-span-1">
-              <div className="sticky top-32 space-y-6">
-                <div className="bg-[#1A1A1A] p-8 border border-[#D4AF37]/20 shadow-2xl">
-                  <h3 className="text-sm font-black text-[#D4AF37] uppercase tracking-widest mb-8 border-b border-[#D4AF37]/20 pb-4">Your Order</h3>
-                  
-                  <div className="space-y-6">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest font-bold text-white/40 mb-1">Service</p>
-                        <p className="text-xs font-bold text-white">{formData.category}</p>
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-widest font-bold text-white/40 mb-1">Reference</p>
-                        <p className="text-xs font-bold text-white">{formData.bookingRef}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="pt-6 border-t border-white/10">
-                      <p className="text-[10px] uppercase tracking-widest font-bold text-white/40 mb-3">Total Amount</p>
-                      <div className="bg-[#00C853] p-4 text-center rounded-sm shadow-[0_0_20px_rgba(0,200,83,0.3)]">
-                        <span className="text-2xl font-black text-white">{formData.currency} {Number(formData.amount).toLocaleString()}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6 border border-[#1A1A1A]/5 bg-white space-y-4">
-                  <div className="flex items-center gap-3">
-                    <ShieldCheck size={16} className="text-[#D4AF37]" />
-                    <span className="text-[9px] uppercase tracking-widest font-bold text-[#1A1A1A]/60">Secure Checkout</span>
-                  </div>
-                  <p className="text-[10px] text-[#1A1A1A]/40 leading-relaxed">
-                    Your information is protected by industry-standard SSL encryption. Kuzuri Escapades ensures the highest level of security for your transaction.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        );
-
-      case 'method':
-        return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="space-y-8"
-          >
-            <div className="space-y-4">
-              <p className="text-[10px] uppercase tracking-[0.3em] font-black text-[#1A1A1A]/40 mb-6">SELECT PAYMENT METHOD</p>
-              
-              <div 
-                onClick={() => setFormData({...formData, paymentMethod: 'card'})}
-                className={`p-6 border cursor-pointer transition-all flex items-center justify-between group ${formData.paymentMethod === 'card' ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 'border-[#1A1A1A]/10 hover:border-[#D4AF37]/50'}`}
-              >
-                <div className="flex items-center gap-6">
-                  <div className="w-12 h-12 bg-white border border-[#1A1A1A]/5 flex items-center justify-center rounded-full">
-                    <CreditCard size={20} className={formData.paymentMethod === 'card' ? 'text-[#D4AF37]' : 'text-[#1A1A1A]/40'} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">Credit / Debit Card</p>
-                    <p className="text-[10px] text-[#1A1A1A]/50 uppercase tracking-widest mt-1">Visa, Mastercard, Amex</p>
-                  </div>
-                </div>
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${formData.paymentMethod === 'card' ? 'border-[#D4AF37]' : 'border-[#1A1A1A]/10'}`}>
-                  {formData.paymentMethod === 'card' && <div className="w-2.5 h-2.5 bg-[#D4AF37] rounded-full" />}
-                </div>
-              </div>
-
-              <div 
-                onClick={() => setFormData({...formData, paymentMethod: 'mobile'})}
-                className={`p-6 border cursor-pointer transition-all flex items-center justify-between group ${formData.paymentMethod === 'mobile' ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 'border-[#1A1A1A]/10 hover:border-[#D4AF37]/50'}`}
-              >
-                <div className="flex items-center gap-6">
-                  <div className="w-12 h-12 bg-white border border-[#1A1A1A]/5 flex items-center justify-center rounded-full">
-                    <Smartphone size={20} className={formData.paymentMethod === 'mobile' ? 'text-[#D4AF37]' : 'text-[#1A1A1A]/40'} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">Mobile Money</p>
-                    <p className="text-[10px] text-[#1A1A1A]/50 uppercase tracking-widest mt-1">MTN, Airtel (East Africa Only)</p>
-                  </div>
-                </div>
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${formData.paymentMethod === 'mobile' ? 'border-[#D4AF37]' : 'border-[#1A1A1A]/10'}`}>
-                  {formData.paymentMethod === 'mobile' && <div className="w-2.5 h-2.5 bg-[#D4AF37] rounded-full" />}
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-[#FAF8F3] p-8 border border-[#1A1A1A]/5 space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A]/40">Booking Ref</span>
-                <span className="text-xs font-bold text-[#1A1A1A]">{formData.bookingRef}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A]/40">Subtotal</span>
-                <span className="text-xs font-bold text-[#1A1A1A]">{formData.currency} {Number(formData.amount).toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between items-center pt-4 border-t border-[#1A1A1A]/10">
-                <span className="text-[11px] uppercase tracking-[0.2em] font-black text-[#1A1A1A]">Total Amount</span>
-                <span className="text-xl font-black text-[#D4AF37]">{formData.currency} {Number(formData.amount).toLocaleString()}</span>
+            <div className="flex items-center gap-4 p-6 bg-[#1A1A1A] border border-[#D4AF37]/20">
+              <ShieldCheck size={24} className="text-[#D4AF37] shrink-0" />
+              <div className="space-y-1">
+                <p className="text-[10px] text-[#D4AF37] font-black uppercase tracking-wider">Secure Pesapal S3 Integration</p>
+                <p className="text-[9px] text-[#D4AF37]/60 leading-relaxed uppercase tracking-widest font-bold">
+                  You will be redirected to the official Pesapal portal to complete your transaction with bank-level encryption.
+                </p>
               </div>
             </div>
 
             <div className="flex gap-4">
               <button 
+                type="button"
                 onClick={handleBack}
                 className="flex-1 py-5 border border-[#1A1A1A]/10 text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-white transition-all duration-500"
               >
                 BACK
               </button>
               <button 
+                type="button"
                 onClick={handleNext}
-                className="flex-[2] py-5 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl"
+                className="flex-[2] py-6 bg-[#D4AF37] text-[#1A1A1A] text-[12px] uppercase tracking-[0.6em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-[0_20px_50px_rgba(212,175,55,0.2)] flex items-center justify-center gap-4"
               >
-                PROCEED TO PAYMENT
+                GENERATE SECURE LINK
+                <ArrowRight size={18} />
               </button>
-            </div>
-          </motion.div>
-        );
-
-      case 'iframe':
-        return (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col space-y-6"
-          >
-            <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-[#1A1A1A]/5 gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#D4AF37]/10 flex items-center justify-center rounded-full">
-                  <CreditCard size={20} className="text-[#D4AF37]" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-black text-[#1A1A1A] uppercase tracking-wider">Payment Details</h3>
-                  <p className="text-[10px] text-[#1A1A1A]/40 uppercase tracking-widest font-bold">Secure Pesapal S3 Gateway</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 bg-white px-4 py-2 rounded-full border border-[#1A1A1A]/5 shadow-sm">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-3 opacity-80" />
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-4 opacity-80" />
-                <div className="h-4 w-[1px] bg-[#1A1A1A]/10 ml-2" />
-                <span className="text-[9px] font-black text-[#1A1A1A]/40 uppercase tracking-widest">MTN & AIRTEL</span>
-              </div>
-            </div>
-
-            <div className="relative w-full aspect-[4/6] md:aspect-video bg-[#FAF8F3] border border-[#1A1A1A]/10 overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] rounded-sm group">
-              <div className="absolute inset-x-0 top-0 h-1 bg-[#D4AF37]/20">
-                <div className="h-full bg-[#D4AF37] animate-[shimmer_2s_infinite]" style={{ width: '40%' }} />
-              </div>
-              <iframe 
-                src={iframeUrl}
-                className="w-full h-full border-none"
-                title="Pesapal Secure Payment"
-              />
-            </div>
-
-            <div className="bg-[#FAF8F3] p-8 border border-[#1A1A1A]/5 space-y-6">
-              <div className="flex items-start gap-4">
-                <ShieldCheck size={20} className="text-[#00C853] shrink-0 mt-1" />
-                <div className="space-y-1">
-                  <p className="text-[11px] text-[#1A1A1A] font-black uppercase tracking-wider">Transaction Authorized</p>
-                  <p className="text-[10px] text-[#1A1A1A]/60 leading-relaxed uppercase tracking-widest">
-                    Please complete your payment in the secure portal above. Once you receive your confirmation from Pesapal, click verify below to finalize your booking with Kuzuri Escapades.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button 
-                  onClick={handleBack}
-                  className="flex-1 py-5 border border-[#1A1A1A]/10 text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-white transition-all duration-500"
-                >
-                  ABANDON
-                </button>
-                <button 
-                  onClick={verifyPaymentStatus}
-                  disabled={isVerifying}
-                  className="flex-[2] py-5 bg-[#D4AF37] text-[#1A1A1A] text-[11px] uppercase tracking-[0.5em] font-black hover:bg-[#1A1A1A] hover:text-[#D4AF37] transition-all duration-500 shadow-2xl disabled:opacity-50 flex items-center justify-center gap-3"
-                >
-                  {isVerifying ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-[#1A1A1A]/20 border-t-[#1A1A1A] rounded-full animate-spin" />
-                      VERIFYING TRANSACTION...
-                    </>
-                  ) : (
-                    <>
-                      VERIFY PAYMENT STATUS
-                      <ArrowRight size={16} />
-                    </>
-                  )}
-                </button>
-              </div>
             </div>
           </motion.div>
         );

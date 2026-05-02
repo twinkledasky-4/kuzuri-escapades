@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 import { PhoneLink } from './PhoneLink.tsx';
 import { Phone, Smartphone, Mail, MessageSquare } from 'lucide-react';
 import { crmService } from '../services/crmService.ts';
@@ -40,8 +41,10 @@ export const ContactPage: React.FC = () => {
 
       setIsSubmitted(true);
       setFormData({ fullName: '', email: '', message: '' });
+      toast.success("Message transmitted successfully!");
     } catch (error) {
       console.error("Contact error:", error);
+      toast.error("Transmission failure. Please use WhatsApp instead.");
     } finally {
       setIsLoading(false);
     }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { toast } from 'sonner';
 import { crmService } from '../services/crmService.ts';
 
 interface InquiryModalProps {
@@ -78,8 +79,10 @@ export const InquiryModal: React.FC<InquiryModalProps> = ({
       });
 
       setIsSubmitted(true);
+      toast.success("Enquiry sent successfully!");
     } catch (error) {
       console.error("Inquiry error:", error);
+      toast.error("Failed to deliver message. Please contact us via WhatsApp.");
     } finally {
       setIsLoading(false);
     }

@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
 import { Ticker } from './components/Ticker.tsx';
+import { PromoModal } from './components/PromoModal.tsx';
 import { Footer } from './components/Footer.tsx';
 import { InquiryModal } from './components/InquiryModal.tsx';
 import { WhatsAppFAB } from './components/WhatsAppFAB.tsx';
@@ -22,7 +23,7 @@ import { Testimonials } from './components/Testimonials.tsx';
 import { TestimonialsPage } from './components/TestimonialsPage.tsx';
 import { Services } from './components/Services.tsx';
 import { WildlifeConservationSection } from './components/WildlifeConservationSection.tsx';
-import { AboutSection } from './components/AboutSection.tsx';
+import { NativeStewardshipSection } from './components/NativeStewardshipSection.tsx';
 import { AboutPage } from './components/AboutPage.tsx';
 import { SearchResultsPage } from './components/SearchResultsPage.tsx';
 import { CombinedSafariPage } from './components/CombinedSafariPage.tsx';
@@ -454,10 +455,7 @@ const App: React.FC = () => {
               onStartPlanning={() => scrollToForm()} 
             />
             <Ticker />
-            <AboutSection 
-              content={ABOUT_CONTENT} 
-              onReadMore={() => handleNavigate(AppSection.ABOUT)}
-            />
+            <NativeStewardshipSection />
             <section id="kuzuri-tours" className="pt-6 pb-24 md:pb-40 bg-white px-6 scroll-mt-[120px]">
               <div className="container mx-auto max-w-[1700px] text-center">
                 <div className="mb-20 lg:mb-28 reveal-trigger">
@@ -526,6 +524,7 @@ const App: React.FC = () => {
         }
         setIsInquiryOpen(true);
       }} />
+      <PromoModal />
       <main>{renderContent()}</main>
       <Footer 
         onEnquire={() => {

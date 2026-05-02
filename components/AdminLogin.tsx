@@ -10,7 +10,7 @@ interface AdminLoginProps {
 export const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin, onCancel, error }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const logoUrl = 'https://i.postimg.cc/nrcnnVL1/unnamed-(1).jpg';
+  const logoUrl = 'https://i.postimg.cc/NFtScdZf/Capturezzzzzzzzz.png';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

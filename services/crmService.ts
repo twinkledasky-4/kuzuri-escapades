@@ -103,10 +103,12 @@ Message: ${newLead.data.message}
       `.trim();
 
       // Try Internal SMTP first
+      console.debug(`[CRM] Attempting Internal SMTP Relay: ${this.INTERNAL_API}`);
       const internalResponse = await fetch(this.INTERNAL_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          to: this.CURATOR_EMAIL,
           subject,
           text,
           replyTo: newLead.data.email
@@ -118,8 +120,8 @@ Message: ${newLead.data.message}
         return true;
       }
 
-      // Fallback to Formspree if internal SMTP is not configured or fails
-      console.warn("[CRM] Internal SMTP failed or unconfigured, falling back to Formspree.");
+      const internalErrorText = await internalResponse.text();
+      console.warn(`[CRM] Internal SMTP failed (${internalResponse.status}): ${internalErrorText}. Falling back to Formspree.`);
       
       const payload = {
         // Standard Formspree fields
@@ -178,7 +180,7 @@ Message: ${newLead.data.message}
       return true;
     } catch (error) {
       console.error("[CRM] All SMTP Relay attempts failed - Lead saved to local registry only:", error);
-      return true; 
+      throw error; // Rethrow to allow UI to handle failure
     }
   }
 
@@ -210,18 +212,24 @@ Initial Message: ${message}
       `.trim();
 
       // Try Internal SMTP first
+      console.debug(`[CRM] Attempting Chat Internal SMTP Relay: ${this.INTERNAL_API}`);
       const internalResponse = await fetch(this.INTERNAL_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          to: this.CURATOR_EMAIL,
           subject,
           text
         })
       });
 
       if (internalResponse.ok) {
+        console.debug(`[CRM] Chat Internal SMTP Relay Successful.`);
         return true;
       }
+      
+      const internalErrorText = await internalResponse.text();
+      console.warn(`[CRM] Chat Internal SMTP failed (${internalResponse.status}): ${internalErrorText}`);
 
       const payload = {
         message: message,
@@ -247,12 +255,13 @@ Initial Message: ${message}
       if (!response.ok) {
         const errorText = await response.text();
         console.warn(`[CRM] Chat Relay Response (${response.status}):`, errorText);
+        throw new Error(`Chat Relay Failure: ${response.status}`);
       }
 
       return response.ok;
     } catch (error) {
       console.error("[CRM] Chat Relay Failure:", error);
-      return true;
+      throw error;
     }
   }
 
